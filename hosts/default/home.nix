@@ -27,6 +27,7 @@
   terminal.enable = true;
   editor.enable = true;
   git.enable = true;
+  programming-languages.node.enable = true;
   shell.enable = true;
   window-manager.enable = true;
 

@@ -1,10 +1,11 @@
 { ... }: {
   imports = [
     ./browser.nix
-    ./terminal.nix
     ./editor.nix
-    ./shell.nix
     ./git.nix
+    ./programming-languages.nix
+    ./shell.nix
+    ./terminal.nix
     ./window-manager.nix
   ];
 }
