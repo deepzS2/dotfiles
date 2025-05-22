@@ -22,14 +22,22 @@
         pkgs.dwt1-shell-color-scripts
       ];
 
-      programs.neovim = {
+      programs.nvf = {
         enable = true;
-        defaultEditor = true;
-        viAlias = true;
-        vimAlias = true;
+        
+        settings = {
+          vim = {
+            viAlias = false;
+
+            luaConfigRC.deepz = /* lua */ ''
+              require 'deepz.core'
+              require 'deepz.lazy'
+            '';
+          };
+        };
       };
 
-      home.file.".config/nvim" = {
+      home.file.".config/nvf" = {
         source = ../../config/nvim;
         recursive = true;
       };

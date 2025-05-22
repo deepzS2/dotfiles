@@ -3,6 +3,7 @@
 {
   imports = [
     inputs.zen-browser.homeModules.beta
+    inputs.nvf.homeManagerModules.default
     ../../modules/home-manager
   ];
 
