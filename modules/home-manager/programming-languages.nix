@@ -22,8 +22,11 @@
     };
 
     config = let
-      langs = lib.filterAttrs (_: v: v.enable) config.programming-languages;
-      pkgsToAdd = lib.concatMap (_: l: [ l.package ]) (lib.attrValues langs);
+      enabled = lib.filterAttrs ( _name: lang: lang.enable ) config.programming-languages;
+
+      pkgsToAdd = lib.concatMap
+        ( lang: [ lang.package ] )
+        ( lib.attrValues enabled );
     in {
       home.packages = pkgsToAdd;
     };
