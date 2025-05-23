@@ -32,7 +32,7 @@
 
             nix = {
               # For nix LSP
-              nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+              nixPath = ["nixpkgs=${nixpkgs}"];
 
               # Enable Flakes
               settings.experimental-features = ["nix-command" "flakes"];

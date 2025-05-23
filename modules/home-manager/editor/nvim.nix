@@ -1,4 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
+{ lib, config, inputs, ... }:
   let 
     cfg = config.editor.nvim;
     utils = inputs.nixCats.utils;

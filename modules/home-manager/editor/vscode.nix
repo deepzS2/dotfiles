@@ -10,6 +10,10 @@
       home.packages = [
         # VSCode
         pkgs.vscode
+
+        # Nix IDE
+        pkgs.nixd
+        pkgs.alejandra
       ];
     };
   }
