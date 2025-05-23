@@ -16,9 +16,26 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      {
+        'williamboman/mason.nvim',
+        -- NOTE: nixCats: use lazyAdd to only enable mason if nix wasnt involved.
+        -- because we will be using nix to download things instead.
+        enabled = require('nixCatsUtils').lazyAdd(true, false),
+        opts = {},
+      }, -- NOTE: Must be loaded before dependants
+      { 
+        'williamboman/mason-lspconfig.nvim', 
+        opts = {},
+        -- NOTE: nixCats: use lazyAdd to only enable mason if nix wasnt involved.
+        -- because we will be using nix to download things instead.
+        enabled = require('nixCatsUtils').lazyAdd(true, false),
+      },
+      {
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        -- NOTE: nixCats: use lazyAdd to only enable mason if nix wasnt involved.
+        -- because we will be using nix to download things instead.
+        enabled = require('nixCatsUtils').lazyAdd(true, false),
+      },
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
@@ -193,9 +210,6 @@ return {
       --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      local mason_registry = require 'mason-registry'
-      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
-
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -217,13 +231,6 @@ return {
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tailwindcss = {},
-        volar = {
-          init_options = {
-            vue = {
-              hybridMode = true,
-            },
-          },
-        },
         dockerls = {},
         taplo = {},
         docker_compose_language_service = {},
@@ -251,17 +258,6 @@ return {
               experimental = {
                 completion = {
                   enableServerSideFuzzyMatch = true,
-                },
-              },
-              tsserver = {
-                globalPlugins = {
-                  {
-                    name = '@vue/typescript-plugin',
-                    location = vue_language_server_path,
-                    languages = { 'vue' },
-                    configNamespace = 'typescript',
-                    enableForWorkspaceTypeScriptVersions = true,
-                  },
                 },
               },
               typescript = {
@@ -305,33 +301,62 @@ return {
         },
       }
 
-      -- You can add other tools here that you want Mason to install
-      -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        'prettierd',
-        'markdownlint',
-        'shellcheck',
-        'shfmt',
-        'hadolint',
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      -- NOTE: nixCats: nixd is not available on mason.
+      -- Feel free to check the nixd docs for more configuration options:
+      -- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
+      if require('nixCatsUtils').isNixCats then
+        servers.nixd = {
+          cmd = { "nixd" },
+          settings = {
+            nixd = {
+              nixpkgs = {
+                expr = "import <nixpkgs> {}",
+              },
+              formatting = {
+                command = { "alejandra" },
+              },
+              options = {
+                nixos = {
+                  expr = "(builtins.getFlake \"/home/deepz/nix-starter-configs\").nixosConfigurations.default.options"
+                }
+              }
+            }
+          }
+        }
+      else
+        servers.rnix = {}
+        servers.nil_ls = {}
+      end
 
-      require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      -- NOTE: nixCats: if nix, use lspconfig instead of mason
+      -- You could MAKE it work, using lspsAndRuntimeDeps and sharedLibraries in nixCats
+      -- but don't... its not worth it. Just add the lsp to lspsAndRuntimeDeps.
+      if require('nixCatsUtils').isNixCats then
+        -- set up the servers to be loaded on the appropriate filetypes!
+        for server_name, cfg in pairs(servers) do
+          vim.lsp.config(server_name, cfg)
+          vim.lsp.enable(server_name)
+        end
+      else
+        -- You can add other tools here that you want Mason to install
+        -- for you, so that they are available from within Neovim.
+        local ensure_installed = vim.tbl_keys(servers or {})
+        vim.list_extend(ensure_installed, {
+          'stylua', -- Used to format Lua code
+          'prettierd',
+          'markdownlint',
+          'shellcheck',
+          'shfmt',
+          'hadolint',
+          'alejandra',
+        })
+        require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+        for server_name, server in pairs(servers) do
+          vim.lsp.enable(server)
+          vim.lsp.config(server_name, server)
+        end
+      end
     end,
   },
 }

@@ -3,7 +3,7 @@
 {
   imports = [
     inputs.zen-browser.homeModules.beta
-    inputs.nvf.homeManagerModules.default
+    inputs.nixCats.homeModule
     ../../modules/home-manager
   ];
 
@@ -26,7 +26,8 @@
 
   browser.enable = true;
   terminal.enable = true;
-  editor.enable = true;
+  editor.vscode.enable = true;
+  editor.nvim.enable = true;
   git.enable = true;
   programming-languages.node.enable = true;
   shell.enable = true;

@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ./browser.nix
-    ./editor.nix
+    ./editor
     ./git.nix
     ./programming-languages.nix
     ./shell.nix
