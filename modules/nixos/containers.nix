@@ -1,19 +1,23 @@
-{ lib, config, ... }:
-  let 
-    cfg = config.services.containerEngine;
-  in {
-    options = {
-      services.containerEngine = lib.mkOption {
-        type = lib.types.enum [ "docker" "podman" ];
-        default = "podman";
-        description = ''
-          Which container engine to use.
-          Choose "docker" or "podman".
-        '';
-      };
+{
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.services.containerEngine;
+in {
+  options = {
+    services.containerEngine = lib.mkOption {
+      type = lib.types.enum ["docker" "podman"];
+      default = "podman";
+      description = ''
+        Which container engine to use.
+        Choose "docker" or "podman".
+      '';
     };
+  };
 
-    config = lib.mkIf (cfg == "docker") {
+  config =
+    lib.mkIf (cfg == "docker") {
       virtualisation.docker.enable = true;
     }
     // lib.mkIf (cfg == "podman") {
@@ -27,4 +31,4 @@
         };
       };
     };
-  }
+}

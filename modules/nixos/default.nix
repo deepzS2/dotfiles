@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ./audio.nix
     ./containers.nix

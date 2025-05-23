@@ -1,16 +1,18 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, inputs, system, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/nixos
-      inputs.home-manager.nixosModules.default
-    ];
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/nixos
+    inputs.home-manager.nixosModules.default
+  ];
 
   # Bootloader.
   boot.loader.grub = {
@@ -32,16 +34,16 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  environment.shells = [ pkgs.nushell ];
+  environment.shells = [pkgs.nushell];
   users.users.deepz = {
     isNormalUser = true;
     description = "Alan";
-    extraGroups = [ "networkmanager" "wheel" "audio" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "audio" "docker"];
     shell = pkgs.nushell;
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs system; };
+    extraSpecialArgs = {inherit inputs system;};
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bkp";
@@ -84,5 +86,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
