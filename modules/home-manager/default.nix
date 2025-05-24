@@ -4,7 +4,7 @@
     ./editor
     ./git.nix
     ./programming-languages.nix
-    ./shell.nix
+    ./shell
     ./terminal.nix
     ./tmux.nix
     ./window-manager.nix
