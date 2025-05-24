@@ -30,6 +30,7 @@
   programming-languages.node.enable = true;
   shell.enable = true;
   window-manager.enable = true;
+  tmux.enable = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
