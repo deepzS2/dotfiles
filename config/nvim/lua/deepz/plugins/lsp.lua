@@ -318,10 +318,10 @@ return {
               options = {
                 nixos = {
                   expr = "(builtins.getFlake \"/home/deepz/nix-starter-configs\").nixosConfigurations.default.options"
-                }
+                },
                 home_manager = {
                   options = "(builtins.getFlake \"/home/deepz/nix-starter-configs\").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []"
-                }
+                },
               }
             }
           }
