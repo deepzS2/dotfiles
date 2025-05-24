@@ -13,13 +13,17 @@ in {
     programs = {
       nushell = {
         enable = true;
+
+        settings = {
+          show_banner = false; 
+          edit_mode = "vi";
+        };
+
         extraConfig =
           /*
           nu
           */
           ''
-            $env.config.edit_mode = 'vi'
-
             # Kanagawa colorscheme
             let base00 = "#181616"  # Background
             let base01 = "#282828"  # Lighter Background (status bars, line numbers)
