@@ -5,6 +5,7 @@
   pkgs,
   inputs,
   system,
+  lib,
   ...
 }: {
   imports = [
@@ -12,13 +13,18 @@
     ./hardware-configuration.nix
     ../../modules/nixos
     inputs.home-manager.nixosModules.default
+    inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
-  # Bootloader.
-  boot.loader.grub = {
+  # Bootloader (with secure boot).
+  boot.lanzaboote = {
     enable = true;
-    device = "/dev/sda";
-    useOSProber = true;
+    pkiBundle = "/var/lib/sbctl";
+    settings.default = "auto-windows";
+  };
+  boot.loader = {
+    systemd-boot.enable = lib.mkForce false;
+    efi.canTouchEfiVariables = true;
   };
 
   # Graphics driver
@@ -26,6 +32,8 @@
     enable = true;
     enable32Bit = true;
   };
+
+  drivers.nvidia.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -64,6 +72,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    sbctl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
