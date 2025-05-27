@@ -2,26 +2,10 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.displayManager = {
-    # Enable automatic login for the user.
-    autoLogin = {
-      enable = true;
-      user = "deepz";
-    };
-
-    sddm = {
-      enable = true;
-      wayland.enable = true;
-      settings = {
-        Autologin = {
-          Session = "Hyprland";
-          User = "deepz";
-        };
-        General = {
-          DisplayServer = "wayland";
-        };
-      };
-    };
+  # SDDM Greeter
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
   };
 
   # Enables Hyprland
@@ -31,7 +15,5 @@
     xwayland.enable = true; # Xwayland can be disabled.
   };
 
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
 }
