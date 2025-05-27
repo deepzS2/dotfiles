@@ -23,8 +23,8 @@ return {
         enabled = require('nixCatsUtils').lazyAdd(true, false),
         opts = {},
       }, -- NOTE: Must be loaded before dependants
-      { 
-        'williamboman/mason-lspconfig.nvim', 
+      {
+        'williamboman/mason-lspconfig.nvim',
         opts = {},
         -- NOTE: nixCats: use lazyAdd to only enable mason if nix wasnt involved.
         -- because we will be using nix to download things instead.
@@ -306,25 +306,25 @@ return {
       -- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
       if require('nixCatsUtils').isNixCats then
         servers.nixd = {
-          cmd = { "nixd" },
+          cmd = { 'nixd' },
           settings = {
             nixd = {
               nixpkgs = {
-                expr = "import <nixpkgs> {}",
+                expr = 'import <nixpkgs> {}',
               },
               formatting = {
-                command = { "alejandra" },
+                command = { 'alejandra' },
               },
               options = {
                 nixos = {
-                  expr = "(builtins.getFlake \"/home/deepz/nix-starter-configs\").nixosConfigurations.default.options"
+                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.default.options',
                 },
                 home_manager = {
-                  options = "(builtins.getFlake \"/home/deepz/nix-starter-configs\").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []"
+                  options = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []',
                 },
-              }
-            }
-          }
+              },
+            },
+          },
         }
       else
         servers.rnix = {}
