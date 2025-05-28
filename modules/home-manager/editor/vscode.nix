@@ -12,12 +12,48 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      # VSCode
-      pkgs.vscode
-
       # Nix IDE
       pkgs.nixd
       pkgs.alejandra
     ];
+
+    programs.vscode = {
+      enable = true;
+      profiles.default = {
+        extensions = with pkgs.vscode-marketplace; [
+          jnoortheen.nix-ide
+          qufiwefefwoyn.kanagawa
+        ];
+        userSettings = {
+          "editor.formatOnSave" = true;
+
+          # Colorscheme
+          "workbench.colorTheme" = "Kanagawa";
+
+          # Nix
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd";
+          "nix.formatterPath" = "alejandra";
+          "nix.serverSettings" = {
+            nixd = {
+              nixpkgs = {
+                expr = "import <nixpkgs> {}";
+              };
+              formatting = {
+                command = ["alejandra"];
+              };
+              options = {
+                nixos = {
+                  expr = "(builtins.getFlake \"/home/deepz/.dotfiles\").nixosConfigurations.default.options";
+                };
+                home-manager = {
+                  options = "(builtins.getFlake \"/home/deepz/.dotfiles\").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []";
+                };
+              };
+            };
+          };
+        };
+      };
+    };
   };
 }

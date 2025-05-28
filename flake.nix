@@ -15,6 +15,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # VSCode
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     # Secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
@@ -22,7 +25,7 @@
     };
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
+  outputs = {nixpkgs, nix-vscode-extensions,  ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
@@ -34,6 +37,11 @@
           {
             # Allow unfree packages
             nixpkgs.config.allowUnfree = true;
+
+            # VSCode overlay
+            nixpkgs.overlays = [
+              nix-vscode-extensions.overlays.default
+            ];
 
             nix = {
               # For nix LSP
