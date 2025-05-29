@@ -1,0 +1,144 @@
+/* ---- Configuration ---- */
+configuration {
+    font: "JetBrains Mono Nerd Font SemiBold 12";
+    show-icons: true;
+    hover-select: true;
+    me-select-entry: "MouseSecondary";
+    me-accept-entry: "MousePrimary";
+}
+
+@theme "~/.cache/wal/rofi.rasi"
+
+/* ---- Window ---- */
+window {
+    width: 1000px;
+    height: 840px;
+    x-offset: 0px;
+    y-offset: 0px;
+    spacing: 0px;
+    padding: 2px;
+    margin: 0px; 
+    cursor: "default";
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    enabled: true;
+}
+
+/* ---- Mainbox ---- */
+mainbox {
+    orientation: vertical;
+    padding: 12px;
+    children: ["inputbar", "listview"];
+}
+
+/* ---- Inputbar ---- */
+inputbar {
+    spacing: 10px;
+    padding: 16px;
+    border-radius: 0px;
+    children: ["textbox-prompt-colon", "entry"];
+}
+
+textbox-prompt-colon {
+    enabled: true;
+    expand: false;
+    str: " ";
+    background-color: transparent;
+    text-color: inherit;
+}
+
+entry {
+    enabled: true;
+    cursor: text;
+    placeholder: " Search wallpaper.";
+}
+
+/* ---- Listview ---- */
+listview {
+    enabled: true;
+    columns: 3;
+    lines: 3;
+    spacing: 38px;
+    dynamic: true;
+    cycle: true;
+    scrollbar: false;
+    layout: horizontal;
+    reverse: false;
+    fixed-height: true;
+    fixed-columns: true;
+    border-radius: @radius;
+}
+
+/* ---- Element ---- */
+element {
+    enabled: true;
+    padding: 8px;
+    cursor: pointer;
+    orientation: vertical;
+    border-radius: @radius;
+}
+
+element normal.normal {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element normal.urgent {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element normal.active {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element selected.normal {
+    background-color: transparent;
+    text-color: @background;
+}
+
+element selected.urgent {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element selected.active {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element alternate.normal {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element alternate.urgent {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element alternate.active {
+    background-color: inherit;
+    text-color: @foreground;
+}
+
+element-icon {
+    background-color: transparent;
+    text-color: inherit;
+    size: 280px;
+    cursor: inherit;
+}
+
+element-text {
+    cursor: inherit;
+    padding: 10px 15px;
+    border-radius: @radius;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+element-text selected {
+    background-color: @foreground;
+}

@@ -1,0 +1,132 @@
+/* @import "theme.css"; */
+@import "../../.cache/wal/waybar.css";
+
+* {
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "JetBrainsMono Nerd Font";
+}
+
+window#waybar {
+  background: transparent;
+  color: @main-fg;
+}
+
+#battery,
+#custom-clipboard,
+#bluetooth,
+#pulseaudio,
+#pulseaudio.mic,
+#network,
+#disk,
+#memory,
+#backlight,
+#cpu,
+#temperature,
+#window,
+#workspaces button,
+#custom-notification,
+#custom-pc,
+#custom-power,
+#privacy,
+#clock {
+  min-width: 12px;
+
+  /*text-shadow: 1px 1px 2px rgb(0, 0, 0);*/
+  /* text shadow, offset-x | offset-y | blur-radius | color */
+  background: @main-bg; /*#15161e default*/
+  /* background color */
+  margin: 12px 4px 4px 4px;
+  /* empty spaces around */
+  padding: 8px 12px;
+  /* extend pill size, vertical then horizontal */
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.185);
+  /* pill background shadows */
+  border-radius: 8px; /*Default 5*/
+  /* rounded corners */
+  color: @main-fg;
+}
+
+#pulseaudio,
+#pulseaudio.mic.source-muted {
+  padding-right: 20px;
+}
+
+#pulseaudio.mic {
+  padding-right: 12px;
+}
+
+#backlight {
+  padding-right: 16px;
+}
+
+#custom-power {
+  padding-right: 8px;
+  color: @highlight;
+}
+
+/* #backlight { */
+/*   padding-right: 0.6em; */
+/* } */
+
+#custom-pc {
+  padding-right: 0.8em;
+}
+
+#workspaces button {
+  background-color: @main-bg;
+  color: @workspaces;
+  transition:
+    color 300ms ease-in-out,
+    background-color 300ms ease-in-out;
+}
+
+#workspaces button.visible {
+  color: @main-fg;
+  background-color: @highlight;
+}
+
+#workspaces button:hover {
+  background-color: @highlight;
+  box-shadow: none;
+  color: @main-fg;
+}
+
+#workspaces button.urgent {
+  color: @urgent;
+}
+
+#temperature.critical,
+#pulseaudio.muted,
+#pulseaudio.mic.source-muted {
+  color: @urgent;
+}
+
+#clock {
+  color: @clock;
+}
+
+#battery.charging {
+  background-color: @battery-charging;
+}
+
+#battery.warning:not(.charging) {
+  color: @battery;
+}
+
+#battery.critical:not(.charging) {
+  color: @highlight;
+
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  to {
+    background-color: @urgent;
+  }
+}

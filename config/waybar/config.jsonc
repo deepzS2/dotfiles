@@ -1,0 +1,294 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["clock", "custom/clipboard", "privacy", "group/performance"],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    "hyprland/window",
+    "backlight",
+    "group/audio",
+    "group/networking",
+    "custom/notification",
+    "battery",
+    "custom/power",
+  ],
+  "reload_style_on_change": true,
+
+  "clock": {
+    "interval": 1,
+    "format": " {:%d/%m/%y | %H:%M}  ",
+    "tooltip": true,
+    "tooltip-format": "<small>{:%D}</small>",
+    "calendar-weeks-pos": "right",
+  },
+
+  "group/performance": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": true,
+      "click-to-reveal": true,
+    },
+    "modules": ["custom/pc", "memory", "cpu", "temperature"],
+  },
+
+  "custom/pc": {
+    "format": "<span font='12'> </span>",
+    "tooltip": true,
+    "tooltip-format": "system info\n\nLeft-click to check system info",
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": " {used:0.1f}GB/{total:0.1f}GB",
+  },
+
+  "cpu": {
+    "interval": 30,
+    "format": " {usage}%",
+  },
+
+  "temperature": {
+    "format": " {temperatureC}°C",
+    "format-critical": " {temperatureC}°C",
+    "interval": 30,
+    "critical-threshold": 80,
+  },
+
+  "privacy": {
+    "icon-spacing": 8,
+    "icon-size": 12,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 12,
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 12,
+      },
+    ],
+  },
+
+  "hyprland/workspaces": {
+    "format": "<span font='18px bold'>{icon}</span>",
+    "format-icons": {
+      "1": "龍",
+      "2": "の",
+      "3": "よ",
+      "4": "う",
+      "5": "に",
+    },
+    "persistent-workspaces": {
+      "*": [1, 2, 3, 4, 5],
+    },
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "tooltip": false,
+    "min-length": 5,
+    "max-length": 40,
+
+    "rewrite": {
+      // Desktop
+      "": "<span foreground='#89b4fa'> </span> Hyprland",
+
+      // Terminal
+      "~": "  Terminal",
+      "nushell": "  Terminal",
+      "ghostty": "  Terminal",
+
+      "(.*)tmux(.*)": "<span foreground='#a6e3a1'> </span> Tmux",
+
+      // Browser
+
+      "(.*)Zen Browser": "<span foreground='#fab387'>󰺕 </span> Zen Browser",
+      "(.*) — Zen Browser": "<span foreground='#fab387'>󰺕 </span> $1",
+
+      // Development
+
+      "nvim": "<span foreground='#a6e3a1'> </span> Neovim",
+      "(.*)nvim(.*)": "<span foreground='#a6e3a1'> </span> Neovim",
+
+      "vim": "<span foreground='#a6e3a1'> </span> Vim",
+      "vim (.*)": "<span foreground='#a6e3a1'> </span> $1",
+
+      // Media
+
+      "(.*)Spotify": "<span foreground='#a6e3a1'> </span> Spotify",
+      "(.*)Spotify Premium": "<span foreground='#a6e3a1'> </span> Spotify Premium",
+
+      "OBS(.*)": "<span foreground='#a6adc8'> </span> OBS Studio",
+
+      "VLC media player": "<span foreground='#fab387'>󰕼 </span> VLC Media Player",
+      "(.*) - VLC media player": "<span foreground='#fab387'>󰕼 </span> $1",
+
+      "(.*) - mpv": "<span foreground='#cba6f7'> </span> $1",
+
+      "qView": "  qView",
+
+      "(.*).jpg": "  $1.jpg",
+      "(.*).png": "  $1.png",
+      "(.*).svg": "  $1.svg",
+
+      // Social
+
+      "vesktop": "<span foreground='#89b4fa'> </span> Discord",
+
+      "• Discord(.*)": "Discord$1",
+      "(.*)Discord(.*)": "<span foreground='#89b4fa'> </span> $1Discord$2",
+
+      // Documents
+
+      "ONLYOFFICE Desktop Editors": "<span foreground='#f38ba8'> </span> OnlyOffice Desktop",
+
+      "(.*).docx": "<span foreground='#89b4fa'> </span> $1.docx",
+      "(.*).xlsx": "<span foreground='#a6e3a1'> </span> $1.xlsx",
+      "(.*).pptx": "<span foreground='#fab387'> </span> $1.pptx",
+      "(.*).pdf": "<span foreground='#f38ba8'> </span> $1.pdf",
+
+      // System
+      "Authenticate": "  Authenticate",
+    },
+  },
+
+  "custom/clipboard": {
+    "interval": 1,
+    "format": "<span font='12'> </span>{}",
+    "tooltip": false,
+    "exec": "rofi_clipboard l",
+    "on-click": "rofi_clipboard c",
+    "on-click-right": "rofi_clipboard w",
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "rotate": 0,
+    "format": "{icon}",
+    "format-icons": ["󱃓", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥", "󰖨"],
+    "tooltip-format": "Brightness: {percent}%",
+  },
+
+  "bluetooth": {
+    "format-on": "<span font='12'>󰂰</span>",
+    "format-off": "<span font='12'>󰂲</span>",
+    "format-disabled": "<span font='12'>󰂲</span>",
+    "format-connected": "<span font='12'>󰂴</span>",
+    "format-connected-battery": "{device_battery_percentage}% 󰂴",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager",
+  },
+  "pulseaudio": {
+    "format": "<span font='12'>{icon}</span>",
+    "format-bluetooth": "󰂰",
+    "format-muted": "",
+    "format-icons": {
+      "headphones": "",
+      "bluetooth": "󰥰",
+      "handsfree": "",
+      "headset": "󱡬",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""],
+    },
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    "tooltip-format": "{icon} {volume}%",
+  },
+  "pulseaudio#mic": {
+    "format": "<span font='12'>{format_source}</span>",
+    "format-source": "",
+    "format-source-muted": "",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "pavucontrol",
+  },
+  "group/audio": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+    },
+    "modules": ["pulseaudio", "bluetooth", "pulseaudio#mic"],
+  },
+
+  "network": {
+    "family": "ipv4",
+    "format-wifi": "<span font='11'> </span>",
+    "format-ethernet": "<span font='11'>󰈀 </span>",
+    "format-disconnected": "<span font='11'>󱐅 </span>",
+    "tooltip-format-disconnected": "Disconnected",
+    "tooltip-format": "{ipaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)   | {ipaddr}",
+    "tooltip-format-ethernet": "{ifname} 🖧  | {ipaddr}",
+    "on-click": "nm-connection-editor",
+  },
+  "network#speed": {
+    "format": "{bandwidthDownBits}   | {bandwidthUpBits}  ",
+    "interval": 1,
+    "tooltip-format": "{ipaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)   \n{ipaddr} | {frequency} MHz{icon} ",
+    "tooltip-format-ethernet": "{ifname} 󰈀 \n{ipaddr} | {frequency} MHz{icon} ",
+    "tooltip-format-disconnected": "Not Connected to any type of Network",
+    "tooltip": true,
+  },
+  "group/networking": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+    },
+    "modules": ["network", "network#speed"],
+  },
+
+  "battery": {
+    "interval": 1,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20,
+    },
+    "tooltip": true,
+    "tooltip-format": "{time}",
+    "format": "<span font='12'>{icon}</span> {capacity}%",
+    "format-time": "{H}h {M}min",
+    "format-charging": "<span font='12'>󰂅</span> {capacity}%",
+    "format-plugged": "<span font='12'></span> {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+  },
+
+  "custom/notification": {
+    "tooltip": true,
+    "tooltip-format": "Left Click: Launch Notification Center\nRight Click: Do not Disturb",
+    "format": "{icon} {text}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": "",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+  },
+
+  "custom/power": {
+    "format": " ",
+    "on-click": "power_menu",
+    "tooltip": false,
+  },
+}

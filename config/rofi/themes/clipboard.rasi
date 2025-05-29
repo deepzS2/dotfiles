@@ -1,0 +1,129 @@
+/* ---- Configuration ---- */
+configuration {
+    modes:                        [drun];
+    font:                         "JetBrainsMono SemiBold 10";
+    hover-select:                 true;
+}
+
+@theme "~/.cache/wal/rofi.rasi"
+
+/* ---- Window ---- */
+window {
+    width:                        400px;
+    x-offset:                     50px;
+    y-offset:                     15px;
+    spacing:                      0px;
+    padding:                      0px;
+    margin:                       0px; 
+    cursor:                       "default";
+    transparency:                 "real";
+    location:                     northWest;
+    anchor:                       northWest;
+}
+
+/* ---- Mainbox ---- */
+mainbox {
+    orientation:                  vertical;
+    spacing:                      0px;
+    margin:                       0px;
+    padding:                      1% 0.5% 1% 0.5%;
+    children:                     [inputbar, listview];
+}
+
+/* ---- Inputbar ---- */
+inputbar {
+    spacing:                      4px;
+    padding:                      16px;
+    children:                     [textbox-prompt-clipboard, entry];
+}
+
+textbox-prompt-clipboard {
+    expand:                       false;
+    str:                          "󰅌 ";
+    background-color:             transparent;
+    text-color:                   inherit;
+}
+
+entry {
+    text-color:                   inherit;
+    cursor:                       text;
+    placeholder:                  "Search Clipboard";
+    placeholder-color:            inherit;
+}
+
+/* ---- Listview ---- */
+listview {
+    columns:                      1;
+    lines:                        5;
+    cycle:                        true;
+    dynamic:                      true;
+    layout:                       vertical;
+    fixed-height:                 true;
+    spacing:                      0px;
+    padding:                      12px 0 0 0;
+    margin:                       0px;
+    border:                       0px;
+    background-color:             @background;
+}
+
+/* ---- Element ---- */
+element {
+    padding:                      12px;
+    cursor:                       pointer;
+    background-color:             @background;
+    border-radius:                @radius;
+    border:                       2px;
+}
+
+element normal.normal {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element normal.urgent {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element normal.active {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element selected.normal {
+    background-color:            @selected-normal-background;
+    text-color:                  @foreground;
+}
+
+element selected.urgent {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element selected.active {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element alternate.normal {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element alternate.urgent {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element alternate.active {
+    background-color:            inherit;
+    text-color:                  @foreground;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}

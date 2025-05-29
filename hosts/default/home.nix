@@ -30,11 +30,19 @@
   };
   git.enable = true;
   programming-languages.node.enable = true;
-  window-manager.enable = true;
   shell = {
     fastfetch.enable = true;
     nushell.enable = true;
     prompt.enable = true;
+  };
+  layout = {
+    hyprland.enable = true;
+    scripts.enable = true;
+    swaync.enable = true;
+    rofi.enable = true;
+    theme.enable = true;
+    wallpaper.enable = true;
+    waybar.enable = true;
   };
   tmux.enable = true;
 
