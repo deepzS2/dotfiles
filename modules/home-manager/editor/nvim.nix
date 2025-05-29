@@ -27,15 +27,7 @@ in {
 
       luaPath = ../../../config/nvim;
 
-      categoryDefinitions.replace = {
-        pkgs,
-        settings,
-        categories,
-        extra,
-        name,
-        mkPlugin,
-        ...
-      } @ packageDef: {
+      categoryDefinitions.replace = {pkgs, ...}: {
         # to define and use a new category, simply add a new list to a set here,
         # and later, you will include categoryname = true; in the set you
         # provide when you build the package using this builder function.
@@ -44,97 +36,164 @@ in {
         # lspsAndRuntimeDeps:
         # this section is for dependencies that should be available
         # at RUN TIME for plugins. Will be available to PATH within neovim terminal
-        # this includes LSPs
         lspsAndRuntimeDeps = with pkgs; {
-          general = [
+          # Core utilities used for various editor functions
+          core = [
             universal-ctags
             ripgrep
             fd
             stdenv.cc.cc
+          ];
+
+          # Git-related tools
+          git = [
+            lazygit
+          ];
+
+          # Documentation tools
+          docs = [
             nix-doc
+          ];
+
+          # Language servers for different languages
+          languageServers = [
+            # System languages
             lua-language-server
             nixd
-            stylua
-            lazygit
-            dwt1-shell-color-scripts
-            tailwindcss-language-server
-            docker-ls
-            taplo
-            docker-compose-language-service
-            astro-language-server
-            elixir-ls
             bash-language-server
+
+            # Web development
+            tailwindcss-language-server
             htmx-lsp2
-            biome
-            vtsls
+            astro-language-server
+            vtsls # TypeScript
+
+            # Container/configuration languages
+            docker-ls
+            docker-compose-language-service
             jsonnet-language-server
-            prettierd
-            shellcheck
-            shfmt
-            hadolint
-            alejandra
+            taplo # TOML
+
+            # Other languages
+            elixir-ls
           ];
+
+          # Code formatting tools
+          formatters = [
+            stylua # Lua
+            prettierd # Web
+            shfmt # Shell
+            alejandra # Nix
+            biome # JavaScript/TypeScript
+          ];
+
+          # Visual enhancements
+          visual = [
+            dwt1-shell-color-scripts
+          ];
+
+          # Debugging tools
           debugging = [
-            delve
+            delve # Go debugger
           ];
+
+          # Linting tools
           linting = [
-            markdownlint-cli
+            markdownlint-cli # Markdown
+            shellcheck # Shell
+            hadolint # Dockerfile
           ];
         };
 
         # This is for plugins that will load at startup without using packadd:
+        # Plugins are organized by their functionality for better maintainability
         startupPlugins = with pkgs.vimPlugins; {
-          general = [
-            lazy-nvim
+          # Core plugins required for basic functionality
+          core = [
+            lazy-nvim # Plugin manager
+            plenary-nvim # Common utilities
+            nui-nvim # UI components
+            which-key-nvim # Keybinding helper
+          ];
+
+          # UI and appearance-related plugins
+          ui = [
+            bufferline-nvim
+            dressing-nvim
+            fidget-nvim
+            incline-nvim
+            kanagawa-nvim
+            noice-nvim
+            nvim-colorizer-lua
+            snacks-nvim
+            trouble-nvim
+          ];
+
+          # Editor enhancements for better coding experience
+          editor = [
             comment-nvim
+            grapple-nvim
+            mini-nvim
+            persistence-nvim
+            tmux-navigator
+            undotree
+            vim-sleuth
+            todo-comments-nvim
+            cloak-nvim # Hide sensitive information
+          ];
+
+          # Git integration plugins
+          git = [
+            gitsigns-nvim
+          ];
+
+          # LSP (Language Server Protocol) related plugins
+          lsp = [
+            mason-nvim
+            mason-lspconfig-nvim
+            mason-tool-installer-nvim
+            nvim-lspconfig
+            nvim-lint
+            conform-nvim # Formatting
+          ];
+
+          # Completion and snippets
+          completion = [
             luasnip
             blink-cmp
             blink-cmp-avante
-            bufferline-nvim
-            cloak-nvim
-            copilot-lua
-            img-clip-nvim
-            render-markdown-nvim
-            avante-nvim
-            conform-nvim
-            crates-nvim
-            dressing-nvim
-            fidget-nvim
-            flutter-tools-nvim
             friendly-snippets
-            gitsigns-nvim
-            go-nvim
-            grapple-nvim
-            incline-nvim
-            kanagawa-nvim
-            lazydev-nvim
-            mason-lspconfig-nvim
-            mason-nvim-dap-nvim
-            mason-tool-installer-nvim
-            mason-nvim
-            mini-nvim
-            noice-nvim
-            nui-nvim
-            nvim-colorizer-lua
-            nvim-lint
-            nvim-lspconfig
-            tmux-navigator
+          ];
+
+          # AI assistants
+          ai = [
+            copilot-lua
+          ];
+
+          # Language-specific plugins
+          languages = [
             nvim-treesitter
             nvim-treesitter-textobjects
             nvim-ts-autotag
-            persistence-nvim
-            plenary-nvim
-            rustaceanvim
-            snacks-nvim
-            tailwind-tools-nvim
-            todo-comments-nvim
-            trouble-nvim
-            undotree
-            vim-sleuth
-            which-key-nvim
+            crates-nvim # Rust crates
+            rustaceanvim # Rust
+            go-nvim # Go
+            flutter-tools-nvim # Flutter/Dart
+            tailwind-tools-nvim # Tailwind CSS
+          ];
 
+          # Utility plugins
+          utils = [
+            avante-nvim
+            img-clip-nvim
+            render-markdown-nvim
+            lazydev-nvim
+          ];
+
+          # Treesitter with grammars
+          treesitter = [
             nvim-treesitter.withAllGrammars
-            # This is for if you only want some of the grammars
+            # Selective grammar loading alternative:
             # (nvim-treesitter.withPlugins (
             #   plugins: with plugins; [
             #     nix
@@ -142,10 +201,13 @@ in {
             #   ]
             # ))
           ];
+
+          # Debugging support
           debugging = [
             nvim-dap
             nvim-dap-ui
             nvim-nio
+            mason-nvim-dap-nvim
           ];
         };
 
@@ -159,7 +221,7 @@ in {
         # shared libraries to be added to LD_LIBRARY_PATH
         # variable available to nvim runtime
         sharedLibraries = {
-          general = with pkgs; [
+          general = [
             # libgit2
           ];
         };
@@ -203,11 +265,7 @@ in {
       packageDefinitions.replace = {
         # These are the names of your packages
         # you can include as many as you wish.
-        nvim = {
-          pkgs,
-          name,
-          ...
-        }: {
+        nvim = {pkgs, ...}: {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
@@ -225,22 +283,56 @@ in {
           # (and other information to pass to lua)
           # and a set of categories that you want
           categories = {
+            # Core functionality
+            core = true;
+
+            # User interface plugins
+            ui = true;
+
+            # Editor enhancements
+            editor = true;
+
+            # Git related plugins
+            git = true;
+
+            # LSP and code intelligence
+            lsp = true;
+
+            # Completion
+            completion = true;
+
+            # AI assistants
+            ai = true;
+
+            # Language specific plugins
+            languages = true;
+
+            # Utility plugins
+            utils = true;
+
+            # Treesitter and syntax highlighting
+            treesitter = true;
+
+            # Debugging support
+            debugging = true;
+
+            # Language servers and runtime dependencies
+            languageServers = true;
+            formatters = true;
+            linting = true;
+            visual = true;
+            docs = true;
+
+            # Required for backwards compatibility
             general = true;
             gitPlugins = true;
             customPlugins = true;
             test = true;
 
-            debugging = true;
-            linting = true;
+            # Additional settings
+            have_nerd_font = true;
 
-            # this kickstart extra didnt require any extra plugins
-            # so it doesnt have a category above.
-            # but we can still send the info from nix to lua that we want it!
-            kickstart-gitsigns = true;
-
-            # we can pass whatever we want actually.
-            have_nerd_font = false;
-
+            # Example of complex settings (preserved from original)
             example = {
               youCan = "add more than just booleans";
               toThisSet = [
