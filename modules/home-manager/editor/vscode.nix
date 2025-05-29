@@ -27,8 +27,9 @@ in {
         userSettings = {
           "editor.formatOnSave" = true;
 
-          # Colorscheme
+          # Theming
           "workbench.colorTheme" = "Kanagawa";
+          "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
 
           # Nix
           "nix.enableLanguageServer" = true;
