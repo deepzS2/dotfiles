@@ -188,6 +188,7 @@ in {
             img-clip-nvim
             render-markdown-nvim
             lazydev-nvim
+            fzf-lua
           ];
 
           # Treesitter with grammars

@@ -37,6 +37,9 @@ return {
     -- Diff
     require('mini.diff').setup()
 
+    -- Pick
+    require('mini.pick').setup()
+
     -- On rename file event
     vim.api.nvim_create_autocmd('User', {
       pattern = 'MiniFilesActionRename',
