@@ -28,9 +28,12 @@
   editor.nvim.enable = true;
   git.enable = true;
   programming-languages.node.enable = true;
-  shell.nushell.enable = true;
-  shell.prompt.enable = true;
   window-manager.enable = true;
+  shell = {
+    fastfetch.enable = true;
+    nushell.enable = true;
+    prompt.enable = true;
+  };
   tmux.enable = true;
 
   # Home Manager can also manage your environment variables through
