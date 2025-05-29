@@ -92,6 +92,9 @@ in {
             blink-cmp-avante
             bufferline-nvim
             cloak-nvim
+            copilot-lua
+            img-clip-nvim
+            render-markdown-nvim
             avante-nvim
             conform-nvim
             crates-nvim
