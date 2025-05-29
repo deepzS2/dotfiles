@@ -25,7 +25,7 @@
     };
   };
 
-  outputs = {nixpkgs, nix-vscode-extensions,  ...} @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
@@ -34,18 +34,21 @@
         specialArgs = {inherit inputs system;};
         modules = [
           ./hosts/default/configuration.nix
+          (import ./overlays)
           {
             # Allow unfree packages
             nixpkgs.config.allowUnfree = true;
 
-            # VSCode overlay
-            nixpkgs.overlays = [
-              nix-vscode-extensions.overlays.default
-            ];
-
             nix = {
               # For nix LSP
               nixPath = ["nixpkgs=${nixpkgs}"];
+
+              # Garbage collector
+              gc = {
+                automatic = true;
+                dates = "weekly";
+                options = "--delete-older-than 7d";
+              };
 
               # Enable Flakes
               settings.experimental-features = ["nix-command" "flakes"];
