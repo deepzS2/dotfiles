@@ -24,8 +24,10 @@
 
   browser.enable = true;
   terminal.enable = true;
-  editor.vscode.enable = true;
-  editor.nvim.enable = true;
+  editor = {
+    vscode.enable = true;
+    nvim.enable = true;
+  };
   git.enable = true;
   programming-languages.node.enable = true;
   window-manager.enable = true;
