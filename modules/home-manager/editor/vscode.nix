@@ -7,7 +7,41 @@
   cfg = config.editor.vscode;
 in {
   options = {
-    editor.vscode.enable = lib.mkEnableOption "Visual Studio Code";
+    editor.vscode = {
+      enable = lib.mkEnableOption "Visual Studio Code";
+
+      nix = {
+        enableLanguageServer = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Enable Nix language server";
+        };
+
+        serverPath = lib.mkOption {
+          type = lib.types.str;
+          default = "nixd";
+          description = "Path to Nix language server";
+        };
+
+        formatterPath = lib.mkOption {
+          type = lib.types.str;
+          default = "alejandra";
+          description = "Path to Nix formatter";
+        };
+      };
+
+      extraExtensions = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [];
+        description = "Extra VSCode extensions to install";
+      };
+
+      extraSettings = lib.mkOption {
+        type = lib.types.attrsOf lib.types.anything;
+        default = {};
+        description = "Extra VSCode user settings";
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -20,40 +54,46 @@ in {
     programs.vscode = {
       enable = true;
       profiles.default = {
-        extensions = with pkgs.vscode-marketplace; [
-          jnoortheen.nix-ide
-          qufiwefefwoyn.kanagawa
-        ];
-        userSettings = {
-          "editor.formatOnSave" = true;
+        extensions = with pkgs.vscode-marketplace;
+          [
+            jnoortheen.nix-ide
+            qufiwefefwoyn.kanagawa
+          ]
+          ++ cfg.extraExtensions;
 
-          # Theming
-          "workbench.colorTheme" = "Kanagawa";
-          "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
+        userSettings =
+          lib.recursiveUpdate {
+            "editor.formatOnSave" = true;
 
-          # Nix
-          "nix.enableLanguageServer" = true;
-          "nix.serverPath" = "nixd";
-          "nix.formatterPath" = "alejandra";
-          "nix.serverSettings" = {
-            nixd = {
-              nixpkgs = {
-                expr = "import <nixpkgs> {}";
-              };
-              formatting = {
-                command = ["alejandra"];
-              };
-              options = {
-                nixos = {
-                  expr = "(builtins.getFlake \"/home/deepz/.dotfiles\").nixosConfigurations.default.options";
+            # Theming
+            "workbench.colorTheme" = "Kanagawa";
+            "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
+            "editor.fontSize" = 14;
+
+            # Nix
+            "nix.enableLanguageServer" = cfg.nix.enableLanguageServer;
+            "nix.serverPath" = cfg.nix.serverPath;
+            "nix.formatterPath" = cfg.nix.formatterPath;
+            "nix.serverSettings" = {
+              nixd = {
+                nixpkgs = {
+                  expr = "import <nixpkgs> {}";
                 };
-                home-manager = {
-                  options = "(builtins.getFlake \"/home/deepz/.dotfiles\").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []";
+                formatting = {
+                  command = [cfg.nix.formatterPath];
+                };
+                options = {
+                  nixos = {
+                    expr = "(builtins.getFlake \"${config.home.homeDirectory}/.dotfiles\").nixosConfigurations.default.options";
+                  };
+                  home-manager = {
+                    options = "(builtins.getFlake \"${config.home.homeDirectory}/.dotfiles\").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []";
+                  };
                 };
               };
             };
-          };
-        };
+          }
+          cfg.extraSettings;
       };
     };
   };
