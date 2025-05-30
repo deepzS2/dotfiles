@@ -22,14 +22,18 @@
   home.username = "deepz";
   home.homeDirectory = "/home/deepz";
 
-  browser.enable = true;
-  terminal.enable = true;
+  git.enable = true;
+  tmux.enable = true;
+  programming-languages.node.enable = true;
+  applications = {
+    browser.enable = true;
+    discord.enable = true;
+    terminal.enable = true;
+  };
   editor = {
     vscode.enable = true;
     nvim.enable = true;
   };
-  git.enable = true;
-  programming-languages.node.enable = true;
   shell = {
     fastfetch.enable = true;
     nushell.enable = true;
@@ -44,7 +48,6 @@
     wallpaper.enable = true;
     waybar.enable = true;
   };
-  tmux.enable = true;
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
