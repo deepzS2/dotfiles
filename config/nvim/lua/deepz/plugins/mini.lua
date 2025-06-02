@@ -35,7 +35,9 @@ return {
     require('mini.icons').setup()
 
     -- Diff
-    require('mini.diff').setup()
+    require('mini.diff').setup {
+      source = require('mini.diff').gen_source.none(),
+    }
 
     -- Pick
     require('mini.pick').setup()

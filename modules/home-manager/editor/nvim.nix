@@ -161,7 +161,6 @@ in {
           completion = [
             luasnip
             blink-cmp
-            blink-cmp-avante
             friendly-snippets
           ];
 
@@ -184,7 +183,8 @@ in {
 
           # Utility plugins
           utils = [
-            avante-nvim
+            codecompanion-nvim
+            codecompanion-history-nvim
             img-clip-nvim
             render-markdown-nvim
             lazydev-nvim
