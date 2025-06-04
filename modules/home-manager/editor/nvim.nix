@@ -135,7 +135,7 @@ in {
             grapple-nvim
             mini-nvim
             persistence-nvim
-            tmux-navigator
+            vim-tmux-navigator
             undotree
             vim-sleuth
             todo-comments-nvim
@@ -179,6 +179,7 @@ in {
             go-nvim # Go
             flutter-tools-nvim # Flutter/Dart
             tailwind-tools-nvim # Tailwind CSS
+            SchemaStore-nvim # JSON
           ];
 
           # Utility plugins
@@ -189,6 +190,7 @@ in {
             render-markdown-nvim
             lazydev-nvim
             fzf-lua
+            undotree
           ];
 
           # Treesitter with grammars

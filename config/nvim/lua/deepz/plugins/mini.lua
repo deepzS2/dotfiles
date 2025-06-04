@@ -33,6 +33,7 @@ return {
 
     -- Icons
     require('mini.icons').setup()
+    MiniIcons.mock_nvim_web_devicons()
 
     -- Diff
     require('mini.diff').setup {

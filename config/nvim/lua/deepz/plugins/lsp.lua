@@ -39,7 +39,7 @@ return {
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-      'b0o/schemastore.nvim',
+      { 'b0o/schemastore.nvim', name = 'SchemaStore.nvim' },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',

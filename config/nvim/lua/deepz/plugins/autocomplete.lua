@@ -16,7 +16,7 @@ return { -- Autocompletion
         if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
           return
         end
-        
+
         return 'make install_jsregexp'
       end)()),
       dependencies = {
@@ -31,7 +31,6 @@ return { -- Autocompletion
         },
       },
     },
-    'Kaiser-Yang/blink-cmp-avante',
     'folke/lazydev.nvim',
   },
   --- @module 'blink.cmp'
@@ -104,16 +103,14 @@ return { -- Autocompletion
     },
 
     sources = {
-      default = { 'avante', 'lsp', 'path', 'snippets', 'lazydev' },
+      default = {
+        'lsp',
+        'path',
+        'snippets',
+        'lazydev',
+      },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-        avante = {
-          module = 'blink-cmp-avante',
-          name = 'Avante',
-          opts = {
-            -- options for blink-cmp-avante
-          },
-        },
       },
     },
 
