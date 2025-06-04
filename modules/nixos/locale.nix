@@ -20,7 +20,7 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "br";
-    variant = "";
+    model = "abnt2";
   };
 
   # Configure console keymap
