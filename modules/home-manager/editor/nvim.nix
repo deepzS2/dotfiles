@@ -23,7 +23,7 @@ in {
           (utils.standardPluginOverlay inputs)
         ];
 
-      packageNames = ["nvim"];
+      packageNames = ["nvim" "testnvim"];
 
       luaPath = ../../../config/nvim;
 
@@ -351,6 +351,42 @@ in {
           extra = {
             nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
           };
+        };
+
+        # an extra test package with normal lua reload for fast edits
+        # nix doesnt provide the config in this package, allowing you free reign to edit it.
+        # then you can swap back to the normal pure package when done.
+        testnvim = {...}: {
+          settings = {
+            suffix-path = true;
+            suffix-LD = true;
+            wrapRc = false;
+            unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/.dotfiles/config/nvim'";
+          };
+          categories = {
+            core = true;
+            ui = true;
+            editor = true;
+            git = true;
+            lsp = true;
+            completion = true;
+            ai = true;
+            languages = true;
+            utils = true;
+            treesitter = true;
+            debugging = true;
+            languageServers = true;
+            formatters = true;
+            linting = true;
+            visual = true;
+            docs = true;
+            general = true;
+            gitPlugins = true;
+            customPlugins = true;
+            test = true;
+            have_nerd_font = true;
+          };
+          extra = {};
         };
       };
     };
