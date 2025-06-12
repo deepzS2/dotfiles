@@ -127,6 +127,8 @@ in {
             nvim-colorizer-lua
             snacks-nvim
             trouble-nvim
+            tiny-inline-diagnostic-nvim
+            smear-cursor-nvim
           ];
 
           # Editor enhancements for better coding experience
@@ -191,6 +193,7 @@ in {
             lazydev-nvim
             fzf-lua
             undotree
+            hardtime-nvim
           ];
 
           # Treesitter with grammars
