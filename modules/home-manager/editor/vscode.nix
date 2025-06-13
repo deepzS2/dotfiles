@@ -57,18 +57,13 @@ in {
         extensions = with pkgs.vscode-marketplace;
           [
             jnoortheen.nix-ide
-            qufiwefefwoyn.kanagawa
+            # qufiwefefwoyn.kanagawa
           ]
           ++ cfg.extraExtensions;
 
         userSettings =
           lib.recursiveUpdate {
             "editor.formatOnSave" = true;
-
-            # Theming
-            "workbench.colorTheme" = "Kanagawa";
-            "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
-            "editor.fontSize" = 14;
 
             # Nix
             "nix.enableLanguageServer" = cfg.nix.enableLanguageServer;

@@ -5,6 +5,7 @@
       pkgs.nerd-fonts.jetbrains-mono
       pkgs.jetbrains-mono
       pkgs.roboto
+      pkgs.icomoon-feather
       pkgs.openmoji-color
     ];
 
