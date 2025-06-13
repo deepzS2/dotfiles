@@ -2,6 +2,7 @@
   imports = [
     inputs.zen-browser.homeModules.beta
     inputs.nixCats.homeModule
+    inputs.stylix.homeModules.stylix
     ../../modules/home-manager
   ];
 
