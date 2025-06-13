@@ -15,6 +15,7 @@ in {
       pkgs.wl-clipboard
       pkgs.cliphist
       pkgs.hyprshot
+      pkgs.hyprcursor
     ];
 
     services.hypridle.enable = true;
