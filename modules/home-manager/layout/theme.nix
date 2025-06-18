@@ -20,6 +20,7 @@ in {
 
       targets = {
         waybar.addCss = false;
+        tmux.enable = false;
       };
 
       fonts = {

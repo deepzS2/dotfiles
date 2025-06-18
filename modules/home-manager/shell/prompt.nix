@@ -40,9 +40,9 @@ in {
         };
 
         character = {
-          success_symbol = "[➜](bold foam)";
-          error_symbol = "[✗](bold love)";
-          vicmd_symbol = "[V](bold foam)";
+          success_symbol = "[➜](bold green)";
+          error_symbol = "[✗](bold base08)";
+          vicmd_symbol = "[V](bold base04)";
         };
 
         aws = {
@@ -66,13 +66,11 @@ in {
         };
 
         git_branch = {
-          style = "fg:foam";
           symbol = " ";
           format = "on [$symbol$branch ]($style)";
         };
 
         git_status = {
-          style = "fg:love";
           format = "([$all_status$ahead_behind]($style) )";
         };
 
