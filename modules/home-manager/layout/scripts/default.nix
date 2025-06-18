@@ -12,7 +12,6 @@ in {
       (mkScriptPkg ./notification.nix)
       (mkScriptPkg ./powermenu.nix)
       (mkScriptPkg ./startup.nix)
-      (mkScriptPkg ./uptime.nix)
       (mkScriptPkg ./wallpaper_cache.nix)
       (mkScriptPkg ./wallpaper_load.nix)
       (mkScriptPkg ./wallpaper_select.nix)
