@@ -43,7 +43,7 @@
   layout = {
     hyprland.enable = true;
     scripts.enable = true;
-    swaync.enable = true;
+    notification.enable = true;
     rofi.enable = true;
     theme.enable = true;
     wallpaper.enable = true;
