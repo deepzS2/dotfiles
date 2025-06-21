@@ -80,17 +80,8 @@ in {
       ".config/rofi/launcher.rasi".source = ../../../config/rofi/launcher.rasi;
       ".config/rofi/powermenu.rasi".source = ../../../config/rofi/powermenu.rasi;
       ".config/rofi/powermenu_confirm.rasi".source = ../../../config/rofi/powermenu_confirm.rasi;
-      # ".config/rofi/common.rasi".text = /* rasi */ ''
-      #   * {
-      #     font:                        "JetBrains Mono Nerd Font 10";
-      #     background:                  ${withHashtag.base00};
-      #     background-alt:              ${withHashtag.base01};
-      #     foreground:                  ${withHashtag.base05};
-      #     selected:                    ${withHashtag.base06};
-      #     active:                      ${withHashtag.base0D};
-      #     urgent:                      ${withHashtag.base08};
-      #   }
-      # '';
+      ".config/rofi/wifimenu.rasi".source = ../../../config/rofi/wifimenu.rasi;
+      ".config/rofi/wifimenu_password.rasi".source = ../../../config/rofi/wifimenu_password.rasi;
     };
   };
 }

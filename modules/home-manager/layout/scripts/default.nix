@@ -1,4 +1,9 @@
-{pkgs, config, lib, ...}: let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   cfg = config.layout.scripts;
   mkScriptPkg = scriptFile: import scriptFile {inherit pkgs;};
 in {
@@ -15,6 +20,7 @@ in {
       (mkScriptPkg ./wallpaper_cache.nix)
       (mkScriptPkg ./wallpaper_load.nix)
       (mkScriptPkg ./wallpaper_select.nix)
+      (mkScriptPkg ./wifimenu.nix)
     ];
 
     home.file.".theme/sounds" = {

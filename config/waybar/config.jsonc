@@ -204,14 +204,15 @@
 
   "network": {
     "family": "ipv4",
-    "format-wifi": " ",
-    "format-ethernet": "󰈀 ",
-    "format-disconnected": "󱐅 ",
+    "format-wifi": "  {bandwidthTotalBytes}",
+    "format-ethernet": "󰈀  {bandwidthTotalBytes}",
+    "format-disconnected": "󱐅  Disc",
     "tooltip-format-disconnected": "Disconnected",
     "tooltip-format": "{ipaddr}",
     "tooltip-format-wifi": "{essid} ({signalStrength}%)   | {ipaddr}",
     "tooltip-format-ethernet": "{ifname} 🖧  | {ipaddr}",
-    "on-click": "nm-connection-editor",
+    "on-click": "wifimenu",
+    "on-click-right": "nm-connection-editor",
   },
   "network#speed": {
     "format": "{bandwidthDownBits}   | {bandwidthUpBits}  ",
