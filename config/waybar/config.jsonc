@@ -249,7 +249,7 @@
 
   "custom/power": {
     "format": " ",
-    "on-click": "power_menu",
+    "on-click": "powermenu",
     "tooltip": false,
   },
 

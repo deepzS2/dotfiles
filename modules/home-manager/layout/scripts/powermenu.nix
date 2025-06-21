@@ -1,6 +1,6 @@
 {pkgs, ...}:
 pkgs.writeShellApplication {
-  name = "power_menu";
+  name = "powermenu";
   runtimeInputs = [
     pkgs.procps
     (import ./notification.nix {inherit pkgs;})
