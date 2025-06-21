@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ./hyprland.nix
+    ./hyprland
     ./notification.nix
     ./rofi.nix
     ./scripts

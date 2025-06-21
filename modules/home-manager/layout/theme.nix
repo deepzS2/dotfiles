@@ -14,7 +14,7 @@ in {
     stylix = {
       enable = true;
       # polarity = "dark";
-      # image = ../../../config/theme/wallpapers/dark_souls.jpg;
+      image = ../../../config/theme/wallpapers/dark_souls.jpg;
 
       base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
 

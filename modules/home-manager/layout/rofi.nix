@@ -4,7 +4,6 @@
   config,
   ...
 }: let
-  inherit (config.lib.stylix.colors) withHashtag;
   cfg = config.layout.rofi;
 in {
   options = {

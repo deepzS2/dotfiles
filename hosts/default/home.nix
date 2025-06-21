@@ -41,7 +41,11 @@
     prompt.enable = true;
   };
   layout = {
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      hypridle.enable = true;
+      hyprlock.enable = true;
+    };
     scripts.enable = true;
     notification.enable = true;
     rofi.enable = true;
