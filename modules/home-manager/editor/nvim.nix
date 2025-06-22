@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   inputs,
@@ -12,6 +13,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.vectorcode # Code repository indexing tool
+    ];
+
     nixCats = {
       enable = true;
 
@@ -102,10 +107,6 @@ in {
             markdownlint-cli # Markdown
             shellcheck # Shell
             hadolint # Dockerfile
-          ];
-
-          ai = [
-            vectorcode # Code repository indexing tool
           ];
         };
 
