@@ -41,6 +41,14 @@ return {
       { 'j-hui/fidget.nvim', opts = {} },
       { 'b0o/schemastore.nvim', name = 'SchemaStore.nvim' },
 
+      -- Diagnostics inline
+      {
+        'rachartier/tiny-inline-diagnostic.nvim',
+        event = 'LspAttach', -- Or `VeryLazy`
+        priority = 1000, -- needs to be loaded in first
+        opts = {},
+      },
+
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
     },
@@ -189,26 +197,8 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = {
-          source = 'if_many',
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
+        virtual_text = false,
       }
-
-      -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP specification.
-      --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
-      --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.

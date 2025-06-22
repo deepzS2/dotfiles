@@ -2,6 +2,7 @@
   imports = [
     inputs.zen-browser.homeModules.beta
     inputs.nixCats.homeModule
+    inputs.stylix.homeModules.stylix
     ../../modules/home-manager
   ];
 
@@ -40,9 +41,13 @@
     prompt.enable = true;
   };
   layout = {
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      hypridle.enable = true;
+      hyprlock.enable = true;
+    };
     scripts.enable = true;
-    swaync.enable = true;
+    notification.enable = true;
     rofi.enable = true;
     theme.enable = true;
     wallpaper.enable = true;

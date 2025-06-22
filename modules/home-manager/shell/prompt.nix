@@ -34,36 +34,15 @@ in {
           "$character"
         ];
 
-        palette = "rose-pine-moon";
-        palettes = {
-          "rose-pine-moon" = {
-            base = "#232136";
-            surface = "#2a273f";
-            overlay = "#393552";
-            muted = "#6e6a86";
-            subtle = "#908caa";
-            text = "#e0def4";
-            love = "#eb6f92";
-            gold = "#f6c177";
-            rose = "#ea9a97";
-            pine = "#3e8fb0";
-            foam = "#9ccfd8";
-            iris = "#c4a7e7";
-            highlight_low = "#2a283e";
-            highlight_med = "#44415a";
-            highlight_high = "#56526e";
-          };
-        };
-
         # module-specific tables
         fill = {
           symbol = " ";
         };
 
         character = {
-          success_symbol = "[➜](bold foam)";
-          error_symbol = "[✗](bold love)";
-          vicmd_symbol = "[V](bold foam)";
+          success_symbol = "[➜](bold green)";
+          error_symbol = "[✗](bold base08)";
+          vicmd_symbol = "[V](bold base04)";
         };
 
         aws = {
@@ -87,13 +66,11 @@ in {
         };
 
         git_branch = {
-          style = "fg:foam";
           symbol = " ";
           format = "on [$symbol$branch ]($style)";
         };
 
         git_status = {
-          style = "fg:love";
           format = "([$all_status$ahead_behind]($style) )";
         };
 

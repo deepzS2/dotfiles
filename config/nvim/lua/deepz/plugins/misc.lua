@@ -70,4 +70,12 @@ return {
     'laytan/cloak.nvim',
     opts = {},
   },
+
+  -- Hardtime (getting rid of bad habits)
+  {
+    'm4xshen/hardtime.nvim',
+    lazy = false,
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    opts = {},
+  },
 }

@@ -1,5 +1,7 @@
-/* @import "theme.css"; */
-@import "../../.cache/wal/waybar.css";
+@define-color background @base00;
+@define-color foreground @base05;
+@define-color highlight @base04;
+@define-color urgent @base08;
 
 * {
   border: none;
@@ -10,11 +12,10 @@
 
 window#waybar {
   background: transparent;
-  color: @main-fg;
+  color: @foreground;
 }
 
 #battery,
-#custom-clipboard,
 #bluetooth,
 #pulseaudio,
 #pulseaudio.mic,
@@ -25,108 +26,110 @@ window#waybar {
 #cpu,
 #temperature,
 #window,
-#workspaces button,
+#workspaces,
 #custom-notification,
-#custom-pc,
 #custom-power,
+#custom-distro,
 #privacy,
 #clock {
   min-width: 12px;
 
-  /*text-shadow: 1px 1px 2px rgb(0, 0, 0);*/
-  /* text shadow, offset-x | offset-y | blur-radius | color */
-  background: @main-bg; /*#15161e default*/
-  /* background color */
+  background: @background;
   margin: 12px 4px 4px 4px;
-  /* empty spaces around */
   padding: 8px 12px;
-  /* extend pill size, vertical then horizontal */
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.185);
-  /* pill background shadows */
-  border-radius: 8px; /*Default 5*/
-  /* rounded corners */
-  color: @main-fg;
+  border-radius: 8px;
+  color: @foreground;
 }
 
-#pulseaudio,
+/* Privacy module */
+#privacy {
+  background: @base0F;
+  color: @background;
+}
+
+/* Pulseaudio module */
 #pulseaudio.mic.source-muted {
   padding-right: 20px;
 }
 
-#pulseaudio.mic {
-  padding-right: 12px;
+#pulseaudio.muted,
+#pulseaudio.mic.source-muted {
+  color: @urgent;
 }
 
-#backlight {
-  padding-right: 16px;
-}
-
+/* Custom power module */
 #custom-power {
   padding-right: 8px;
-  color: @highlight;
+  color: @foreground;
+  background-color: @urgent;
 }
 
-/* #backlight { */
-/*   padding-right: 0.6em; */
-/* } */
+/* Custom distro module */
+#custom-distro {
+  color: @base0D;
+  font-size: 16px;
+  padding: 8px 8px 8px 12px;
+}
 
-#custom-pc {
-  padding-right: 0.8em;
+/* Hyprland workspaces module */
+#workspaces {
+  padding: 6px;
+  margin-top: 12px;
 }
 
 #workspaces button {
-  background-color: @main-bg;
-  color: @workspaces;
+  color: alpha(@foreground, 0.3);
+  padding: 0 2px;
   transition:
     color 300ms ease-in-out,
-    background-color 300ms ease-in-out;
-}
-
-#workspaces button.visible {
-  color: @main-fg;
-  background-color: @highlight;
+    background-color 300ms ease-in-out,
+    padding 300ms ease-in-out;
 }
 
 #workspaces button:hover {
   background-color: @highlight;
-  box-shadow: none;
-  color: @main-fg;
+  padding: 0 3px;
+  color: @base06;
+}
+
+#workspaces button.active {
+  color: @base06;
+}
+
+#workspaces button.special {
+  color: @base0D;
 }
 
 #workspaces button.urgent {
   color: @urgent;
 }
 
-#temperature.critical,
-#pulseaudio.muted,
-#pulseaudio.mic.source-muted {
-  color: @urgent;
+#workspaces button.empty {
+  color: alpha(@highlight, 0.3);
 }
 
-#clock {
-  color: @clock;
-}
-
+/* Battery module */
 #battery.charging {
-  background-color: @battery-charging;
+  background-color: @base0D;
 }
 
 #battery.warning:not(.charging) {
-  color: @battery;
+  color: @base0A;
 }
 
 #battery.critical:not(.charging) {
-  color: @highlight;
+  color: @urgent;
 
-  animation-name: blink;
+  animation-name: battery-blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
-@keyframes blink {
+@keyframes battery-blink {
   to {
-    background-color: @urgent;
+    color: @foreground;
   }
 }

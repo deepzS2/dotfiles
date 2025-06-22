@@ -11,21 +11,42 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      pkgs.kanagawa-gtk-theme
-    ];
+    stylix = {
+      enable = true;
+      # polarity = "dark";
+      image = ../../../config/theme/wallpapers/yakuza.jpg;
 
-    home.sessionVariables.GTK_THEME = "Kanagawa-Dark";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+
+      targets = {
+        waybar.addCss = false;
+        tmux.enable = false;
+        vesktop.enable = false;
+        vencord.enable = false;
+      };
+
+      fonts = {
+        monospace = {
+          package = pkgs.nerd-fonts.jetbrains-mono;
+          name = "JetBrains Mono Nerd Font";
+        };
+
+        sizes = {
+          terminal = 11;
+          desktop = 10;
+          applications = 11;
+        };
+      };
+    };
 
     gtk = {
-      enable = true;
-      theme = {
-        name = "Kanagawa-Dark";
-        package = pkgs.kanagawa-gtk-theme;
-      };
       iconTheme = {
-        name = "Kanagawa-Dark";
-        package = pkgs.kanagawa-gtk-theme;
+        name = "Papirus";
+        package = pkgs.papirus-icon-theme;
+      };
+      cursorTheme = {
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
       };
     };
   };

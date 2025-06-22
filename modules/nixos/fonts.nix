@@ -3,8 +3,10 @@
   fonts = {
     packages = [
       pkgs.nerd-fonts.jetbrains-mono
+      pkgs.nerd-fonts.iosevka
       pkgs.jetbrains-mono
       pkgs.roboto
+      pkgs.icomoon-feather
       pkgs.openmoji-color
     ];
 
