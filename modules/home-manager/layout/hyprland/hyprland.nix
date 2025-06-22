@@ -29,7 +29,7 @@ in {
         ### MY PROGRAMS ###
         ###################
         "$terminal" = "${pkgs.ghostty}/bin/ghostty";
-        "$menu" = "rofi -show drun";
+        "$menu" = "rofi -show drun -theme ~/.config/rofi/launcher.rasi";
         "$fileManager" = "${pkgs.nautilus}/bin/nautilus";
 
         #################
@@ -39,6 +39,7 @@ in {
           "${pkgs.swww}/bin/swww-daemon"
           "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch cliphist store"
           "${pkgs.wl-clipboard}/bin/wl-paste -t image --watch cliphist store"
+          "${pkgs.waybar}/bin/waybar"
           "hyprctl setcursor Bibata-Modern-Classic 24"
           "initialize_setup"
         ];
@@ -280,9 +281,9 @@ in {
           "float, class:([Tt]hunar), title:(Confirm to replace files)"
           "center, class:([Tt]hunar), title:(File Operation Progress)"
           "center, class:([Tt]hunar), title:(Confirm to replace files)"
-          "float, class:^(blueman-manager)$"
-          "center, class:^(blueman-manager)$"
-          "size 50% 50%, class:^(blueman-manager)$"
+          "float, class:^(.blueman-manager-wrapped)$"
+          "center, class:^(.blueman-manager-wrapped)$"
+          "size 50% 50%, class:^(.blueman-manager-wrapped)$"
           "float, class:^(nm-connection-editor)$"
           "center, class:^(nm-connection-editor)$"
           "size 50% 50%, class:^(nm-connection-editor)$"
