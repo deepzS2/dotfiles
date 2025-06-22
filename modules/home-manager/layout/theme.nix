@@ -14,13 +14,15 @@ in {
     stylix = {
       enable = true;
       # polarity = "dark";
-      image = ../../../config/theme/wallpapers/dark_souls.jpg;
+      image = ../../../config/theme/wallpapers/yakuza.jpg;
 
       base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
 
       targets = {
         waybar.addCss = false;
         tmux.enable = false;
+        vesktop.enable = false;
+        vencord.enable = false;
       };
 
       fonts = {
