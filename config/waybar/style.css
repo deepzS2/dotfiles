@@ -49,7 +49,6 @@ window#waybar {
 }
 
 /* Pulseaudio module */
-#pulseaudio,
 #pulseaudio.mic.source-muted {
   padding-right: 20px;
 }
@@ -57,11 +56,6 @@ window#waybar {
 #pulseaudio.muted,
 #pulseaudio.mic.source-muted {
   color: @urgent;
-}
-
-/* Backlight module */
-#backlight {
-  padding-right: 16px;
 }
 
 /* Custom power module */
