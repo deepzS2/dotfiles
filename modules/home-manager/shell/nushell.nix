@@ -20,6 +20,7 @@ in {
         };
 
         extraConfig =
+          lib.mkAfter
           /*
           nu
           */
