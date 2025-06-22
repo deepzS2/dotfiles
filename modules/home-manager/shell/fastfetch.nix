@@ -1,8 +1,10 @@
 {
+  pkgs,
   lib,
   config,
   ...
 }: let
+  inherit (config.lib.stylix.colors) withHashtag;
   cfg = config.shell.fastfetch;
 in {
   options = {
@@ -10,109 +12,98 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.file.".config/fastfetch/cover.jpg".source = ../../../config/fastfetch/cover.jpg;
+    home.packages = [
+      pkgs.gowall
+      pkgs.kitty
+    ];
+
+    home.file.".config/gowall/config.yml".text =
+      /*
+      yaml
+      */
+      ''
+        InlineImagePreview: true
+
+        OutputFolder: "Imagens/gowall" # default is "Pictures/gowall". Sets the gowall directory to `~/MyImages`. The folder will be created if it does not exist
+
+        themes:
+          - name: "kanagawa"
+            colors:
+              - "${withHashtag.base00}"
+              - "${withHashtag.base01}"
+              - "${withHashtag.base02}"
+              - "${withHashtag.base03}"
+              - "${withHashtag.base04}"
+              - "${withHashtag.base05}"
+              - "${withHashtag.base06}"
+              - "${withHashtag.base07}"
+              - "${withHashtag.base08}"
+              - "${withHashtag.base09}"
+              - "${withHashtag.base0A}"
+              - "${withHashtag.base0B}"
+              - "${withHashtag.base0C}"
+              - "${withHashtag.base0D}"
+              - "${withHashtag.base0E}"
+              - "${withHashtag.base0F}"
+      '';
 
     programs.fastfetch = {
       enable = true;
       settings = {
-        schema = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
+        "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
 
         logo = {
-          source = "~/.config/fastfetch/cover.jpg";
-          type = "kitty";
-          height = 15;
-          padding = {
-            top = 2;
-            left = 1;
-            right = 1;
-          };
+          type = "kitty-icat";
+          source = ../../../config/fastfetch/nix-logo.png;
+          width = 22;
+          height = 22;
         };
 
-        display = {
-          separator = " ➜ ";
-        };
+        general.multithreading = true;
+
+        display.separator = " ";
 
         modules = [
           "break"
           {
-            type = "os";
-            key = "OS   ";
-            keyColor = "31";
+            key = "󰅐 ";
+            keyColor = "37";
+            type = "uptime";
           }
           {
-            type = "kernel";
-            key = " ├  ";
+            key = " ";
             keyColor = "31";
-          }
-          {
             type = "packages";
-            key = " ├ 󰏖 ";
-            keyColor = "31";
           }
           {
-            type = "shell";
-            key = " └  ";
-            keyColor = "31";
-          }
-          "break"
-          {
+            key = " ";
+            keyColor = "32";
             type = "wm";
-            key = "WM   ";
-            keyColor = "32";
           }
           {
-            type = "cursor";
-            key = " ├  ";
-            keyColor = "32";
+            key = " ";
+            keyColor = "33";
+            type = "shell";
           }
           {
+            key = " ";
+            keyColor = "34";
             type = "terminal";
-            key = " ├  ";
-            keyColor = "32";
           }
           {
-            type = "terminalfont";
-            key = " └  ";
-            keyColor = "32";
+            key = " ";
+            keyColor = "35";
+            type = "disk";
+          }
+          {
+            key = "󰑭 ";
+            keyColor = "36";
+            type = "memory";
           }
           "break"
           {
-            type = "host";
-            format = "{5} {1} Type {2}";
-            key = "PC   ";
-            keyColor = "33";
-          }
-          {
-            type = "cpu";
-            format = "{1} ({3}) @ {7} GHz";
-            key = " ├  ";
-            keyColor = "33";
-          }
-          {
-            type = "gpu";
-            format = "{1} {2} @ {12} GHz";
-            key = " ├ 󰢮 ";
-            keyColor = "33";
-          }
-          {
-            type = "memory";
-            key = " ├  ";
-            keyColor = "33";
-          }
-          {
-            type = "swap";
-            key = " ├ 󰓡 ";
-            keyColor = "33";
-          }
-          {
-            type = "disk";
-            key = " ├ 󰋊 ";
-            keyColor = "33";
-          }
-          {
-            type = "monitor";
-            key = " └  ";
-            keyColor = "33";
+            type = "custom";
+            format = "{#90}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37} ";
           }
           "break"
         ];

@@ -19,8 +19,8 @@ in {
       prefix = "C-t";
 
       extraConfig = ''
-        # set-option -sa terminal-overrides ",xterm*:Tc"
-        set -ga terminal-overrides ",xterm-256color:Tc"
+        set -g allow-passthrough on
+        set -as terminal-features sixel
 
         # Vim style pane selection
         bind h select-pane -L

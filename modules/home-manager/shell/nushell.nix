@@ -84,6 +84,8 @@ in {
             }
 
             $env.config.color_config = $base16_theme
+
+            fastfetch
           '';
         shellAliases = {
           ll = "ls -l";
