@@ -203,14 +203,14 @@ in {
           "$mainMod, E, exec, $fileManager"
           "$mainMod, F, togglefloating,"
           "$mainMod SHIFT, F, fullscreen"
-          "$mainMod, V, exec, cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"
           "$mainMod, space, exec, $menu"
           "$mainMod, P, pseudo,"
           "$mainMod, J, togglesplit,"
-          "$mainMod SHIFT, W, exec, select_wallpaper"
-          ", PRINT, exec, hyprshot -m window"
-          "shift, PRINT, exec, hyprshot -m region"
-          "$SUPER_SHIFT, l, exec, hyprlock"
+          "$mainMod, V, exec, cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"
+          ", PRINT, exec, hyprshot -m output" # Screenshot a monitor
+          "$mainMod, PRINT, exec, hyprshot -m window" # Screenshot a window
+          "$shiftMod, PRINT, exec, hyprshot -m region" # Screenshot a region
+          "$SUPER_SHIFT, l, exec, hyprlock" # Toggle screen lock
           "$mainMod, h, movefocus, l"
           "$mainMod, j, movefocus, d"
           "$mainMod, k, movefocus, u"

@@ -103,6 +103,10 @@ in {
             shellcheck # Shell
             hadolint # Dockerfile
           ];
+
+          ai = [
+            vectorcode # Code repository indexing tool
+          ];
         };
 
         # This is for plugins that will load at startup without using packadd:
@@ -168,7 +172,10 @@ in {
 
           # AI assistants
           ai = [
+            codecompanion-nvim
+            codecompanion-history-nvim
             copilot-lua
+            vectorcode-nvim
           ];
 
           # Language-specific plugins
@@ -186,8 +193,6 @@ in {
 
           # Utility plugins
           utils = [
-            codecompanion-nvim
-            codecompanion-history-nvim
             img-clip-nvim
             render-markdown-nvim
             lazydev-nvim

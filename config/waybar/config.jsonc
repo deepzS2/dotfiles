@@ -254,7 +254,7 @@
 
   "custom/distro": {
     "format": "<span size='large'> </span>",
-    "on-click": "rofi-menu",
+    "on-click": "rofi -show drun -theme ~/.config/rofi/launcher.rasi",
     "on-click-release": "sleep 0",
   },
 }

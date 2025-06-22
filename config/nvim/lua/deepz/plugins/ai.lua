@@ -24,6 +24,12 @@ return {
         },
       },
     },
+    {
+      'Davidyz/VectorCode',
+      version = '*', -- optional, depending on whether you're on nightly or release
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      cmd = 'VectorCode', -- if you're lazy-loading VectorCode
+    },
   },
   keys = {
     {
@@ -133,6 +139,11 @@ return {
       },
     },
     extensions = {
+      vectorcode = {
+        opts = {
+          add_tool = true,
+        },
+      },
       history = {
         enabled = true,
         opts = {
