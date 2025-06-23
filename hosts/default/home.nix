@@ -29,7 +29,9 @@
   applications = {
     browser.enable = true;
     discord.enable = true;
+    obs.enable = true;
     terminal.enable = true;
+    video-player.enable = true;
   };
   editor = {
     vscode.enable = true;
