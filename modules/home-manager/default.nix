@@ -7,6 +7,5 @@
     ./layout
     ./programming-languages.nix
     ./shell
-    ./tmux.nix
   ];
 }

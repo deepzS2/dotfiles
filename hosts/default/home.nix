@@ -24,7 +24,6 @@
   home.homeDirectory = "/home/deepz";
 
   git.enable = true;
-  tmux.enable = true;
   programming-languages.node.enable = true;
   applications = {
     browser.enable = true;
@@ -41,6 +40,7 @@
     fastfetch.enable = true;
     nushell.enable = true;
     prompt.enable = true;
+    tmux.enable = true;
   };
   layout = {
     hyprland = {
