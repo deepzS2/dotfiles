@@ -37,6 +37,7 @@
     nvim.enable = true;
   };
   shell = {
+    btop.enable = true;
     fastfetch.enable = true;
     nushell.enable = true;
     prompt.enable = true;
