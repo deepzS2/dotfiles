@@ -16,6 +16,7 @@ in {
       pkgs.cliphist
       pkgs.hyprshot
       pkgs.hyprcursor
+      pkgs.hyprpicker
     ];
 
     wayland.windowManager.hyprland = {
@@ -223,6 +224,7 @@ in {
           "SHIFT, PRINT, exec, hyprshot -m window" # Screenshot a window
           "CTRL, PRINT, exec, hyprshot -m output" # Screenshot a monitor
 
+          "$mainMod, PRINT, exec, hyprpicker -a" # Color picker
           "$mainMod, ESCAPE, exec, powermenu" # Toggle power menu
 
           "$mainMod, comma, exec, makoctl dismiss" # Dismiss notification
