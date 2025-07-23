@@ -100,6 +100,18 @@ return {
             description = 'Send',
           },
         },
+        slash_commands = {
+          ['file'] = {
+            opts = {
+              provider = 'snacks',
+            },
+          },
+          ['buffer'] = {
+            opts = {
+              provider = 'snacks',
+            },
+          },
+        },
         opts = {
           completion_provider = 'blink',
         },

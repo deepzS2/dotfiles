@@ -41,7 +41,7 @@ return {
     }
 
     -- Pick
-    require('mini.pick').setup()
+    -- require('mini.pick').setup()
 
     -- On rename file event
     vim.api.nvim_create_autocmd('User', {
