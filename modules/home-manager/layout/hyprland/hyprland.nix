@@ -31,6 +31,8 @@ in {
         "$terminal" = "${pkgs.ghostty}/bin/ghostty";
         "$menu" = "rofi -show drun -theme ~/.config/rofi/launcher.rasi";
         "$fileManager" = "${pkgs.nautilus}/bin/nautilus";
+        "$browser" = "zen";
+        "$webapp" = "$browser --new-tab";
 
         #################
         ### AUTOSTART ###
@@ -198,23 +200,41 @@ in {
         "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
         bind = [
           "$mainMod, return, exec, $terminal"
-          "$mainMod, C, killactive,"
-          "$mainMod, M, exit,"
-          "$mainMod, E, exec, $fileManager"
-          "$mainMod, F, togglefloating,"
-          "$mainMod SHIFT, F, fullscreen"
+          "$mainMod, F, exec, $fileManager"
+          "$mainMod, B, exec, $browser"
+          "$mainMod, N, exec, $terminal -e nvim"
+          "$mainMod, T, exec, $terminal -e btop"
+          "$mainMod, D, exec, $terminal -e lazydocker"
           "$mainMod, space, exec, $menu"
-          "$mainMod, P, pseudo,"
-          "$mainMod, J, togglesplit,"
-          "$mainMod, V, exec, cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"
-          ", PRINT, exec, hyprshot -m output" # Screenshot a monitor
-          "$mainMod, PRINT, exec, hyprshot -m window" # Screenshot a window
-          "$shiftMod, PRINT, exec, hyprshot -m region" # Screenshot a region
-          "$SUPER_SHIFT, l, exec, hyprlock" # Toggle screen lock
+
+          "$mainMod SHIFT, D, exec, vesktop" # Launch Vesktop (Discord)
+          "$mainMod SHIFT, L, exec, hyprlock" # Toggle screen lock
+          "$mainMod SHIFT, V, exec, cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy" # Clipboard history
+          "$mainMod SHIFT, G, exec, $webapp=\"https://web.whatsapp.com/\"" # Launch whatsapp in browser
+
+          "$mainMod, W, killactive,"
+          "$mainMod SHIFT, F, fullscreen"
+          "$mainMod, V, togglefloating,"
+          "$mainMod, P, pseudo," # dwindle
+          "$mainMod, J, togglesplit," # dwindle
+          "$mainMod, M, exit,"
+
+          ", PRINT, exec, hyprshot -m region" # Screenshot a region
+          "SHIFT, PRINT, exec, hyprshot -m window" # Screenshot a window
+          "CTRL, PRINT, exec, hyprshot -m output" # Screenshot a monitor
+
+          "$mainMod, ESCAPE, exec, powermenu" # Toggle power menu
+
           "$mainMod, h, movefocus, l"
           "$mainMod, j, movefocus, d"
           "$mainMod, k, movefocus, u"
           "$mainMod, l, movefocus, r"
+
+          "$mainMod SHIFT, h, swapwindow, l"
+          "$mainMod SHIFT, j, swapwindow, d"
+          "$mainMod SHIFT, k, swapwindow, u"
+          "$mainMod SHIFT, l, swapwindow, r"
+
           "$mainMod, 1, workspace, 1"
           "$mainMod, 2, workspace, 2"
           "$mainMod, 3, workspace, 3"
@@ -225,6 +245,7 @@ in {
           "$mainMod, 8, workspace, 8"
           "$mainMod, 9, workspace, 9"
           "$mainMod, 0, workspace, 10"
+
           "$mainMod SHIFT, 1, movetoworkspace, 1"
           "$mainMod SHIFT, 2, movetoworkspace, 2"
           "$mainMod SHIFT, 3, movetoworkspace, 3"
@@ -235,10 +256,17 @@ in {
           "$mainMod SHIFT, 8, movetoworkspace, 8"
           "$mainMod SHIFT, 9, movetoworkspace, 9"
           "$mainMod SHIFT, 0, movetoworkspace, 10"
+
           "$mainMod, S, togglespecialworkspace, magic"
           "$mainMod SHIFT, S, movetoworkspace, special:magic"
+
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up, workspace, e-1"
+
+          "$mainMod, minus, resizeactive, -100 0"
+          "$mainMod, equal, resizeactive, 100 0"
+          "$mainMod SHIFT, minus, resizeactive, 0 -100"
+          "$mainMod SHIFT, equal, resizeactive, 0 100"
         ];
         bindm = [
           "$mainMod, mouse:272, movewindow"
