@@ -225,6 +225,10 @@ in {
 
           "$mainMod, ESCAPE, exec, powermenu" # Toggle power menu
 
+          "$mainMod, comma, exec, makoctl dismiss" # Dismiss notification
+          "$mainMod SHIFT, comma, exec, makoctl dismiss --all" # Dismiss all notifications
+          "$mainMod CTRL, comma, exec, makoctl mode -t do-not-disturb && makoctl mode | grep -q 'do-not-disturb' && notify-send \"Silenced notifications\" || notify-send \"Enabled notifications\"" # Toggle "Do Not Disturb" mode
+
           "$mainMod, h, movefocus, l"
           "$mainMod, j, movefocus, d"
           "$mainMod, k, movefocus, u"

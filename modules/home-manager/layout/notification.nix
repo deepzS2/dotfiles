@@ -25,6 +25,10 @@ in {
         ignore-timeout = true;
 
         anchor = "top-right";
+
+        "mode=do-not-disturb" = {
+          invisible = 1;
+        };
       };
     };
   };
