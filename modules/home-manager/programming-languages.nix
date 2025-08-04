@@ -23,6 +23,7 @@ in {
     bun = mkLang "Bun" pkgs.bun;
     rust = mkLang "Rust" pkgs.rust;
     elixir = mkLang "Elixir" pkgs.elixir;
+    go = mkLang "Golang" pkgs.go;
   };
 
   config = let

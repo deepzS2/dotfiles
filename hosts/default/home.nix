@@ -24,7 +24,12 @@
   home.homeDirectory = "/home/deepz";
 
   git.enable = true;
-  programming-languages.node.enable = true;
+  programming-languages = {
+    node.enable = true;
+    bun.enable = true;
+    deno.enable = true;
+    go.enable = true;
+  };
   applications = {
     browser.enable = true;
     discord.enable = true;
