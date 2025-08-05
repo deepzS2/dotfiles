@@ -81,6 +81,7 @@ in {
 
             # Other languages
             elixir-ls
+            gopls
           ];
 
           # Code formatting tools
@@ -90,6 +91,8 @@ in {
             shfmt # Shell
             alejandra # Nix
             biome # JavaScript/TypeScript
+            gofumpt # Go
+            goimports-reviser # Go imports
           ];
 
           # Visual enhancements
@@ -107,6 +110,8 @@ in {
             markdownlint-cli # Markdown
             shellcheck # Shell
             hadolint # Dockerfile
+            gomodifytags # Go struct field tags
+            impl # Go implement interface
           ];
         };
 

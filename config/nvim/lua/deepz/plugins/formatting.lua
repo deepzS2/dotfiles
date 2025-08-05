@@ -49,6 +49,7 @@ return { -- Autoformat
       markdown = { 'prettierd', 'biome', stop_after_first = true },
       yaml = { 'prettierd', 'biome', stop_after_first = true },
       astro = { 'prettierd', 'biome', stop_after_first = true },
+      go = { 'goimports', 'gofumpt' },
       shell = { 'shfmt' },
     },
   },

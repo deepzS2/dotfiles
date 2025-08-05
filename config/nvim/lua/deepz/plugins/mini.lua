@@ -32,7 +32,15 @@ return {
     require('mini.files').setup()
 
     -- Icons
-    require('mini.icons').setup()
+    require('mini.icons').setup {
+      file = {
+        ['.go-version'] = { glyph = '', hl = 'MiniIconsBlue' },
+      },
+      filetype = {
+        gotmpl = { glyph = '󰟓', hl = 'MiniIconsGrey' },
+      },
+    }
+
     MiniIcons.mock_nvim_web_devicons()
 
     -- Diff
