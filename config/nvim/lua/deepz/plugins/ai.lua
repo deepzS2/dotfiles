@@ -134,7 +134,7 @@ return {
             role = 'user',
             content = function()
               return string.format(
-                [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please generate a commit message for me and then use @cmd_runner tool to create the commit:
+                [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please generate a commit message for me and then use @{cmd_runner} tool to create the commit:
 
 ```diff
 %s
