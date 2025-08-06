@@ -24,10 +24,13 @@
   home.homeDirectory = "/home/deepz";
 
   git.enable = true;
+  development = {
+    javascript = {
+      runtimes.enable = true;
+      package-managers.enable = true;
+    };
+  };
   programming-languages = {
-    node.enable = true;
-    bun.enable = true;
-    deno.enable = true;
     go.enable = true;
   };
   applications = {
