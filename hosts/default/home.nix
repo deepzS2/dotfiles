@@ -29,6 +29,10 @@
       runtimes.enable = true;
       package-managers.enable = true;
     };
+    go = {
+      enable = true;
+      air.enable = true;
+    };
   };
   programming-languages = {
     go.enable = true;
