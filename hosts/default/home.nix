@@ -33,9 +33,12 @@
       enable = true;
       air.enable = true;
     };
-  };
-  programming-languages = {
-    go.enable = true;
+    rust = {
+      enable = true;
+      cargo-watch.enable = true;
+      cargo-edit.enable = true;
+      bacon.enable = true;
+    };
   };
   applications = {
     browser.enable = true;

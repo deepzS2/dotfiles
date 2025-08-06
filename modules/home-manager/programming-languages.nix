@@ -18,7 +18,6 @@
   };
 in {
   options.programming-languages = {
-    rust = mkLang "Rust" pkgs.rust;
     elixir = mkLang "Elixir" pkgs.elixir;
   };
 
