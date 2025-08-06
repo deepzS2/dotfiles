@@ -12,7 +12,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.rust-bin.stable.latest.default;
+      default = pkgs.rustc;
       description = "The Rust package to use.";
     };
 
@@ -71,7 +71,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages =
-      [cfg.package]
+      [cfg.package pkgs.cargo]
       ++ lists.optionals cfg.bacon.enable [cfg.bacon.package]
       ++ lists.optionals cfg.cargo-edit.enable [cfg.cargo-edit.package]
       ++ lists.optionals cfg.cargo-expand.enable [cfg.cargo-expand.package]
