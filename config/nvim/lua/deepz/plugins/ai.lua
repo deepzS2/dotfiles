@@ -4,6 +4,7 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
     'ravitemer/codecompanion-history.nvim',
+    'j-hui/fidget.nvim',
     { 'zbirenbaum/copilot.lua', opts = {} },
     {
       'OXY2DEV/markview.nvim',
@@ -128,6 +129,11 @@ return {
     strategies = {
       chat = {
         adapter = 'copilot',
+        roles = {
+          --- The header name for your messages
+          ---@type string
+          user = 'deepz',
+        },
         keymaps = {
           send = {
             callback = function(chat)
