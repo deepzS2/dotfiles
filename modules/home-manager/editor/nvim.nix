@@ -166,7 +166,7 @@ in {
             persistence-nvim
             vim-tmux-navigator
             undotree
-            vim-sleuth
+            guess-indent-nvim
             todo-comments-nvim
             cloak-nvim # Hide sensitive information
           ];

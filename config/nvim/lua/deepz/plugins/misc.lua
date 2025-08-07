@@ -78,4 +78,10 @@ return {
     dependencies = { 'MunifTanjim/nui.nvim' },
     opts = {},
   },
+
+  -- Indentation detection
+  {
+    'NMAC427/guess-indent.nvim',
+    opts = {},
+  },
 }
