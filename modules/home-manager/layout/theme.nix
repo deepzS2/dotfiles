@@ -23,6 +23,7 @@ in {
         tmux.enable = false;
         vesktop.enable = false;
         vencord.enable = false;
+        zen-browser.enable = false;
       };
 
       fonts = {
