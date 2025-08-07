@@ -54,6 +54,13 @@ return {
       '<Cmd>CodeCompanionHistory<CR>',
       desc = '[A]I [H]istory',
     },
+    {
+      '<leader>ag',
+      function()
+        require('codecompanion').prompt 'commit'
+      end,
+      desc = '[A]I [G]it commit',
+    },
   },
   opts = {
     display = {
