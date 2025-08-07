@@ -53,6 +53,7 @@
     nvim.enable = true;
   };
   shell = {
+    ai.enable = true;
     btop.enable = true;
     fastfetch.enable = true;
     nushell.enable = true;
