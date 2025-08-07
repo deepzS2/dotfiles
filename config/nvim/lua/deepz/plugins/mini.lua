@@ -44,8 +44,10 @@ return {
     MiniIcons.mock_nvim_web_devicons()
 
     -- Diff
-    require('mini.diff').setup {
-      source = require('mini.diff').gen_source.none(),
+    local diff = require 'mini.diff'
+
+    diff.setup {
+      source = diff.gen_source.none(),
     }
 
     -- Pick

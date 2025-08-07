@@ -217,7 +217,7 @@ in {
           # Utility plugins
           utils = [
             img-clip-nvim
-            render-markdown-nvim
+            markview-nvim
             lazydev-nvim
             fzf-lua
             undotree
