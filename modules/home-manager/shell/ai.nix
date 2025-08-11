@@ -17,6 +17,15 @@ in {
       $env.GOOGLE_API_KEY = (open ${config.sops.secrets."google/gemini_key".path})
     '';
 
+    programs.opencode = {
+      enable = true;
+      settings = {
+        model = "github-copilot/gpt-5";
+        theme = "kanagawa";
+        autoupdate = true;
+      };
+    };
+
     home.packages = [
       pkgs.gemini-cli
     ];
