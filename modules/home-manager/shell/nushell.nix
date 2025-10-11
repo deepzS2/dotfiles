@@ -1,15 +1,19 @@
 {
+  pkgs,
   lib,
   config,
   ...
 }: let
   cfg = config.shell.nushell;
+  ns = pkgs.writeShellScriptBin "ns" (builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh");
 in {
   options = {
     shell.nushell.enable = lib.mkEnableOption "Nushell";
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [ns];
+
     programs = {
       nushell = {
         enable = true;
