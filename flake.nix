@@ -24,12 +24,6 @@
     # VSCode
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
-    # Secure boot
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";

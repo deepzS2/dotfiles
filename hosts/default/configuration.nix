@@ -13,19 +13,24 @@
     ./hardware-configuration.nix
     ../../modules/nixos
     inputs.home-manager.nixosModules.default
-    inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
   # Bootloader (with secure boot).
-  boot.lanzaboote = {
+  boot.loader.limine = {
     enable = true;
-    pkiBundle = "/var/lib/sbctl";
-    settings.default = "auto-windows";
+    maxGenerations = 3;
+    secureBoot.enable = true;
+    style.wallpapers = [../../config/theme/wallpapers/limine-wallpaper.png];
+    extraConfig = ''
+      default_entry: 0
+      /Windows 11
+          protocol: efi
+          path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+          comment: Boot into Windows 11
+    '';
   };
-  boot.loader = {
-    systemd-boot.enable = lib.mkForce false;
-    efi.canTouchEfiVariables = true;
-  };
+
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Graphics driver
   hardware.graphics = {
