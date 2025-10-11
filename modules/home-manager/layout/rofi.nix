@@ -14,7 +14,7 @@ in {
     programs.rofi = {
       enable = true;
       terminal = "ghostty";
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       extraConfig = {
         # Author : Aditya Shakya (adi1090x)
         # Github : @adi1090x

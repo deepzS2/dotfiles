@@ -4,7 +4,7 @@ pkgs.writeShellApplication {
   runtimeInputs = [
     pkgs.pywal
     pkgs.swww
-    pkgs.rofi-wayland
+    pkgs.rofi
     pkgs.swaynotificationcenter
     (import ./wallpaper_cache.nix {inherit pkgs;})
   ];

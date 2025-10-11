@@ -1,7 +1,7 @@
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "wifimenu";
-  runtimeInputs = [pkgs.networkmanager pkgs.rofi-wayland];
+  runtimeInputs = [pkgs.networkmanager pkgs.rofi];
   text = ''
     THEME="$HOME/.config/rofi/wifimenu.rasi"
     PASSWORD_THEME="$HOME/.config/rofi/wifimenu_password.rasi"

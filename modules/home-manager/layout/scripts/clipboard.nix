@@ -1,7 +1,7 @@
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "rofi_clipboard";
-  runtimeInputs = [pkgs.rofi-wayland pkgs.wl-clipboard pkgs.cliphist];
+  runtimeInputs = [pkgs.rofi pkgs.wl-clipboard pkgs.cliphist];
   text = ''
     theme="$HOME/.config/rofi/themes/clipboard.rasi"
 
