@@ -1,5 +1,5 @@
 {
-  description = "NixOS + standalone home-manager config flakes to get you started!";
+  description = "My Nix configuration - by deepz";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
