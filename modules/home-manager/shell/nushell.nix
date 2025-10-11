@@ -12,7 +12,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ns];
+    home.packages = [ns pkgs.fzf pkgs.nix-search-tv];
 
     programs = {
       nushell = {
