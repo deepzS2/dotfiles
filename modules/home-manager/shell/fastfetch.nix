@@ -59,8 +59,6 @@ in {
           height = 22;
         };
 
-        general.multithreading = true;
-
         display.separator = " ";
 
         modules = [
