@@ -19,10 +19,6 @@ vim.keymap.set('n', '-', '<C-x>')
 vim.keymap.set('n', '<leader>d', '"_d')
 vim.keymap.set('v', '<leader>d', '"_d')
 
--- Move line up/down
-vim.keymap.set('v', 'J', ":m '>+1<cr>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<cr>gv=gv")
-
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.get_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.get_next, { desc = 'Go to next [D]iagnostic message' })

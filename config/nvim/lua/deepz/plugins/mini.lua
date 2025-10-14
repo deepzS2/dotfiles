@@ -1,5 +1,5 @@
 return {
-  'echasnovski/mini.nvim',
+  'nvim-mini/mini.nvim',
   version = '*',
   config = function()
     local function map(mode, l, r, opts)
@@ -52,6 +52,14 @@ return {
 
     -- Pick
     -- require('mini.pick').setup()
+
+    -- Move selection in lines or columns
+    require('mini.move').setup {
+      mappings = {
+        up = 'K',
+        down = 'J',
+      },
+    }
 
     -- On rename file event
     vim.api.nvim_create_autocmd('User', {

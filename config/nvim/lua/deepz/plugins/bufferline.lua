@@ -2,7 +2,7 @@ return {
   'akinsho/bufferline.nvim',
   dependencies = {
     -- 'nvim-tree/nvim-web-devicons',
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
   },
   event = { 'BufReadPre', 'BufNewFile' },
   keys = {
