@@ -222,6 +222,8 @@ in {
             fzf-lua
             undotree
             hardtime-nvim
+            grug-far-nvim
+            flash-nvim
           ];
 
           # Treesitter with grammars
