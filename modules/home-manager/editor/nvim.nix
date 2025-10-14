@@ -79,6 +79,9 @@ in {
             jsonnet-language-server
             taplo # TOML
 
+            # AI NES
+            copilot-language-server
+
             # Other languages
             elixir-ls
             gopls
@@ -195,10 +198,7 @@ in {
 
           # AI assistants
           ai = [
-            codecompanion-nvim
-            codecompanion-history-nvim
-            copilot-lua
-            vectorcode-nvim
+            sidekick-nvim
           ];
 
           # Language-specific plugins
