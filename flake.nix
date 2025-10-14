@@ -25,10 +25,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     # Secrets management
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs = {nixpkgs, ...} @ inputs: let

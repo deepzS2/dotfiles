@@ -11,10 +11,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets."google/gemini_key" = {};
-
     programs.nushell.extraEnv = lib.mkAfter ''
-      $env.GOOGLE_API_KEY = (open ${config.sops.secrets."google/gemini_key".path})
+      $env.GOOGLE_API_KEY = (bash -c "cat ${config.age.secrets.gemini_key.path}")
     '';
 
     programs.opencode = {

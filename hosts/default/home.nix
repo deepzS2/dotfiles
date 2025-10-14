@@ -3,7 +3,7 @@
     inputs.zen-browser.homeModules.beta
     inputs.nixCats.homeModule
     inputs.stylix.homeModules.stylix
-    inputs.sops-nix.homeManagerModules.sops
+    inputs.agenix.homeManagerModules.default
     ../../modules/home-manager
   ];
 
