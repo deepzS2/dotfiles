@@ -146,7 +146,7 @@ in {
 
           # Editor enhancements for better coding experience
           editor = [
-            comment-nvim
+            nvim-ts-context-commentstring
             grapple-nvim
             mini-nvim
             persistence-nvim

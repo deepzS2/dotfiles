@@ -1,12 +1,6 @@
 return {
   -- Comments
   {
-    'numToStr/Comment.nvim',
-    name = 'comment.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = {},
-  },
-  {
     'folke/todo-comments.nvim',
     event = 'VimEnter',
     opts = {},

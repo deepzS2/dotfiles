@@ -3,6 +3,7 @@ return {
   version = '*',
   dependencies = {
     'rafamadriz/friendly-snippets',
+    { 'JoosepAlviste/nvim-ts-context-commentstring', lazy = true, opts = { enable_autocmd = false } },
   },
   config = function()
     local function map(mode, l, r, opts)
@@ -76,6 +77,14 @@ return {
       mappings = {
         up = 'K',
         down = 'J',
+      },
+    }
+
+    require('mini.comment').setup {
+      options = {
+        custom_commentstring = function()
+          return require('ts_context_commentstring.internal').calculate_commentstring() or vim.bo.commentstring
+        end,
       },
     }
 
