@@ -29,7 +29,13 @@ return {
     require('mini.operators').setup()
 
     -- File explorer
-    require('mini.files').setup()
+    require('mini.files').setup {
+      windows = {
+        preview = true,
+        width_focus = 30,
+        width_preview = 30,
+      },
+    }
 
     -- Icons
     require('mini.icons').setup {
@@ -44,10 +50,15 @@ return {
     MiniIcons.mock_nvim_web_devicons()
 
     -- Diff
-    local diff = require 'mini.diff'
-
-    diff.setup {
-      source = diff.gen_source.none(),
+    require('mini.diff').setup {
+      view = {
+        style = 'sign',
+        signs = {
+          add = '',
+          change = '',
+          delete = '',
+        },
+      },
     }
 
     -- Pick
@@ -68,6 +79,11 @@ return {
         Snacks.rename.on_rename_file(event.data.from, event.data.to)
       end,
     })
+
+    -- Open mini.files
+    map('n', '<leader>C', function()
+      MiniFiles.open(vim.uv.cwd(), false)
+    end, { desc = '[C]WD File Explorer' })
 
     map('n', '<leader><space>', function()
       MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
