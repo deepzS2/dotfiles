@@ -15,16 +15,17 @@ return {
       },
       server = {
         on_attach = function(_, bufnr)
-          vim.keymap.set('n', '<leader>cR', function()
+          vim.keymap.set('n', '<leader>ca', function()
             vim.cmd.RustLsp 'codeAction'
-          end, { desc = 'Code Action', buffer = bufnr })
+          end, { desc = '[C]ode [A]ction', buffer = bufnr })
           vim.keymap.set('n', '<leader>dr', function()
             vim.cmd.RustLsp 'debuggables'
-          end, { desc = 'Rust Debuggables', buffer = bufnr })
+          end, { desc = '[D]ebuggables', buffer = bufnr })
         end,
         server = {
           cmd = function()
             local mason_registry = require 'mason-registry'
+
             if mason_registry.is_installed 'rust-analyzer' then
               -- This may need to be tweaked depending on the operating system.
               local ra = mason_registry.get_package 'rust-analyzer'
@@ -36,25 +37,42 @@ return {
             end
           end,
         },
-        default_settings = {
-          -- rust-analyzer language server configuration
-          ['rust-analyzer'] = {
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              buildScripts = {
-                enable = true,
-              },
-            },
-            -- Add clippy lints for Rust.
-            checkOnSave = true,
-            procMacro = {
+      },
+      default_settings = {
+        -- rust-analyzer language server configuration
+        ['rust-analyzer'] = {
+          cargo = {
+            allFeatures = true,
+            loadOutDirsFromCheck = true,
+            buildScripts = {
               enable = true,
-              ignored = {
-                ['async-trait'] = { 'async_trait' },
-                ['napi-derive'] = { 'napi' },
-                ['async-recursion'] = { 'async_recursion' },
-              },
+            },
+          },
+          -- Add clippy lints for Rust if using rust-analyzer
+          checkOnSave = true,
+          -- Enable diagnostics if using rust-analyzer
+          diagnostics = {
+            enable = true,
+          },
+          procMacro = {
+            enable = true,
+            ignored = {
+              ['async-trait'] = { 'async_trait' },
+              ['napi-derive'] = { 'napi' },
+              ['async-recursion'] = { 'async_recursion' },
+            },
+          },
+          files = {
+            excludeDirs = {
+              '.direnv',
+              '.git',
+              '.github',
+              '.gitlab',
+              'bin',
+              'node_modules',
+              'target',
+              'venv',
+              '.venv',
             },
           },
         },
@@ -62,15 +80,18 @@ return {
     },
     config = function(_, opts)
       vim.g.rustaceanvim = vim.tbl_deep_extend('keep', vim.g.rustaceanvim or {}, opts or {})
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end,
   },
 
   {
     'Saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
-    tag = 'stable',
     opts = {
+      completion = {
+        crates = {
+          enabled = true,
+        },
+      },
       lsp = {
         enabled = true,
         actions = true,
@@ -79,26 +100,4 @@ return {
       },
     },
   },
-  -- {
-  --   'neovim/nvim-lspconfig',
-  --   opts = {
-  --     servers = {
-  --       taplo = {
-  --         keys = {
-  --           {
-  --             'K',
-  --             function()
-  --               if vim.fn.expand '%:t' == 'Cargo.toml' and require('crates').popup_available() then
-  --                 require('crates').show_popup()
-  --               else
-  --                 vim.lsp.buf.hover()
-  --               end
-  --             end,
-  --             desc = 'Show Crate Documentation',
-  --           },
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
 }

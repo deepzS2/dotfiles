@@ -220,7 +220,9 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tailwindcss = {},
+        tailwindcss = {
+          filetypes_exclude = { 'markdown' },
+        },
         dockerls = {},
         taplo = {},
         docker_compose_language_service = {},

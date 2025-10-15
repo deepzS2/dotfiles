@@ -142,23 +142,6 @@ in {
             trouble-nvim
             tiny-inline-diagnostic-nvim
             smear-cursor-nvim
-            (pkgs.vimUtils.buildVimPlugin {
-              pname = "guihua.lua";
-              version = "2025-06-13";
-              src = pkgs.fetchFromGitHub {
-                owner = "ray-x";
-                repo = "guihua.lua";
-                rev = "87bea7b98429405caf2a0ce4d029b027bb017c70";
-                hash = "sha256-R/ckeCwzWixvL7q2+brvqcvfSK9Mx8pu6zOFgh2lde4=";
-              };
-              buildPhase = ''
-                (
-                  cd lua/fzy
-                  make
-                )
-              '';
-              nvimSkipModules = ["fzy.fzy-lua-native"];
-            })
           ];
 
           # Editor enhancements for better coding experience
@@ -206,9 +189,7 @@ in {
             nvim-ts-autotag
             crates-nvim # Rust crates
             rustaceanvim # Rust
-            go-nvim # Go
             flutter-tools-nvim # Flutter/Dart
-            tailwind-tools-nvim # Tailwind CSS
             SchemaStore-nvim # JSON
           ];
 
