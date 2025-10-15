@@ -9,25 +9,15 @@ return {
   {
     'folke/todo-comments.nvim',
     event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {
-      signs = false,
-    },
+    opts = {},
+    -- stylua: ignore
     keys = {
-      {
-        '<leader>st',
-        function()
-          Snacks.picker.todo_comments()
-        end,
-        desc = '[S]earch [T]odo',
-      },
-      {
-        '<leader>sT',
-        function()
-          Snacks.picker.todo_comments { keywords = { 'TODO', 'FIX', 'FIXME' } }
-        end,
-        desc = '[S]earch [T]odo/Fix/Fixme',
-      },
+      { ']t', function() require('todo-comments').jump_next() end, desc = "Next Todo Comment" },
+      { '[t', function() require('todo-comments').jump_prev() end, desc = "Previous Todo Comment" },
+      { '<leader>st', function() Snacks.picker.todo_comments() end, desc = '[S]earch [T]odo' },
+      { '<leader>sT', function() Snacks.picker.todo_comments { keywords = { 'TODO', 'FIX', 'FIXME' } } end, desc = '[S]earch [T]odo/Fix/Fixme' },
+      { '<leader>xt', '<cmd>Trouble todo toggle<CR>', desc = '[X] Trouble [T]ODO List' },
+      { '<leader>xT', '<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<CR>', desc = '[X] Trouble [T]ODO/Fix/Fixme List' }
     },
   },
 
