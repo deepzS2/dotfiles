@@ -154,6 +154,13 @@ return {
       desc = '[G]it [B]lame Line',
     },
     {
+      '<leader>gd',
+      function()
+        Snacks.picker.git_diff()
+      end,
+      desc = '[G]it [D]iff',
+    },
+    {
       '<leader>go',
       function()
         Snacks.lazygit()
@@ -258,13 +265,6 @@ return {
       desc = '[S]earch [R]esume',
     },
     {
-      '<leader>,',
-      function()
-        Snacks.picker.buffers()
-      end,
-      desc = '[,] Search buffers',
-    },
-    {
       '<leader>sb',
       function()
         Snacks.picker.lines()
@@ -299,6 +299,20 @@ return {
         Snacks.picker.qflist()
       end,
       desc = '[S]earch [Q]uickfix List',
+    },
+    {
+      '<leader>u',
+      function()
+        Snacks.picker.undo()
+      end,
+      desc = '[U]ndotree',
+    },
+    {
+      '<leader>,',
+      function()
+        Snacks.picker.buffers()
+      end,
+      desc = '[,] Search buffers',
     },
     {
       '<leader>:',

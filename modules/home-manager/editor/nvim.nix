@@ -168,7 +168,6 @@ in {
             mini-nvim
             persistence-nvim
             vim-tmux-navigator
-            undotree
             guess-indent-nvim
             todo-comments-nvim
             cloak-nvim # Hide sensitive information
