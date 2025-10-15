@@ -82,9 +82,15 @@ return { -- Autocompletion
     },
 
     completion = {
+      accept = {
+        -- experimental auto-brackets support
+        auto_brackets = {
+          enabled = true,
+        },
+      },
       -- By default, you may press `<c-space>` to show the documentation.
       -- Optionally, set `auto_show = true` to show the documentation after a delay.
-      documentation = { auto_show = false, auto_show_delay_ms = 500 },
+      documentation = { auto_show = false, auto_show_delay_ms = 200 },
 
       -- Mini.icons in menu
       menu = {
@@ -109,23 +115,28 @@ return { -- Autocompletion
               end,
             },
           },
+          treesitter = { 'lsp' },
         },
       },
     },
 
-    sources = {
-      default = {
-        'lsp',
-        'path',
-        'snippets',
-        'lazydev',
+    cmdline = {
+      enabled = true,
+      keymap = {
+        preset = 'cmdline',
+        ['<Right>'] = false,
+        ['<Left>'] = false,
       },
-      providers = {
-        lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+      completion = {
+        list = { selection = { preselect = false } },
+        menu = {
+          auto_show = function(ctx)
+            return vim.fn.getcmdtype() == ':'
+          end,
+        },
+        ghost_text = { enabled = true },
       },
     },
-
-    snippets = { preset = 'luasnip' },
 
     -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
     -- which automatically downloads a prebuilt binary when enabled.
@@ -138,6 +149,23 @@ return { -- Autocompletion
 
     -- Shows a signature help window while you type arguments for a function
     signature = { enabled = true },
+
+    snippets = { preset = 'luasnip' },
+
+    sources = {
+      default = {
+        'lsp',
+        'path',
+        'snippets',
+        'buffer',
+      },
+      per_filetype = {
+        lua = { inherit_defaults = true, 'lazydev' },
+      },
+      providers = {
+        lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink', score_offset = 100 },
+      },
+    },
   },
   opts_extend = { 'sources.default' },
 }
