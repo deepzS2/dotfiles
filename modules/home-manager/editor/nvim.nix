@@ -190,7 +190,6 @@ in {
 
           # Completion and snippets
           completion = [
-            luasnip
             blink-cmp
             friendly-snippets
           ];

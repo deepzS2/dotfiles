@@ -1,6 +1,9 @@
 return {
   'nvim-mini/mini.nvim',
   version = '*',
+  dependencies = {
+    'rafamadriz/friendly-snippets',
+  },
   config = function()
     local function map(mode, l, r, opts)
       opts = opts or {}
@@ -61,8 +64,12 @@ return {
       },
     }
 
-    -- Pick
-    -- require('mini.pick').setup()
+    -- Snippets
+    require('mini.snippets').setup {
+      snippets = {
+        require('mini.snippets').gen_loader.from_lang(),
+      },
+    }
 
     -- Move selection in lines or columns
     require('mini.move').setup {
@@ -79,6 +86,11 @@ return {
         Snacks.rename.on_rename_file(event.data.from, event.data.to)
       end,
     })
+
+    -- Enable mini.diff overlay
+    map('n', '<leader>gt', function()
+      require('mini.diff').toggle_overlay(0)
+    end, { desc = '[G]it [T]oggle Overlay' })
 
     -- Open mini.files
     map('n', '<leader>C', function()
