@@ -1,0 +1,24 @@
+# Nix build outputs
+result
+result-*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Direnv
+.direnv/
+.envrc
+
+# Local test configurations
+test-configs/
+*.test.nix
+
+# Temporary files
+*.bak
+*.tmp
+.bkp

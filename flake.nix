@@ -39,6 +39,8 @@
         ./parts/nixos-configurations.nix
         ./parts/overlays.nix
         ./parts/formatter.nix
+        ./parts/packages.nix
+        ./parts/dev-shells.nix
       ];
 
       # Define systems to support
