@@ -1,3 +1,7 @@
+# Notification daemon configuration module for Home Manager
+# Exported as flake.modules.homeManager.notification
+{
+  flake.modules.homeManager.notification = 
 {
   config,
   lib,
@@ -32,4 +36,6 @@ in {
       };
     };
   };
+}
+;
 }

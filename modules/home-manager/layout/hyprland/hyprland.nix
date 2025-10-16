@@ -1,3 +1,7 @@
+# Hyprland Wayland compositor configuration module for Home Manager
+# Exported as flake.modules.homeManager.hyprland
+{
+  flake.modules.homeManager.hyprland = 
 {
   pkgs,
   lib,
@@ -335,4 +339,6 @@ in {
       };
     };
   };
+}
+;
 }

@@ -1,3 +1,7 @@
+# Power menu script for Home Manager
+# Exported as flake.modules.homeManager.script-powermenu
+{
+  flake.modules.homeManager.script-powermenu = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "powermenu";
@@ -93,4 +97,6 @@ pkgs.writeShellApplication {
       ;;
     esac
   '';
+}
+;
 }

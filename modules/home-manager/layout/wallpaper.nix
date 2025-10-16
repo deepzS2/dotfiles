@@ -1,3 +1,7 @@
+# Wallpaper management configuration module for Home Manager
+# Exported as flake.modules.homeManager.wallpaper
+{
+  flake.modules.homeManager.wallpaper = 
 {
   pkgs,
   lib,
@@ -13,4 +17,6 @@ in {
   config = lib.mkIf cfg.enable {
     services.swww.enable = true;
   };
+}
+;
 }

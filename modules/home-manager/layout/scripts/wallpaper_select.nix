@@ -1,3 +1,7 @@
+# Wallpaper selection script for Home Manager
+# Exported as flake.modules.homeManager.script-wallpaper-select
+{
+  flake.modules.homeManager.script-wallpaper-select = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "select_wallpaper";
@@ -113,4 +117,6 @@ pkgs.writeShellApplication {
 
       notify-send -i "$selected_wallpaper" "Wallpaper Applied" "New theme is ready!"
     fi '';
+}
+;
 }

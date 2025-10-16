@@ -1,3 +1,7 @@
+# Wallpaper load script for Home Manager
+# Exported as flake.modules.homeManager.script-wallpaper-load
+{
+  flake.modules.homeManager.script-wallpaper-load = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "load_wallpaper";
@@ -49,4 +53,6 @@ pkgs.writeShellApplication {
     killall -SIGUSR2 waybar
     swaync-client -rs
   '';
+}
+;
 }

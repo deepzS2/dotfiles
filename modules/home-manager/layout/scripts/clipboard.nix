@@ -1,3 +1,7 @@
+# Clipboard manager script for Home Manager
+# Exported as flake.modules.homeManager.script-clipboard
+{
+  flake.modules.homeManager.script-clipboard = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "rofi_clipboard";
@@ -27,4 +31,6 @@ pkgs.writeShellApplication {
         ;;
     esac
   '';
+}
+;
 }

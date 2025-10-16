@@ -1,3 +1,7 @@
+# Rofi application launcher configuration module for Home Manager
+# Exported as flake.modules.homeManager.rofi
+{
+  flake.modules.homeManager.rofi = 
 {
   pkgs,
   lib,
@@ -84,4 +88,6 @@ in {
       ".config/rofi/wifimenu_password.rasi".source = ../../../config/rofi/wifimenu_password.rasi;
     };
   };
+}
+;
 }

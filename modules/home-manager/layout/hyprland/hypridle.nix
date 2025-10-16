@@ -1,3 +1,7 @@
+# Hypridle idle daemon configuration module for Home Manager
+# Exported as flake.modules.homeManager.hypridle
+{
+  flake.modules.homeManager.hypridle = 
 {
   lib,
   config,
@@ -48,4 +52,6 @@ in {
       };
     };
   };
+}
+;
 }

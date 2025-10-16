@@ -1,3 +1,7 @@
+# Waybar status bar configuration module for Home Manager
+# Exported as flake.modules.homeManager.waybar
+{
+  flake.modules.homeManager.waybar = 
 {
   pkgs,
   lib,
@@ -46,4 +50,6 @@ in {
         else waybarConfigJson;
     };
   };
+}
+;
 }

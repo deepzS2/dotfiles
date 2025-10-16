@@ -1,3 +1,7 @@
+# Hyprlock screen locker configuration module for Home Manager
+# Exported as flake.modules.homeManager.hyprlock
+{
+  flake.modules.homeManager.hyprlock = 
 {
   lib,
   config,
@@ -100,4 +104,6 @@ in {
       };
     };
   };
+}
+;
 }

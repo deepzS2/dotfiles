@@ -1,3 +1,7 @@
+# WiFi menu script for Home Manager
+# Exported as flake.modules.homeManager.script-wifimenu
+{
+  flake.modules.homeManager.script-wifimenu = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "wifimenu";
@@ -44,4 +48,6 @@ pkgs.writeShellApplication {
         fi
     fi
   '';
+}
+;
 }

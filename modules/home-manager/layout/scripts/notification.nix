@@ -1,3 +1,7 @@
+# Notification script for Home Manager
+# Exported as flake.modules.homeManager.script-notification
+{
+  flake.modules.homeManager.script-notification = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "send_notification";
@@ -41,4 +45,6 @@ pkgs.writeShellApplication {
       ;;
     esac
   '';
+}
+;
 }

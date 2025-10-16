@@ -1,3 +1,7 @@
+# Stylix theme configuration module for Home Manager
+# Exported as flake.modules.homeManager.theme
+{
+  flake.modules.homeManager.theme = 
 {
   pkgs,
   lib,
@@ -51,4 +55,6 @@ in {
       };
     };
   };
+}
+;
 }

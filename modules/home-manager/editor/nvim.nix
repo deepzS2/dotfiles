@@ -1,3 +1,7 @@
+# Neovim editor configuration module for Home Manager
+# Exported as flake.modules.homeManager.nvim
+{
+  flake.modules.homeManager.nvim = 
 {
   pkgs,
   lib,
@@ -403,4 +407,6 @@ in {
       };
     };
   };
+}
+;
 }

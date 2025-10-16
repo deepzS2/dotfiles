@@ -1,3 +1,7 @@
+# Startup script for Home Manager
+# Exported as flake.modules.homeManager.script-startup
+{
+  flake.modules.homeManager.script-startup = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "initialize_setup";
@@ -32,4 +36,6 @@ pkgs.writeShellApplication {
     generate_wallpaper_cache
     hyprctl reload
   '';
+}
+;
 }

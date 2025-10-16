@@ -1,3 +1,7 @@
+# Wallpaper cache script for Home Manager
+# Exported as flake.modules.homeManager.script-wallpaper-cache
+{
+  flake.modules.homeManager.script-wallpaper-cache = 
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "generate_wallpaper_cache";
@@ -61,4 +65,6 @@ pkgs.writeShellApplication {
       exit 1
     fi
   '';
+}
+;
 }
