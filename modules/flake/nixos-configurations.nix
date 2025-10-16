@@ -14,8 +14,8 @@
           inherit system;
           specialArgs = {inherit inputs system self;};
           modules = [
-            # Host configuration
-            ../hosts/default/configuration.nix
+            # Host configuration from flake.modules
+            self.modules.nixos.default
 
             # Overlays
             ../../overlays
