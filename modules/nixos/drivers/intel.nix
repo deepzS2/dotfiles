@@ -1,3 +1,7 @@
+# Intel graphics driver configuration module for NixOS
+# Exported as flake.modules.nixosModules.drivers-intel
+{
+  flake.modules.nixosModules.drivers-intel = 
 {
   lib,
   pkgs,
@@ -25,4 +29,6 @@ in {
       ];
     };
   };
+}
+;
 }

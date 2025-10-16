@@ -1,3 +1,7 @@
+# Nvidia graphics driver configuration module for NixOS
+# Exported as flake.modules.nixosModules.drivers-nvidia
+{
+  flake.modules.nixosModules.drivers-nvidia = 
 {
   lib,
   pkgs,
@@ -81,4 +85,6 @@ in {
       };
     };
   };
+}
+;
 }

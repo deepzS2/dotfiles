@@ -1,3 +1,7 @@
+# Starship prompt configuration module for Home Manager
+# Exported as flake.modules.homeManager.prompt
+{
+  flake.modules.homeManager.prompt = 
 {
   lib,
   config,
@@ -81,4 +85,6 @@ in {
       };
     };
   };
+}
+;
 }

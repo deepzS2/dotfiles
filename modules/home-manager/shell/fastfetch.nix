@@ -1,3 +1,7 @@
+# Fastfetch system information tool configuration module for Home Manager
+# Exported as flake.modules.homeManager.fastfetch
+{
+  flake.modules.homeManager.fastfetch = 
 {
   pkgs,
   lib,
@@ -108,4 +112,6 @@ in {
       };
     };
   };
+}
+;
 }

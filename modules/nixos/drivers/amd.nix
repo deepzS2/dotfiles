@@ -1,3 +1,7 @@
+# AMD graphics driver configuration module for NixOS
+# Exported as flake.modules.nixosModules.drivers-amd
+{
+  flake.modules.nixosModules.drivers-amd = 
 {
   lib,
   pkgs,
@@ -22,4 +26,6 @@ in {
       ];
     };
   };
+}
+;
 }

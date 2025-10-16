@@ -1,3 +1,7 @@
+# TMUX terminal multiplexer configuration module for Home Manager
+# Exported as flake.modules.homeManager.tmux
+{
+  flake.modules.homeManager.tmux = 
 {
   pkgs,
   lib,
@@ -97,4 +101,6 @@ in {
       ];
     };
   });
+}
+;
 }
