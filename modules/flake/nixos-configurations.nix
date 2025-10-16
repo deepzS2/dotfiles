@@ -2,6 +2,7 @@
 # This module defines all NixOS system configurations
 {
   inputs,
+  self,
   withSystem,
   ...
 }: {
@@ -11,13 +12,13 @@
       {system, ...}:
         inputs.nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = {inherit inputs system;};
+          specialArgs = {inherit inputs system self;};
           modules = [
             # Host configuration
             ../hosts/default/configuration.nix
 
             # Overlays
-            (import ../overlays)
+            ../../overlays
 
             # Global Nix settings
             {

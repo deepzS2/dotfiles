@@ -1,11 +1,61 @@
-{inputs, ...}: {
-  imports = [
-    inputs.zen-browser.homeModules.beta
-    inputs.nixCats.homeModule
-    inputs.stylix.homeModules.stylix
-    inputs.agenix.homeManagerModules.default
-    ../../modules/home-manager
-  ];
+{
+  inputs,
+  self,
+  ...
+}: {
+  imports =
+    [
+      inputs.zen-browser.homeModules.beta
+      inputs.nixCats.homeModule
+      inputs.stylix.homeModules.stylix
+      inputs.agenix.homeManagerModules.default
+    ]
+    ++ (with self.modules.homeManager; [
+      git
+      # Applications
+      browser
+      discord
+      obs
+      terminal
+      video-player
+      # Development
+      elixir
+      go
+      javascript
+      rust
+      # Editor
+      vscode
+      nvim
+      # Shell
+      ai
+      btop
+      fastfetch
+      nushell
+      prompt
+      tmux
+      # Layout
+      notification
+      rofi
+      theme
+      wallpaper
+      waybar
+      # Hyprland
+      hypridle
+      hyprland
+      hyprlock
+      # Scripts
+      script-clipboard
+      script-notification
+      script-powermenu
+      script-startup
+      script-wallpaper-cache
+      script-wallpaper-load
+      script-wallpaper-select
+      script-wifimenu
+      # Secrets
+      nix-helper
+      secrets
+    ]);
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -23,56 +73,6 @@
   # manage.
   home.username = "deepz";
   home.homeDirectory = "/home/deepz";
-
-  git.enable = true;
-  development = {
-    javascript = {
-      runtimes.enable = true;
-      package-managers.enable = true;
-    };
-    go = {
-      enable = true;
-      air.enable = true;
-    };
-    rust = {
-      enable = true;
-      cargo-watch.enable = true;
-      cargo-edit.enable = true;
-      bacon.enable = true;
-    };
-  };
-  applications = {
-    browser.enable = true;
-    discord.enable = true;
-    obs.enable = true;
-    terminal.enable = true;
-    video-player.enable = true;
-  };
-  editor = {
-    vscode.enable = true;
-    nvim.enable = true;
-  };
-  shell = {
-    ai.enable = true;
-    btop.enable = true;
-    fastfetch.enable = true;
-    nushell.enable = true;
-    prompt.enable = true;
-    tmux.enable = true;
-  };
-  layout = {
-    hyprland = {
-      enable = true;
-      hypridle.enable = true;
-      hyprlock.enable = true;
-    };
-    scripts.enable = true;
-    notification.enable = true;
-    rofi.enable = true;
-    theme.enable = true;
-    wallpaper.enable = true;
-    waybar.enable = true;
-  };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a

@@ -2,14 +2,24 @@
   pkgs,
   inputs,
   system,
+  self,
   ...
 }: {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ../../modules/nixos
-    inputs.home-manager.nixosModules.default
-  ];
+  imports =
+    [
+      # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
+    ]
+    ++ (with self.modules.nixosModules; [
+      audio
+      containers
+      display-manager
+      drivers-nvidia
+      fonts
+      locale
+      network
+    ]);
 
   # Bootloader (with secure boot).
   boot.loader.limine = {
@@ -34,8 +44,6 @@
     enable32Bit = true;
   };
 
-  drivers.nvidia.enable = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -49,7 +57,7 @@
   };
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs system;};
+    extraSpecialArgs = {inherit inputs system self;};
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bkp";
