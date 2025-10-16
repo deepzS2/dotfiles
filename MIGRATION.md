@@ -20,7 +20,7 @@ This document explains the changes made during the migration from a traditional 
 .
 ├── flake.nix              # Entry point, imports modules
 ├── modules/               # All modules organized by type
-│   ├── flake/            # NEW: Modular flake outputs (exported as flakeModules)
+│   ├── flake/            # NEW: Modular flake outputs (exported as modules)
 │   │   ├── nixos-configurations.nix
 │   │   ├── overlays.nix
 │   │   ├── formatter.nix
@@ -80,12 +80,25 @@ This document explains the changes made during the migration from a traditional 
       systems = ["x86_64-linux"];
       
       # Export modules for reuse in other projects
-      flake.flakeModules = {
+      flake.modules = {
         nixos-configurations = ./modules/flake/nixos-configurations.nix;
-        overlays = ./modules/flake/overlays.nix;
-        formatter = ./modules/flake/formatter.nix;
-        packages = ./modules/flake/packages.nix;
-        dev-shells = ./modules/flake/dev-shells.nix;
+      # Export modules organized by class for reuse in other projects
+      flake.modules = {
+        generic = {
+          nixos-configurations = ./modules/flake/nixos-configurations.nix;
+          overlays = ./modules/flake/overlays.nix;
+          formatter = ./modules/flake/formatter.nix;
+          packages = ./modules/flake/packages.nix;
+          dev-shells = ./modules/flake/dev-shells.nix;
+        };
+        nixosModules = {
+          audio = ./modules/nixos/audio.nix;
+          # ... other NixOS modules
+        };
+        homeModules = {
+          git = ./modules/home-manager/git.nix;
+          # ... other Home Manager modules
+        };
       };
     };
 }
@@ -97,7 +110,7 @@ This document explains the changes made during the migration from a traditional 
 - Moved outputs to separate modules in `modules/flake/`
 - Added `systems` list for multi-platform support
 - Configuration is now modular and importable
-- Modules are exported via `flakeModules` for reuse
+- Modules are exported via `flake.modules` organized by class (generic, nixosModules, homeModules)
 
 #### New Files Created
 
@@ -183,7 +196,7 @@ Flake-parts modules can be shared across multiple flakes:
   outputs = {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        my-dotfiles.flakeModules.overlays
+        my-dotfiles.modules.overlays
       ];
     };
 }

@@ -16,7 +16,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - `packages.nix` - Custom packages and helper scripts
   - `dev-shells.nix` - Development environments
 - All flake-parts modules now live under `modules/` alongside nixos and home-manager modules
-- Modules are exported via `flakeModules` for reuse in other projects
+- Modules are exported via `flake.modules` organized by class:
+  - `generic` - Flake-parts modules
+  - `nixosModules` - NixOS system modules
+  - `homeModules` - Home Manager modules
 
 #### New Documentation
 - **`README.md`** - Comprehensive project overview

@@ -34,7 +34,7 @@ This repository contains my personal NixOS configuration, organized using [flake
 ├── flake.nix                    # Main flake entry point (uses flake-parts)
 ├── flake.lock                   # Locked dependencies
 ├── modules/                     # All modules organized by type
-│   ├── flake/                   # Flake-parts modules (exported as flakeModules)
+│   ├── flake/                   # Flake-parts modules (exported as modules)
 │   │   ├── nixos-configurations.nix # System configurations
 │   │   ├── overlays.nix            # Nixpkgs overlays
 │   │   ├── formatter.nix           # Code formatter configuration
@@ -125,30 +125,51 @@ This repository contains my personal NixOS configuration, organized using [flake
 
 ### Using Flake Modules in Other Projects
 
-This configuration exports reusable flake-parts modules via `flakeModules`:
+This configuration exports reusable modules organized by class via `flake.modules`:
 
+**Flake-parts modules (generic):**
 ```nix
 {
-  inputs.my-dotfiles.url = "github:deepzS2/dotfiles";
+  inputs.deepz-dotfiles.url = "github:deepzS2/dotfiles";
   
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        # Import specific modules
-        inputs.my-dotfiles.flakeModules.formatter
-        inputs.my-dotfiles.flakeModules.packages
-        inputs.my-dotfiles.flakeModules.dev-shells
+        # Import specific flake-parts modules
+        inputs.deepz-dotfiles.modules.generic.formatter
+        inputs.deepz-dotfiles.modules.generic.packages
+        inputs.deepz-dotfiles.modules.generic.dev-shells
       ];
     };
 }
 ```
 
-Available modules:
-- `formatter` - Alejandra Nix formatter
-- `packages` - Helper scripts (rebuild, update, clean)
-- `dev-shells` - Development environments
-- `overlays` - VSCode extensions overlay
-- `nixos-configurations` - System configuration pattern
+**NixOS modules:**
+```nix
+{
+  imports = [
+    inputs.deepz-dotfiles.modules.nixosModules.audio
+    inputs.deepz-dotfiles.modules.nixosModules.fonts
+    inputs.deepz-dotfiles.modules.nixosModules.drivers
+  ];
+}
+```
+
+**Home Manager modules:**
+```nix
+{
+  imports = [
+    inputs.deepz-dotfiles.modules.homeModules.git
+    inputs.deepz-dotfiles.modules.homeModules.shell
+    inputs.deepz-dotfiles.modules.homeModules.editor
+  ];
+}
+```
+
+Available module classes:
+- `generic` - Flake-parts modules (formatter, packages, dev-shells, overlays, nixos-configurations)
+- `nixosModules` - NixOS system modules (audio, containers, drivers, fonts, locale, network, etc.)
+- `homeModules` - Home Manager modules (git, applications, development, editor, layout, shell, etc.)
 
 ### Enabling/Disabling Modules
 

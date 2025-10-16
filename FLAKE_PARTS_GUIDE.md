@@ -59,7 +59,7 @@ This guide explains the flake-parts architecture used in this NixOS configuratio
 .
 ├── flake.nix                    # Entry point - imports flake-parts modules
 ├── modules/                     # All modules organized by type
-│   ├── flake/                   # Flake-parts modules (exported as flakeModules)
+│   ├── flake/                   # Flake-parts modules (exported as modules)
 │   │   ├── nixos-configurations.nix # Defines NixOS system configurations
 │   │   ├── overlays.nix            # Defines nixpkgs overlays
 │   │   ├── formatter.nix           # Defines code formatter
@@ -91,11 +91,21 @@ The main flake file is minimal and delegates to flake-parts:
       ];
       systems = ["x86_64-linux"];
       
-      # Export modules for reuse in other flakes
-      flake.flakeModules = {
-        nixos-configurations = ./modules/flake/nixos-configurations.nix;
-        overlays = ./modules/flake/overlays.nix;
-        formatter = ./modules/flake/formatter.nix;
+      # Export modules organized by class for reuse in other flakes
+      flake.modules = {
+        generic = {
+          nixos-configurations = ./modules/flake/nixos-configurations.nix;
+          overlays = ./modules/flake/overlays.nix;
+          formatter = ./modules/flake/formatter.nix;
+        };
+        nixosModules = {
+          audio = ./modules/nixos/audio.nix;
+          # ... other NixOS modules
+        };
+        homeModules = {
+          git = ./modules/home-manager/git.nix;
+          # ... other Home Manager modules
+        };
       };
     };
 }
@@ -105,19 +115,26 @@ The main flake file is minimal and delegates to flake-parts:
 - `mkFlake` - Creates the flake with flake-parts
 - `imports` - List of flake-parts modules to include
 - `systems` - Supported systems (used by `perSystem`)
-- `flake.flakeModules` - Export modules for reuse in other flakes
+- `flake.modules` - Export modules organized by class (generic, nixosModules, homeModules)
 
-#### 2. `modules/flake/` Directory
+#### 2. `modules/` Directory
 
-Contains flake-parts modules that define outputs:
+Contains all modules organized by type:
 
+**`modules/flake/`** - Flake-parts modules that define outputs:
 - **nixos-configurations.nix** - Defines `nixosConfigurations` output
 - **overlays.nix** - Defines `overlays` output
 - **formatter.nix** - Defines `formatter` per-system output
 - **packages.nix** - Defines `packages` per-system output
 - **dev-shells.nix** - Defines `devShells` per-system output
 
-These modules are also exported via `flakeModules` for reuse in other projects.
+**`modules/nixos/`** - NixOS system modules:
+- Audio, containers, display-manager, drivers, fonts, locale, network, etc.
+
+**`modules/home-manager/`** - Home Manager modules:
+- Applications, development, editor, git, layout, shell, etc.
+
+All modules are exported via `flake.modules` organized by class for reuse in other projects.
 
 #### 3. `hosts/` Directory
 
@@ -541,23 +558,43 @@ nix eval .#nixosConfigurations.default.config.system.build.toplevel
 
 ### Sharing Modules Between Flakes
 
-This configuration exports all flake-parts modules via `flakeModules`, making them reusable in other projects:
+This configuration exports all modules organized by class via `flake.modules`, making them reusable in other projects:
 
 ```nix
-# This flake exports modules
+# This flake exports modules organized by class
 {
-  flake.flakeModules = {
-    nixos-configurations = ./modules/flake/nixos-configurations.nix;
-    overlays = ./modules/flake/overlays.nix;
-    formatter = ./modules/flake/formatter.nix;
-    packages = ./modules/flake/packages.nix;
-    dev-shells = ./modules/flake/dev-shells.nix;
+  flake.modules = {
+    # Generic modules - flake-parts modules that can be used anywhere
+    generic = {
+      nixos-configurations = ./modules/flake/nixos-configurations.nix;
+      overlays = ./modules/flake/overlays.nix;
+      formatter = ./modules/flake/formatter.nix;
+      packages = ./modules/flake/packages.nix;
+      dev-shells = ./modules/flake/dev-shells.nix;
+    };
+    
+    # NixOS modules - for NixOS system configuration
+    nixosModules = {
+      audio = ./modules/nixos/audio.nix;
+      containers = ./modules/nixos/containers.nix;
+      fonts = ./modules/nixos/fonts.nix;
+      # ... other NixOS modules
+    };
+    
+    # Home Manager modules - for home-manager configuration
+    homeModules = {
+      git = ./modules/home-manager/git.nix;
+      applications = ./modules/home-manager/applications;
+      shell = ./modules/home-manager/shell;
+      # ... other Home Manager modules
+    };
   };
 }
 ```
 
 Using exported modules in another flake:
 
+**Using flake-parts modules (generic):**
 ```nix
 {
   inputs.deepz-dotfiles.url = "github:deepzS2/dotfiles";
@@ -565,14 +602,42 @@ Using exported modules in another flake:
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        # Import specific modules you want to use
-        inputs.deepz-dotfiles.flakeModules.formatter
-        inputs.deepz-dotfiles.flakeModules.packages
-        inputs.deepz-dotfiles.flakeModules.dev-shells
+        # Import specific flake-parts modules you want to use
+        inputs.deepz-dotfiles.modules.generic.formatter
+        inputs.deepz-dotfiles.modules.generic.packages
+        inputs.deepz-dotfiles.modules.generic.dev-shells
       ];
       
       systems = ["x86_64-linux"];
     };
+}
+```
+
+**Using NixOS modules:**
+```nix
+{
+  inputs.deepz-dotfiles.url = "github:deepzS2/dotfiles";
+  
+  # In your NixOS configuration
+  imports = [
+    inputs.deepz-dotfiles.modules.nixosModules.audio
+    inputs.deepz-dotfiles.modules.nixosModules.fonts
+    inputs.deepz-dotfiles.modules.nixosModules.drivers
+  ];
+}
+```
+
+**Using Home Manager modules:**
+```nix
+{
+  inputs.deepz-dotfiles.url = "github:deepzS2/dotfiles";
+  
+  # In your Home Manager configuration
+  imports = [
+    inputs.deepz-dotfiles.modules.homeModules.git
+    inputs.deepz-dotfiles.modules.homeModules.shell
+    inputs.deepz-dotfiles.modules.homeModules.editor
+  ];
 }
 ```
 
