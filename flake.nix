@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    
+    # Flake-parts for modular flake configuration
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     zen-browser = {
@@ -28,36 +32,26 @@
     agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
-    system = "x86_64-linux";
-  in {
-    nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs system;};
-        modules = [
-          ./hosts/default/configuration.nix
-          (import ./overlays)
-          {
-            # Allow unfree packages
-            nixpkgs.config.allowUnfree = true;
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      # Import all flake-parts modules
+      imports = [
+        ./parts/nixos-configurations.nix
+        ./parts/overlays.nix
+        ./parts/formatter.nix
+      ];
 
-            nix = {
-              # For nix LSP
-              nixPath = ["nixpkgs=${nixpkgs}"];
+      # Define systems to support
+      systems = ["x86_64-linux"];
 
-              # Garbage collector
-              gc = {
-                automatic = true;
-                dates = "weekly";
-                options = "--delete-older-than 7d";
-              };
-
-              # Enable Flakes
-              settings.experimental-features = ["nix-command" "flakes"];
-            };
-          }
-        ];
+      # Per-system configuration
+      perSystem = {
+        config,
+        system,
+        pkgs,
+        ...
+      }: {
+        # This will be populated by individual modules
       };
     };
-  };
 }
