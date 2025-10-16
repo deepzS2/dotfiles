@@ -177,7 +177,10 @@ sudo nix-collect-garbage --delete-older-than 7d
 
 ## 📚 Documentation
 
-For detailed information about the flake-parts architecture and how to extend this configuration, see [FLAKE_PARTS_GUIDE.md](./FLAKE_PARTS_GUIDE.md).
+- **[README.md](./README.md)** - This file, overview and quick start
+- **[QUICKREF.md](./QUICKREF.md)** - Quick reference card for common commands
+- **[FLAKE_PARTS_GUIDE.md](./FLAKE_PARTS_GUIDE.md)** - Detailed guide on flake-parts architecture
+- **[MIGRATION.md](./MIGRATION.md)** - Migration guide from traditional flake to flake-parts
 
 ## 🤝 Contributing
 
