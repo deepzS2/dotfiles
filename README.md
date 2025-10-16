@@ -1,254 +1,74 @@
-# NixOS Configuration with flake-parts
+# deepzS2's NixOS Dotfiles
 
-This repository contains my personal NixOS configuration, organized using [flake-parts](https://flake.parts/) for a modular and maintainable setup.
+NixOS configuration using flake-parts with self-registering modules.
 
-## 🚀 Quick Start
+## Quick Start
 
-### Prerequisites
-
-- NixOS with Flakes enabled
-- Git
-
-### Installation
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/deepzS2/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
-   ```
-
-2. Build and switch to the configuration:
-   ```bash
-   sudo nixos-rebuild switch --flake .#default
-   ```
-
-3. For home-manager changes only:
-   ```bash
-   home-manager switch --flake .#deepz@default
-   ```
-
-## 📁 Repository Structure
-
-```
-.
-├── flake.nix                    # Main flake entry point (uses flake-parts)
-├── flake.lock                   # Locked dependencies
-├── modules/                     # All modules organized by type
-│   ├── flake/                   # Flake-parts modules (exported as modules)
-│   │   ├── nixos-configurations.nix # System configurations
-│   │   ├── overlays.nix            # Nixpkgs overlays
-│   │   ├── formatter.nix           # Code formatter configuration
-│   │   ├── packages.nix            # Custom packages
-│   │   └── dev-shells.nix          # Development environments
-│   ├── nixos/                   # NixOS system modules
-│   │   ├── audio.nix           # Audio/Bluetooth configuration
-│   │   ├── containers.nix      # Container/Docker setup
-│   │   ├── display-manager.nix # Display manager settings
-│   │   ├── drivers/            # Hardware drivers (AMD, Intel, NVIDIA)
-│   │   ├── fonts.nix           # Font configuration
-│   │   ├── locale.nix          # Localization settings
-│   │   └── network.nix         # Network configuration
-│   └── home-manager/           # Home Manager modules
-│       ├── applications/        # Desktop applications
-│       ├── development/         # Development tools (Go, Rust, JS, etc.)
-│       ├── editor/             # Text editors (VSCode, Neovim)
-│       ├── layout/             # Desktop environment (Hyprland, Waybar, etc.)
-│       ├── shell/              # Shell configuration (Nushell, tmux, etc.)
-│       └── git.nix             # Git configuration
-├── hosts/                       # Host-specific configurations
-│   └── default/
-│       ├── configuration.nix    # NixOS system configuration
-│       ├── hardware-configuration.nix  # Hardware-specific settings
-│       └── home.nix            # Home Manager user configuration
-├── overlays/                    # Nixpkgs overlays
-│   └── default.nix             # VSCode extensions overlay
-├── config/                      # Application configurations
-│   ├── nvim/                   # Neovim config
-│   ├── rofi/                   # Rofi launcher config
-│   ├── waybar/                 # Waybar config
-│   └── theme/                  # Theme files and wallpapers
-└── secrets/                     # Encrypted secrets (agenix)
+```bash
+# Update and rebuild
+nix flake update
+sudo nixos-rebuild switch --flake .#default
+home-manager switch --flake .#deepz@default
 ```
 
-## 🎯 Features
+## Structure
 
-### System Features
-- **Bootloader**: Limine with Secure Boot support
-- **Display**: Hyprland Wayland compositor
-- **Audio**: PipeWire with Bluetooth support
-- **Drivers**: Modular driver support (AMD, Intel, NVIDIA)
-- **Containers**: Docker support
+```
+modules/
+├── flake/          # Flake outputs (formatter, packages, dev-shells, overlays, configs)
+├── nixos/          # System modules (audio, containers, drivers, fonts, locale, network)
+└── home-manager/   # User modules (git, nvim, shell, layout, applications, development, etc.)
+```
 
-### Development Tools
-- **Languages**: Go, Rust, JavaScript/Node.js, Elixir
-- **Editors**: VSCode, Neovim (nixCats)
-- **Shell**: Nushell with custom prompt (Starship)
-- **Terminal**: Kitty with tmux
+All modules auto-imported via [import-tree](https://github.com/vic/import-tree). Just create a `.nix` file and it's available.
 
-### Desktop Environment
-- **Compositor**: Hyprland
-- **Bar**: Waybar with custom styling
-- **Launcher**: Rofi
-- **Notifications**: Dunst/Mako
-- **Theme**: Managed by Stylix
-- **Browser**: Zen Browser (Firefox-based)
+## Module Pattern
 
-## 🔧 Configuration
+Each module self-registers:
 
-### Adding a New Host
+```nix
+# modules/home-manager/git.nix
+{
+  flake.modules.homeManager.git = {pkgs, ...}: {
+    programs.git = {
+      enable = true;
+      userName = "deepzS2";
+      userEmail = "alanr.developer@hotmail.com";
+    };
+  };
+}
+```
 
-1. Create a new directory under `hosts/`:
-   ```bash
-   mkdir -p hosts/my-new-host
-   ```
+Import modules in host configs:
 
-2. Add configuration files:
-   - `configuration.nix` - System configuration
-   - `hardware-configuration.nix` - Hardware settings
-   - `home.nix` - User configuration
+```nix
+# hosts/default/home.nix
+{self, ...}: {
+  imports = with self.modules.homeManager; [
+    git
+    nvim
+    hyprland
+  ];
+}
+```
 
-3. Add the host to `modules/flake/nixos-configurations.nix`:
-   ```nix
-   flake.nixosConfigurations = {
-     my-new-host = withSystem "x86_64-linux" ({system, ...}:
-       inputs.nixpkgs.lib.nixosSystem {
-         inherit system;
-         specialArgs = {inherit inputs system;};
-         modules = [
-           ../hosts/my-new-host/configuration.nix
-           # ... other modules
-         ];
-       }
-     );
-   };
-   ```
+## Usage in Other Projects
 
-### Using Flake Modules in Other Projects
-
-This configuration exports reusable modules organized by class via `flake.modules`:
-
-**Flake-parts modules (generic):**
 ```nix
 {
   inputs.deepz-dotfiles.url = "github:deepzS2/dotfiles";
   
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [
-        # Import specific flake-parts modules
-        inputs.deepz-dotfiles.modules.generic.formatter
-        inputs.deepz-dotfiles.modules.generic.packages
-        inputs.deepz-dotfiles.modules.generic.dev-shells
-      ];
-    };
-}
-```
-
-**NixOS modules:**
-```nix
-{
   imports = [
+    inputs.deepz-dotfiles.modules.homeManager.git
     inputs.deepz-dotfiles.modules.nixosModules.audio
-    inputs.deepz-dotfiles.modules.nixosModules.fonts
-    inputs.deepz-dotfiles.modules.nixosModules.drivers
   ];
 }
 ```
 
-**Home Manager modules:**
-```nix
-{
-  imports = [
-    inputs.deepz-dotfiles.modules.homeModules.git
-    inputs.deepz-dotfiles.modules.homeModules.shell
-    inputs.deepz-dotfiles.modules.homeModules.editor
-  ];
-}
-```
+## Development
 
-Available module classes:
-- `generic` - Flake-parts modules (formatter, packages, dev-shells, overlays, nixos-configurations)
-- `nixosModules` - NixOS system modules (audio, containers, drivers, fonts, locale, network, etc.)
-- `homeModules` - Home Manager modules (git, applications, development, editor, layout, shell, etc.)
-
-### Enabling/Disabling Modules
-
-Modules are configured in `hosts/default/home.nix`. Simply toggle the `enable` option:
-
-```nix
-{
-  # Enable Git
-  git.enable = true;
-  
-  # Enable development tools
-  development = {
-    rust.enable = true;
-    go.enable = true;
-  };
-  
-  # Enable applications
-  applications = {
-    browser.enable = true;
-    discord.enable = true;
-  };
-}
-```
-
-### Managing Secrets
-
-Secrets are managed using [agenix](https://github.com/ryantm/agenix). See `secrets/` directory.
-
-## 🛠️ Maintenance
-
-### Update Flake Inputs
 ```bash
-nix flake update
+nix fmt              # Format code
+nix develop          # Dev shell
+nix flake check      # Validate flake
 ```
-
-### Update Specific Input
-```bash
-nix flake lock --update-input nixpkgs
-```
-
-### Format Nix Code
-```bash
-nix fmt
-```
-
-### Check Flake
-```bash
-nix flake check
-```
-
-### Clean Old Generations
-```bash
-sudo nix-collect-garbage --delete-older-than 7d
-```
-
-## 📚 Documentation
-
-- **[README.md](./README.md)** - This file, overview and quick start
-- **[QUICKREF.md](./QUICKREF.md)** - Quick reference card for common commands
-- **[FLAKE_PARTS_GUIDE.md](./FLAKE_PARTS_GUIDE.md)** - Detailed guide on flake-parts architecture
-- **[MIGRATION.md](./MIGRATION.md)** - Migration guide from traditional flake to flake-parts
-
-## 🤝 Contributing
-
-This is a personal configuration, but feel free to:
-- Use it as inspiration for your own config
-- Submit issues if you find bugs
-- Suggest improvements via pull requests
-
-## 📝 License
-
-This configuration is provided as-is for educational and personal use.
-
-## 🙏 Credits
-
-Built with:
-- [NixOS](https://nixos.org/)
-- [flake-parts](https://flake.parts/)
-- [home-manager](https://github.com/nix-community/home-manager)
-- [Hyprland](https://hyprland.org/)
-- [Stylix](https://github.com/danth/stylix)
-- And many other amazing Nix community projects!

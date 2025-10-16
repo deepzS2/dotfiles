@@ -1,35 +1,22 @@
-# AI tools configuration module for Home Manager
-# Exported as flake.modules.homeManager.ai
 {
   flake.modules.homeManager.ai = {
-    lib,
-    config,
     pkgs,
+    config,
     ...
-  }: let
-    cfg = config.shell.ai;
-  in {
-    options = {
-      shell.ai.enable = lib.mkEnableOption "AI tools";
-    };
+  }: {
+    programs.nushell.extraEnv = ''
+      $env.GOOGLE_API_KEY = (bash -c "cat ${config.age.secrets.gemini_key.path}")
+    '';
 
-    config = lib.mkIf cfg.enable {
-      programs.nushell.extraEnv = lib.mkAfter ''
-        $env.GOOGLE_API_KEY = (bash -c "cat ${config.age.secrets.gemini_key.path}")
-      '';
-
-      programs.opencode = {
-        enable = true;
-        settings = {
-          model = "github-copilot/gpt-5";
-          theme = "kanagawa";
-          autoupdate = true;
-        };
+    programs.opencode = {
+      enable = true;
+      settings = {
+        model = "github-copilot/gpt-5";
+        theme = "kanagawa";
+        autoupdate = true;
       };
-
-      home.packages = [
-        pkgs.gemini-cli
-      ];
     };
+
+    home.packages = [pkgs.gemini-cli];
   };
 }
