@@ -14,7 +14,7 @@ This guide explains the flake-parts architecture used in this NixOS configuratio
 
 ## What is flake-parts?
 
-[flake-parts](https://flake.parts/) is a framework for writing Nix flakes in a modular way. Instead of having all configuration in a single `flake.nix` file, flake-parts allows you to:
+[flake-parts](https://flake.modules/flake/) is a framework for writing Nix flakes in a modular way. Instead of having all configuration in a single `flake.nix` file, flake-parts allows you to:
 
 - **Split configuration** into logical, reusable modules
 - **Compose modules** from different sources
@@ -42,9 +42,9 @@ This guide explains the flake-parts architecture used in this NixOS configuratio
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        ./parts/nixos-configurations.nix
-        ./parts/packages.nix
-        ./parts/formatter.nix
+        ./modules/flake/nixos-configurations.nix
+        ./modules/flake/packages.nix
+        ./modules/flake/formatter.nix
       ];
       systems = ["x86_64-linux"];
     };
@@ -58,18 +58,20 @@ This guide explains the flake-parts architecture used in this NixOS configuratio
 ```
 .
 ├── flake.nix                    # Entry point - imports flake-parts modules
-├── parts/                       # Flake-parts modules directory
-│   ├── nixos-configurations.nix # Defines NixOS system configurations
-│   ├── overlays.nix            # Defines nixpkgs overlays
-│   ├── formatter.nix           # Defines code formatter
-│   └── packages.nix            # (Optional) Custom packages
+├── modules/                     # All modules organized by type
+│   ├── flake/                   # Flake-parts modules (exported as flakeModules)
+│   │   ├── nixos-configurations.nix # Defines NixOS system configurations
+│   │   ├── overlays.nix            # Defines nixpkgs overlays
+│   │   ├── formatter.nix           # Defines code formatter
+│   │   ├── packages.nix            # Custom packages
+│   │   └── dev-shells.nix          # Development environments
+│   ├── nixos/                   # NixOS system modules
+│   └── home-manager/            # Home Manager modules
 ├── hosts/                       # Host-specific configurations
 │   └── default/
 │       ├── configuration.nix    # NixOS config
 │       └── home.nix            # Home Manager config
-└── modules/                     # Reusable NixOS/Home Manager modules
-    ├── nixos/
-    └── home-manager/
+└── overlays/                    # Additional overlays
 ```
 
 ### Main Components
@@ -83,11 +85,18 @@ The main flake file is minimal and delegates to flake-parts:
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        ./parts/nixos-configurations.nix
-        ./parts/overlays.nix
-        ./parts/formatter.nix
+        ./modules/flake/nixos-configurations.nix
+        ./modules/flake/overlays.nix
+        ./modules/flake/formatter.nix
       ];
       systems = ["x86_64-linux"];
+      
+      # Export modules for reuse in other flakes
+      flake.flakeModules = {
+        nixos-configurations = ./modules/flake/nixos-configurations.nix;
+        overlays = ./modules/flake/overlays.nix;
+        formatter = ./modules/flake/formatter.nix;
+      };
     };
 }
 ```
@@ -96,15 +105,19 @@ The main flake file is minimal and delegates to flake-parts:
 - `mkFlake` - Creates the flake with flake-parts
 - `imports` - List of flake-parts modules to include
 - `systems` - Supported systems (used by `perSystem`)
+- `flake.flakeModules` - Export modules for reuse in other flakes
 
-#### 2. `parts/` Directory
+#### 2. `modules/flake/` Directory
 
 Contains flake-parts modules that define outputs:
 
 - **nixos-configurations.nix** - Defines `nixosConfigurations` output
 - **overlays.nix** - Defines `overlays` output
 - **formatter.nix** - Defines `formatter` per-system output
-- **(Future) packages.nix** - Would define `packages` per-system output
+- **packages.nix** - Defines `packages` per-system output
+- **dev-shells.nix** - Defines `devShells` per-system output
+
+These modules are also exported via `flakeModules` for reuse in other projects.
 
 #### 3. `hosts/` Directory
 
@@ -193,10 +206,10 @@ When you need to access per-system values in flake-level outputs, use `withSyste
 
 ### Example: Creating a Packages Module
 
-Let's create `parts/packages.nix` to define custom packages:
+Let's create `modules/flake/packages.nix` to define custom packages:
 
 ```nix
-# parts/packages.nix
+# modules/flake/packages.nix
 {
   inputs,
   ...
@@ -224,20 +237,20 @@ Then add it to `flake.nix`:
 ```nix
 {
   imports = [
-    ./parts/nixos-configurations.nix
-    ./parts/overlays.nix
-    ./parts/formatter.nix
-    ./parts/packages.nix  # Add this line
+    ./modules/flake/nixos-configurations.nix
+    ./modules/flake/overlays.nix
+    ./modules/flake/formatter.nix
+    ./modules/flake/packages.nix  # Add this line
   ];
 }
 ```
 
 ### Example: Creating a Dev Shell Module
 
-Create `parts/dev-shells.nix`:
+Create `modules/flake/dev-shells.nix`:
 
 ```nix
-# parts/dev-shells.nix
+# modules/flake/dev-shells.nix
 {
   inputs,
   ...
@@ -270,7 +283,7 @@ Create `parts/dev-shells.nix`:
 
 ### Example: Adding More System Configurations
 
-Edit `parts/nixos-configurations.nix`:
+Edit `modules/flake/nixos-configurations.nix`:
 
 ```nix
 {
@@ -324,7 +337,7 @@ The Dendritic Pattern is an organizational philosophy for Nix configurations:
 
 ```
 flake.nix (root)
-  ├── parts/ (branches for flake outputs)
+  ├── modules/flake/ (branches for flake outputs)
   │   ├── nixos-configurations.nix
   │   ├── overlays.nix
   │   └── formatter.nix
@@ -356,7 +369,7 @@ Each module should have a single, well-defined purpose:
 
 ✅ **Good:**
 ```nix
-# parts/formatter.nix - Only defines formatter
+# modules/flake/formatter.nix - Only defines formatter
 {
   perSystem = {pkgs, ...}: {
     formatter = pkgs.alejandra;
@@ -366,7 +379,7 @@ Each module should have a single, well-defined purpose:
 
 ❌ **Bad:**
 ```nix
-# parts/formatter.nix - Mixed concerns
+# modules/flake/formatter.nix - Mixed concerns
 {
   perSystem = {pkgs, ...}: {
     formatter = pkgs.alejandra;
@@ -425,17 +438,17 @@ In `flake.nix`, group imports by category:
 {
   imports = [
     # Core system configuration
-    ./parts/nixos-configurations.nix
+    ./modules/flake/nixos-configurations.nix
     
     # Build tools
-    ./parts/formatter.nix
-    ./parts/packages.nix
+    ./modules/flake/formatter.nix
+    ./modules/flake/packages.nix
     
     # Nixpkgs customization
-    ./parts/overlays.nix
+    ./modules/flake/overlays.nix
     
     # Development
-    ./parts/dev-shells.nix
+    ./modules/flake/dev-shells.nix
   ];
 }
 ```
@@ -528,30 +541,46 @@ nix eval .#nixosConfigurations.default.config.system.build.toplevel
 
 ### Sharing Modules Between Flakes
 
-You can expose your flake-parts modules for use in other flakes:
+This configuration exports all flake-parts modules via `flakeModules`, making them reusable in other projects:
 
 ```nix
-# flake.nix
+# This flake exports modules
 {
   flake.flakeModules = {
-    myModule = ./parts/my-module.nix;
+    nixos-configurations = ./modules/flake/nixos-configurations.nix;
+    overlays = ./modules/flake/overlays.nix;
+    formatter = ./modules/flake/formatter.nix;
+    packages = ./modules/flake/packages.nix;
+    dev-shells = ./modules/flake/dev-shells.nix;
   };
 }
 ```
 
-Then in another flake:
+Using exported modules in another flake:
+
 ```nix
 {
-  inputs.my-dotfiles.url = "github:user/dotfiles";
+  inputs.deepz-dotfiles.url = "github:deepzS2/dotfiles";
   
-  outputs = {flake-parts, my-dotfiles, ...}:
+  outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        my-dotfiles.flakeModules.myModule
+        # Import specific modules you want to use
+        inputs.deepz-dotfiles.flakeModules.formatter
+        inputs.deepz-dotfiles.flakeModules.packages
+        inputs.deepz-dotfiles.flakeModules.dev-shells
       ];
+      
+      systems = ["x86_64-linux"];
     };
 }
 ```
+
+This allows you to:
+- Reuse the same formatter across projects
+- Share helper packages and scripts
+- Use the same development environment setup
+- Maintain consistent configuration patterns
 
 ### Using flake-parts with Other Frameworks
 
@@ -582,7 +611,7 @@ nix eval .#formatter.x86_64-linux
 
 ## Resources
 
-- [flake-parts Documentation](https://flake.parts/)
+- [flake-parts Documentation](https://flake.modules/flake/)
 - [flake-parts GitHub](https://github.com/hercules-ci/flake-parts)
 - [NixOS Wiki - Flakes](https://nixos.wiki/wiki/Flakes)
 - [Nix.dev - Flakes](https://nix.dev/concepts/flakes)

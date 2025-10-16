@@ -33,17 +33,14 @@ This repository contains my personal NixOS configuration, organized using [flake
 .
 ├── flake.nix                    # Main flake entry point (uses flake-parts)
 ├── flake.lock                   # Locked dependencies
-├── parts/                       # Flake-parts modules
-│   ├── nixos-configurations.nix # System configurations
-│   ├── overlays.nix            # Nixpkgs overlays
-│   └── formatter.nix           # Code formatter configuration
-├── hosts/                       # Host-specific configurations
-│   └── default/
-│       ├── configuration.nix    # NixOS system configuration
-│       ├── hardware-configuration.nix  # Hardware-specific settings
-│       └── home.nix            # Home Manager user configuration
-├── modules/                     # Reusable modules
-│   ├── nixos/                  # NixOS system modules
+├── modules/                     # All modules organized by type
+│   ├── flake/                   # Flake-parts modules (exported as flakeModules)
+│   │   ├── nixos-configurations.nix # System configurations
+│   │   ├── overlays.nix            # Nixpkgs overlays
+│   │   ├── formatter.nix           # Code formatter configuration
+│   │   ├── packages.nix            # Custom packages
+│   │   └── dev-shells.nix          # Development environments
+│   ├── nixos/                   # NixOS system modules
 │   │   ├── audio.nix           # Audio/Bluetooth configuration
 │   │   ├── containers.nix      # Container/Docker setup
 │   │   ├── display-manager.nix # Display manager settings
@@ -58,6 +55,11 @@ This repository contains my personal NixOS configuration, organized using [flake
 │       ├── layout/             # Desktop environment (Hyprland, Waybar, etc.)
 │       ├── shell/              # Shell configuration (Nushell, tmux, etc.)
 │       └── git.nix             # Git configuration
+├── hosts/                       # Host-specific configurations
+│   └── default/
+│       ├── configuration.nix    # NixOS system configuration
+│       ├── hardware-configuration.nix  # Hardware-specific settings
+│       └── home.nix            # Home Manager user configuration
 ├── overlays/                    # Nixpkgs overlays
 │   └── default.nix             # VSCode extensions overlay
 ├── config/                      # Application configurations
@@ -105,7 +107,7 @@ This repository contains my personal NixOS configuration, organized using [flake
    - `hardware-configuration.nix` - Hardware settings
    - `home.nix` - User configuration
 
-3. Add the host to `parts/nixos-configurations.nix`:
+3. Add the host to `modules/flake/nixos-configurations.nix`:
    ```nix
    flake.nixosConfigurations = {
      my-new-host = withSystem "x86_64-linux" ({system, ...}:
@@ -120,6 +122,33 @@ This repository contains my personal NixOS configuration, organized using [flake
      );
    };
    ```
+
+### Using Flake Modules in Other Projects
+
+This configuration exports reusable flake-parts modules via `flakeModules`:
+
+```nix
+{
+  inputs.my-dotfiles.url = "github:deepzS2/dotfiles";
+  
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        # Import specific modules
+        inputs.my-dotfiles.flakeModules.formatter
+        inputs.my-dotfiles.flakeModules.packages
+        inputs.my-dotfiles.flakeModules.dev-shells
+      ];
+    };
+}
+```
+
+Available modules:
+- `formatter` - Alejandra Nix formatter
+- `packages` - Helper scripts (rebuild, update, clean)
+- `dev-shells` - Development environments
+- `overlays` - VSCode extensions overlay
+- `nixos-configurations` - System configuration pattern
 
 ### Enabling/Disabling Modules
 

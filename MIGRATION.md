@@ -19,15 +19,18 @@ This document explains the changes made during the migration from a traditional 
 ```
 .
 ├── flake.nix              # Entry point, imports modules
-├── parts/                 # NEW: Modular flake outputs
-│   ├── nixos-configurations.nix
-│   ├── overlays.nix
-│   ├── formatter.nix
-│   ├── packages.nix
-│   └── dev-shells.nix
+├── modules/               # All modules organized by type
+│   ├── flake/            # NEW: Modular flake outputs (exported as flakeModules)
+│   │   ├── nixos-configurations.nix
+│   │   ├── overlays.nix
+│   │   ├── formatter.nix
+│   │   ├── packages.nix
+│   │   └── dev-shells.nix
+│   ├── nixos/            # NixOS system modules
+│   └── home-manager/     # Home Manager modules
 ├── hosts/
-├── modules/
-└── overlays/
+├── overlays/
+└── config/
 ```
 
 ### File-by-File Changes
@@ -68,13 +71,22 @@ This document explains the changes made during the migration from a traditional 
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
-        ./parts/nixos-configurations.nix
-        ./parts/overlays.nix
-        ./parts/formatter.nix
-        ./parts/packages.nix
-        ./parts/dev-shells.nix
+        ./modules/flake/nixos-configurations.nix
+        ./modules/flake/overlays.nix
+        ./modules/flake/formatter.nix
+        ./modules/flake/packages.nix
+        ./modules/flake/dev-shells.nix
       ];
       systems = ["x86_64-linux"];
+      
+      # Export modules for reuse in other projects
+      flake.flakeModules = {
+        nixos-configurations = ./modules/flake/nixos-configurations.nix;
+        overlays = ./modules/flake/overlays.nix;
+        formatter = ./modules/flake/formatter.nix;
+        packages = ./modules/flake/packages.nix;
+        dev-shells = ./modules/flake/dev-shells.nix;
+      };
     };
 }
 ```
@@ -82,28 +94,29 @@ This document explains the changes made during the migration from a traditional 
 **Key changes:**
 - Added `flake-parts` input
 - Replaced direct output definition with `mkFlake`
-- Moved outputs to separate modules in `parts/`
+- Moved outputs to separate modules in `modules/flake/`
 - Added `systems` list for multi-platform support
 - Configuration is now modular and importable
+- Modules are exported via `flakeModules` for reuse
 
 #### New Files Created
 
-##### `parts/nixos-configurations.nix`
+##### `modules/flake/nixos-configurations.nix`
 Contains the `nixosConfigurations` output. Extracted from main `flake.nix`.
 
-##### `parts/overlays.nix`
+##### `modules/flake/overlays.nix`
 Defines nixpkgs overlays. Previously inline in main flake.
 
-##### `parts/formatter.nix`
+##### `modules/flake/formatter.nix`
 Defines the default formatter (`alejandra`). New functionality!
 
-##### `parts/packages.nix`
+##### `modules/flake/packages.nix`
 Defines custom packages:
 - `nixos-rebuild-switch` - Helper script for rebuilding
 - `update-flake` - Helper script for updating inputs
 - `clean-generations` - Helper script for cleanup
 
-##### `parts/dev-shells.nix`
+##### `modules/flake/dev-shells.nix`
 Defines development environments:
 - `default` - Full development environment with linters and tools
 - `minimal` - Minimal environment for quick checks
@@ -180,10 +193,10 @@ Flake-parts modules can be shared across multiple flakes:
 Adding new outputs is simple - just create a new module:
 ```bash
 # Add new module
-echo '{ ... }: { perSystem = { ... }: { apps = { ... }; }; }' > parts/apps.nix
+echo '{ ... }: { perSystem = { ... }: { apps = { ... }; }; }' > modules/flake/apps.nix
 
 # Import in flake.nix
-# imports = [ ... ./parts/apps.nix ];
+# imports = [ ... ./modules/flake/apps.nix ];
 ```
 
 ### 4. Consistency
@@ -197,7 +210,7 @@ flake-parts provides better error messages for misconfigurations.
 If you're maintaining a fork or using this config as a base:
 
 - [x] Add `flake-parts` to inputs
-- [x] Create `parts/` directory
+- [x] Create `modules/flake/` directory
 - [x] Split outputs into separate modules
 - [x] Update main `flake.nix` to use `mkFlake`
 - [x] Test that everything still works
@@ -208,7 +221,7 @@ If you're maintaining a fork or using this config as a base:
 
 ### Adding a New System Configuration
 
-Edit `parts/nixos-configurations.nix`:
+Edit `modules/flake/nixos-configurations.nix`:
 ```nix
 {
   flake.nixosConfigurations = {
@@ -228,7 +241,7 @@ Edit `parts/nixos-configurations.nix`:
 
 ### Adding a New Overlay
 
-Edit `parts/overlays.nix`:
+Edit `modules/flake/overlays.nix`:
 ```nix
 {
   flake.overlays = {
@@ -252,7 +265,7 @@ Edit `parts/overlays.nix`:
 
 ### Adding a New Package
 
-Edit `parts/packages.nix`:
+Edit `modules/flake/packages.nix`:
 ```nix
 {
   perSystem = {pkgs, ...}: {
@@ -273,7 +286,7 @@ nix build .#my-tool
 
 ### Adding a New Dev Shell
 
-Edit `parts/dev-shells.nix`:
+Edit `modules/flake/dev-shells.nix`:
 ```nix
 {
   perSystem = {pkgs, ...}: {
@@ -353,7 +366,7 @@ git revert <commit-hash>
 ## Questions?
 
 Refer to:
-- [flake-parts documentation](https://flake.parts/)
+- [flake-parts documentation](https://flake.modules/flake/)
 - [FLAKE_PARTS_GUIDE.md](./FLAKE_PARTS_GUIDE.md) in this repo
 - [NixOS Discourse](https://discourse.nixos.org/)
 - Open an issue in this repository

@@ -34,17 +34,26 @@
 
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      # Import all flake-parts modules
+      # Import all flake-parts modules from modules/flake/
       imports = [
-        ./parts/nixos-configurations.nix
-        ./parts/overlays.nix
-        ./parts/formatter.nix
-        ./parts/packages.nix
-        ./parts/dev-shells.nix
+        ./modules/flake/nixos-configurations.nix
+        ./modules/flake/overlays.nix
+        ./modules/flake/formatter.nix
+        ./modules/flake/packages.nix
+        ./modules/flake/dev-shells.nix
       ];
 
       # Define systems to support
       systems = ["x86_64-linux"];
+
+      # Export flake modules for reuse
+      flake.flakeModules = {
+        nixos-configurations = ./modules/flake/nixos-configurations.nix;
+        overlays = ./modules/flake/overlays.nix;
+        formatter = ./modules/flake/formatter.nix;
+        packages = ./modules/flake/packages.nix;
+        dev-shells = ./modules/flake/dev-shells.nix;
+      };
 
       # Per-system configuration
       perSystem = {

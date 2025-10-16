@@ -9,12 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added - Flake-parts Migration
 
 #### New Directory Structure
-- **`parts/`** - New directory for flake-parts modules
+- **`modules/flake/`** - New directory for flake-parts modules (organized like vix)
   - `nixos-configurations.nix` - NixOS system configurations
   - `overlays.nix` - Nixpkgs overlays
   - `formatter.nix` - Code formatter (alejandra)
   - `packages.nix` - Custom packages and helper scripts
   - `dev-shells.nix` - Development environments
+- All flake-parts modules now live under `modules/` alongside nixos and home-manager modules
+- Modules are exported via `flakeModules` for reuse in other projects
 
 #### New Documentation
 - **`README.md`** - Comprehensive project overview
@@ -69,16 +71,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 #### Extracted Configurations
 The following configurations were extracted from `flake.nix` into separate modules:
 
-1. **NixOS Configurations** → `parts/nixos-configurations.nix`
+1. **NixOS Configurations** → `modules/flake/nixos-configurations.nix`
    - Maintains all existing functionality
    - Uses `withSystem` for proper system handling
    - Includes all global Nix settings
 
-2. **Overlays** → `parts/overlays.nix`
+2. **Overlays** → `modules/flake/overlays.nix`
    - VSCode extensions overlay
    - Ready for additional overlays
 
-3. **Formatter** → `parts/formatter.nix`
+3. **Formatter** → `modules/flake/formatter.nix`
    - New functionality: `nix fmt` support
    - Uses alejandra formatter
 
@@ -141,7 +143,7 @@ No configuration changes are required in:
 
 ### After flake-parts (This Release)
 - Modular flake structure using flake-parts
-- Organized outputs in `parts/` directory
+- Organized outputs in `modules/flake/` directory
 - Comprehensive documentation
 - Development tooling (shells, formatter)
 - Custom helper packages
@@ -171,7 +173,7 @@ Potential additions for future releases:
 ## Acknowledgments
 
 This refactoring follows best practices from:
-- [flake-parts documentation](https://flake.parts/)
+- [flake-parts documentation](https://flake.modules/flake/)
 - [Nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/)
 - [NixOS community patterns](https://nixos.wiki/)
 - Dendritic Pattern philosophy
