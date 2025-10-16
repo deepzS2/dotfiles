@@ -43,12 +43,24 @@
         ./modules/flake/packages.nix
         ./modules/flake/dev-shells.nix
         
-        # Home Manager modules
+        # Home Manager modules (self-register as flake.modules.homeManager.*)
         ./modules/home-manager/git.nix
         ./modules/home-manager/nix-helper.nix
         ./modules/home-manager/secrets.nix
+        ./modules/home-manager/applications/browser.nix
+        ./modules/home-manager/applications/discord.nix
+        ./modules/home-manager/applications/obs.nix
+        ./modules/home-manager/applications/terminal.nix
+        ./modules/home-manager/applications/video-player.nix
+        ./modules/home-manager/development/elixir.nix
+        ./modules/home-manager/development/go.nix
+        ./modules/home-manager/development/javascript.nix
+        ./modules/home-manager/development/rust.nix
+        ./modules/home-manager/editor/vscode.nix
+        ./modules/home-manager/shell/ai.nix
+        ./modules/home-manager/shell/btop.nix
         
-        # NixOS modules
+        # NixOS modules (self-register as flake.modules.nixosModules.*)
         ./modules/nixos/audio.nix
         ./modules/nixos/containers.nix
         ./modules/nixos/display-manager.nix
