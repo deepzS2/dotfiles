@@ -34,52 +34,31 @@
 
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      # Import all flake-parts modules from modules/flake/
+      # Import all modules - they will self-register in flake.modules
       imports = [
+        # Flake-parts modules
         ./modules/flake/nixos-configurations.nix
         ./modules/flake/overlays.nix
         ./modules/flake/formatter.nix
         ./modules/flake/packages.nix
         ./modules/flake/dev-shells.nix
+        
+        # Home Manager modules
+        ./modules/home-manager/git.nix
+        ./modules/home-manager/nix-helper.nix
+        ./modules/home-manager/secrets.nix
+        
+        # NixOS modules
+        ./modules/nixos/audio.nix
+        ./modules/nixos/containers.nix
+        ./modules/nixos/display-manager.nix
+        ./modules/nixos/fonts.nix
+        ./modules/nixos/locale.nix
+        ./modules/nixos/network.nix
       ];
 
       # Define systems to support
       systems = ["x86_64-linux"];
-
-      # Export modules organized by class
-      flake.modules = {
-        # Generic modules - can be used in any flake-parts configuration
-        generic = {
-          nixos-configurations = ./modules/flake/nixos-configurations.nix;
-          overlays = ./modules/flake/overlays.nix;
-          formatter = ./modules/flake/formatter.nix;
-          packages = ./modules/flake/packages.nix;
-          dev-shells = ./modules/flake/dev-shells.nix;
-        };
-
-        # NixOS modules - for NixOS system configuration
-        nixosModules = {
-          audio = ./modules/nixos/audio.nix;
-          containers = ./modules/nixos/containers.nix;
-          display-manager = ./modules/nixos/display-manager.nix;
-          fonts = ./modules/nixos/fonts.nix;
-          locale = ./modules/nixos/locale.nix;
-          network = ./modules/nixos/network.nix;
-          drivers = ./modules/nixos/drivers;
-        };
-
-        # Home Manager modules - for home-manager configuration
-        homeModules = {
-          git = ./modules/home-manager/git.nix;
-          nix-helper = ./modules/home-manager/nix-helper.nix;
-          secrets = ./modules/home-manager/secrets.nix;
-          applications = ./modules/home-manager/applications;
-          development = ./modules/home-manager/development;
-          editor = ./modules/home-manager/editor;
-          layout = ./modules/home-manager/layout;
-          shell = ./modules/home-manager/shell;
-        };
-      };
 
       # Per-system configuration
       perSystem = {
