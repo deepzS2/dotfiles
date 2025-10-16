@@ -1,31 +1,11 @@
-# AMD graphics driver configuration module for NixOS
-# Exported as flake.modules.nixosModules.drivers-amd
 {
-  flake.modules.nixosModules.drivers-amd = 
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}: let
-  cfg = config.drivers.amdgpu;
-in {
-  options.drivers.amdgpu = {
-    enable = lib.mkEnableOption "Enable AMD Drivers";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.nixosModules.drivers-amd = {pkgs, ...}: {
     systemd.tmpfiles.rules = ["L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"];
     services.xserver.videoDrivers = ["amdgpu"];
 
-    # OpenGL
-    hardware.graphics = {
-      extraPackages = [
-        pkgs.libva
-        pkgs.libva-utils
-      ];
-    };
+    hardware.graphics.extraPackages = [
+      pkgs.libva
+      pkgs.libva-utils
+    ];
   };
-}
-;
 }

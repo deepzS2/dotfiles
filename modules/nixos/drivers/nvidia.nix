@@ -1,31 +1,9 @@
-# Nvidia graphics driver configuration module for NixOS
-# Exported as flake.modules.nixosModules.drivers-nvidia
 {
-  flake.modules.nixosModules.drivers-nvidia = 
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}: let
-  cfg = config.drivers.nvidia;
-in {
-  options.drivers.nvidia = {
-    enable = lib.mkEnableOption "Enable Nvidia Drivers";
-    prime = {
-      enable = lib.mkEnableOption "Enable Nvidia Prime Hybrid GPU Offload";
-      intelBusID = lib.mkOption {
-        type = lib.types.str;
-        default = "PCI:1:0:0";
-      };
-      nvidiaBusID = lib.mkOption {
-        type = lib.types.str;
-        default = "PCI:0:2:0";
-      };
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.nixosModules.drivers-nvidia = {
+    pkgs,
+    config,
+    ...
+  }: {
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.graphics = {
@@ -43,48 +21,13 @@ in {
     };
 
     hardware.nvidia = {
-      # Modesetting is required.
       modesetting.enable = true;
-
-      # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
       powerManagement.enable = false;
-
-      # Fine-grained power management. Turns off GPU when not in use.
-      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
       powerManagement.finegrained = false;
-
-      #dynamicBoost.enable = true; # Dynamic Boost
-
       nvidiaPersistenced = false;
-
-      # Use the NVidia open source kernel module (not to be confused with the
-      # independent third-party "nouveau" open source driver).
-      # Support is limited to the Turing and later architectures. Full list of
-      # supported GPUs is at:
-      # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-      # Only available from driver 515.43.04+
-      # Currently alpha-quality/buggy, so false is currently the recommended setting.
       open = false;
-
-      # Enable the Nvidia settings menu,
-      # accessible via `nvidia-settings`.
-
       nvidiaSettings = true;
-
-      # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.latest;
-
-      prime = {
-        offload = {
-          enable = cfg.prime.enable;
-          enableOffloadCmd = cfg.prime.enable;
-        };
-        # Make sure to use the correct Bus ID values for your system!
-        intelBusId = "${cfg.prime.intelBusID}";
-        nvidiaBusId = "${cfg.prime.nvidiaBusID}";
-      };
     };
   };
-}
-;
 }
