@@ -104,6 +104,7 @@
           ai
           btop
           fastfetch
+          nix-search
           nushell
           prompt
           tmux

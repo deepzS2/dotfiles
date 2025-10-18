@@ -1,10 +1,7 @@
 # Nushell shell configuration module for Home Manager
 # Exported as flake.modules.homeManager.nushell
 {
-  flake.modules.homeManager.nushell = {pkgs, lib, ...}: let
-    ns = pkgs.writeShellScriptBin "ns" (builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh");
-  in {
-    home.packages = [ns pkgs.fzf pkgs.nix-search-tv];
+  flake.modules.homeManager.nushell = {pkgs, lib, ...}: {
 
     programs = {
       nushell = {
