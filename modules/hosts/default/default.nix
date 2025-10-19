@@ -3,11 +3,13 @@
     nixos.default = {
       pkgs,
       inputs,
+      lib,
+      modulesPath,
       ...
     }: {
       imports =
         [
-          ./default/hardware-configuration.nix
+          ./hardware-configuration.nix
           inputs.home-manager.nixosModules.default
         ]
         ++ (with self.modules.nixosModules; [
