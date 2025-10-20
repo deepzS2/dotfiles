@@ -22,9 +22,9 @@ nix flake update
 sudo nixos-rebuild switch --flake .#default
 ```
 
-4. **Apply Home Manager configuration:**
+4. **Apply Home Manager configuration (standalone, if needed):**
 ```bash
-home-manager switch --flake .#deepz@default
+home-manager switch --flake .#default
 ```
 
 ### On Non-NixOS Systems (Ubuntu, Debian, etc.)
@@ -40,33 +40,18 @@ git clone https://github.com/deepzS2/dotfiles.git
 cd dotfiles
 ```
 
-3. **Create a standalone Home Manager host** in `modules/hosts/your-hostname/default.nix`:
-```nix
-{self, ...}: {
-  flake.modules.homeManager.your-hostname = {inputs, ...}: {
-    imports = with self.modules.homeManager; [
-      git
-      nvim
-      # ... add only the modules you need
-    ];
-    
-    home.username = "your-username";
-    home.homeDirectory = "/home/your-username";
-    home.stateVersion = "24.11";
-  };
-}
+3. **Apply Home Manager configuration (using the default configuration):**
+```bash
+home-manager switch --flake .#default
 ```
 
-4. **Apply Home Manager configuration:**
-```bash
-home-manager switch --flake .#your-username@your-hostname
-```
+*Note: The default configuration is set up for user "deepz". For custom setups, create a new host in `modules/hosts/your-hostname/default.nix` as described in the "Adding New Hosts" section.*
 
 ## Structure
 
 ```
 modules/
-├── flake/          # Flake outputs (formatter, packages, dev-shells, overlays, configs)
+├── flake/          # Flake outputs (formatter, packages, dev-shells, overlays, hosts)
 ├── nixos/          # System modules (audio, containers, drivers, fonts, locale, network)
 ├── home-manager/   # User modules (git, nvim, shell, layout, applications, development)
 └── hosts/          # Host configurations (self-registering nixos & homeManager modules)
