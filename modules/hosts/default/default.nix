@@ -14,6 +14,7 @@
           display-manager
           drivers-nvidia
           fonts
+          nix
           locale
           network
           podman
@@ -59,8 +60,6 @@
 
       home-manager = {
         extraSpecialArgs = {inherit inputs self;};
-        useGlobalPkgs = true;
-        useUserPackages = true;
         backupFileExtension = "bkp";
         users = {
           "deepz" = self.modules.homeManager.default;
@@ -130,6 +129,7 @@
           script-wallpaper-select
           script-wifimenu
           # Secrets
+          nix
           nix-helper
           secrets
         ]);

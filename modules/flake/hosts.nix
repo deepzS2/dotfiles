@@ -12,27 +12,6 @@
       modules = [
         # Host configuration from flake.modules
         inputs.self.modules.nixos.default
-
-        # Global Nix settings
-        {
-          # Allow unfree packages
-          nixpkgs.config.allowUnfree = true;
-
-          nix = {
-            # For nix LSP
-            nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-            # Garbage collector
-            gc = {
-              automatic = true;
-              dates = "weekly";
-              options = "--delete-older-than 7d";
-            };
-
-            # Enable Flakes
-            settings.experimental-features = ["nix-command" "flakes"];
-          };
-        }
       ];
     };
   };
