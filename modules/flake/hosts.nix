@@ -7,7 +7,7 @@
 }: {
   flake.nixosConfigurations = {
     # Default system configuration
-    default = inputs.nixpkgs.lib.nixosSystem {
+    deepz = inputs.nixpkgs.lib.nixosSystem {
       specialArgs.inputs = inputs;
       modules = [
         # Host configuration from flake.modules
@@ -17,14 +17,11 @@
   };
 
   flake.homeConfigurations = {
-    default = withSystem "x86_64-linux" (
-      {pkgs, ...}:
+    "deepz@alan" = withSystem "x86_64-linux" (
+      {pkgs, system, ...}:
         inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = {
-            inherit inputs;
-            self = inputs.self;
-          };
+          extraSpecialArgs = {inherit inputs system;};
           modules = [inputs.self.modules.homeManager.default];
         }
     );
