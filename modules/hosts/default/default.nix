@@ -120,6 +120,7 @@
           hyprland
           hyprlock
           # Scripts
+          scripts
           script-clipboard
           script-notification
           script-powermenu
