@@ -1,7 +1,7 @@
 # Network configuration module for NixOS
 # Exported as flake.modules.nixosModules.network
 {
-  flake.modules.nixosModules.network = {...}: {
+  flake.modules.nixos.network = _: {
     networking = {
       hostName = "alan"; # Define your hostname.
       # wireless.enable = true;  # Enables wireless support via wpa_supplicant.

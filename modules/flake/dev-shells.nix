@@ -1,12 +1,8 @@
 # Development shells module for flake-parts
 # This module defines development environments accessible with `nix develop`
-{
-  inputs,
-  ...
-}: {
+_: {
   perSystem = {
     pkgs,
-    system,
     ...
   }: {
     devShells = {

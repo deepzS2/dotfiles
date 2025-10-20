@@ -1,23 +1,13 @@
 # Starship prompt configuration module for Home Manager
 # Exported as flake.modules.homeManager.prompt
 {
-  flake.modules.homeManager.prompt = 
-{
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.shell.prompt;
-  nushell-cfg = config.shell.nushell;
-in {
-  options = {
-    shell.prompt.enable = lib.mkEnableOption "Starship prompt";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.prompt = {
+    lib,
+    ...
+  }: {
     programs.starship = {
       enable = true;
-      enableNushellIntegration = nushell-cfg.enable;
+      enableNushellIntegration = true;
       settings = {
         add_newline = true;
 
@@ -85,6 +75,4 @@ in {
       };
     };
   };
-}
-;
 }

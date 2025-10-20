@@ -1,7 +1,7 @@
 # Display manager and Hyprland configuration module for NixOS
 # Exported as flake.modules.nixosModules.display-manager
 {
-  flake.modules.nixosModules.display-manager = {pkgs, ...}: let
+  flake.modules.nixos.display-manager = {pkgs, ...}: let
     sddm-astronaut-theme = pkgs.sddm-astronaut.override {
       embeddedTheme = "pixel_sakura";
     };

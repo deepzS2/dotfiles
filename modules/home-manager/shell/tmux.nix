@@ -1,20 +1,11 @@
 # TMUX terminal multiplexer configuration module for Home Manager
 # Exported as flake.modules.homeManager.tmux
 {
-  flake.modules.homeManager.tmux = 
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.shell.tmux;
-in {
-  options.shell.tmux = {
-    enable = lib.mkEnableOption "TMUX";
-  };
-
-  config = lib.mkIf cfg.enable (let
+  flake.modules.homeManager.tmux = {
+    pkgs,
+    lib,
+    ...
+  }: let
     options = ''
       # Passthrough for iTerm2 image support
       set -g allow-passthrough on
@@ -100,7 +91,5 @@ in {
         }
       ];
     };
-  });
-}
-;
+  };
 }

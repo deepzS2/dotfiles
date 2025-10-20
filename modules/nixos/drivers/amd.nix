@@ -1,5 +1,5 @@
 {
-  flake.modules.nixosModules.drivers-amd = {pkgs, ...}: {
+  flake.modules.nixos.drivers-amd = {pkgs, ...}: {
     systemd.tmpfiles.rules = ["L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"];
     services.xserver.videoDrivers = ["amdgpu"];
 

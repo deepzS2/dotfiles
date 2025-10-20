@@ -4,7 +4,6 @@
 {
   perSystem = {
     pkgs,
-    system,
     ...
   }: {
     # Use alejandra as the default formatter

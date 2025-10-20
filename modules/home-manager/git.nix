@@ -16,8 +16,8 @@
     config = {
       programs.git = {
         enable = true;
-        userName = config.git.userName;
-        userEmail = config.git.userEmail;
+        inherit (config.git) userName;
+        inherit (config.git) userEmail;
         extraConfig = {
           init.defaultBranch = "main";
           push.followTags = true;

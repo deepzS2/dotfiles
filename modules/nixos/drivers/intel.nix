@@ -1,5 +1,5 @@
 {
-  flake.modules.nixosModules.drivers-intel = {pkgs, ...}: {
+  flake.modules.nixos.drivers-intel = {pkgs, ...}: {
     nixpkgs.config.packageOverrides = pkgs: {
       vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };

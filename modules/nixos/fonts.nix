@@ -1,7 +1,7 @@
 # Fonts configuration module for NixOS
 # Exported as flake.modules.nixosModules.fonts
 {
-  flake.modules.nixosModules.fonts = {pkgs, ...}: {
+  flake.modules.nixos.fonts = {pkgs, ...}: {
     # Install fonts
     fonts = {
       packages = [

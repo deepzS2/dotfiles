@@ -3,41 +3,41 @@
     nixos.default = {
       pkgs,
       inputs,
-      lib,
-      modulesPath,
       ...
     }: {
       imports =
         [
-          ./hardware-configuration.nix
           inputs.home-manager.nixosModules.default
         ]
-        ++ (with self.modules.nixosModules; [
+        ++ (with self.modules.nixos; [
           audio
-          containers
           display-manager
           drivers-nvidia
           fonts
           locale
           network
+          podman
         ]);
 
       # Bootloader (with secure boot).
-      boot.loader.limine = {
-        enable = true;
-        maxGenerations = 3;
-        secureBoot.enable = true;
-        style.wallpapers = [../../config/theme/wallpapers/limine-wallpaper.png];
-        extraConfig = ''
-          default_entry: 0
-          /Windows 11
-              protocol: efi
-              path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
-              comment: Boot into Windows 11
-        '';
+      boot.loader = {
+        efi.canTouchEfiVariables = true;
+        limine = {
+          enable = true;
+          maxGenerations = 3;
+          secureBoot.enable = true;
+          style.wallpapers = [../../../config/theme/wallpapers/limine-wallpaper.png];
+          extraConfig = ''
+            default_entry: 0
+            /Windows 11
+                protocol: efi
+                path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+                comment: Boot into Windows 11
+          '';
+        };
       };
 
-      boot.loader.efi.canTouchEfiVariables = true;
+      #
 
       # Graphics driver
       hardware.graphics = {
@@ -134,11 +134,13 @@
           secrets
         ]);
 
-      home.stateVersion = "25.05";
+      home = {
+        homeDirectory = "/home/deepz";
+        username = "deepz";
+        stateVersion = "25.05";
+      };
+
       programs.home-manager.enable = true;
-      home.username = "deepz";
-      home.homeDirectory = "/home/deepz";
-      home.sessionVariables = {};
     };
   };
 }

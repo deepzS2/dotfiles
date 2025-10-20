@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.browser = {...}: {
+  flake.modules.homeManager.browser = _: {
     programs.zen-browser = {
       enable = true;
       policies = {

@@ -1,8 +1,10 @@
 # Nushell shell configuration module for Home Manager
 # Exported as flake.modules.homeManager.nushell
 {
-  flake.modules.homeManager.nushell = {pkgs, lib, ...}: {
-
+  flake.modules.homeManager.nushell = {
+    lib,
+    ...
+  }: {
     programs = {
       nushell = {
         enable = true;

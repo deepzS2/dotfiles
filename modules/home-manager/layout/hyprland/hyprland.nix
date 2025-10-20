@@ -1,20 +1,7 @@
 # Hyprland Wayland compositor configuration module for Home Manager
 # Exported as flake.modules.homeManager.hyprland
 {
-  flake.modules.homeManager.hyprland = 
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.layout.hyprland;
-in {
-  options = {
-    layout.hyprland.enable = lib.mkEnableOption "Hyprland Window Manager";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.hyprland = {pkgs, ...}: {
     home.packages = [
       pkgs.wl-clipboard
       pkgs.cliphist
@@ -339,6 +326,4 @@ in {
       };
     };
   };
-}
-;
 }

@@ -2,23 +2,21 @@
 # This module defines all NixOS system configurations
 {
   inputs,
-  self,
   withSystem,
   ...
 }: {
   flake.nixosConfigurations = {
     # Default system configuration
     default = withSystem "x86_64-linux" (
-      {system, ...}:
+      {
+        inputs',
+        ...
+      }:
         inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {inherit inputs system self;};
+          specialArgs = {inherit inputs inputs';};
           modules = [
             # Host configuration from flake.modules
-            self.modules.nixos.default
-
-            # Overlays
-            ../../overlays
+            inputs.self.modules.nixos.default
 
             # Global Nix settings
             {

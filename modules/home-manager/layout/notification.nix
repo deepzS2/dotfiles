@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.notification = {...}: {
+  flake.modules.homeManager.notification = _: {
     services.mako = {
       enable = true;
       settings = {

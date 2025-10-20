@@ -1,12 +1,8 @@
 # Packages module for flake-parts
 # This module defines custom packages that can be built with `nix build`
-{
-  inputs,
-  ...
-}: {
+_: {
   perSystem = {
     pkgs,
-    system,
     ...
   }: {
     packages = {

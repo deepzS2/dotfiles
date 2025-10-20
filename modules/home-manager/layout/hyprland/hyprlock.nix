@@ -1,21 +1,13 @@
 # Hyprlock screen locker configuration module for Home Manager
 # Exported as flake.modules.homeManager.hyprlock
 {
-  flake.modules.homeManager.hyprlock = 
-{
-  lib,
-  config,
-  ...
-}: let
-  inherit (config.lib.stylix) colors;
-  cfg = config.layout.hyprland.hyprlock;
-  clock_color = colors.base0E;
-in {
-  options = {
-    layout.hyprland.hyprlock.enable = lib.mkEnableOption "Screen Lock for Hyprland";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.hyprlock = {
+    config,
+    ...
+  }: let
+    inherit (config.lib.stylix) colors;
+    clock_color = colors.base0E;
+  in {
     programs.hyprlock = {
       enable = true;
       settings = {
@@ -104,6 +96,4 @@ in {
       };
     };
   };
-}
-;
 }

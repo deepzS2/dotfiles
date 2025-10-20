@@ -1,7 +1,7 @@
 # Locale and keyboard configuration module for NixOS
 # Exported as flake.modules.nixosModules.locale
 {
-  flake.modules.nixosModules.locale = {...}: {
+  flake.modules.nixos.locale = _: {
     # Set your time zone.
     time.timeZone = "America/Sao_Paulo";
 
