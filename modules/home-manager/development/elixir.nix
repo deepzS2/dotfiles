@@ -1,41 +1,28 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkIf mkOption types literalExpression;
-  cfg = config.development.elixir;
-in {
-  options.development.elixir = {
-    enable = mkEnableOption "Elixir programming language";
-
-    package = mkOption {
-      type = types.package;
-      default = pkgs.elixir;
-      description = "The Elixir package to use.";
+  flake.modules.homeManager.elixir = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
+    options.development.elixir = {
+      extraPackages = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [];
+        description = "Extra Elixir-related packages to install";
+        example = lib.literalExpression "[ pkgs.elixir-ls ]";
+      };
     };
 
-    erlangPackage = mkOption {
-      type = types.package;
-      default = pkgs.erlang;
-      description = "The Erlang/OTP package to use.";
+    config = let
+      cfg = config.development.elixir;
+    in {
+      home.packages = with pkgs;
+        [
+          elixir
+          erlang
+        ]
+        ++ cfg.extraPackages;
     };
-
-    extraPackages = mkOption {
-      type = types.listOf types.package;
-      default = [];
-      description = "Extra Elixir related packages to install.";
-      example = literalExpression "[ pkgs.rebar3 ]";
-    };
-  };
-
-  config = mkIf cfg.enable {
-    home.packages =
-      [
-        cfg.package
-        cfg.erlangPackage
-      ]
-      ++ cfg.extraPackages;
   };
 }

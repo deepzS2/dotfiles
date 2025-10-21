@@ -1,34 +1,41 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkEnableOption lists;
-  cfg = config.development.javascript;
-in {
-  options.development.javascript = {
-    package-managers = {
-      enable = lib.mkEnableOption "Whether to enable JavaScript package managers.";
-      all = lib.mkEnableOption "Whether to enable all JavaScript package managers." // {default = true;};
-      pnpm = lib.mkEnableOption "Whether to enable the PNPM package manager." // {default = cfg.package-managers.all;};
+  flake.modules.homeManager.javascript = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
+    options.development.javascript = {
+      enableNodejs = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Node.js runtime";
+      };
+      enableDeno = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Deno runtime";
+      };
+      enableBun = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Bun runtime";
+      };
+      enablePnpm = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable pnpm package manager";
+      };
     };
 
-    runtimes = {
-      enable = lib.mkEnableOption "Whether to enable JavaScript runtimes.";
-      all = lib.mkEnableOption "Whether to enable all JavaScript runtimes." // {default = true;};
-      node = lib.mkEnableOption "Whether to enable the Node.js runtime." // {default = cfg.runtimes.all;};
-      deno = lib.mkEnableOption "Whether to enable the Deno runtime." // {default = cfg.runtimes.all;};
-      bun = lib.mkEnableOption "Whether to enable the Bun runtime." // {default = cfg.runtimes.all;};
+    config = let
+      cfg = config.development.javascript;
+    in {
+      home.packages = with pkgs;
+        lib.optionals cfg.enableNodejs [nodejs]
+        ++ lib.optionals cfg.enablePnpm [pnpm]
+        ++ lib.optionals cfg.enableDeno [deno]
+        ++ lib.optionals cfg.enableBun [bun];
     };
-  };
-
-  config = {
-    home.packages =
-      []
-      ++ lists.optionals (cfg.package-managers.enable && cfg.package-managers.pnpm) [pkgs.pnpm]
-      ++ lists.optionals (cfg.runtimes.enable && cfg.runtimes.node) [pkgs.nodejs]
-      ++ lists.optionals (cfg.runtimes.enable && cfg.runtimes.deno) [pkgs.deno]
-      ++ lists.optionals (cfg.runtimes.enable && cfg.runtimes.bun) [pkgs.bun];
   };
 }

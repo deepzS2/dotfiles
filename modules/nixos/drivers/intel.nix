@@ -1,28 +1,14 @@
 {
-  lib,
-  pkgs,
-  config,
-  ...
-}: let
-  cfg = config.drivers.intel;
-in {
-  options.drivers.intel = {
-    enable = lib.mkEnableOption "Enable Intel Graphics Drivers";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.nixos.drivers-intel = {pkgs, ...}: {
     nixpkgs.config.packageOverrides = pkgs: {
       vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };
 
-    # OpenGL
-    hardware.graphics = {
-      extraPackages = with pkgs; [
-        intel-media-driver
-        libvdpau-va-gl
-        libva
-        libva-utils
-      ];
-    };
+    hardware.graphics.extraPackages = with pkgs; [
+      intel-media-driver
+      libvdpau-va-gl
+      libva
+      libva-utils
+    ];
   };
 }

@@ -1,16 +1,5 @@
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.applications.obs;
-in {
-  options = {
-    applications.video-player.enable = lib.mkEnableOption "Video Player";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.video-player = {pkgs, ...}: {
     home.packages = [pkgs.vlc];
   };
 }

@@ -1,15 +1,7 @@
+# Hypridle idle daemon configuration module for Home Manager
+# Exported as flake.modules.homeManager.hypridle
 {
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.layout.hyprland.hyprlock;
-in {
-  options = {
-    layout.hyprland.hypridle.enable = lib.mkEnableOption "Idle management daemon for Hyprland";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.hypridle = _: {
     services.hypridle = {
       enable = true;
       settings = {

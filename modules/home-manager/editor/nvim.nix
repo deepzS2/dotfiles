@@ -1,18 +1,13 @@
+# Neovim editor configuration module for Home Manager
+# Exported as flake.modules.homeManager.nvim
 {
-  pkgs,
-  lib,
-  config,
-  inputs,
-  ...
-}: let
-  cfg = config.editor.nvim;
-  utils = inputs.nixCats.utils;
-in {
-  options = {
-    editor.nvim.enable = lib.mkEnableOption "Neovim";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.nvim = {
+    pkgs,
+    inputs,
+    ...
+  }: let
+    inherit (inputs.nixCats) utils;
+  in {
     home.packages = [
       pkgs.vectorcode # Code repository indexing tool
     ];
@@ -368,7 +363,7 @@ in {
         # an extra test package with normal lua reload for fast edits
         # nix doesnt provide the config in this package, allowing you free reign to edit it.
         # then you can swap back to the normal pure package when done.
-        testnvim = {...}: {
+        testnvim = _: {
           settings = {
             suffix-path = true;
             suffix-LD = true;

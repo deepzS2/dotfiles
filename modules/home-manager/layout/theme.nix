@@ -1,23 +1,9 @@
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.layout.theme;
-in {
-  options = {
-    layout.theme.enable = lib.mkEnableOption "Enable Kanagawa theming";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.theme = {pkgs, ...}: {
     stylix = {
       enable = true;
-      # polarity = "dark";
       image = ../../../config/theme/wallpapers/yakuza.jpg;
-
       base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
-
       targets = {
         waybar.addCss = false;
         tmux.enable = false;
@@ -25,13 +11,11 @@ in {
         vencord.enable = false;
         zen-browser.enable = false;
       };
-
       fonts = {
         monospace = {
           package = pkgs.nerd-fonts.jetbrains-mono;
           name = "JetBrains Mono Nerd Font";
         };
-
         sizes = {
           terminal = 11;
           desktop = 10;

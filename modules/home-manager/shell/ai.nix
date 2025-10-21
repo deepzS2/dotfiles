@@ -1,17 +1,10 @@
 {
-  lib,
-  config,
-  pkgs,
-  ...
-}: let
-  cfg = config.shell.ai;
-in {
-  options = {
-    shell.ai.enable = lib.mkEnableOption "AI tools";
-  };
-
-  config = lib.mkIf cfg.enable {
-    programs.nushell.extraEnv = lib.mkAfter ''
+  flake.modules.homeManager.ai = {
+    pkgs,
+    config,
+    ...
+  }: {
+    programs.nushell.extraEnv = ''
       $env.GOOGLE_API_KEY = (bash -c "cat ${config.age.secrets.gemini_key.path}")
     '';
 
@@ -24,8 +17,6 @@ in {
       };
     };
 
-    home.packages = [
-      pkgs.gemini-cli
-    ];
+    home.packages = [pkgs.gemini-cli];
   };
 }

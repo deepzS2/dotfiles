@@ -1,16 +1,5 @@
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.layout.wallpaper;
-in {
-  options = {
-    layout.wallpaper.enable = lib.mkEnableOption "Enable SWWW with Pywal theming";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.wallpaper = _: {
     services.swww.enable = true;
   };
 }

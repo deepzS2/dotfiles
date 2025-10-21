@@ -1,16 +1,10 @@
+# Rofi application launcher configuration module for Home Manager
+# Exported as flake.modules.homeManager.rofi
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
-  cfg = config.layout.rofi;
-in {
-  options = {
-    layout.rofi.enable = lib.mkEnableOption "Rofi (Wayland support)";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.rofi = {
+    pkgs,
+    ...
+  }: {
     programs.rofi = {
       enable = true;
       terminal = "ghostty";

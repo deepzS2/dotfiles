@@ -1,42 +1,28 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkOption types literalExpression mkIf lists;
-  cfg = config.development.go;
-in {
-  options.development.go = {
-    enable = mkEnableOption "Go programming language";
-
-    package = mkOption {
-      type = types.package;
-      default = pkgs.go;
-      description = "The Go package to use.";
-    };
-
-    air = {
-      enable = mkEnableOption "air for live reloading";
-      package = mkOption {
-        type = types.package;
-        default = pkgs.air;
-        description = "The air package to use.";
+  flake.modules.homeManager.go = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
+    options.development.go = {
+      extraPackages = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [];
+        description = "Extra Go-related packages to install";
+        example = lib.literalExpression "[ pkgs.golangci-lint pkgs.gopls ]";
       };
     };
 
-    extraPackages = mkOption {
-      type = types.listOf types.package;
-      default = [];
-      description = "Extra Go related packages to install.";
-      example = literalExpression "[ pkgs.delve ]";
+    config = let
+      cfg = config.development.go;
+    in {
+      home.packages = with pkgs;
+        [
+          go
+          air
+        ]
+        ++ cfg.extraPackages;
     };
-  };
-
-  config = mkIf cfg.enable {
-    home.packages =
-      [cfg.package]
-      ++ lists.optionals (cfg.air.enable) [cfg.air.package]
-      ++ cfg.extraPackages;
   };
 }

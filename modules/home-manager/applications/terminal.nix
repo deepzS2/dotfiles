@@ -1,20 +1,8 @@
 {
-  lib,
-  config,
-  pkgs,
-  ...
-}: let
-  cfg = config.applications.terminal;
-in {
-  options = {
-    applications.terminal.enable = lib.mkEnableOption "Ghostty terminal";
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.homeManager.terminal = {pkgs, ...}: {
     programs.ghostty = {
       enable = true;
       settings = {
-        # theme = /home/deepz/.cache/wal/ghostty.conf
         background-opacity = 0.8;
         font-family = "JetBrainsMono Nerd Font Mono";
         font-size = 14;
