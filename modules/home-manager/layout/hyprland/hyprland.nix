@@ -3,8 +3,6 @@
 {
   flake.modules.homeManager.hyprland = {pkgs, ...}: {
     home.packages = [
-      pkgs.wl-clipboard
-      pkgs.cliphist
       pkgs.hyprshot
       pkgs.hyprcursor
       pkgs.hyprpicker

@@ -3,6 +3,8 @@
 {
   flake.modules.homeManager.script-clipboard = {pkgs, ...}: {
     home.packages = [
+      pkgs.wl-clipboard
+      pkgs.cliphist
       (
         pkgs.writeShellApplication {
           name = "rofi_clipboard";
