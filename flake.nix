@@ -24,6 +24,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Niri Window Manager
+    niri.url = "github:sodiboo/niri-flake";
+
     # Theming
     stylix = {
       url = "github:danth/stylix";

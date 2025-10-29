@@ -10,6 +10,7 @@
     services.xserver.enable = true;
 
     # SDDM Greeter
+    services.displayManager.defaultSession = "niri";
     services.displayManager.sddm = {
       enable = true;
       autoNumlock = true;
@@ -20,17 +21,5 @@
         sddm-astronaut-theme
       ];
     };
-
-    # Enables Hyprland
-    programs.hyprland = {
-      enable = true;
-      withUWSM = true; # recommended for most users
-      xwayland.enable = true; # Xwayland can be disabled.
-    };
-
-    environment.sessionVariables.NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
-    environment.systemPackages = with pkgs; [
-      nautilus
-    ];
   };
 }

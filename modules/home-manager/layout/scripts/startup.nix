@@ -10,7 +10,8 @@
             pkgs.swww
           ];
           text = ''
-            CURRENT_WALLPAPER="$HOME/.cache/wal/current_wallpaper.png"
+            # CURRENT_WALLPAPER="$HOME/.cache/wal/current_wallpaper.png"
+            CURRENT_WALLPAPER=${../../../../config/theme/wallpapers/yakuza.jpg}
 
             # Transition config
             FPS=60
@@ -24,14 +25,14 @@
               "--transition-bezier" "$BEZIER"
             )
 
-            if [ -f "$CURRENT_WALLPAPER" ]; then
+            # if [ -f "$CURRENT_WALLPAPER" ]; then
               swww img "''${CURRENT_WALLPAPER}" "''${SWWW_PARAMS[@]}"
-            else
-              load_wallpaper
-            fi
+            # else
+              # load_wallpaper
+            # fi
 
             send_notification sys
-            generate_wallpaper_cache
+            # generate_wallpaper_cache
             hyprctl reload
           '';
         }

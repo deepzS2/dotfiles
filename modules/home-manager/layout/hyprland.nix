@@ -1,6 +1,18 @@
 # Hyprland Wayland compositor configuration module for Home Manager
 # Exported as flake.modules.homeManager.hyprland
 {
+  flake.modules.nixos.hyprland = {pkgs, ...}: {
+    # Enables Hyprland
+    programs.hyprland = {
+      enable = true;
+      withUWSM = true; # recommended for most users
+      xwayland.enable = true; # Xwayland can be disabled.
+    };
+
+    environment.sessionVariables.NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
+    environment.systemPackages = [pkgs.nautilus];
+  };
+
   flake.modules.homeManager.hyprland = {pkgs, ...}: {
     home.packages = [
       pkgs.hyprshot

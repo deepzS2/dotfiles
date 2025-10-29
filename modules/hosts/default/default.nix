@@ -8,6 +8,7 @@
       imports =
         [
           inputs.home-manager.nixosModules.default
+          inputs.niri.nixosModules.niri
         ]
         ++ (with self.modules.nixos; [
           audio
@@ -18,6 +19,8 @@
           locale
           network
           podman
+          hyprland
+          niri
         ]);
 
       # Bootloader (with secure boot).
@@ -81,6 +84,8 @@
       imports =
         [
           inputs.zen-browser.homeModules.beta
+          # inputs.niri.homeModules.niri
+          inputs.niri.homeModules.stylix
           inputs.nixCats.homeModule
           inputs.stylix.homeModules.stylix
           inputs.agenix.homeManagerModules.default
@@ -118,6 +123,7 @@
           # Hyprland
           hypridle
           hyprland
+          niri
           hyprlock
           # Scripts
           scripts

@@ -5,6 +5,7 @@
       image = ../../../config/theme/wallpapers/yakuza.jpg;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
       targets = {
+        niri.enable = true;
         waybar.addCss = false;
         tmux.enable = false;
         vesktop.enable = false;

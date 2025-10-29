@@ -3,6 +3,9 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
+    # Overlays
+    nixpkgs.overlays = [inputs.niri.overlays.niri];
+
     nix = {
       # For nix LSP
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
