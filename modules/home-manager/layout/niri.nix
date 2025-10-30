@@ -323,6 +323,13 @@
           # slowdown 3.0
         };
 
+        # Named Workspaces
+        workspaces = {
+          "code" = {};
+          "browser" = {};
+          "chat" = {};
+        };
+
         # Window rules let you adjust behavior for individual windows.
         # Find more information on the wiki:
         # https://yalter.github.io/niri/Configuration:-Window-Rules
@@ -331,7 +338,7 @@
           {
             matches = [
               {
-                app-id = "(zen)";
+                app-id = "zen";
                 title = "^Picture-in-Picture$";
               }
             ];
@@ -343,7 +350,7 @@
           }
 
           {
-            matches = [{app-id = "^(pavucontrol|org.pulseaudio.pavucontrol)$";}];
+            matches = [{app-id = "pavucontrol";}];
             open-floating = true;
             default-floating-position = {
               x = 576;
@@ -359,15 +366,15 @@
           }
 
           {
-            matches = [{app-id = "([Tt]hunar)";}];
+            matches = [{app-id = "[Tt]hunar";}];
             open-floating = true;
           }
 
           {
             matches = [
               {
-                app-id = "([Tt]hunar)";
-                title = "(Confirm to replace files)";
+                app-id = "[Tt]hunar";
+                title = "Confirm to replace files";
               }
             ];
             open-floating = true;
@@ -376,15 +383,15 @@
           {
             matches = [
               {
-                app-id = "([Tt]hunar)";
-                title = "(File Operation Progress)";
+                app-id = "[Tt]hunar";
+                title = "File Operation Progress";
               }
             ];
             open-floating = true;
           }
 
           {
-            matches = [{app-id = "^(.blueman-manager-wrapped)$";}];
+            matches = [{app-id = "blueman";}];
             open-floating = true;
             default-floating-position = {
               x = 0;
@@ -400,7 +407,7 @@
           }
 
           {
-            matches = [{app-id = "^(nm-connection-editor)$";}];
+            matches = [{app-id = "nm-connection-editor";}];
             open-floating = true;
             default-floating-position = {
               x = 0;
@@ -416,38 +423,43 @@
           }
 
           {
-            matches = [{app-id = "^(com.obsproject.Studio)$";}];
+            matches = [{app-id = "obs";}];
             open-floating = true;
           }
 
           {
-            matches = [{title = "(yazi)";}];
+            matches = [{title = "yazi";}];
             open-floating = true;
           }
 
           {
-            matches = [{title = "(File Operation Progress)";}];
+            matches = [{title = "File Operation Progress";}];
             open-floating = true;
           }
 
           {
-            matches = [{app-id = "^([Gg]nome-disks)$";}];
+            matches = [{app-id = "[Gg]nome-disks";}];
             open-floating = true;
           }
 
           # Workspace assignments
           {
-            matches = [{app-id = "^(ghostty)$";}];
+            matches = [{app-id = "ghostty";}];
             open-on-workspace = "code";
           }
 
           {
-            matches = [{app-id = "^(zen-browser)$";}];
-            open-on-workspace = "browse";
+            matches = [{app-id = "zen";}];
+            open-on-workspace = "browser";
           }
 
           {
-            matches = [{app-id = "^(com.obsproject.Studio)$";}];
+            matches = [{app-id = "obs";}];
+            open-on-workspace = "chat";
+          }
+
+          {
+            matches = [{app-id = "vesktop";}];
             open-on-workspace = "chat";
           }
 
