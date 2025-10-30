@@ -3,11 +3,16 @@
 {
   flake.modules.homeManager.nushell = {
     lib,
+    config,
     ...
   }: {
     programs = {
       nushell = {
         enable = true;
+
+        environmentVariables = {
+          NH_FLAKE = "${config.home.homeDirectory}/.dotfiles";
+        };
 
         settings = {
           show_banner = false;
@@ -22,6 +27,7 @@
           ''
             fastfetch
           '';
+
         shellAliases = {
           ll = "ls -l";
           la = "ls -a";

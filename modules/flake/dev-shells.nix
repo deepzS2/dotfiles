@@ -1,65 +1,69 @@
-# Development shells module for flake-parts
-# This module defines development environments accessible with `nix develop`
-_: {
-  perSystem = {
-    pkgs,
-    ...
-  }: {
+{...}: {
+  perSystem = {pkgs, ...}: {
     devShells = {
       # Default development shell for working on this configuration
       default = pkgs.mkShell {
         name = "nixos-config-dev";
-        
+
         packages = with pkgs; [
           # Nix tools
-          alejandra    # Nix formatter
-          nil          # Nix LSP
-          statix       # Nix linter
-          deadnix      # Find dead code
-          
+          alejandra # Nix formatter
+          nil # Nix LSP
+          statix # Nix linter
+          deadnix # Find dead code
+
           # Version control
           git
-          
+
           # Utilities
-          jq           # JSON processor
-          yq           # YAML processor
-          tree         # Directory visualization
+          jq # JSON processor
+          yq # YAML processor
+          tree # Directory visualization
         ];
-        
+
         shellHook = ''
+          NH_FLAKE="$PWD"
+          alias lint="statix check $PWD && deadnix $PWD"
+          alias format="nix fmt $PWD"
+
+          has_staged_changes() {
+            UNSTAGED_FILES=$(git status --porcelain | grep -E '^[ MADRCU][MADRCU]|^.[D]')
+
+            if [ -z "$UNSTAGED_FILES" ]; then
+              return 0
+            else
+              echo "🚨 WARNING: You have unstaged changes in your working directory."
+              echo "   Please run 'git add <file>...' or 'git add .' to stage them."
+              return 1
+            fi
+          }
+
+          test() {
+            if has_staged_changes; then
+              nh os test -H $1
+            fi
+          }
+
+          build-vm() {
+            if has_staged_changes; then
+              nh os build-vm -H $1
+            fi
+          }
+
           echo "╔════════════════════════════════════════════════════════╗"
-          echo "║   NixOS Configuration Development Environment         ║"
+          echo "║   NixOS Configuration Development Environment          ║"
           echo "╚════════════════════════════════════════════════════════╝"
           echo ""
           echo "Available commands:"
-          echo "  nix fmt              - Format all Nix files"
+          echo "  format               - Format all Nix files"
           echo "  nix flake check      - Validate flake configuration"
           echo "  nix flake update     - Update all inputs"
-          echo "  statix check .       - Lint Nix files for issues"
-          echo "  deadnix .            - Find unused Nix code"
+          echo "  lint                 - Lint Nix files for issues and unused code"
           echo ""
           echo "Build and test:"
-          echo "  nixos-rebuild build-vm --flake .#default"
-          echo "  nixos-rebuild test --flake .#default"
+          echo "  build-vm <hostname>"
+          echo "  test <hostname>"
           echo ""
-          echo "Documentation:"
-          echo "  README.md              - Project overview"
-          echo "  FLAKE_PARTS_GUIDE.md   - Detailed flake-parts guide"
-          echo ""
-        '';
-      };
-      
-      # Minimal shell for quick checks
-      minimal = pkgs.mkShell {
-        name = "nixos-config-minimal";
-        
-        packages = with pkgs; [
-          alejandra
-          nil
-        ];
-        
-        shellHook = ''
-          echo "Minimal NixOS config environment loaded"
         '';
       };
     };
