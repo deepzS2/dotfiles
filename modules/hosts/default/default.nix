@@ -96,6 +96,7 @@
           browser
           discord
           obs
+          obsidian
           terminal
           video-player
           # Development

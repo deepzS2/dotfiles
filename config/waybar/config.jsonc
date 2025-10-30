@@ -151,6 +151,9 @@
       "(.*).pptx": "<span foreground='#fab387'> </span> $1.pptx",
       "(.*).pdf": "<span foreground='#f38ba8'> </span> $1.pdf",
 
+      // Obsidian
+      "(.*) - (.*) - Obsidian(.*)": "<span foreground='#8B5CF6'></span> Obsidian: $1 - $2",
+
       // System
       "Authenticate": "  Authenticate",
     },

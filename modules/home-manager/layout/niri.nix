@@ -423,7 +423,7 @@
           }
 
           {
-            matches = [{app-id = "obs";}];
+            matches = [{app-id = "obsproject";}];
             open-floating = true;
           }
 
@@ -454,7 +454,7 @@
           }
 
           {
-            matches = [{app-id = "obs";}];
+            matches = [{app-id = "obsproject";}];
             open-on-workspace = "chat";
           }
 
