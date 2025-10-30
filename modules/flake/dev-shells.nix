@@ -50,6 +50,12 @@
             fi
           }
 
+          switch() {
+            if has_staged_changes; then
+              nh os switch -H $1
+            fi
+          }
+
           echo "╔════════════════════════════════════════════════════════╗"
           echo "║   NixOS Configuration Development Environment          ║"
           echo "╚════════════════════════════════════════════════════════╝"
@@ -61,8 +67,9 @@
           echo "  lint                 - Lint Nix files for issues and unused code"
           echo ""
           echo "Build and test:"
-          echo "  build-vm <hostname>"
-          echo "  test <hostname>"
+          echo "  build-vm <hostname>  - Build a VM Image"
+          echo "  test <hostname>      - Test current flake configuration"
+          echo "  switch <hostname>    - Rebuild and switch to the new generation"
           echo ""
         '';
       };
