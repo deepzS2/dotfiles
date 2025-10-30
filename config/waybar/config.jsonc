@@ -3,7 +3,7 @@
   "margin-left": 8,
   "margin-right": 8,
   "position": "top",
-  "modules-left": ["custom/distro", "hyprland/workspaces", "hyprland/window"],
+  "modules-left": ["custom/distro", "niri/workspaces", "niri/window"],
   "modules-center": [],
   "modules-right": [
     "privacy",
@@ -63,6 +63,17 @@
     ],
   },
 
+  // Workspaces
+  "niri/workspaces": {
+    "format": "{icon}",
+
+    "format-icons": {
+      "code": "",
+      "browser": "",
+      "chat": "<b></b>",
+      "default": "",
+    },
+  },
   "hyprland/workspaces": {
     "disable-scroll": true,
     "sort-by-name": true,
@@ -79,6 +90,71 @@
     },
   },
 
+  // Window
+  "niri/window": {
+    "format": "{}",
+    "min-length": 5,
+    "max-length": 40,
+
+    "rewrite": {
+      // Terminal
+      "~": "  Terminal",
+      "nushell": "  Terminal",
+      "ghostty": "  Terminal",
+
+      "(.*)tmux(.*)": "<span foreground='#a6e3a1'> </span> Tmux",
+
+      // Browser
+
+      "(.*)Zen Browser": "<span foreground='#fab387'>󰺕 </span> Zen Browser",
+      "(.*) — Zen Browser": "<span foreground='#fab387'>󰺕 </span> $1",
+
+      // Development
+
+      "nvim": "<span foreground='#a6e3a1'> </span> Neovim",
+      "(.*)nvim(.*)": "<span foreground='#a6e3a1'> </span> Neovim",
+
+      "vim": "<span foreground='#a6e3a1'> </span> Vim",
+      "vim (.*)": "<span foreground='#a6e3a1'> </span> $1",
+
+      // Media
+
+      "(.*)Spotify": "<span foreground='#a6e3a1'> </span> Spotify",
+      "(.*)Spotify Premium": "<span foreground='#a6e3a1'> </span> Spotify Premium",
+
+      "OBS(.*)": "<span foreground='#a6adc8'> </span> OBS Studio",
+
+      "VLC media player": "<span foreground='#fab387'>󰕼 </span> VLC Media Player",
+      "(.*) - VLC media player": "<span foreground='#fab387'>󰕼 </span> $1",
+
+      "(.*) - mpv": "<span foreground='#cba6f7'> </span> $1",
+
+      "qView": "  qView",
+
+      "(.*).jpg": "  $1.jpg",
+      "(.*).png": "  $1.png",
+      "(.*).svg": "  $1.svg",
+
+      // Social
+
+      "vesktop": "<span foreground='#89b4fa'> </span> Discord",
+
+      "• Discord(.*)": "Discord$1",
+      "(.*)Discord(.*)": "<span foreground='#89b4fa'> </span> $1Discord$2",
+
+      // Documents
+
+      "ONLYOFFICE Desktop Editors": "<span foreground='#f38ba8'> </span> OnlyOffice Desktop",
+
+      "(.*).docx": "<span foreground='#89b4fa'> </span> $1.docx",
+      "(.*).xlsx": "<span foreground='#a6e3a1'> </span> $1.xlsx",
+      "(.*).pptx": "<span foreground='#fab387'> </span> $1.pptx",
+      "(.*).pdf": "<span foreground='#f38ba8'> </span> $1.pdf",
+
+      // System
+      "Authenticate": "  Authenticate",
+    },
+  },
   "hyprland/window": {
     "format": "{}",
     "tooltip": false,
