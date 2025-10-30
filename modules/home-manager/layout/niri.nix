@@ -491,7 +491,7 @@
           # Suggested binds for running programs: terminal, app launcher, screen locker.
           "Mod+Return" = {
             action = spawn "ghostty";
-            hotkey-overlay.title = "Open a Terminal: alacritty";
+            hotkey-overlay.title = "Open a Terminal: Ghostty";
           };
           "Mod+Space" = {
             action = spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi";
