@@ -56,20 +56,25 @@
             fi
           }
 
+          fetch-hash() {
+             nix hash convert --hash-algo sha256 $(nix-prefetch-url $1)
+          }
+
           echo "╔════════════════════════════════════════════════════════╗"
           echo "║   NixOS Configuration Development Environment          ║"
           echo "╚════════════════════════════════════════════════════════╝"
           echo ""
           echo "Available commands:"
-          echo "  format               - Format all Nix files"
-          echo "  nix flake check      - Validate flake configuration"
-          echo "  nix flake update     - Update all inputs"
-          echo "  lint                 - Lint Nix files for issues and unused code"
+          echo "  format                 - Format all Nix files"
+          echo "  nix flake check        - Validate flake configuration"
+          echo "  nix flake update       - Update all inputs"
+          echo "  lint                   - Lint Nix files for issues and unused code"
+          echo "  fetch-url-hash <url>   - Fetch URL and return hash to be used in Nix"
           echo ""
           echo "Build and test:"
-          echo "  build-vm <hostname>  - Build a VM Image"
-          echo "  test <hostname>      - Test current flake configuration"
-          echo "  switch <hostname>    - Rebuild and switch to the new generation"
+          echo "  build-vm <hostname>    - Build a VM Image"
+          echo "  test <hostname>        - Test current flake configuration"
+          echo "  switch <hostname>      - Rebuild and switch to the new generation"
           echo ""
         '';
       };
