@@ -56,7 +56,7 @@
             fi
           }
 
-          fetch-hash() {
+          fetch-url-hash() {
              nix hash convert --hash-algo sha256 $(nix-prefetch-url $1)
           }
 
