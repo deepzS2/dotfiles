@@ -5,6 +5,7 @@
     # Install fonts
     fonts = {
       packages = [
+        pkgs.atkinson-hyperlegible-next
         pkgs.nerd-fonts.jetbrains-mono
         pkgs.nerd-fonts.iosevka
         pkgs.jetbrains-mono

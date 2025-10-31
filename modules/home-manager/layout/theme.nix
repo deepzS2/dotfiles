@@ -12,6 +12,12 @@
         vencord.enable = false;
         zen-browser.enable = false;
       };
+      cursor = {
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
+        size = 24;
+      };
+
       fonts = {
         monospace = {
           package = pkgs.nerd-fonts.jetbrains-mono;
