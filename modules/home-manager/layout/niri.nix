@@ -7,8 +7,8 @@
   };
 
   flake.modules.homeManager.niri = {
-    pkgs,
     config,
+    pkgs,
     ...
   }: {
     home.packages = [
@@ -83,39 +83,41 @@
         # The built-in laptop monitor is usually called "eDP-1".
         # Find more information on the wiki:
         # https://yalter.github.io/niri/Configuration:-Outputs
-        outputs = {
-          "eDP-1" = {
-            # Uncomment this line to disable this output.
-            # off
-            # Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-            mode = {
-              width = 1920;
-              height = 1080;
-              refresh = 144.00;
-            };
-            # You can use integer or fractional scale, for example use 1.5 for 150% scale.
-            scale = 1;
-            # Transform allows to rotate the output counter-clockwise, valid values are:
-            # transform = {
-            #   flipped = true;
-            #   rotation = 90;
-            # };
+        outputs =
+          builtins.listToAttrs
+          (map (monitor: {
+              # Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+              name = monitor.name;
+              value = {
+                mode = {
+                  width = monitor.width;
+                  height = monitor.height;
+                  refresh = monitor.refresh-rate;
+                };
+                # You can use integer or fractional scale, for example use 1.5 for 150% scale.
+                scale = monitor.scale;
+                # Transform allows to rotate the output counter-clockwise, valid values are:
+                # transform = {
+                #   flipped = true;
+                #   rotation = 90;
+                # };
 
-            # Position of the output in the global coordinate space.
-            # This affects directional monitor actions like "focus-monitor-left", and cursor movement.
-            # The cursor can only move between directly adjacent outputs.
-            # Output scale and rotation has to be taken into account for positioning:
-            # outputs are sized in logical, or scaled, pixels.
-            # For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
-            # so to put another output directly adjacent to it on the right, set its x to 1920.
-            # If the position is unset or results in an overlap, the output is instead placed
-            # automatically.
-            # position = {
-            # x = 1280;
-            # y = 0;
-            #};
-          };
-        };
+                # Position of the output in the global coordinate space.
+                # This affects directional monitor actions like "focus-monitor-left", and cursor movement.
+                # The cursor can only move between directly adjacent outputs.
+                # Output scale and rotation has to be taken into account for positioning:
+                # outputs are sized in logical, or scaled, pixels.
+                # For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
+                # so to put another output directly adjacent to it on the right, set its x to 1920.
+                # If the position is unset or results in an overlap, the output is instead placed
+                # automatically.
+                position = {
+                  x = monitor.x;
+                  y = monitor.y;
+                };
+              };
+            })
+            config.monitors);
 
         # Settings that influence how windows are positioned and sized.
         # Find more information on the wiki:

@@ -13,7 +13,11 @@
     environment.systemPackages = [pkgs.nautilus];
   };
 
-  flake.modules.homeManager.hyprland = {pkgs, ...}: {
+  flake.modules.homeManager.hyprland = {
+    config,
+    pkgs,
+    ...
+  }: {
     home.packages = [
       pkgs.hyprshot
       pkgs.hyprcursor
@@ -25,7 +29,15 @@
       xwayland.enable = true;
       settings = {
         # See https://wiki.hyprland.org/Configuring/Monitors/
-        monitor = [",1920x1080@144,auto,1"];
+        monitor =
+          map (
+            monitor: "${monitor.name},${toString monitor.width}x${toString monitor.height}@${toString monitor.refresh-rate},${
+              if monitor.primary
+              then "auto"
+              else "${toString monitor.x}x${toString monitor.y}"
+            },${toString monitor.scale}"
+          )
+          config.monitors;
 
         ###################
         ### MY PROGRAMS ###

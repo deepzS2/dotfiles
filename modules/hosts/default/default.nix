@@ -91,6 +91,7 @@
           inputs.agenix.homeManagerModules.default
         ]
         ++ (with self.modules.homeManager; [
+          options
           git
           # Applications
           browser
@@ -147,6 +148,19 @@
         username = "deepz";
         stateVersion = "25.05";
       };
+
+      monitors = [
+        {
+          name = "eDP-1";
+          width = 1920;
+          height = 1080;
+          refresh-rate = 144.0;
+          scale = 1.0;
+          x = 0;
+          y = 0;
+          primary = true;
+        }
+      ];
 
       programs.home-manager.enable = true;
     };
