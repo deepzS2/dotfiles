@@ -9,11 +9,8 @@
     services.syncthing = {
       enable = true;
       tray.enable = true;
-      settings.folders = {
-        "Obsidian" = {
-          path = "~/Obsidian";
-        };
-      };
+      overrideDevices = true; # overrides any devices added or deleted through the WebUI
+      overrideFolders = true; # overrides any folders added or deleted through the WebUI
     };
   };
 }
