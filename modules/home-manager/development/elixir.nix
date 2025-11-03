@@ -17,11 +17,8 @@
     config = let
       cfg = config.development.elixir;
     in {
-      home.packages = with pkgs;
-        [
-          elixir
-          erlang
-        ]
+      home.packages =
+        builtins.attrValues {inherit (pkgs) elixir erlang;}
         ++ cfg.extraPackages;
     };
   };

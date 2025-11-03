@@ -36,173 +36,175 @@
         # lspsAndRuntimeDeps:
         # this section is for dependencies that should be available
         # at RUN TIME for plugins. Will be available to PATH within neovim terminal
-        lspsAndRuntimeDeps = with pkgs; {
+        lspsAndRuntimeDeps = {
           # Core utilities used for various editor functions
           core = [
-            universal-ctags
-            ripgrep
-            fd
-            stdenv.cc.cc
+            pkgs.universal-ctags
+            pkgs.ripgrep
+            pkgs.fd
+            pkgs.stdenv.cc.cc
           ];
 
           # Git-related tools
           git = [
-            lazygit
+            pkgs.lazygit
           ];
 
           # Documentation tools
           docs = [
-            nix-doc
+            pkgs.nix-doc
           ];
 
           # Language servers for different languages
           languageServers = [
             # System languages
-            lua-language-server
-            nixd
-            bash-language-server
+            pkgs.lua-language-server
+            pkgs.nixd
+            pkgs.bash-language-server
 
             # Web development
-            tailwindcss-language-server
-            htmx-lsp2
-            astro-language-server
-            vtsls # TypeScript
+            pkgs.tailwindcss-language-server
+            pkgs.htmx-lsp2
+            pkgs.astro-language-server
+            pkgs.vtsls # TypeScript
 
             # Container/configuration languages
-            docker-ls
-            docker-compose-language-service
-            jsonnet-language-server
-            taplo # TOML
+            pkgs.docker-ls
+            pkgs.docker-compose-language-service
+            pkgs.jsonnet-language-server
+            pkgs.taplo # TOML
 
             # AI NES
-            copilot-language-server
+            pkgs.copilot-language-server
 
             # Other languages
-            elixir-ls
-            gopls
+            pkgs.elixir-ls
+            pkgs.gopls
           ];
 
           # Code formatting tools
           formatters = [
-            stylua # Lua
-            prettierd # Web
-            shfmt # Shell
-            alejandra # Nix
-            biome # JavaScript/TypeScript
-            gofumpt # Go
-            goimports-reviser # Go imports
+            pkgs.stylua # Lua
+            pkgs.prettierd # Web
+            pkgs.shfmt # Shell
+            pkgs.alejandra # Nix
+            pkgs.biome # JavaScript/TypeScript
+            pkgs.gofumpt # Go
+            pkgs.goimports-reviser # Go imports
           ];
 
           # Visual enhancements
           visual = [
-            dwt1-shell-color-scripts
+            pkgs.dwt1-shell-color-scripts
           ];
 
           # Debugging tools
           debugging = [
-            delve # Go debugger
+            pkgs.delve # Go debugger
           ];
 
           # Linting tools
           linting = [
-            markdownlint-cli # Markdown
-            shellcheck # Shell
-            hadolint # Dockerfile
-            gomodifytags # Go struct field tags
-            impl # Go implement interface
+            pkgs.markdownlint-cli # Markdown
+            pkgs.shellcheck # Shell
+            pkgs.hadolint # Dockerfile
+            pkgs.gomodifytags # Go struct field tags
+            pkgs.impl # Go implement interface
           ];
         };
 
         # This is for plugins that will load at startup without using packadd:
         # Plugins are organized by their functionality for better maintainability
-        startupPlugins = with pkgs.vimPlugins; {
+        startupPlugins = let
+          inherit (pkgs) vimPlugins;
+        in {
           # Core plugins required for basic functionality
           core = [
-            lazy-nvim # Plugin manager
-            plenary-nvim # Common utilities
-            nui-nvim # UI components
-            which-key-nvim # Keybinding helper
+            vimPlugins.lazy-nvim # Plugin manager
+            vimPlugins.plenary-nvim # Common utilities
+            vimPlugins.nui-nvim # UI components
+            vimPlugins.which-key-nvim # Keybinding helper
           ];
 
           # UI and appearance-related plugins
           ui = [
-            bufferline-nvim
-            dressing-nvim
-            fidget-nvim
-            incline-nvim
-            kanagawa-nvim
-            noice-nvim
-            nvim-colorizer-lua
-            snacks-nvim
-            trouble-nvim
-            tiny-inline-diagnostic-nvim
-            smear-cursor-nvim
+            vimPlugins.bufferline-nvim
+            vimPlugins.dressing-nvim
+            vimPlugins.fidget-nvim
+            vimPlugins.incline-nvim
+            vimPlugins.kanagawa-nvim
+            vimPlugins.noice-nvim
+            vimPlugins.nvim-colorizer-lua
+            vimPlugins.snacks-nvim
+            vimPlugins.trouble-nvim
+            vimPlugins.tiny-inline-diagnostic-nvim
+            vimPlugins.smear-cursor-nvim
           ];
 
           # Editor enhancements for better coding experience
           editor = [
-            nvim-ts-context-commentstring
-            grapple-nvim
-            mini-nvim
-            persistence-nvim
-            vim-tmux-navigator
-            guess-indent-nvim
-            todo-comments-nvim
-            cloak-nvim # Hide sensitive information
+            vimPlugins.nvim-ts-context-commentstring
+            vimPlugins.grapple-nvim
+            vimPlugins.mini-nvim
+            vimPlugins.persistence-nvim
+            vimPlugins.vim-tmux-navigator
+            vimPlugins.guess-indent-nvim
+            vimPlugins.todo-comments-nvim
+            vimPlugins.cloak-nvim # Hide sensitive information
           ];
 
           # Git integration plugins
           git = [
-            gitsigns-nvim
+            vimPlugins.gitsigns-nvim
           ];
 
           # LSP (Language Server Protocol) related plugins
           lsp = [
-            mason-nvim
-            mason-lspconfig-nvim
-            mason-tool-installer-nvim
-            nvim-lspconfig
-            nvim-lint
-            conform-nvim # Formatting
+            vimPlugins.mason-nvim
+            vimPlugins.mason-lspconfig-nvim
+            vimPlugins.mason-tool-installer-nvim
+            vimPlugins.nvim-lspconfig
+            vimPlugins.nvim-lint
+            vimPlugins.conform-nvim # Formatting
           ];
 
           # Completion and snippets
           completion = [
-            blink-cmp
-            friendly-snippets
+            vimPlugins.blink-cmp
+            vimPlugins.friendly-snippets
           ];
 
           # AI assistants
           ai = [
-            sidekick-nvim
+            vimPlugins.sidekick-nvim
           ];
 
           # Language-specific plugins
           languages = [
-            nvim-treesitter
-            nvim-treesitter-textobjects
-            nvim-ts-autotag
-            crates-nvim # Rust crates
-            rustaceanvim # Rust
-            flutter-tools-nvim # Flutter/Dart
-            SchemaStore-nvim # JSON
+            vimPlugins.nvim-treesitter
+            vimPlugins.nvim-treesitter-textobjects
+            vimPlugins.nvim-ts-autotag
+            vimPlugins.crates-nvim # Rust crates
+            vimPlugins.rustaceanvim # Rust
+            vimPlugins.flutter-tools-nvim # Flutter/Dart
+            vimPlugins.SchemaStore-nvim # JSON
           ];
 
           # Utility plugins
           utils = [
-            img-clip-nvim
-            markview-nvim
-            lazydev-nvim
-            fzf-lua
-            undotree
-            hardtime-nvim
-            grug-far-nvim
-            flash-nvim
+            vimPlugins.img-clip-nvim
+            vimPlugins.markview-nvim
+            vimPlugins.lazydev-nvim
+            vimPlugins.fzf-lua
+            vimPlugins.undotree
+            vimPlugins.hardtime-nvim
+            vimPlugins.grug-far-nvim
+            vimPlugins.flash-nvim
           ];
 
           # Treesitter with grammars
           treesitter = [
-            nvim-treesitter.withAllGrammars
+            vimPlugins.nvim-treesitter.withAllGrammars
             # Selective grammar loading alternative:
             # (nvim-treesitter.withPlugins (
             #   plugins: with plugins; [
@@ -214,10 +216,10 @@
 
           # Debugging support
           debugging = [
-            nvim-dap
-            nvim-dap-ui
-            nvim-nio
-            mason-nvim-dap-nvim
+            vimPlugins.nvim-dap
+            vimPlugins.nvim-dap-ui
+            vimPlugins.nvim-nio
+            vimPlugins.mason-nvim-dap-nvim
           ];
         };
 

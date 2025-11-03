@@ -31,11 +31,11 @@
     config = let
       cfg = config.development.javascript;
     in {
-      home.packages = with pkgs;
-        lib.optionals cfg.enableNodejs [nodejs]
-        ++ lib.optionals cfg.enablePnpm [pnpm]
-        ++ lib.optionals cfg.enableDeno [deno]
-        ++ lib.optionals cfg.enableBun [bun];
+      home.packages =
+        lib.optionals cfg.enableNodejs [pkgs.nodejs]
+        ++ lib.optionals cfg.enablePnpm [pkgs.pnpm]
+        ++ lib.optionals cfg.enableDeno [pkgs.deno]
+        ++ lib.optionals cfg.enableBun [pkgs.bun];
     };
   };
 }

@@ -79,17 +79,14 @@
         keybindings
       ];
 
-      plugins = with pkgs; [
-        tmuxPlugins.sensible
-        tmuxPlugins.yank
-        tmuxPlugins.resurrect
-        tmuxPlugins.continuum
-        tmuxPlugins.vim-tmux-navigator
-        {
-          plugin = tmuxPlugins.kanagawa;
-          extraConfig = kanagawaConfig;
-        }
-      ];
+      plugins =
+        builtins.attrValues {inherit (pkgs.tmuxPlugins) sensible yank resurrect continuum vim-tmux-navigator;}
+        ++ [
+          {
+            plugin = pkgs.tmuxPlugins.kanagawa;
+            extraConfig = kanagawaConfig;
+          }
+        ];
     };
   };
 }

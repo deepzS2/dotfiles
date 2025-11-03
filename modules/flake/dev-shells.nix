@@ -5,21 +5,9 @@
       default = pkgs.mkShell {
         name = "nixos-config-dev";
 
-        packages = with pkgs; [
-          # Nix tools
-          alejandra # Nix formatter
-          nil # Nix LSP
-          statix # Nix linter
-          deadnix # Find dead code
-
-          # Version control
-          git
-
-          # Utilities
-          jq # JSON processor
-          yq # YAML processor
-          tree # Directory visualization
-        ];
+        packages = builtins.attrValues {
+          inherit (pkgs) alejandra nil statix deadnix git jq yq tree;
+        };
 
         shellHook = ''
           NH_FLAKE="$PWD"

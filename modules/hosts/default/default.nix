@@ -71,11 +71,9 @@
 
       programs.firefox.enable = true;
 
-      environment.systemPackages = with pkgs; [
-        vim
-        wget
-        sbctl
-      ];
+      environment.systemPackages = builtins.attrValues {
+        inherit (pkgs) vim wget sbctl;
+      };
 
       system.stateVersion = "25.05";
     };

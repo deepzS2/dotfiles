@@ -17,11 +17,8 @@
     config = let
       cfg = config.development.go;
     in {
-      home.packages = with pkgs;
-        [
-          go
-          air
-        ]
+      home.packages =
+        builtins.attrValues {inherit (pkgs) go air;}
         ++ cfg.extraPackages;
     };
   };
