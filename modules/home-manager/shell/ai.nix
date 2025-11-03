@@ -14,6 +14,11 @@
         model = "github-copilot/gpt-5";
         theme = "kanagawa";
         autoupdate = true;
+        mcp.nixos = {
+          enabled = true;
+          type = "local";
+          command = ["nix" "run" "github:utensils/mcp-nixos"];
+        };
       };
     };
 
