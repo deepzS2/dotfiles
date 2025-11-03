@@ -1,10 +1,7 @@
 # Rofi application launcher configuration module for Home Manager
 # Exported as flake.modules.homeManager.rofi
 {
-  flake.modules.homeManager.rofi = {
-    pkgs,
-    ...
-  }: {
+  flake.modules.homeManager.rofi = {pkgs, ...}: {
     programs.rofi = {
       enable = true;
       terminal = "ghostty";

@@ -1,10 +1,7 @@
 # Starship prompt configuration module for Home Manager
 # Exported as flake.modules.homeManager.prompt
 {
-  flake.modules.homeManager.prompt = {
-    lib,
-    ...
-  }: {
+  flake.modules.homeManager.prompt = {lib, ...}: {
     programs.starship = {
       enable = true;
       enableNushellIntegration = true;

@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.podman = {
-    pkgs,
-    ...
-  }: {
+  flake.modules.nixos.podman = {pkgs, ...}: {
     environment = {
       systemPackages = [
         pkgs.podman-compose

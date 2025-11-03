@@ -1,5 +1,9 @@
 {
-  flake.modules.homeManager.git = {lib, config, ...}: {
+  flake.modules.homeManager.git = {
+    lib,
+    config,
+    ...
+  }: {
     options.git = {
       userName = lib.mkOption {
         type = lib.types.str;

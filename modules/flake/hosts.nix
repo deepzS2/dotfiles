@@ -18,7 +18,11 @@
 
   flake.homeConfigurations = {
     "deepz@alan" = withSystem "x86_64-linux" (
-      {pkgs, system, ...}:
+      {
+        pkgs,
+        system,
+        ...
+      }:
         inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {inherit inputs system;};

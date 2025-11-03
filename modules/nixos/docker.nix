@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.docker = {
-    pkgs,
-    ...
-  }: {
+  flake.modules.nixos.docker = {pkgs, ...}: {
     environment = {
       systemPackages = [
         pkgs.docker-compose
