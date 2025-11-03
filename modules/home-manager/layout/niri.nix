@@ -1,6 +1,8 @@
-{
+{config, ...}: let
+  inherit (config.flake.settings) window-manager;
+in {
   flake.modules.nixos.niri = {pkgs, ...}: {
-    programs.niri.enable = true;
+    programs.niri.enable = window-manager == "niri";
 
     environment.sessionVariables.NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
     environment.systemPackages = [pkgs.nautilus];
@@ -17,7 +19,6 @@
     ];
 
     programs.niri = {
-      # enable = lib.mkAfter true;
       settings = {
         # Input device configuration.
         # Find the full list of options on the wiki:

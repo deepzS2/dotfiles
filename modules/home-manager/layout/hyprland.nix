@@ -1,10 +1,10 @@
-# Hyprland Wayland compositor configuration module for Home Manager
-# Exported as flake.modules.homeManager.hyprland
-{
+{config, ...}: let
+  inherit (config.flake.settings) window-manager;
+in {
   flake.modules.nixos.hyprland = {pkgs, ...}: {
     # Enables Hyprland
     programs.hyprland = {
-      enable = true;
+      enable = window-manager == "hyprland";
       withUWSM = true; # recommended for most users
       xwayland.enable = true; # Xwayland can be disabled.
     };
@@ -25,7 +25,7 @@
     ];
 
     wayland.windowManager.hyprland = {
-      enable = true;
+      enable = window-manager == "hyprland";
       xwayland.enable = true;
       settings = {
         # See https://wiki.hyprland.org/Configuring/Monitors/
