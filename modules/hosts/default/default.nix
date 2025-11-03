@@ -129,14 +129,6 @@
           hyprlock
           # Scripts
           scripts
-          script-clipboard
-          script-notification
-          script-powermenu
-          script-startup
-          script-wallpaper-cache
-          script-wallpaper-load
-          script-wallpaper-select
-          script-wifimenu
           # Secrets
           nix
           nix-helper

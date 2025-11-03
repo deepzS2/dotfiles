@@ -1,7 +1,13 @@
 # Power menu script for Home Manager
 # Exported as flake.modules.homeManager.script-powermenu
-{
-  flake.modules.homeManager.script-powermenu = {pkgs, ...}: {
+{config, ...}: let
+  inherit (config.flake.settings) window-manager;
+in {
+  flake.modules.homeManager.scripts = {
+    config,
+    pkgs,
+    ...
+  }: {
     home.packages = [
       (
         pkgs.writeShellApplication {
@@ -13,6 +19,7 @@
             # Current Theme
             THEME="$HOME/.config/rofi/powermenu.rasi"
             CONFIRM_THEME="$HOME/.config/rofi/powermenu_confirm.rasi"
+            WM=${window-manager}
 
             # CMDs
             uptime="$(uptime -p | sed -e 's/up //g')"
@@ -64,9 +71,16 @@
                   systemctl reboot --now
                 elif [[ $1 == '--lock' ]]; then
                   hyprlock
-                elif [[ $1 == '--logout' ]]; then
-                  send_notification logout
-                  hyprctl dispatch exit 0
+                 elif [[ $1 == '--logout' ]]; then
+                   send_notification logout
+
+                   if [[ $WM == "hyprland" ]]; then
+                     hyprctl dispatch exit 0
+                   elif [[ $WM == "niri" ]]; then
+                     niri msg action quit
+                   else
+                     send_notification notify "Unknown window manager, cannot logout..."
+                   fi
                 elif [[ $1 == '--suspend' ]]; then
                   send_notification logout
                   amixer set Master mute

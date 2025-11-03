@@ -1,7 +1,7 @@
 # WiFi menu script for Home Manager
 # Exported as flake.modules.homeManager.script-wifimenu
 {
-  flake.modules.homeManager.script-wifimenu = {pkgs, ...}: {
+  flake.modules.homeManager.scripts = {pkgs, ...}: {
     home.packages = [
       (
         pkgs.writeShellApplication {
@@ -11,7 +11,7 @@
             THEME="$HOME/.config/rofi/wifimenu.rasi"
             PASSWORD_THEME="$HOME/.config/rofi/wifimenu_password.rasi"
 
-            notify-send "Getting list of available Wi-Fi networks..."
+            send_notification "Getting list of available Wi-Fi networks..."
 
             # Get a list of available wifi connections and morph it into a nice-looking list
             wifi_list=$(nmcli --fields "SECURITY,SSID" device wifi list | sed 1d | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d")
@@ -40,12 +40,12 @@
             	# Get saved connections
             	saved_connections=$(nmcli -g NAME connection)
             	if [[ $(echo "$saved_connections" | grep -w "$chosen_id") = "$chosen_id" ]]; then
-            		nmcli connection up id "$chosen_id" | grep "successfully" && notify-send "Connection Established" "$success_message"
+            		nmcli connection up id "$chosen_id" | grep "successfully" && send_notification "Connection Established" "$success_message"
             	else
             		if [[ "$chosen_network" =~ "" ]]; then
             			wifi_password=$(rofi -dmenu -p "Password: " -theme "$PASSWORD_THEME")
             		fi
-            		nmcli device wifi connect "$chosen_id" password "$wifi_password" | grep "successfully" && notify-send "Connection Established" "$success_message"
+            		nmcli device wifi connect "$chosen_id" password "$wifi_password" | grep "successfully" && send_notification "Connection Established" "$success_message"
                 fi
             fi
           '';

@@ -1,7 +1,7 @@
 # Clipboard manager script for Home Manager
 # Exported as flake.modules.homeManager.script-clipboard
 {
-  flake.modules.homeManager.script-clipboard = {pkgs, ...}: {
+  flake.modules.homeManager.scripts = {pkgs, ...}: {
     home.packages = [
       pkgs.wl-clipboard
       pkgs.cliphist
