@@ -25,9 +25,12 @@
             nixd = {
               nixpkgs.expr = "import <nixpkgs> {}";
               formatting.command = ["alejandra"];
-              options = {
-                nixos.expr = "(builtins.getFlake \"${config.home.homeDirectory}/.dotfiles\").nixosConfigurations.default.options";
-                home-manager.options = "(builtins.getFlake \"${config.home.homeDirectory}/.dotfiles\").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []";
+              options = let
+                flake-path = "${config.home.homeDirectory}/.dotfiles";
+              in {
+                nixos.expr = "(builtins.getFlake \"${flake-path}\").nixosConfigurations.deepz.options";
+                home-manager.expr = "(builtins.getFlake \"${flake-path}\").nixosConfigurations.deepz.options.home-manager.users.type.getSubOptions []";
+                flake-parts.expr = "(builtins.getFlake \"${flake-path}\").debug.options";
               };
             };
           };

@@ -346,10 +346,13 @@ return {
               },
               options = {
                 nixos = {
-                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.default.options',
+                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.deepz.options',
                 },
                 home_manager = {
-                  options = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.default.options.home-manager.users.type.getSubOptions []',
+                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.deepz.options.home-manager.users.type.getSubOptions []',
+                },
+                flake_parts = {
+                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").debug.options',
                 },
               },
             },
