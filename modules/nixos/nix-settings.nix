@@ -1,5 +1,5 @@
-{
-  flake.modules.nixos.nix = {inputs, ...}: {
+{inputs, ...}: {
+  flake.modules.nixos.nix = {
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 

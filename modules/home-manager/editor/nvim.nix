@@ -1,11 +1,7 @@
 # Neovim editor configuration module for Home Manager
 # Exported as flake.modules.homeManager.nvim
-{
-  flake.modules.homeManager.nvim = {
-    pkgs,
-    inputs,
-    ...
-  }: let
+{inputs, ...}: {
+  flake.modules.homeManager.nvim = {pkgs, ...}: let
     inherit (inputs.nixCats) utils;
   in {
     home.packages = [

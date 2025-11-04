@@ -1,6 +1,5 @@
-{
+{inputs, ...}: {
   flake.modules.homeManager.nix = {
-    inputs,
     pkgs,
     lib,
     ...

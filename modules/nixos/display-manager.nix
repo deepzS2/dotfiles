@@ -1,11 +1,7 @@
 # Display manager and Hyprland configuration module for NixOS
 # Exported as flake.modules.nixosModules.display-manager
-{
-  flake.modules.nixos.display-manager = {
-    inputs,
-    pkgs,
-    ...
-  }: let
+{inputs, ...}: {
+  flake.modules.nixos.display-manager = {pkgs, ...}: let
     bg = pkgs.fetchurl {
       url = "https://www.desktophut.com/files/0wy7pescJl-YakuzaMajimaGoroTattooLiveWallpaper.mp4";
       hash = "sha256-bKEwQQvhPnnwS/OOsqTx6BKJ74tZtvWdj5HVvwKZThs=";

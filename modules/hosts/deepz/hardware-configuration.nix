@@ -1,5 +1,5 @@
 _: {
-  flake.modules.nixos.default = {
+  flake.modules.nixos.deepz = {
     config,
     lib,
     modulesPath,
