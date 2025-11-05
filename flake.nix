@@ -4,16 +4,14 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     devshell.url = "github:numtide/devshell";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
+    # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Flake-parts for modular flake configuration
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
-    # Automatic module tree importing
-    import-tree.url = "github:vic/import-tree";
 
     # Neovim
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
