@@ -20,6 +20,7 @@
         podman
         hyprland
         niri
+        notifications
       ]);
 
     # Bootloader (with secure boot).
