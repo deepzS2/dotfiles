@@ -7,7 +7,7 @@
       hash = "sha256-bKEwQQvhPnnwS/OOsqTx6BKJ74tZtvWdj5HVvwKZThs=";
     };
     # an exhaustive example can be found in flake.nix
-    sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+    sddm-theme = inputs.silentSDDM.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       theme = "rei"; # select the config of your choice
       extraBackgrounds = [bg];
       theme-overrides = {

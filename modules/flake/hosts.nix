@@ -17,11 +17,7 @@
 
   flake.homeConfigurations = {
     "deepz@alan" = withSystem "x86_64-linux" (
-      {
-        pkgs,
-        system,
-        ...
-      }:
+      _:
         inputs.home-manager.lib.homeManagerConfiguration {
           modules = [inputs.self.modules.homeManager.deepz];
         }
