@@ -60,6 +60,8 @@
       };
     };
 
+    home-manager.users."deepz" = self.modules.homeManager.deepz;
+
     environment.systemPackages = builtins.attrValues {
       inherit (pkgs) vim wget sbctl firefox;
     };

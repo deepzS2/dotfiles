@@ -2,7 +2,7 @@
 # This module defines all NixOS and Home Manager configurations
 {
   inputs,
-  withSystem,
+  self,
   ...
 }: {
   flake.nixosConfigurations = {
@@ -10,17 +10,14 @@
     deepz = inputs.nixpkgs.lib.nixosSystem {
       modules = [
         # Host configuration from flake.modules
-        inputs.self.modules.nixos.deepz
+        self.modules.nixos.deepz
       ];
     };
   };
 
   flake.homeConfigurations = {
-    "deepz@alan" = withSystem "x86_64-linux" (
-      _:
-        inputs.home-manager.lib.homeManagerConfiguration {
-          modules = [inputs.self.modules.homeManager.deepz];
-        }
-    );
+    "deepz@alan" = inputs.home-manager.lib.homeManagerConfiguration {
+      modules = [self.modules.homeManager.deepz];
+    };
   };
 }
