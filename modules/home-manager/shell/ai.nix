@@ -12,7 +12,6 @@
       enable = true;
       settings = {
         model = "github-copilot/gpt-5";
-        theme = "kanagawa";
         autoupdate = true;
         mcp.nixos = {
           enabled = true;
