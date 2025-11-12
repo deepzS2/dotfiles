@@ -1,5 +1,5 @@
 {
-  self,
+  config,
   inputs,
   ...
 }: {
@@ -13,7 +13,7 @@
         inputs.stylix.homeModules.stylix
         inputs.agenix.homeManagerModules.default
       ]
-      ++ (with self.modules.homeManager; [
+      ++ (with config.flake.modules.homeManager; [
         options
         git
         # Applications

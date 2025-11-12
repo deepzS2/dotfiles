@@ -7,22 +7,26 @@ NixOS configuration using [flake-parts](https://flake.parts/) with self-register
 ### On NixOS
 
 1. **Clone the repository:**
+
 ```bash
 git clone https://github.com/deepzS2/dotfiles.git
 cd dotfiles
 ```
 
 2. **Update flake inputs:**
+
 ```bash
 nix flake update
 ```
 
 3. **Apply NixOS configuration:**
+
 ```bash
 sudo nixos-rebuild switch --flake .#default
 ```
 
 4. **Apply Home Manager configuration (standalone, if needed):**
+
 ```bash
 home-manager switch --flake .#default
 ```
@@ -30,22 +34,25 @@ home-manager switch --flake .#default
 ### On Non-NixOS Systems (Ubuntu, Debian, etc.)
 
 1. **Install Nix (if not already installed):**
+
 ```bash
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
 2. **Clone the repository:**
+
 ```bash
 git clone https://github.com/deepzS2/dotfiles.git
 cd dotfiles
 ```
 
 3. **Apply Home Manager configuration (using the default configuration):**
+
 ```bash
 home-manager switch --flake .#default
 ```
 
-*Note: The default configuration is set up for user "deepz". For custom setups, create a new host in `modules/hosts/your-hostname/default.nix` as described in the "Adding New Hosts" section.*
+_Note: The default configuration is set up for user "deepz". For custom setups, create a new host in `modules/hosts/your-hostname/default.nix` as described in the "Adding New Hosts" section._
 
 ## Structure
 
@@ -62,6 +69,7 @@ All modules are auto-imported via [import-tree](https://github.com/vic/import-tr
 ## Architecture
 
 This configuration follows the [**Dendritic Pattern**](https://github.com/mightyiam/dendritic), where each module:
+
 - Is a flake-parts module
 - Implements a single feature
 - Spans across all module classes it applies to
@@ -88,18 +96,18 @@ Import modules in host configs:
 
 ```nix
 # modules/hosts/default/default.nix
-{self, ...}: {
+{config, ...}: {
   flake.modules = {
     nixos.default = {inputs, ...}: {
-      imports = with self.modules.nixosModules; [
+      imports = with config.flake.modules.nixosModules; [
         audio
         containers
         display-manager
       ];
     };
-    
+
     homeManager.default = {inputs, ...}: {
-      imports = with self.modules.homeManager; [
+      imports = with config.flake.modules.homeManager; [
         git
         nvim
         hyprland
@@ -114,6 +122,7 @@ Import modules in host configs:
 ### 1. Create a Home Manager Module
 
 Create `modules/home-manager/my-feature.nix`:
+
 ```nix
 {
   flake.modules.homeManager.my-feature = {pkgs, ...}: {
@@ -128,6 +137,7 @@ The module is automatically discovered by import-tree!
 ### 2. Create a NixOS Module
 
 Create `modules/nixos/my-feature.nix`:
+
 ```nix
 {
   flake.modules.nixosModules.my-feature = {pkgs, ...}: {
@@ -140,6 +150,7 @@ Create `modules/nixos/my-feature.nix`:
 ### 3. Create a Multi-Class Module (Dendritic Pattern)
 
 Create `modules/my-feature/default.nix`:
+
 ```nix
 {
   # Implements across both NixOS and Home Manager
@@ -147,7 +158,7 @@ Create `modules/my-feature/default.nix`:
     nixosModules.my-feature = {pkgs, ...}: {
       # NixOS configuration
     };
-    
+
     homeManager.my-feature = {pkgs, ...}: {
       # Home Manager configuration
     };
@@ -158,10 +169,11 @@ Create `modules/my-feature/default.nix`:
 ### 4. Import in Host
 
 Add to your host configuration:
+
 ```nix
-{self, ...}: {
+{config, ...}: {
   flake.modules.homeManager.default = {inputs, ...}: {
-    imports = with self.modules.homeManager; [
+    imports = with config.flake.modules.homeManager; [
       my-feature  # ← Your new module
     ];
   };
@@ -173,31 +185,32 @@ Add to your host configuration:
 ### NixOS Host
 
 Create `modules/hosts/my-host/default.nix`:
+
 ```nix
-{self, ...}: {
+{config, ...}: {
   flake.modules = {
     nixos.my-host = {inputs, pkgs, ...}: {
       imports = [
         ./hardware-configuration.nix
         inputs.home-manager.nixosModules.default
-      ] ++ (with self.modules.nixosModules; [
+      ] ++ (with config.flake.modules.nixosModules; [
         audio
         # ... other modules
       ]);
-      
+
       # NixOS configuration
       networking.hostName = "my-host";
       system.stateVersion = "24.11";
-      
-      home-manager.users."myuser" = self.modules.homeManager.my-host;
+
+      home-manager.users."myuser" = config.flake.modules.homeManager.my-host;
     };
 
     homeManager.my-host = {inputs, ...}: {
-      imports = with self.modules.homeManager; [
+      imports = with config.flake.modules.homeManager; [
         git
         # ... other modules
       ];
-      
+
       home.username = "myuser";
       home.homeDirectory = "/home/myuser";
       home.stateVersion = "24.11";
@@ -209,15 +222,16 @@ Create `modules/hosts/my-host/default.nix`:
 ### Home Manager Only Host
 
 Create `modules/hosts/ubuntu-laptop/default.nix`:
+
 ```nix
 {self, ...}: {
   flake.modules.homeManager.ubuntu-laptop = {inputs, ...}: {
-    imports = with self.modules.homeManager; [
+    imports = with config.flake.modules.homeManager; [
       git
       nvim
       # ... only Home Manager modules
     ];
-    
+
     home.username = "myuser";
     home.homeDirectory = "/home/myuser";
     home.stateVersion = "24.11";
@@ -230,17 +244,20 @@ Create `modules/hosts/ubuntu-laptop/default.nix`:
 This repository includes a development shell with all necessary tools.
 
 **Enter the development shell:**
+
 ```bash
 nix develop
 ```
 
 **Available tools in dev shell:**
+
 - `alejandra` - Nix code formatter
 - `statix` - Nix linter and static analysis
 - `deadnix` - Find and remove unused Nix code
 - `nil` - Nix language server
 
 **Common development commands:**
+
 ```bash
 nix fmt              # Format all Nix files
 nix flake check      # Validate flake structure
@@ -255,8 +272,8 @@ You can import individual modules from this flake:
 ```nix
 {
   inputs.deepz-dotfiles.url = "github:deepzS2/dotfiles";
-  
-  outputs = {self, deepz-dotfiles, ...}: {
+
+  outputs = {deepz-dotfiles, ...}: {
     # Use in Home Manager
     homeConfigurations.myuser = {
       imports = [
@@ -264,7 +281,7 @@ You can import individual modules from this flake:
         deepz-dotfiles.modules.homeManager.nvim
       ];
     };
-    
+
     # Use in NixOS
     nixosConfigurations.myhost = {
       imports = [

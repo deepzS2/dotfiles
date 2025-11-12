@@ -1,5 +1,5 @@
 {
-  self,
+  config,
   inputs,
   ...
 }: {
@@ -9,7 +9,7 @@
         inputs.home-manager.nixosModules.default
         inputs.niri.nixosModules.niri
       ]
-      ++ (with self.modules.nixos; [
+      ++ (with config.flake.modules.nixos; [
         audio
         display-manager
         drivers-nvidia
@@ -61,7 +61,7 @@
       };
     };
 
-    home-manager.users."deepz" = self.modules.homeManager.deepz;
+    home-manager.users."deepz" = config.flake.modules.homeManager.deepz;
 
     environment.systemPackages = builtins.attrValues {
       inherit (pkgs) vim wget sbctl firefox;
