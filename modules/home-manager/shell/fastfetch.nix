@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.modules.homeManager.fastfetch = {
     pkgs,
     config,
@@ -42,7 +42,7 @@
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
         logo = {
           type = "kitty-icat";
-          source = ../../../config/fastfetch/nix-logo.png;
+          source = "${self}/config/fastfetch/nix-logo.png";
           width = 22;
           height = 22;
         };

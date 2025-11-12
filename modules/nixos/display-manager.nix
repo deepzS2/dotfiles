@@ -1,6 +1,10 @@
 # Display manager and Hyprland configuration module for NixOS
 # Exported as flake.modules.nixosModules.display-manager
-{inputs, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.modules.nixos.display-manager = {pkgs, ...}: let
     bg = pkgs.fetchurl {
       url = "https://www.desktophut.com/files/0wy7pescJl-YakuzaMajimaGoroTattooLiveWallpaper.mp4";
@@ -47,7 +51,7 @@
     };
     systemd.tmpfiles.rules = let
       user = "deepz";
-      iconPath = ../../config/theme/avatars/me.png;
+      iconPath = "${self}/config/theme/avatars/me.png";
     in [
       "f+ /var/lib/AccountsService/users/${user}  0600 root root -  [User]\\nIcon=/var/lib/AccountsService/icons/${user}\\n"
       "L+ /var/lib/AccountsService/icons/${user}  -    -    -    -  ${iconPath}"

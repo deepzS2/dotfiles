@@ -1,11 +1,11 @@
-{
+{self, ...}: {
   flake.modules.homeManager.waybar = {
     pkgs,
     config,
     ...
   }: let
     waybarUserConfigDir = "${config.xdg.configHome}/waybar";
-    waybarConfigJson = ../../../config/waybar/config.jsonc;
+    waybarConfigJson = "${self}/config/waybar/config.jsonc";
   in {
     home.packages = [
       pkgs.networkmanagerapplet

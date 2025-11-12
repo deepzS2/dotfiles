@@ -1,8 +1,8 @@
-{
+{self, ...}: {
   flake.modules.homeManager.theme = {pkgs, ...}: {
     stylix = {
       enable = true;
-      image = ../../../config/theme/wallpapers/yakuza.jpg;
+      image = "${self}/config/theme/wallpapers/yakuza.jpg";
       base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
       targets = {
         niri.enable = true;

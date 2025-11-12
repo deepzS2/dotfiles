@@ -1,6 +1,10 @@
 # Neovim editor configuration module for Home Manager
 # Exported as flake.modules.homeManager.nvim
-{inputs, ...}: {
+{
+  inputs,
+  self,
+  ...
+}: {
   flake.modules.homeManager.nvim = {pkgs, ...}: let
     inherit (inputs.nixCats) utils;
   in {
@@ -21,7 +25,7 @@
 
       packageNames = ["nvim" "testnvim"];
 
-      luaPath = ../../../config/nvim;
+      luaPath = "${self}/config/nvim";
 
       categoryDefinitions.replace = {pkgs, ...}: {
         # to define and use a new category, simply add a new list to a set here,

@@ -1,6 +1,6 @@
-# Rofi application launcher configuration module for Home Manager
-# Exported as flake.modules.homeManager.rofi
-{
+{self, ...}: let
+  rofiDirectory = "${self}/config/rofi";
+in {
   flake.modules.homeManager.rofi = {pkgs, ...}: {
     programs.rofi = {
       enable = true;
@@ -68,11 +68,11 @@
     };
 
     home.file = {
-      ".config/rofi/launcher.rasi".source = ../../../config/rofi/launcher.rasi;
-      ".config/rofi/powermenu.rasi".source = ../../../config/rofi/powermenu.rasi;
-      ".config/rofi/powermenu_confirm.rasi".source = ../../../config/rofi/powermenu_confirm.rasi;
-      ".config/rofi/wifimenu.rasi".source = ../../../config/rofi/wifimenu.rasi;
-      ".config/rofi/wifimenu_password.rasi".source = ../../../config/rofi/wifimenu_password.rasi;
+      ".config/rofi/launcher.rasi".source = "${rofiDirectory}/launcher.rasi";
+      ".config/rofi/powermenu.rasi".source = "${rofiDirectory}/powermenu.rasi";
+      ".config/rofi/powermenu_confirm.rasi".source = "${rofiDirectory}/powermenu_confirm.rasi";
+      ".config/rofi/wifimenu.rasi".source = "${rofiDirectory}/wifimenu.rasi";
+      ".config/rofi/wifimenu_password.rasi".source = "${rofiDirectory}/wifimenu_password.rasi";
     };
   };
 }
