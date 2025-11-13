@@ -35,8 +35,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Secrets management
-    agenix.url = "github:ryantm/agenix";
+    # My secrets (in private repo)
+    nix-secrets = {
+      url = "git+ssh://git@github.com/deepzS2/nix-secrets.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

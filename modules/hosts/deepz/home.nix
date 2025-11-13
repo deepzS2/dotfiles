@@ -11,7 +11,6 @@
         inputs.niri.homeModules.stylix
         inputs.nixCats.homeModule
         inputs.stylix.homeModules.stylix
-        inputs.agenix.homeManagerModules.default
       ]
       ++ (with config.flake.modules.homeManager; [
         options

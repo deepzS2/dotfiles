@@ -1,7 +1,0 @@
-keys:
-  - &admin_deepz age15rklvc363gt6r2jz5u43h6xydapmq9sx0zgtwwr07rl9527u8vqs339q36
-creation_rules:
-  - path_regex: secrets.yaml
-    key_groups:
-      - age:
-          - *admin_deepz
