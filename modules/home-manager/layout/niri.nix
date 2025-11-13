@@ -89,15 +89,14 @@ in {
           builtins.listToAttrs
           (map (monitor: {
               # Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-              name = monitor.name;
+              inherit (monitor) name;
               value = {
+                # Scale: You can use integer or fractional scale, for example use 1.5 for 150% scale.
+                inherit (monitor) scale;
                 mode = {
-                  width = monitor.width;
-                  height = monitor.height;
+                  inherit (monitor) width height;
                   refresh = monitor.refresh-rate;
                 };
-                # You can use integer or fractional scale, for example use 1.5 for 150% scale.
-                scale = monitor.scale;
                 # Transform allows to rotate the output counter-clockwise, valid values are:
                 # transform = {
                 #   flipped = true;
@@ -114,8 +113,7 @@ in {
                 # If the position is unset or results in an overlap, the output is instead placed
                 # automatically.
                 position = {
-                  x = monitor.x;
-                  y = monitor.y;
+                  inherit (monitor) x y;
                 };
               };
             })
@@ -141,9 +139,9 @@ in {
             # Proportion sets the width as a fraction of the output width, taking gaps into account.
             # For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
             # The default preset widths are 1/3, 1/2 and 2/3 of the output.
-            {proportion = 1. / 3.;}
-            {proportion = 1. / 2.;}
-            {proportion = 2. / 3.;}
+            {proportion = 1.0 / 3.0;}
+            {proportion = 1.0 / 2.0;}
+            {proportion = 2.0 / 3.0;}
 
             # Fixed sets the width in logical pixels exactly.
             # { fixed = 1920; }

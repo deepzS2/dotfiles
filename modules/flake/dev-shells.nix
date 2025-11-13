@@ -1,4 +1,4 @@
-{...}: {
+_: {
   perSystem = {pkgs, ...}: {
     devShells = {
       # Default development shell for working on this configuration

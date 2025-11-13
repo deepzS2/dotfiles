@@ -27,28 +27,31 @@
     environment.systemPackages = [sddm-theme sddm-theme.test];
     qt.enable = true;
 
-    # Enable the X11 windowing system.
-    services.xserver.enable = true;
+    services = {
+      # Enable the X11 windowing system.
+      xserver.enable = true;
 
-    # SDDM Greeter
-    services.displayManager.defaultSession = "niri";
-    services.displayManager.sddm = {
-      package = pkgs.kdePackages.sddm; # use qt6 version of sddm
-      enable = true;
-      autoNumlock = true;
-      wayland.enable = true;
-      theme = sddm-theme.pname;
-      # the following changes will require sddm to be restarted to take
-      # effect correctly. It is recomend to reboot after this
-      extraPackages = sddm-theme.propagatedBuildInputs;
-      settings = {
-        # required for styling the virtual keyboard
-        General = {
-          GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
-          InputMethod = "qtvirtualkeyboard";
+      # SDDM Greeter
+      displayManager.defaultSession = "niri";
+      displayManager.sddm = {
+        package = pkgs.kdePackages.sddm; # use qt6 version of sddm
+        enable = true;
+        autoNumlock = true;
+        wayland.enable = true;
+        theme = sddm-theme.pname;
+        # the following changes will require sddm to be restarted to take
+        # effect correctly. It is recomend to reboot after this
+        extraPackages = sddm-theme.propagatedBuildInputs;
+        settings = {
+          # required for styling the virtual keyboard
+          General = {
+            GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
+            InputMethod = "qtvirtualkeyboard";
+          };
         };
       };
     };
+
     systemd.tmpfiles.rules = let
       user = "deepz";
       iconPath = "${self}/config/theme/avatars/me.png";

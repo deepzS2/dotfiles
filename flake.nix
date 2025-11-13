@@ -38,9 +38,11 @@
     # My secrets (in private repo)
     nix-secrets = {
       url = "git+ssh://git@github.com/deepzS2/nix-secrets.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.home-manager.follows = "home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+      };
     };
   };
 
