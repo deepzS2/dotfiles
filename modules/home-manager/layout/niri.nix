@@ -10,6 +10,7 @@ in {
 
   flake.modules.homeManager.niri = {
     config,
+    lib,
     pkgs,
     ...
   }: {
@@ -19,7 +20,7 @@ in {
     ];
 
     programs.niri = {
-      settings = {
+      settings = lib.mkIf (window-manager == "niri") {
         # Input device configuration.
         # Find the full list of options on the wiki:
         # https://yalter.github.io/niri/Configuration:-Input

@@ -15,6 +15,7 @@ in {
 
   flake.modules.homeManager.hyprland = {
     config,
+    lib,
     pkgs,
     ...
   }: {
@@ -27,7 +28,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = window-manager == "hyprland";
       xwayland.enable = true;
-      settings = {
+      settings = lib.mkIf (window-manager == "hyprland") {
         # See https://wiki.hyprland.org/Configuring/Monitors/
         monitor =
           map (
