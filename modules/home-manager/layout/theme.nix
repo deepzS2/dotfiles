@@ -1,8 +1,10 @@
-{self, ...}: {
+{config, ...}: let
+  inherit (config.flake) assets;
+in {
   flake.modules.homeManager.theme = {pkgs, ...}: {
     stylix = {
       enable = true;
-      image = "${self}/config/theme/wallpapers/yakuza.jpg";
+      image = "${assets.media}/wallpapers/yakuza.jpg";
       base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
       targets = {
         niri.enable = true;

@@ -1,12 +1,14 @@
-{self, ...}: {
-  flake.modules.homeManager.scripts = _: {
+{config, ...}: let
+  inherit (config.flake) assets;
+in {
+  flake.modules.homeManager.scripts = {
     home.file.".theme/sounds" = {
-      source = "${self}/config/theme/sounds";
+      source = "${assets.media}/sounds";
       recursive = true;
     };
 
     home.file.".theme/wallpapers" = {
-      source = "${self}/config/theme/wallpapers";
+      source = "${assets.media}/wallpapers";
       recursive = true;
     };
   };

@@ -2,7 +2,7 @@
 # Exported as flake.modules.homeManager.nvim
 {
   inputs,
-  self,
+  config,
   ...
 }: {
   flake.modules.homeManager.nvim = {pkgs, ...}: let
@@ -25,7 +25,7 @@
 
       packageNames = ["nvim" "testnvim"];
 
-      luaPath = "${self}/config/nvim";
+      luaPath = "${config.flake.assets.path}/nvim";
 
       categoryDefinitions.replace = {pkgs, ...}: {
         # to define and use a new category, simply add a new list to a set here,

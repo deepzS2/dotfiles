@@ -1,4 +1,6 @@
-{self, ...}: {
+{config, ...}: let
+  inherit (config.flake) assets;
+in {
   flake.modules.homeManager.fastfetch = {
     pkgs,
     config,
@@ -42,7 +44,7 @@
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
         logo = {
           type = "kitty-icat";
-          source = "${self}/config/fastfetch/nix-logo.png";
+          source = "${assets.media}/images/nix-logo.png";
           width = 22;
           height = 22;
         };

@@ -1,11 +1,14 @@
-{self, ...}: {
+{config, ...}: let
+  # We inherit assets here so the homeManager config don't overwrite it.
+  inherit (config.flake) assets;
+in {
   flake.modules.homeManager.waybar = {
     pkgs,
     config,
     ...
   }: let
     waybarUserConfigDir = "${config.xdg.configHome}/waybar";
-    waybarConfigJson = "${self}/config/waybar/config.jsonc";
+    waybarConfigJson = "${assets.path}/waybar/config.jsonc";
   in {
     home.packages = [
       pkgs.networkmanagerapplet
@@ -16,7 +19,7 @@
 
     programs.waybar = {
       enable = true;
-      style = builtins.readFile ../../../config/waybar/style.css;
+      style = builtins.readFile "${assets.path}/waybar/style.css";
     };
 
     home.file."${waybarUserConfigDir}/config.jsonc".source = waybarConfigJson;

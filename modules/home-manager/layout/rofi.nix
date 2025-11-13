@@ -1,7 +1,7 @@
-{self, ...}: let
-  rofiDirectory = "${self}/config/rofi";
-in {
-  flake.modules.homeManager.rofi = {pkgs, ...}: {
+{config, ...}: {
+  flake.modules.homeManager.rofi = {pkgs, ...}: let
+    rofiDirectory = "${config.flake.assets.path}/rofi";
+  in {
     programs.rofi = {
       enable = true;
       terminal = "ghostty";
