@@ -8,12 +8,16 @@
 
 NixOS configuration using [flake-parts](https://flake.parts/) with self-registering modules following the [Dendritic Pattern](https://github.com/mightyiam/dendritic).
 
+> **Note**: This repository contains all my configurations for software development. I do not use it as my primary system for now, but as a dedicated development environment.
+
 ## ✨ Highlights
 
 - **Declarative**: Fully declarative NixOS and Home Manager configurations
 - **Modular**: Auto-imported modules with clean separation of concerns
 - **Multi-host**: Support for multiple hosts (desktop, laptop, server)
-- **Development-ready**: Comprehensive dev shell with formatting, linting, and testing tools
+- **Secure**: Secrets management using agenix via private `nix-secrets` repository (protects against "harvest now, decrypt later" attacks)
+- **Development-ready**: Comprehensive dev shell with formatting, linting, and testing tools, plus language-specific environments (Rust, Go, JavaScript, Elixir)
+- **Themed**: Consistent system theming with Stylix
 - **Extensible**: Easy to add new modules and hosts
 
 ## 🚀 Installation
@@ -49,6 +53,10 @@ modules/
 ```
 
 All modules are automatically discovered via [import-tree](https://github.com/vic/import-tree).
+
+## 🔐 Secrets Management
+
+This configuration uses a private `nix-secrets` repository for managing sensitive data such as API keys, SSH keys, and other credentials. The secrets are encrypted using [agenix](https://github.com/ryantm/agenix), which provides age-encrypted secrets for NixOS. This approach protects against "harvest now, decrypt later" attacks by keeping secrets in a separate private repository that is only accessible with proper SSH authentication.
 
 ## 🛠️ Development
 
