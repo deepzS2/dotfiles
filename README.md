@@ -27,20 +27,11 @@ NixOS configuration using [flake-parts](https://flake.parts/) with self-register
 ```bash
 git clone https://github.com/deepzS2/dotfiles.git
 cd dotfiles
-nix flake update
-sudo nixos-rebuild switch --flake .#deepz
+nix develop
+
+# On devshell
+switch <hostname>
 ```
-
-### On Non-NixOS Systems
-
-```bash
-sh <(curl -L https://nixos.org/nix/install) --daemon
-git clone https://github.com/deepzS2/dotfiles.git
-cd dotfiles
-home-manager switch --flake .#deepz
-```
-
-_Note: Replace `#deepz` with your host configuration name._
 
 ## 📁 Structure
 
@@ -68,9 +59,11 @@ nix develop
 
 Common commands:
 
-- `nix fmt` - Format Nix files
-- `statix check . && deadnix .` - Lint and check for unused code
+- `format` - Format Nix files
+- `lint` - Lint and check for unused code
 - `nix flake check` - Validate flake
+- `nix flake update` - Update flake dependencies
+- `fetch-url-hash` - Nix prefetch URL then converts to SHA-256 hash
 
 ## 🙏 Credits & Thanks
 
