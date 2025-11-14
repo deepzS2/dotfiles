@@ -6,6 +6,14 @@ return { -- Autocompletion
     -- Snippet Engine
     'nvim-mini/mini.nvim',
     'folke/lazydev.nvim',
+
+    -- Indentation
+    {
+      'saghen/blink.indent',
+      --- @module 'blink.indent'
+      --- @type blink.indent.Config
+      opts = {},
+    },
   },
   --- @module 'blink.cmp'
   --- @type blink.cmp.Config

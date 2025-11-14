@@ -171,6 +171,7 @@
           # Completion and snippets
           completion = [
             vimPlugins.blink-cmp
+            vimPlugins.blink-indent
             vimPlugins.friendly-snippets
           ];
 
