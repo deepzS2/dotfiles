@@ -314,6 +314,7 @@ return {
             },
           },
         },
+        qmlls = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},

@@ -1,4 +1,8 @@
-_: {
+{
+  self,
+  inputs,
+  ...
+}: {
   perSystem = {pkgs, ...}: {
     devShells = {
       # Default development shell for working on this configuration
@@ -63,6 +67,26 @@ _: {
           echo "  build-vm <hostname>    - Build a VM Image"
           echo "  test <hostname>        - Test current flake configuration"
           echo "  switch <hostname>      - Rebuild and switch to the new generation"
+          echo ""
+        '';
+      };
+
+      quickshell = pkgs.mkShell {
+        name = "quickshell-dev";
+
+        packages = [
+          inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+        ];
+
+        shellHook = ''
+          alias qs="quickshell -p ${self}/assets/quickshell"
+
+          echo "╔════════════════════════════════════════════════════════╗"
+          echo "║   Quickshell Development Environment                   ║"
+          echo "╚════════════════════════════════════════════════════════╝"
+          echo ""
+          echo "Available commands:"
+          echo "  qs                     - Run quickshell in assets/quickshell/"
           echo ""
         '';
       };
