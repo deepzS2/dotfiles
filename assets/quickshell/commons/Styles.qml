@@ -26,8 +26,13 @@ QtObject {
             pixelSize: 14,
             bold: true
         })
+    readonly property font systemFontBig: ({
+            family: "JetBrainsMono Nerd Font",
+            pixelSize: 19,
+            bold: true
+        })
     // Layout constants
-    readonly property int barHeight: 45
+    readonly property int barHeight: 50
     readonly property real capsuleHeight: Math.round(barHeight * 0.82)
     readonly property int widgetHeight: 32
     readonly property int widgetRadius: 8

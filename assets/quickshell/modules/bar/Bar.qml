@@ -38,6 +38,8 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: Styles.marginSize
 
+                    Distro {}
+
                     Clock {}
 
                     Brightness {}
