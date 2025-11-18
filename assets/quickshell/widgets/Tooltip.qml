@@ -106,11 +106,13 @@ PopupWindow {
         root.targetItem = targetItem;
         root.visible = true;
         calculatePosition();
+        hideAnimation.stop();
         showAnimation.start();
     }
 
     function hideTooltip() {
         Logger.debug("Tooltip", "Hiding tooltip");
+        showAnimation.stop();
         hideAnimation.start();
     }
 
