@@ -39,10 +39,6 @@ Scope {
                     spacing: Styles.marginSize
 
                     Distro {}
-
-                    Clock {}
-
-                    Brightness {}
                 }
 
                 RowLayout {
