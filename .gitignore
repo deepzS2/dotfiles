@@ -22,3 +22,6 @@ test-configs/
 *.bak
 *.tmp
 .bkp
+
+# Quickshell
+.qmlls.ini
