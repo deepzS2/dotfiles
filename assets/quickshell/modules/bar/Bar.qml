@@ -16,7 +16,7 @@ Scope {
             id: panel
             required property var modelData
             screen: modelData
-            color: Qt.rgba(0, 0, 0, 0)
+            color: "transparent"
             implicitHeight: Styles.barHeight
 
             anchors {
@@ -35,6 +35,19 @@ Scope {
                     objectName: "leftSection"
                     anchors.left: parent.left
                     anchors.leftMargin: Styles.marginSize
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: Styles.marginSize
+
+                    Clock {}
+
+                    Brightness {}
+                }
+
+                RowLayout {
+                    id: rightSection
+                    objectName: "rightSection"
+                    anchors.right: parent.right
+                    anchors.rightMargin: Styles.marginSize
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: Styles.marginSize
 
