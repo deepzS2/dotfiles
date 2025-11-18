@@ -35,6 +35,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Desktop shell
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell"; # Use same quickshell version
+    };
+
     # My secrets (in private repo)
     nix-secrets = {
       url = "git+ssh://git@github.com/deepzS2/nix-secrets.git";

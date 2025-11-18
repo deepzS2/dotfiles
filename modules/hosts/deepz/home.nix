@@ -11,6 +11,7 @@
         inputs.niri.homeModules.stylix
         inputs.nixCats.homeModule
         inputs.stylix.homeModules.stylix
+        inputs.noctalia.homeModules.default
       ]
       ++ (with config.flake.modules.homeManager; [
         options
@@ -39,6 +40,7 @@
         prompt
         tmux
         # Layout
+        quickshell
         notification
         rofi
         theme

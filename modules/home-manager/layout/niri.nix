@@ -13,7 +13,13 @@ in {
     lib,
     pkgs,
     ...
-  }: {
+  }: let
+    noctalia =
+      config.lib.niri.actions.spawn
+      "noctalia-shell"
+      "ipc"
+      "call";
+  in {
     home.packages = [
       pkgs.xdg-desktop-portal-gnome
       pkgs.xwayland-satellite
@@ -282,14 +288,15 @@ in {
         # which may be more convenient to use.
         # See the binds section below for more spawn examples.
 
-        # This line starts waybar, a commonly used bar for Wayland compositors.
-        spawn-at-startup = [
-          {command = ["waybar"];}
-          {command = ["swww-daemon"];}
-          {command = ["wl-paste -t image --watch cliphist store"];}
-          {command = ["wl-paste -t text --watch cliphist store"];}
-          {command = ["initialize_setup"];}
-        ];
+        spawn-at-startup =
+          [
+            {command = ["swww-daemon"];}
+            {command = ["wl-paste -t image --watch cliphist store"];}
+            {command = ["wl-paste -t text --watch cliphist store"];}
+            {command = ["initialize_setup"];}
+          ]
+          ++ lib.optionals config.programs.waybar.enable [{command = ["waybar"];}]
+          ++ lib.optionals config.programs.noctalia-shell.enable [{command = ["noctalia-shell"];}];
 
         # To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
         # spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -335,7 +342,6 @@ in {
         # Window rules let you adjust behavior for individual windows.
         # Find more information on the wiki:
         # https://yalter.github.io/niri/Configuration:-Window-Rules
-
         window-rules = [
           {
             matches = [
@@ -479,13 +485,28 @@ in {
           #   # block-out-from "screencast"
           # }
 
-          # Example: enable rounded corners for all windows.
-          # (This example rule is commented out with a "/-" in front.)
-          # {
-          #   geometry-corner-radius = 12;
-          #   clip-to-geometry = true;
-          # }
+          # For noctalia-shell
+          {
+            geometry-corner-radius = {
+              top-left = 20.0;
+              top-right = 20.0;
+              bottom-left = 20.0;
+              bottom-right = 20.0;
+            };
+            clip-to-geometry = true;
+          }
         ];
+
+        layer-rules = [
+          {
+            matches = [{namespace = "^noctalia-overview*";}];
+            place-within-backdrop = true;
+          }
+        ];
+
+        debug = {
+          honor-xdg-activation-with-invalid-serial = [];
+        };
 
         binds = with config.lib.niri.actions; {
           # Keys consist of modifiers separated by + signs, followed by an XKB key name
@@ -508,7 +529,10 @@ in {
             hotkey-overlay.title = "Open a Terminal: Ghostty";
           };
           "Mod+Space" = {
-            action = spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "launcher" "toggle"
+              else spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi";
             hotkey-overlay.title = "Run an Application: Rofi";
           };
           "Mod+Shift+D" = {
@@ -524,7 +548,10 @@ in {
             hotkey-overlay.title = "Open Website: WhatsApp";
           };
           "Super+Alt+L" = {
-            action = spawn "hyprlock";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "lockScreen" "toggle"
+              else spawn "hyprlock";
             hotkey-overlay.title = "Lock the Screen: Hyprlock";
           };
           "Super+Escape" = {
@@ -536,15 +563,24 @@ in {
           # The allow-when-locked=true property makes them work even when the session is locked.
           # Using spawn-sh allows to pass multiple arguments together with the command.
           "XF86AudioRaiseVolume" = {
-            action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1+";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "volume" "increase"
+              else spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1+";
             allow-when-locked = true;
           };
           "XF86AudioLowerVolume" = {
-            action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1-";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "volume" "decrease"
+              else spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1-";
             allow-when-locked = true;
           };
           "XF86AudioMute" = {
-            action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "volume" "muteOutput"
+              else spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
             allow-when-locked = true;
           };
           "XF86AudioMicMute" = {
