@@ -38,9 +38,9 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: Styles.marginSize
 
-                    Clock {
-                        id: clock
-                    }
+                    Clock {}
+
+                    Brightness {}
                 }
             }
         }

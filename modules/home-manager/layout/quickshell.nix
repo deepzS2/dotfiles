@@ -11,7 +11,10 @@ in {
     config,
     ...
   }: {
-    home.packages = [inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default];
+    home.packages = [
+      inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+      pkgs.brightnessctl
+    ];
 
     home.file.".config/quickshell" = {
       source = config.lib.file.mkOutOfStoreSymlink "${assets.path}/quickshell";
