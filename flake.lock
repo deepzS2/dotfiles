@@ -491,6 +491,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1763934636,
+        "narHash": "sha256-9glbI7f1uU+yzQCq5LwLgdZqx6svOhZWkd4JRY265fc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ee09932cedcef15aaf476f9343d1dea2cb77e261",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -536,6 +552,24 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1764101095,
+        "narHash": "sha256-gb3Ia/PNq4cJavNgBi97goH4dUbiUzFZkTk9nLz6PFc=",
+        "owner": "sst",
+        "repo": "opencode",
+        "rev": "ceccc30cb8a68abb55b1bdc50542d75f31accdc1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -567,6 +601,7 @@
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs_4",
         "noctalia": "noctalia",
+        "opencode": "opencode",
         "quickshell": "quickshell",
         "silentSDDM": "silentSDDM",
         "stylix": "stylix",

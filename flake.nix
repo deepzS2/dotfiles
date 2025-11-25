@@ -13,8 +13,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Neovim
+    # Neovim and AI
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    opencode.url = "github:sst/opencode";
 
     # Zen Browser
     zen-browser = {

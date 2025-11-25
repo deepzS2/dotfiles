@@ -1,4 +1,8 @@
 {
+  inputs,
+  lib,
+  ...
+}: {
   flake.modules.homeManager.ai = {
     pkgs,
     config,
@@ -10,8 +14,10 @@
 
     programs.opencode = {
       enable = true;
+      package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
-        model = "opencode/big-pickle";
+        theme = lib.mkForce "kanagawa";
+        model = "opencode/grok-code";
         autoupdate = true;
         mcp.nixos = {
           enabled = true;
