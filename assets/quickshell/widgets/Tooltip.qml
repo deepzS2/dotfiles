@@ -101,7 +101,7 @@ PopupWindow {
     }
 
     function showTooltip(text, targetItem) {
-        Logger.debug("Tooltip", `Showing tooltip for`, targetItem);
+        Logger.debugf("Tooltip", "Showing tooltip for \"{0}\"", targetItem);
         root.text = text;
         root.targetItem = targetItem;
         root.visible = true;
@@ -111,7 +111,7 @@ PopupWindow {
     }
 
     function hideTooltip() {
-        Logger.debug("Tooltip", "Hiding tooltip");
+        Logger.debugf("Tooltip", "Hiding tooltip for \"{0}\"", targetItem);
         showAnimation.stop();
         hideAnimation.start();
     }
@@ -144,11 +144,11 @@ PopupWindow {
         const targetScreen = Quickshell.screens.find(screen => globalPos.x >= screen.x && globalPos.x < screen.x + screen.width && globalPos.y >= screen.y && globalPos.y < screen.y + screen.height) || Quickshell.screens[0]; // Fallback to primary screen
 
         if (!targetScreen) {
-            Logger.error("Tooltip", "No screen found for tooltip positioning");
+            Logger.errorf("Tooltip", "No screen found for tooltip positioning for item \"{0}\"", targetItem);
             return;
         }
 
-        Logger.debug("Tooltip", `Positioning tooltip on screen ${targetScreen.name || 'unknown'}`);
+        Logger.debugf("Tooltip", "Positioning tooltip on screen {0}", targetScreen.name || "Unknown");
 
         // Prefer above target, centered
         let offsetX = (targetWidth - tooltipWidth) / 2;
@@ -190,6 +190,6 @@ PopupWindow {
         root.offsetX = offsetX;
         root.offsetY = offsetY;
 
-        Logger.debug("Tooltip", `Tooltip positioned at offset (${offsetX}, ${offsetY})`);
+        Logger.debugf("Tooltip", "Tooltip positioned at offset ({0}, {1})", offsetX, offsetY);
     }
 }

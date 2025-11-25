@@ -63,9 +63,9 @@ Rectangle {
                 const devices = this.text.trim().split('\n').filter(device => device.length > 0);
                 if (devices.length > 0) {
                     root.backlightDevice = devices[0];
-                    Logger.info(`Brightness: Detected backlight device: ${devices[0]}`);
+                    Logger.infof("Brightness", "Detected backlight devices", devices);
                 } else {
-                    Logger.warn("Brightness: No backlight devices found");
+                    Logger.warn("Brightness", "No backlight devices found");
                 }
             }
         }
@@ -104,7 +104,7 @@ Rectangle {
         root.currentBrightness = parseInt(brightnessFile.text().trim()) || 0;
         root.maxBrightness = parseInt(maxBrightnessFile.text().trim()) || 100;
 
-        Logger.debug(`Brightness: Updated - current: ${root.currentBrightness}, max: ${root.maxBrightness}`);
+        Logger.debugf("Brightness", "Updated to {0}/{1}", root.currentBrightness, root.maxBrightness);
         updateDisplay(root.currentBrightness, root.maxBrightness);
     }
 
@@ -122,7 +122,13 @@ Rectangle {
 
         root.targetBrightness = brightness + delta;
 
-        Logger.debug(`Brightness: Wheel event - delta: ${delta}, target: ${root.targetBrightness}`);
+        Logger.debugf("Brightness", `Wheel Event - delta: ${delta}, target: ${root.targetBrightness}`);
+        Logger.table([
+            {
+                delta,
+                target: root.targetBrightness
+            }
+        ]);
         applyBrightnessTimer.start();
     }
 
@@ -134,7 +140,7 @@ Rectangle {
             return;
         }
 
-        Logger.info(`Brightness: Applying brightness change to ${clampedBrightness}`);
+        Logger.infof("Brightness", `Applying brightness change to {0}`, clampedBrightness);
         Quickshell.execDetached(["brightnessctl", "set", clampedBrightness.toString()]);
     }
 }

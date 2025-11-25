@@ -11,7 +11,7 @@
     programs.opencode = {
       enable = true;
       settings = {
-        model = "github-copilot/gpt-5";
+        model = "opencode/big-pickle";
         autoupdate = true;
         mcp.nixos = {
           enabled = true;

@@ -16,21 +16,22 @@ Singleton {
 
     Component.onCompleted: {
         tooltipInstance = tooltipComponent.createObject(null);
-        Logger.info("TooltipService", "Tooltip instance created");
+        Logger.infof("TooltipService", "Tooltip instance created successfully");
     }
 
     function show(text, targetItem, options = {}) {
         if (!tooltipInstance) {
-            Logger.error("TooltipService", "Tooltip instance not available");
+            Logger.errorf("TooltipService", "Tooltip instance not available - cannot show tooltip: {0}", text);
             return;
         }
 
         if (!targetItem) {
-            Logger.warn("TooltipService", "Invalid target item for tooltip");
+            Logger.warnf("TooltipService", "Invalid target item for tooltip: {0}", text);
             return;
         }
 
-        Logger.debug("TooltipService", `Showing tooltip: "${text}"`);
+        Logger.debugf("TooltipService", "Showing tooltip: \"{0}\" (length: {1})", text, text.length);
+        logConfiguration();
 
         // Set tooltip properties from options
         tooltipInstance.alignment = options.alignment || "center";
@@ -41,16 +42,64 @@ Singleton {
         tooltipInstance.forcePosition = options.forcePosition || false;
 
         // Hide any existing tooltip first
-        if (tooltipInstance.visible)
+        if (tooltipInstance.visible) {
+            Logger.debug("TooltipService", "Hiding existing tooltip before showing new one");
             tooltipInstance.hideTooltip();
+        }
 
         tooltipInstance.showTooltip(text, targetItem);
     }
 
     function hide() {
         if (tooltipInstance?.visible) {
-            Logger.debug("TooltipService", "Hiding tooltip");
+            Logger.debug("TooltipService", "Hiding currently visible tooltip");
             tooltipInstance.hideTooltip();
+        } else {
+            Logger.debug("TooltipService", "No tooltip currently visible to hide");
         }
+    }
+
+    function logConfiguration() {
+        Logger.info("TooltipService", "Configuration Overview");
+
+        const config = [
+            {
+                property: "alignment",
+                value: tooltipInstance?.alignment || "N/A",
+                type: "string"
+            },
+            {
+                property: "vertical",
+                value: tooltipInstance?.vertical || "N/A",
+                type: "string"
+            },
+            {
+                property: "maxWidth",
+                value: tooltipInstance?.customMaxWidth || "N/A",
+                type: "number"
+            },
+            {
+                property: "offsetX",
+                value: tooltipInstance?.additionalOffsetX || "N/A",
+                type: "number"
+            },
+            {
+                property: "offsetY",
+                value: tooltipInstance?.additionalOffsetY || "N/A",
+                type: "number"
+            },
+            {
+                property: "forcePosition",
+                value: tooltipInstance?.forcePosition || false,
+                type: "boolean"
+            },
+            {
+                property: "visible",
+                value: tooltipInstance?.visible || false,
+                type: "boolean"
+            }
+        ];
+
+        Logger.table(config, ["property", "value", "type"]);
     }
 }

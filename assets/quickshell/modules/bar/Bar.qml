@@ -39,6 +39,8 @@ Scope {
                     spacing: Styles.marginSize
 
                     Distro {}
+                    Workspaces {}
+                    Window {}
                 }
 
                 RowLayout {
@@ -50,6 +52,8 @@ Scope {
                     spacing: Styles.marginSize
 
                     Clock {}
+
+                    SystemMonitor {}
 
                     Brightness {}
                 }
