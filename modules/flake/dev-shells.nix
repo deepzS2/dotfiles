@@ -79,14 +79,14 @@
         ];
 
         shellHook = ''
-          alias qs="quickshell -p ${self}/assets/quickshell"
+          alias dev="qs -p ${self}/assets/quickshell"
 
           echo "╔════════════════════════════════════════════════════════╗"
           echo "║   Quickshell Development Environment                   ║"
           echo "╚════════════════════════════════════════════════════════╝"
           echo ""
           echo "Available commands:"
-          echo "  qs                     - Run quickshell in assets/quickshell/"
+          echo "  dev                     - Run quickshell in assets/quickshell/"
           echo ""
         '';
       };
