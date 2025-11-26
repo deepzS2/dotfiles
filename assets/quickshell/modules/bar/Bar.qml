@@ -66,6 +66,13 @@ Scope {
                         Bluetooth {}
                     }
 
+                    Drawer {
+                        direction: Qt.RightToLeft
+
+                        Network {}
+                        NetworkSpeed {}
+                    }
+
                     Battery {}
 
                     Power {}

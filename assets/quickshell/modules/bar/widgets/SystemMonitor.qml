@@ -57,7 +57,6 @@ Rectangle {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
         hoverEnabled: true
         onEntered: {
             root.updateTooltipText();
