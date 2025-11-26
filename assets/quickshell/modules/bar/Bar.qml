@@ -57,8 +57,10 @@ Scope {
 
                      Brightness {}
 
-                     Battery {}
-                 }
+                      Battery {}
+
+                      Power {}
+                  }
             }
         }
     }
