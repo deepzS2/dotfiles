@@ -39,7 +39,7 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         onEntered: {
-            const tooltip = !NetworkingService.isConnected ? "Disconnected" : NetworkingService.connectionType === "wifi" ? `${NetworkingService.essid} (${NetworkingService.signalStrength}%)   | ${NetworkingService.ipAddress}` : NetworkingService.connectionType === "ethernet" ? `${NetworkingService.interfaceName} 🖧  | ${NetworkingService.ipAddress}` : NetworkingService.ipAddress;
+            const tooltip = !NetworkingService.isConnected ? "Disconnected" : NetworkingService.connectionType === "wifi" ? `${NetworkingService.essid} (${NetworkingService.signalStrength}%)  \n${NetworkingService.ipAddress}` : NetworkingService.connectionType === "ethernet" ? `${NetworkingService.interfaceName} 🖧\n${NetworkingService.ipAddress}` : NetworkingService.ipAddress;
             TooltipService.show(tooltip, root);
         }
         onExited: TooltipService.hide()

@@ -132,6 +132,9 @@ PopupWindow {
         root.implicitWidth = tipWidth;
         root.implicitHeight = tipHeight;
 
+        // Set text width for wrapping
+        tooltipText.width = tipWidth - Styles.widgetPadding * 2;
+
         const targetWidth = targetItem.width;
         const targetHeight = targetItem.height;
         const tooltipWidth = tipWidth;
