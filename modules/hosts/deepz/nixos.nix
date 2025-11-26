@@ -18,6 +18,7 @@
         locale
         network
         podman
+        power
         hyprland
         niri
         notifications
