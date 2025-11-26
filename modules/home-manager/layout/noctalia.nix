@@ -1,28 +1,11 @@
-{
-  inputs,
-  config,
-  ...
-}: let
-  # We inherit assets here so the homeManager config don't overwrite it.
-  inherit (config.flake) assets;
-in {
-  flake.modules.homeManager.quickshell = {
-    pkgs,
-    config,
-    ...
-  }: {
-    home.packages = [
-      inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
-      pkgs.brightnessctl
+{inputs, ...}: {
+  flake.modules.homeManager.noctalia = {}: {
+    imports = [
+      inputs.noctalia.homeModules.default
     ];
 
-    home.file.".config/quickshell" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${assets.path}/quickshell";
-      recursive = true;
-    };
-
     programs.noctalia-shell = {
-      enable = false;
+      enable = true;
       settings = {
         bar = {
           # density = "compact";

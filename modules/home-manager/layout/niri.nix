@@ -295,7 +295,7 @@ in {
             {command = ["wl-paste -t text --watch cliphist store"];}
             {command = ["initialize_setup"];}
           ]
-          ++ lib.optionals config.programs.waybar.enable [{command = ["waybar"];}]
+          ++ lib.optionals (config.programs.noctalia-shell.enable == false) [{command = ["qs"];}]
           ++ lib.optionals config.programs.noctalia-shell.enable [{command = ["noctalia-shell"];}];
 
         # To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:

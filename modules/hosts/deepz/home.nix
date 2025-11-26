@@ -40,12 +40,12 @@
         prompt
         tmux
         # Layout
-        quickshell
+        bar
+        # noctalia
         notification
         rofi
         theme
         wallpaper
-        waybar
         # Hyprland
         hypridle
         hyprland
