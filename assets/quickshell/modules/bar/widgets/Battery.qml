@@ -45,13 +45,10 @@ Rectangle {
     }
 
     readonly property color textColor: {
-        if (percentage <= 20) {
-            return Styles.urgentColor;
-        } else if (percentage <= 30) {
-            return Styles.warningColor;
-        } else {
+        if (isCharging || percentage > 30)
             return Styles.widgetForeground;
-        }
+
+        return percentage <= 20 ? Styles.urgentColor : Styles.warningColor;
     }
 
     // Tooltip text
