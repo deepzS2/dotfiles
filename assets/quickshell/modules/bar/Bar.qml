@@ -3,6 +3,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.commons
+import qs.widgets
 import "widgets"
 
 Scope {
@@ -51,16 +52,24 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: Styles.marginSize
 
-                     Clock {}
+                    Clock {}
 
-                     SystemMonitor {}
+                    SystemMonitor {}
 
-                     Brightness {}
+                    Brightness {}
 
-                      Battery {}
+                    Drawer {
+                        direction: Qt.RightToLeft
 
-                      Power {}
-                  }
+                        AudioSink {}
+                        AudioSource {}
+                        Bluetooth {}
+                    }
+
+                    Battery {}
+
+                    Power {}
+                }
             }
         }
     }
