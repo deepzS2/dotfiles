@@ -17,7 +17,8 @@ Singleton {
     readonly property var connectedDevices: {
         if (!adapter)
             return [];
-        return Bluetooth.devices.filter(device => device.connected);
+
+        return Bluetooth.devices?.filter(device => device.connected) ?? [];
     }
 
     readonly property int connectedCount: connectedDevices.length
