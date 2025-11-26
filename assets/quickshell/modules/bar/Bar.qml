@@ -51,12 +51,14 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: Styles.marginSize
 
-                    Clock {}
+                     Clock {}
 
-                    SystemMonitor {}
+                     SystemMonitor {}
 
-                    Brightness {}
-                }
+                     Brightness {}
+
+                     Battery {}
+                 }
             }
         }
     }
