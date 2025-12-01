@@ -16,15 +16,15 @@
             # Function to send notification and play sound
             notify_with_sound() {
               notify-send "$1"
-              paplay "$SOUND_FILE_UPDATE"
+              paplay "$SOUND_FILE_UPDATE" &
             }
 
             startup_with_sound() {
-              paplay "$SOUND_FILE_SYSTEM"
+              paplay "$SOUND_FILE_SYSTEM" &
             }
 
             logout_with_sound() {
-              paplay "$SOUND_FILE_LOGOUT"
+              paplay "$SOUND_FILE_LOGOUT" &
             }
 
             case $1 in
