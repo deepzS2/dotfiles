@@ -290,7 +290,6 @@ in {
 
         spawn-at-startup =
           [
-            {command = ["swww-daemon"];}
             {command = ["wl-paste -t image --watch cliphist store"];}
             {command = ["wl-paste -t text --watch cliphist store"];}
             {command = ["initialize_setup"];}

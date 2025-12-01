@@ -45,7 +45,6 @@
         notification
         rofi
         theme
-        wallpaper
         # Hyprland
         hypridle
         hyprland
