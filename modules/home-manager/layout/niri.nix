@@ -1,5 +1,6 @@
 {config, ...}: let
   inherit (config.flake.settings) window-manager;
+  inherit (config.flake) assets;
 in {
   flake.modules.nixos.niri = {pkgs, ...}: {
     programs.niri.enable = window-manager == "niri";
@@ -296,10 +297,11 @@ in {
 
         spawn-at-startup =
           [
+            {command = ["initialize_setup"];}
+            {command = ["matugen image ${assets.media}/wallpapers/dark_souls.jpg"];}
             {command = ["ibus-daemon -rxRd"];}
             {command = ["wl-paste -t image --watch cliphist store"];}
             {command = ["wl-paste -t text --watch cliphist store"];}
-            {command = ["initialize_setup"];}
           ]
           ++ lib.optionals (config.programs.noctalia-shell.enable == false) [{command = ["qs"];}]
           ++ lib.optionals config.programs.noctalia-shell.enable [{command = ["noctalia-shell"];}];

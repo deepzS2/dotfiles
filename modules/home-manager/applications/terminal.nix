@@ -3,6 +3,7 @@
     programs.ghostty = {
       enable = true;
       settings = {
+        theme = "Matugen";
         background-opacity = 0.8;
         font-family = "JetBrainsMono Nerd Font Mono";
         font-size = 14;
