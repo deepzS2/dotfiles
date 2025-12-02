@@ -3,6 +3,10 @@ command = "swww"
 arguments = ["img", "--transition-type", "center"]
 set = true
 
+[templates.hyprland]
+input_path = './templates/hyprland-colors.conf'
+output_path = '~/.config/hypr/colors.conf'
+
 [templates.ghostty]
 input_path = './templates/ghostty'
 output_path = '~/.config/ghostty/themes/Matugen'
