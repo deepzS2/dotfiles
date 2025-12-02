@@ -62,7 +62,10 @@
       };
     };
 
-    home-manager.users."deepz" = config.flake.modules.homeManager.deepz;
+    home-manager = {
+      backupFileExtension = "bkp";
+      users."deepz" = config.flake.modules.homeManager.deepz;
+    };
 
     environment.systemPackages = builtins.attrValues {
       inherit (pkgs) vim wget sbctl firefox;
