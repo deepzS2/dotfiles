@@ -33,6 +33,7 @@
       };
 
       profiles.default = {
+        id = 0;
         isDefault = true;
         settings = {
           "zen.tabs.show-newtab-vertical" = true;
