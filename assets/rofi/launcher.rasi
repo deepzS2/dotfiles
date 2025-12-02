@@ -16,7 +16,7 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@theme "custom"
+@theme "colors.rasi"
 
 * {
     font: "JetBrains Mono Nerd Font 10";
@@ -37,7 +37,7 @@ window {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               12px;
-    border-color:                @selected-normal-foreground;
+    border-color:                @primary;
     background-color:            @background;
     cursor:                      "default";
 }
@@ -50,7 +50,7 @@ mainbox {
     padding:                     20px;
     border:                      0px solid;
     border-radius:               0px 0px 0px 0px;
-    border-color:                @selected-normal-foreground;
+    border-color:                @primary;
     background-color:            transparent;
     children:                    [ "inputbar", "listview" ];
 }
@@ -63,9 +63,9 @@ inputbar {
     padding:                     15px;
     border:                      0px solid;
     border-radius:               12px;
-    border-color:                @selected-normal-foreground;
-    background-color:            @lightbg;
-    text-color:                  @base-text;
+    border-color:                @primary;
+    background-color:            @surface-container;
+    text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
 
@@ -109,16 +109,16 @@ listview {
     padding:                     0px;
     border:                      0px solid;
     border-radius:               0px;
-    border-color:                @selected-normal-foreground;
+    border-color:                @primary;
     background-color:            transparent;
-    text-color:                  @base-text;
+    text-color:                  @foreground;
     cursor:                      "default";
 }
 scrollbar {
     handle-width:                5px ;
-    handle-color:                @selected-active-foreground;
+    handle-color:                @foreground;
     border-radius:               0px;
-    background-color:            @lightbg;
+    background-color:            @surface-container;
 }
 
 /*****----- Elements -----*****/
@@ -129,22 +129,22 @@ element {
     padding:                     5px;
     border:                      0px solid;
     border-radius:               12px;
-    border-color:                @selected-normal-foreground;
+    border-color:                @primary;
     background-color:            transparent;
-    text-color:                  @base-text;
+    text-color:                  @foreground;
     cursor:                      pointer;
 }
 element normal.normal {
     background-color:            @background;
-    text-color:                  @base-text;
+    text-color:                  @foreground;
 }
 element alternate.normal {
     background-color:            @background;
-    text-color:                  @base-text;
+    text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            @selected-active-background;
-    text-color:                  @selected-active-foreground;
+    background-color:            @primary;
+    text-color:                  @background;
 }
 element-icon {
     background-color:            transparent;
@@ -166,13 +166,13 @@ error-message {
     padding:                     15px;
     border:                      2px solid;
     border-radius:               12px;
-    border-color:                @selected-normal-foreground;
+    border-color:                @primary;
     background-color:            @background;
-    text-color:                  @base-text;
+    text-color:                  @foreground;
 }
 textbox {
     background-color:            @background;
-    text-color:                  @base-text;
+    text-color:                  @foreground;
     vertical-align:              0.5;
     horizontal-align:            0.0;
     highlight:                   none;
