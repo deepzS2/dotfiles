@@ -4,7 +4,12 @@ in {
   flake.modules.nixos.niri = {pkgs, ...}: {
     programs.niri.enable = window-manager == "niri";
 
-    environment.sessionVariables.NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
+    environment.sessionVariables = {
+      GTK_IM_MODULE = "ibus";
+      QT_IM_MODULE = "ibus";
+      XMODIFIERS = "@im=ibus";
+      NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
+    };
     environment.systemPackages = [pkgs.nautilus];
   };
 
@@ -23,6 +28,7 @@ in {
     home.packages = [
       pkgs.xdg-desktop-portal-gnome
       pkgs.xwayland-satellite
+      pkgs.ibus
     ];
 
     programs.niri = {
@@ -290,6 +296,7 @@ in {
 
         spawn-at-startup =
           [
+            {command = ["ibus-daemon -rxRd"];}
             {command = ["wl-paste -t image --watch cliphist store"];}
             {command = ["wl-paste -t text --watch cliphist store"];}
             {command = ["initialize_setup"];}
