@@ -1,42 +1,10 @@
 {config, ...}: let
   inherit (config.flake) assets;
 in {
-  flake.modules.homeManager.fastfetch = {
-    pkgs,
-    config,
-    ...
-  }: let
-    inherit (config.lib.stylix.colors) withHashtag;
-  in {
+  flake.modules.homeManager.fastfetch = {pkgs, ...}: {
     home.packages = [
-      pkgs.gowall
       pkgs.kitty
     ];
-
-    home.file.".config/gowall/config.yml".text = ''
-      InlineImagePreview: true
-      OutputFolder: "Imagens/gowall"
-
-      themes:
-        - name: "kanagawa"
-          colors:
-            - "${withHashtag.base00}"
-            - "${withHashtag.base01}"
-            - "${withHashtag.base02}"
-            - "${withHashtag.base03}"
-            - "${withHashtag.base04}"
-            - "${withHashtag.base05}"
-            - "${withHashtag.base06}"
-            - "${withHashtag.base07}"
-            - "${withHashtag.base08}"
-            - "${withHashtag.base09}"
-            - "${withHashtag.base0A}"
-            - "${withHashtag.base0B}"
-            - "${withHashtag.base0C}"
-            - "${withHashtag.base0D}"
-            - "${withHashtag.base0E}"
-            - "${withHashtag.base0F}"
-    '';
 
     programs.fastfetch = {
       enable = true;
