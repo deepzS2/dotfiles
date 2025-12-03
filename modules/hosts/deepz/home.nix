@@ -37,7 +37,6 @@
         fastfetch
         nix-search
         nushell
-        prompt
         tmux
         # Layout
         bar
