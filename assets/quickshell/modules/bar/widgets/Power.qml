@@ -28,7 +28,7 @@ Rectangle {
         anchors.centerIn: parent
         text: ""
         font: Styles.systemFont
-        color: Styles.widgetForeground
+        color: Styles.colors.conError
     }
 
     MouseArea {
