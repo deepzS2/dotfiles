@@ -1,8 +1,8 @@
 {
-  flake.modules.homeManager.notification = _: {
+  flake.modules.homeManager.notification = {config, ...}: {
     services.mako = {
       enable = true;
-      extraConfig = "import=~/.config/mako/mako-colors";
+      extraConfig = "include=${config.home.homeDirectory}/.config/mako/mako-colors";
       settings = {
         sort = "-time";
         layer = "overlay";
@@ -13,7 +13,6 @@
         default-timeout = 5000;
         ignore-timeout = true;
         anchor = "top-right";
-        "mode=do-not-disturb".invisible = 1;
       };
     };
   };
