@@ -2,6 +2,7 @@
   flake.modules.homeManager.notification = _: {
     services.mako = {
       enable = true;
+      extraConfig = "import=~/.config/mako/mako-colors";
       settings = {
         sort = "-time";
         layer = "overlay";

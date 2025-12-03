@@ -3,6 +3,10 @@ command = "swww"
 arguments = ["img", "--transition-type", "center"]
 set = true
 
+[templates.btop]
+input_path = './templates/btop.theme'
+output_path = '~/.config/btop/themes/matugen.theme'
+
 [templates.ghostty]
 input_path = './templates/ghostty'
 output_path = '~/.config/ghostty/themes/Matugen'
@@ -11,6 +15,11 @@ post_hook = 'pkill -SIGUSR2 ghostty'
 [templates.hyprland]
 input_path = './templates/hyprland-colors.conf'
 output_path = '~/.config/hypr/colors.conf'
+
+[templates.mako]
+input_path = './templates/mako'
+output_path = '~/.config/mako/mako-colors'
+post_hook = 'makoctl reload'
 
 [templates.niri]
 input_path = './templates/niri-colors.kdl'
