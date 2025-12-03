@@ -33,6 +33,7 @@ in {
     ];
 
     programs.niri = {
+      # TODO: Wait for https://github.com/sodiboo/niri-flake/pull/1397 to merge
       settings = lib.mkIf (window-manager == "niri") {
         # Input device configuration.
         # Find the full list of options on the wiki:
@@ -181,7 +182,7 @@ in {
           # You can change how the focus ring looks.
           focus-ring = {
             # Uncomment this line to disable the focus ring.
-            # off
+            enable = false;
 
             # How many logical pixels the ring extends out from the windows.
             width = 4;
@@ -223,11 +224,11 @@ in {
             enable = false;
 
             width = 4;
-            # active-color = "#ffc87f";
-            # inactive-color = "#505050";
+            active.color = "#9bcbfb";
+            inactive.color = "#8c9198";
 
             # Color of the border around windows that request your attention.
-            # urgent-color = "#9b0000";
+            urgent.color = "#ffb4ab";
 
             # Gradients can use a few different interpolation color spaces.
             # For example, this is a pastel rainbow gradient via in="oklch longer hue".
@@ -312,6 +313,13 @@ in {
         hotkey-overlay = {
           # Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
           # skip-at-startup
+        };
+
+        cursor = {
+          # Change the theme and size of the cursor as well as set the
+          # `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
+          theme = "Bibata-Modern-Classic";
+          size = 24;
         };
 
         # Uncomment this line to ask the clients to omit their client-side decorations if possible.

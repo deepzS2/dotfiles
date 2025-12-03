@@ -3,14 +3,19 @@ command = "swww"
 arguments = ["img", "--transition-type", "center"]
 set = true
 
-[templates.hyprland]
-input_path = './templates/hyprland-colors.conf'
-output_path = '~/.config/hypr/colors.conf'
-
 [templates.ghostty]
 input_path = './templates/ghostty'
 output_path = '~/.config/ghostty/themes/Matugen'
 post_hook = 'pkill -SIGUSR2 ghostty'
+
+[templates.hyprland]
+input_path = './templates/hyprland-colors.conf'
+output_path = '~/.config/hypr/colors.conf'
+
+[templates.niri]
+input_path = './templates/niri-colors.kdl'
+output_path = '~/.config/niri/colors.kdl'
+post_hook = 'niri msg action load-config-file'
 
 [templates.rofi]
 input_path = './templates/rofi-colors.rasi'
