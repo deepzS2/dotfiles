@@ -18,7 +18,7 @@ in {
           text = ''
             # Current Theme
             THEME="$HOME/.config/rofi/powermenu.rasi"
-            CONFIRM_THEME="$HOME/.config/rofi/powermenu_confirm.rasi"
+            CONFIRM_THEME="$HOME/.config/rofi/powermenu-confirm.rasi"
             WM=${window-manager}
 
             # CMDs
