@@ -1,39 +1,31 @@
-{config, ...}: let
+{
+  config,
+  inputs,
+  ...
+}: let
   inherit (config.flake) assets;
 in {
   flake.modules.homeManager.theme = {pkgs, ...}: {
-    stylix = {
-      enable = true;
-      image = "${assets.media}/wallpapers/yakuza.jpg";
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
-      targets = {
-        niri.enable = true;
-        waybar.addCss = false;
-        tmux.enable = false;
-        vesktop.enable = false;
-        vencord.enable = false;
-        zen-browser.enable = false;
-      };
-      cursor = {
-        name = "Bibata-Modern-Classic";
-        package = pkgs.bibata-cursors;
-        size = 24;
-      };
+    home.packages = [
+      inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
+      pkgs.swww
+      pkgs.bibata-cursors
+    ];
 
-      fonts = {
-        monospace = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrains Mono Nerd Font";
-        };
-        sizes = {
-          terminal = 11;
-          desktop = 10;
-          applications = 11;
-        };
-      };
+    home.file.".config/matugen" = {
+      source = "${assets.path}/matugen";
+      recursive = true;
     };
 
-    gtk = {
+    gtk = let
+      theme = {
+        name = "Materia-dark";
+        package = pkgs.materia-theme;
+      };
+    in {
+      enable = true;
+      colorScheme = "dark";
+      inherit theme;
       iconTheme = {
         name = "Papirus";
         package = pkgs.papirus-icon-theme;
@@ -42,6 +34,9 @@ in {
         name = "Bibata-Modern-Classic";
         package = pkgs.bibata-cursors;
       };
+
+      gtk3 = {inherit theme;};
+      gtk4 = {inherit theme;};
     };
   };
 }

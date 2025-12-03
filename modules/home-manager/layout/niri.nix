@@ -1,10 +1,16 @@
 {config, ...}: let
   inherit (config.flake.settings) window-manager;
+  inherit (config.flake) assets;
 in {
   flake.modules.nixos.niri = {pkgs, ...}: {
     programs.niri.enable = window-manager == "niri";
 
-    environment.sessionVariables.NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
+    environment.sessionVariables = {
+      GTK_IM_MODULE = "ibus";
+      QT_IM_MODULE = "ibus";
+      XMODIFIERS = "@im=ibus";
+      NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
+    };
     environment.systemPackages = [pkgs.nautilus];
   };
 
@@ -13,13 +19,21 @@ in {
     lib,
     pkgs,
     ...
-  }: {
+  }: let
+    noctalia =
+      config.lib.niri.actions.spawn
+      "noctalia-shell"
+      "ipc"
+      "call";
+  in {
     home.packages = [
       pkgs.xdg-desktop-portal-gnome
       pkgs.xwayland-satellite
+      pkgs.ibus
     ];
 
     programs.niri = {
+      # TODO: Wait for https://github.com/sodiboo/niri-flake/pull/1397 to merge
       settings = lib.mkIf (window-manager == "niri") {
         # Input device configuration.
         # Find the full list of options on the wiki:
@@ -168,7 +182,7 @@ in {
           # You can change how the focus ring looks.
           focus-ring = {
             # Uncomment this line to disable the focus ring.
-            # off
+            enable = false;
 
             # How many logical pixels the ring extends out from the windows.
             width = 4;
@@ -210,11 +224,11 @@ in {
             enable = false;
 
             width = 4;
-            # active-color = "#ffc87f";
-            # inactive-color = "#505050";
+            active.color = "#9bcbfb";
+            inactive.color = "#8c9198";
 
             # Color of the border around windows that request your attention.
-            # urgent-color = "#9b0000";
+            urgent.color = "#ffb4ab";
 
             # Gradients can use a few different interpolation color spaces.
             # For example, this is a pastel rainbow gradient via in="oklch longer hue".
@@ -282,14 +296,16 @@ in {
         # which may be more convenient to use.
         # See the binds section below for more spawn examples.
 
-        # This line starts waybar, a commonly used bar for Wayland compositors.
-        spawn-at-startup = [
-          {command = ["waybar"];}
-          {command = ["swww-daemon"];}
-          {command = ["wl-paste -t image --watch cliphist store"];}
-          {command = ["wl-paste -t text --watch cliphist store"];}
-          {command = ["initialize_setup"];}
-        ];
+        spawn-at-startup =
+          [
+            {command = ["initialize_setup"];}
+            {command = ["matugen image ${assets.media}/wallpapers/dark_souls.jpg"];}
+            {command = ["ibus-daemon -rxRd"];}
+            {command = ["wl-paste -t image --watch cliphist store"];}
+            {command = ["wl-paste -t text --watch cliphist store"];}
+          ]
+          ++ lib.optionals (config.programs.noctalia-shell.enable == false) [{command = ["qs"];}]
+          ++ lib.optionals config.programs.noctalia-shell.enable [{command = ["noctalia-shell"];}];
 
         # To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
         # spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -297,6 +313,13 @@ in {
         hotkey-overlay = {
           # Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
           # skip-at-startup
+        };
+
+        cursor = {
+          # Change the theme and size of the cursor as well as set the
+          # `XCURSOR_THEME` and `XCURSOR_SIZE` env variables.
+          theme = "Bibata-Modern-Classic";
+          size = 24;
         };
 
         # Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -335,7 +358,6 @@ in {
         # Window rules let you adjust behavior for individual windows.
         # Find more information on the wiki:
         # https://yalter.github.io/niri/Configuration:-Window-Rules
-
         window-rules = [
           {
             matches = [
@@ -479,13 +501,28 @@ in {
           #   # block-out-from "screencast"
           # }
 
-          # Example: enable rounded corners for all windows.
-          # (This example rule is commented out with a "/-" in front.)
-          # {
-          #   geometry-corner-radius = 12;
-          #   clip-to-geometry = true;
-          # }
+          # For noctalia-shell
+          {
+            geometry-corner-radius = {
+              top-left = 20.0;
+              top-right = 20.0;
+              bottom-left = 20.0;
+              bottom-right = 20.0;
+            };
+            clip-to-geometry = true;
+          }
         ];
+
+        layer-rules = [
+          {
+            matches = [{namespace = "^noctalia-overview*";}];
+            place-within-backdrop = true;
+          }
+        ];
+
+        debug = {
+          honor-xdg-activation-with-invalid-serial = [];
+        };
 
         binds = with config.lib.niri.actions; {
           # Keys consist of modifiers separated by + signs, followed by an XKB key name
@@ -508,7 +545,10 @@ in {
             hotkey-overlay.title = "Open a Terminal: Ghostty";
           };
           "Mod+Space" = {
-            action = spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "launcher" "toggle"
+              else spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi";
             hotkey-overlay.title = "Run an Application: Rofi";
           };
           "Mod+Shift+D" = {
@@ -524,7 +564,10 @@ in {
             hotkey-overlay.title = "Open Website: WhatsApp";
           };
           "Super+Alt+L" = {
-            action = spawn "hyprlock";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "lockScreen" "toggle"
+              else spawn "hyprlock";
             hotkey-overlay.title = "Lock the Screen: Hyprlock";
           };
           "Super+Escape" = {
@@ -536,15 +579,24 @@ in {
           # The allow-when-locked=true property makes them work even when the session is locked.
           # Using spawn-sh allows to pass multiple arguments together with the command.
           "XF86AudioRaiseVolume" = {
-            action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1+";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "volume" "increase"
+              else spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1+";
             allow-when-locked = true;
           };
           "XF86AudioLowerVolume" = {
-            action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1-";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "volume" "decrease"
+              else spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@ 0.1-";
             allow-when-locked = true;
           };
           "XF86AudioMute" = {
-            action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+            action =
+              if config.programs.noctalia-shell.enable
+              then noctalia "volume" "muteOutput"
+              else spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
             allow-when-locked = true;
           };
           "XF86AudioMicMute" = {

@@ -13,8 +13,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Neovim
+    # Neovim and AI
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    opencode.url = "github:sst/opencode";
 
     # Zen Browser
     zen-browser = {
@@ -26,12 +27,22 @@
     niri.url = "github:sodiboo/niri-flake";
 
     # Theming
-    stylix = {
-      url = "github:danth/stylix";
+    matugen = {
+      url = "github:/InioX/Matugen";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Desktop shell
+    quickshell = {
+      url = "github:outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

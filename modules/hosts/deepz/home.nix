@@ -8,9 +8,8 @@
       [
         inputs.zen-browser.homeModules.beta
         # inputs.niri.homeModules.niri
-        inputs.niri.homeModules.stylix
         inputs.nixCats.homeModule
-        inputs.stylix.homeModules.stylix
+        inputs.noctalia.homeModules.default
       ]
       ++ (with config.flake.modules.homeManager; [
         options
@@ -36,14 +35,13 @@
         fastfetch
         nix-search
         nushell
-        prompt
         tmux
         # Layout
+        bar
+        # noctalia
         notification
         rofi
         theme
-        wallpaper
-        waybar
         # Hyprland
         hypridle
         hyprland
@@ -60,7 +58,7 @@
     home = {
       homeDirectory = "/home/deepz";
       username = "deepz";
-      stateVersion = "25.05";
+      stateVersion = "25.11";
     };
 
     monitors = [

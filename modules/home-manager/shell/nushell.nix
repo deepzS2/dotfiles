@@ -7,6 +7,11 @@
     ...
   }: {
     programs = {
+      starship = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
+
       nushell = {
         enable = true;
 

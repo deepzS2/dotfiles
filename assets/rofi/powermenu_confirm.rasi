@@ -13,7 +13,7 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@theme "custom"
+@theme "colors.rasi"
 
 /*****----- Main Window -----*****/
 window {
@@ -39,15 +39,15 @@ message {
     margin:                      0px;
     padding:                     20px;
     border-radius:               20px;
-    background-color:            @lightbg;
-    text-color:                  @base-text;
+    background-color:            @surface-container;
+    text-color:                  @foreground;
 }
 textbox {
     background-color:            inherit;
     text-color:                  inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5;
-    placeholder-color:           @base-text;
+    placeholder-color:           @foreground;
     blink:                       true;
     markup:                      true;
 }
@@ -66,7 +66,7 @@ listview {
     
     spacing:                     30px;
     background-color:            transparent;
-    text-color:                  @base-text;
+    text-color:                  @foreground;
     cursor:                      "default";
 }
 
@@ -74,8 +74,8 @@ listview {
 element {
     padding:                     60px 35px 60px 10px;
     border-radius:               20px;
-    background-color:            @lightbg;
-    text-color:                  @base-text;
+    background-color:            @surface-container;
+    text-color:                  @foreground;
     cursor:                      pointer;
 }
 
@@ -89,11 +89,11 @@ element-text {
 }
 
 element normal.normal, element alternate.normal {
-    background-color:            @lightbg;
-    text-color:                  @base-text;
+    background-color:            @surface-container;
+    text-color:                  @foreground;
 }
 
 element selected.normal {
-    background-color:            @selected-active-background;
-    text-color:                  @selected-active-foreground;
+    background-color:            @primary;
+    text-color:                  @background;
 }

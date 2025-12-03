@@ -1,0 +1,69 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$lua\
+$python\
+$nodejs\
+$bun\
+$aws\
+$docker_context\
+$jobs\
+$cmd_duration\
+$line_break\
+$character\
+"""
+
+palette = 'colors'
+add_newline = true
+
+[palettes.colors]
+color1 = '{{colors.primary_fixed_dim.default.hex}}'
+color2 = '{{colors.on_primary.default.hex}}'
+color3 = '{{colors.on_surface_variant.default.hex}}'
+color4 = '{{colors.surface_container.default.hex}}'
+color5 = '{{colors.on_primary.default.hex}}'
+color6 = '{{colors.surface_dim.default.hex}}'
+color7 = '{{colors.surface.default.hex}}'
+color8 = '{{colors.primary.default.hex}}'
+color9 = '{{colors.tertiary.default.hex}}'
+
+[fill]
+symbol = ' '
+
+[aws]
+format = 'on [$symbol(\($region\) )]($style)'
+style = "blue"
+
+[aws.region_aliases]
+sa-east-1 = "sa"
+us-east-1 = "us"
+
+# Prompt symbols 
+[character]
+success_symbol = "[➜](color1 bold)"
+error_symbol = "[✗]({{colors.error.default.hex}} bold)"
+vimcmd_symbol = "[🞈](#f9e2af bold)"
+
+[directory]
+format = "[$path ]($style)"
+truncation_length = 4
+truncation_symbol = "…/"
+truncate_to_repo = false
+
+[git_branch]
+symbol = " "
+format = "on [$symbol$branch ]($style)"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+
+[gcloud]
+format = 'on [$symbol(\($region\))]($style)'
+
+[memory_usage]
+disabled = false
+threshold = 50

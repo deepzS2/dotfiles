@@ -80,6 +80,7 @@
             # Other languages
             pkgs.elixir-ls
             pkgs.gopls
+            pkgs.kdePackages.qtdeclarative
           ];
 
           # Code formatting tools
