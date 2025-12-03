@@ -8,9 +8,7 @@
       [
         inputs.zen-browser.homeModules.beta
         # inputs.niri.homeModules.niri
-        inputs.niri.homeModules.stylix
         inputs.nixCats.homeModule
-        inputs.stylix.homeModules.stylix
         inputs.noctalia.homeModules.default
       ]
       ++ (with config.flake.modules.homeManager; [

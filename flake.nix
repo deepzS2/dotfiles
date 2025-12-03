@@ -27,10 +27,6 @@
     niri.url = "github:sodiboo/niri-flake";
 
     # Theming
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     matugen = {
       url = "github:/InioX/Matugen";
       inputs.nixpkgs.follows = "nixpkgs";
