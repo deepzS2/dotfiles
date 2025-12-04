@@ -37,7 +37,6 @@
         nushell
         tmux
         # Layout
-        bar
         # noctalia
         notification
         rofi

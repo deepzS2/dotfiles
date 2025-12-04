@@ -28,7 +28,7 @@ post_hook = 'niri msg action load-config-file'
 
 [templates.quickshell]
 input_path = './templates/quickshell-colors.json'
-output_path = '~/.config/quickshell/colors.json'
+output_path = '~/.config/sheez/colors.json'
 
 [templates.rofi]
 input_path = './templates/rofi-colors.rasi'

@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  inputs,
+  ...
+}: let
   inherit (config.flake.settings) window-manager;
   inherit (config.flake) assets;
 in {
@@ -27,6 +31,7 @@ in {
       "call";
   in {
     home.packages = [
+      inputs.sheez.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.xdg-desktop-portal-gnome
       pkgs.xwayland-satellite
       pkgs.ibus
@@ -299,12 +304,11 @@ in {
         spawn-at-startup =
           [
             {command = ["initialize_setup"];}
-            {command = ["matugen image ${assets.media}/wallpapers/dark_souls.jpg"];}
             {command = ["ibus-daemon -rxRd"];}
             {command = ["wl-paste -t image --watch cliphist store"];}
             {command = ["wl-paste -t text --watch cliphist store"];}
           ]
-          ++ lib.optionals (config.programs.noctalia-shell.enable == false) [{command = ["qs"];}]
+          ++ lib.optionals (config.programs.noctalia-shell.enable == false) [{command = ["sheez"];}]
           ++ lib.optionals config.programs.noctalia-shell.enable [{command = ["noctalia-shell"];}];
 
         # To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
