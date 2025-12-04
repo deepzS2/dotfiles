@@ -1,34 +1,29 @@
 pragma Singleton
 import QtQuick
+import Quickshell
 import "."
 
-QtObject {
-    // ==========================================================================
-    // Material You Colors - Import from generated Colors.qml
-    // Run `matugen image <wallpaper>` to regenerate colors
-    // ==========================================================================
-    readonly property QtObject colors: Colors
-
+Singleton {
     // ==========================================================================
     // Semantic color aliases (for easier migration from Base16)
     // ==========================================================================
     // These map Material You colors to Base16-like semantics
-    readonly property color base00: colors.background      // Background
-    readonly property color base01: colors.surfaceContainerLow
-    readonly property color base02: colors.surfaceContainer
-    readonly property color base03: colors.outlineVariant
-    readonly property color base04: colors.outline
-    readonly property color base05: colors.conSurface       // Foreground
-    readonly property color base06: colors.conSurfaceVariant
-    readonly property color base07: colors.surfaceContainerHigh
-    readonly property color base08: colors.error           // Red/Error
-    readonly property color base09: colors.tertiary        // Orange/Accent
-    readonly property color base0A: colors.secondary       // Yellow/Warning
-    readonly property color base0B: colors.primary         // Green/Success (using primary)
-    readonly property color base0C: colors.secondaryContainer // Cyan
-    readonly property color base0D: colors.primary         // Blue/Info
-    readonly property color base0E: colors.tertiary        // Purple
-    readonly property color base0F: colors.tertiaryContainer // Pink/Brown
+    readonly property color base00: Colors.background      // Background
+    readonly property color base01: Colors.surfaceContainerLow
+    readonly property color base02: Colors.surfaceContainer
+    readonly property color base03: Colors.outlineVariant
+    readonly property color base04: Colors.outline
+    readonly property color base05: Colors.conSurface       // Foreground
+    readonly property color base06: Colors.conSurfaceVariant
+    readonly property color base07: Colors.surfaceContainerHigh
+    readonly property color base08: Colors.error           // Red/Error
+    readonly property color base09: Colors.tertiary        // Orange/Accent
+    readonly property color base0A: Colors.secondary       // Yellow/Warning
+    readonly property color base0B: Colors.primary         // Green/Success (using primary)
+    readonly property color base0C: Colors.secondaryContainer // Cyan
+    readonly property color base0D: Colors.primary         // Blue/Info
+    readonly property color base0E: Colors.tertiary        // Purple
+    readonly property color base0F: Colors.tertiaryContainer // Pink/Brown
 
     // Font settings
     readonly property font systemFont: ({
@@ -55,16 +50,16 @@ QtObject {
     readonly property int networkInterval: 5000
     readonly property int batteryInterval: 1000
     // Widget styling
-    readonly property color widgetBackground: colors.surface
-    readonly property color widgetForeground: colors.conSurface
-    readonly property color widgetBorder: colors.outlineVariant
+    readonly property color widgetBackground: Colors.surface
+    readonly property color widgetForeground: Colors.conSurface
+    readonly property color widgetBorder: Colors.outlineVariant
     readonly property real widgetOpacity: 0.95
     readonly property int widgetBorderWidth: 1
     readonly property int widgetShadowOffset: 1
     readonly property real widgetShadowOpacity: 0.185
     // Special colors
-    readonly property color urgentColor: colors.error
-    readonly property color warningColor: colors.tertiary
-    readonly property color successColor: colors.primary
-    readonly property color infoColor: colors.secondary
+    readonly property color urgentColor: Colors.error
+    readonly property color warningColor: Colors.tertiary
+    readonly property color successColor: Colors.primary
+    readonly property color infoColor: Colors.secondary
 }
