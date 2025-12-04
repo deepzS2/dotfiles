@@ -22,3 +22,5 @@ test-configs/
 *.bak
 *.tmp
 .bkp
+
+AGENTS.md
