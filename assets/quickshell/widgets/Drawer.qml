@@ -3,7 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.commons
 
-// Reusable drawer component that expands from right-to-left
+// Reusable drawer component that expands from RTL or LTR
 // Shows only first child when collapsed, all children when expanded
 Item {
     id: root
@@ -56,7 +56,6 @@ Item {
         onHoveredChanged: root.expanded = hovered
     }
 
-    // Initialize
     Component.onCompleted: {
         Logger.info("Drawer", "Drawer component initialized");
     }
