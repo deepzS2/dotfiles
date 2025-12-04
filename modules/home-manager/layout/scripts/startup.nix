@@ -7,7 +7,15 @@
 
           text = ''
             send_notification sys
-            swww-daemon
+            swww-daemon &
+
+            # Wait for swww-daemon to be ready
+            sleep 1
+
+            # Restore last theme if available
+            if theme-switcher --restore 2>/dev/null; then
+              send_notification notify "Theme restored"
+            fi
           '';
         }
       )

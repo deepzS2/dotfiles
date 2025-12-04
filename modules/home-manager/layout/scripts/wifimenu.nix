@@ -9,7 +9,7 @@
           runtimeInputs = [pkgs.networkmanager pkgs.rofi];
           text = ''
             THEME="$HOME/.config/rofi/wifimenu.rasi"
-            PASSWORD_THEME="$HOME/.config/rofi/wifimenu_password.rasi"
+            PASSWORD_THEME="$HOME/.config/rofi/wifimenu-password.rasi"
 
             send_notification notify "Getting list of available Wi-Fi networks..."
 

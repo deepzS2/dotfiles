@@ -196,6 +196,7 @@
           utils = [
             vimPlugins.img-clip-nvim
             vimPlugins.markview-nvim
+            vimPlugins.markdown-preview-nvim
             vimPlugins.lazydev-nvim
             vimPlugins.fzf-lua
             vimPlugins.undotree

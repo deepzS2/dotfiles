@@ -23,5 +23,4 @@ test-configs/
 *.tmp
 .bkp
 
-# Quickshell
-.qmlls.ini
+AGENTS.md

@@ -67,12 +67,9 @@
       };
     };
 
-    home.file = {
-      ".config/rofi/launcher.rasi".source = "${rofiDirectory}/launcher.rasi";
-      ".config/rofi/powermenu.rasi".source = "${rofiDirectory}/powermenu.rasi";
-      ".config/rofi/powermenu_confirm.rasi".source = "${rofiDirectory}/powermenu_confirm.rasi";
-      ".config/rofi/wifimenu.rasi".source = "${rofiDirectory}/wifimenu.rasi";
-      ".config/rofi/wifimenu_password.rasi".source = "${rofiDirectory}/wifimenu_password.rasi";
+    home.file.".config/rofi" = {
+      source = "${rofiDirectory}";
+      recursive = true;
     };
   };
 }

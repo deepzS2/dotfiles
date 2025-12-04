@@ -37,8 +37,8 @@
     };
 
     # Desktop shell
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
+    sheez = {
+      url = "github:deepzS2/sheez";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {

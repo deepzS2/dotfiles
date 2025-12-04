@@ -26,6 +26,10 @@ input_path = './templates/niri-colors.kdl'
 output_path = '~/.config/niri/colors.kdl'
 post_hook = 'niri msg action load-config-file'
 
+[templates.quickshell]
+input_path = './templates/quickshell-colors.json'
+output_path = '~/.config/sheez/colors.json'
+
 [templates.rofi]
 input_path = './templates/rofi-colors.rasi'
 output_path = '~/.config/rofi/colors.rasi'
@@ -33,7 +37,3 @@ output_path = '~/.config/rofi/colors.rasi'
 [templates.starship]
 input_path = './templates/starship-colors.toml'
 output_path = '~/.config/starship.toml'
-
-[templates.quickshell]
-input_path = './templates/quickshell-colors.qml'
-output_path = '~/.config/quickshell/commons/Colors.qml'

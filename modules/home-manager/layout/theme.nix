@@ -8,6 +8,7 @@ in {
   flake.modules.homeManager.theme = {pkgs, ...}: {
     home.packages = [
       inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
+      pkgs.gowall # Convert image to colorscheme
       pkgs.swww
       pkgs.bibata-cursors
     ];
