@@ -9,12 +9,12 @@ Rectangle {
     implicitWidth: systemText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: Styles.widgetBackground
+    color: Colors.surface
     opacity: Styles.widgetOpacity
 
     border {
         width: Styles.widgetBorderWidth
-        color: Styles.widgetBorder
+        color: Colors.outlineVariant
     }
 
     // Shadow effect
@@ -32,18 +32,18 @@ Rectangle {
     // Color properties based on usage (computed)
     readonly property color cpuColor: {
         if (cpuUsage >= 90)
-            return Styles.urgentColor;
+            return Colors.error;
         if (cpuUsage >= 80)
-            return Styles.warningColor;
-        return Styles.widgetForeground;
+            return Colors.tertiary;
+        return Colors.conSurface;
     }
 
     readonly property color memoryColor: {
         if (memoryUsage >= 90)
-            return Styles.urgentColor;
+            return Colors.error;
         if (memoryUsage >= 80)
-            return Styles.warningColor;
-        return Styles.widgetForeground;
+            return Colors.tertiary;
+        return Colors.conSurface;
     }
 
     Text {
@@ -51,7 +51,7 @@ Rectangle {
         anchors.centerIn: parent
         text: root.formatDisplayText()
         font: Styles.systemFont
-        color: Styles.widgetForeground
+        color: Colors.conSurface
     }
 
     MouseArea {

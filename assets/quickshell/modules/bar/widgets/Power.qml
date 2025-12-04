@@ -9,12 +9,12 @@ Rectangle {
     implicitWidth: powerText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: Styles.urgentColor
+        color: Colors.error
     opacity: Styles.widgetOpacity
 
     border {
         width: Styles.widgetBorderWidth
-        color: Styles.urgentColor
+    color: Colors.error
     }
 
     // Shadow effect

@@ -11,13 +11,13 @@ Rectangle {
     implicitWidth: brightnessText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: Styles.widgetBackground
+    color: Colors.surface
     opacity: Styles.widgetOpacity
 
     // Border styling
     border {
         width: Styles.widgetBorderWidth
-        color: Styles.widgetBorder
+        color: Colors.outlineVariant
     }
 
     // Shadow effect
@@ -44,7 +44,7 @@ Rectangle {
         anchors.centerIn: parent
         text: root.text
         font: Styles.systemFont
-        color: Styles.widgetForeground
+        color: Colors.conSurface
     }
 
     Timer {

@@ -10,13 +10,13 @@ Rectangle {
     implicitWidth: clockText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: Styles.widgetBackground
+    color: Colors.surface
     opacity: Styles.widgetOpacity
     property string tooltipText: ""
 
     border {
         width: Styles.widgetBorderWidth
-        color: Styles.widgetBorder
+        color: Colors.outlineVariant
     }
 
     // Shadow effect
@@ -36,7 +36,7 @@ Rectangle {
         text: " " + Qt.formatTime(clock.date, "HH:mm")
 
         font: Styles.systemFont
-        color: Styles.widgetForeground
+        color: Colors.conSurface
     }
 
     Process {

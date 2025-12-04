@@ -15,13 +15,13 @@ Rectangle {
     implicitWidth: windowLayout.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: Styles.widgetBackground
+    color: Colors.surface
     opacity: Styles.widgetOpacity
 
     // Border styling
     border {
         width: Styles.widgetBorderWidth
-        color: Styles.widgetBorder
+        color: Colors.outlineVariant
     }
 
     // Shadow effect
@@ -34,7 +34,7 @@ Rectangle {
     property var currentWindow: null
     property string displayText: ""
     property string fullTitle: ""
-    property color textColor: Styles.widgetForeground
+    property color textColor: Colors.conSurface
     property string iconSource: ""
     property bool hasSystemIcon: false
 

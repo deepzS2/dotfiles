@@ -9,12 +9,12 @@ Rectangle {
     implicitWidth: batteryText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: isCharging ? Styles.infoColor : Styles.widgetBackground
+    color: isCharging ? Colors.secondary : Colors.surface
     opacity: Styles.widgetOpacity
 
     border {
         width: Styles.widgetBorderWidth
-        color: isCharging ? Styles.infoColor : Styles.widgetBorder
+        color: isCharging ? Colors.secondary : Colors.outlineVariant
     }
 
     // Shadow effect
@@ -45,10 +45,15 @@ Rectangle {
     }
 
     readonly property color textColor: {
-        if (isCharging || percentage > 30)
-            return Styles.widgetForeground;
+        if (isCharging)
+            return Colors.conSecondary;
 
-        return percentage <= 20 ? Styles.urgentColor : Styles.warningColor;
+        // Normal
+        if (percentage > 30)
+            return Colors.conSurface;
+
+        // Error and Warning
+        return percentage <= 20 ? Colors.error : Colors.tertiary;
     }
 
     // Tooltip text

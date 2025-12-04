@@ -13,13 +13,13 @@ Rectangle {
     implicitWidth: workspacesRow.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: Styles.widgetBackground
+    color: Colors.surface
     opacity: Styles.widgetOpacity
 
     // Border styling
     border {
         width: Styles.widgetBorderWidth
-        color: Styles.widgetBorder
+        color: Colors.outlineVariant
     }
 
     // Shadow effect
@@ -80,7 +80,7 @@ Rectangle {
                     anchors.centerIn: parent
                     text: root.workspaceIcons[parent.modelData.name] || root.workspaceIcons["default"]
                     font: Styles.systemFont
-                    color: workspaceButton.isActive ? Styles.base06 : Qt.rgba(Styles.widgetForeground.r, Styles.widgetForeground.g, Styles.widgetForeground.b, 0.3)
+                    color: workspaceButton.isActive ? Colors.conSurfaceVariant : Qt.rgba(Colors.conSurface.r, Colors.conSurface.g, Colors.conSurface.b, 0.3)
 
                     // Smooth transition
                     Behavior on color {
@@ -97,12 +97,12 @@ Rectangle {
                     hoverEnabled: true
                     onEntered: {
                         if (!workspaceButton.isActive) {
-                            workspaceText.color = Styles.base06;
+                            workspaceText.color = Colors.conSurfaceVariant;
                         }
                     }
                     onExited: {
                         if (!workspaceButton.isActive) {
-                            workspaceText.color = Qt.rgba(Styles.widgetForeground.r, Styles.widgetForeground.g, Styles.widgetForeground.b, 0.3);
+                            workspaceText.color = Qt.rgba(Colors.conSurface.r, Colors.conSurface.g, Colors.conSurface.b, 0.3);
                         }
                     }
                     onClicked: {

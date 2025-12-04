@@ -9,12 +9,12 @@ Rectangle {
     implicitWidth: sinkText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: AudioService.sinkMuted ? Styles.warningColor : Styles.widgetBackground
+    color: AudioService.sinkMuted ? Colors.tertiary : Colors.surface
     opacity: Styles.widgetOpacity
 
     border {
         width: Styles.widgetBorderWidth
-        color: AudioService.sinkMuted ? Styles.warningColor : Styles.widgetBorder
+        color: AudioService.sinkMuted ? Colors.tertiary : Colors.outlineVariant
     }
 
     // Shadow effect
@@ -28,7 +28,7 @@ Rectangle {
         anchors.centerIn: parent
         text: `${AudioService.sinkIcon}  ${Math.round(AudioService.sinkVolume * 100)}%`
         font: Styles.systemFont
-        color: AudioService.sinkMuted ? Styles.widgetBackground : Styles.widgetForeground
+        color: AudioService.sinkMuted ? Colors.surface : Colors.conSurface
     }
 
     MouseArea {

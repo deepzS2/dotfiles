@@ -9,12 +9,12 @@ Rectangle {
     implicitWidth: sourceText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: AudioService.sourceMuted ? Styles.warningColor : Styles.widgetBackground
+    color: AudioService.sourceMuted ? Colors.tertiary : Colors.surface
     opacity: Styles.widgetOpacity
 
     border {
         width: Styles.widgetBorderWidth
-        color: AudioService.sourceMuted ? Styles.warningColor : Styles.widgetBorder
+        color: AudioService.sourceMuted ? Colors.tertiary : Colors.outlineVariant
     }
 
     // Shadow effect
@@ -28,7 +28,7 @@ Rectangle {
         anchors.centerIn: parent
         text: AudioService.sourceIcon
         font: Styles.systemFont
-        color: AudioService.sourceMuted ? Styles.widgetBackground : Styles.widgetForeground
+        color: AudioService.sourceMuted ? Colors.surface : Colors.conSurface
     }
 
     MouseArea {

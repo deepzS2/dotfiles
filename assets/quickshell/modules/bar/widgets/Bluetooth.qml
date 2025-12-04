@@ -9,12 +9,12 @@ Rectangle {
     implicitWidth: bluetoothText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: Styles.widgetBackground
+    color: Colors.surface
     opacity: Styles.widgetOpacity
 
     border {
         width: Styles.widgetBorderWidth
-        color: Styles.widgetBorder
+        color: Colors.outlineVariant
     }
 
     // Shadow effect
@@ -28,7 +28,7 @@ Rectangle {
         anchors.centerIn: parent
         text: BluetoothService.icon
         font: Styles.systemFont
-        color: Styles.widgetForeground
+        color: Colors.conSurface
     }
 
     MouseArea {

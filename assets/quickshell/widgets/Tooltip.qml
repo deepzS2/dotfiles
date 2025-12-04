@@ -37,8 +37,8 @@ PopupWindow {
 
         Rectangle {
             id: tooltipRect
-            color: Styles.widgetBackground
-            border.color: Styles.widgetBorder
+            color: Colors.surface
+            border.color: Colors.outlineVariant
             border.width: Styles.widgetBorderWidth
             radius: Styles.widgetRadius
             anchors.fill: parent
@@ -53,7 +53,7 @@ PopupWindow {
                 anchors.centerIn: parent
                 text: root.text
                 font: Styles.systemFont
-                color: Styles.widgetForeground
+                color: Colors.conSurface
                 wrapMode: Text.Wrap
                 horizontalAlignment: root.alignment === "left" ? Text.AlignLeft : root.alignment === "right" ? Text.AlignRight : Text.AlignHCenter
                 verticalAlignment: root.vertical === "top" ? Text.AlignTop : root.vertical === "bottom" ? Text.AlignBottom : Text.AlignVCenter

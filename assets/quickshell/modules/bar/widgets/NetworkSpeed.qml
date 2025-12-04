@@ -9,12 +9,12 @@ Rectangle {
     implicitWidth: speedText.implicitWidth + Styles.widgetPadding * 2
     implicitHeight: Styles.capsuleHeight
     radius: Styles.widgetRadius
-    color: NetworkingService.isConnected ? Styles.widgetBackground : Styles.warningColor
+    color: NetworkingService.isConnected ? Colors.surface : Colors.tertiary
     opacity: Styles.widgetOpacity
 
     border {
         width: Styles.widgetBorderWidth
-        color: NetworkingService.isConnected ? Styles.widgetBorder : Styles.warningColor
+        color: NetworkingService.isConnected ? Colors.outlineVariant : Colors.tertiary
     }
 
     // Shadow effect
@@ -28,7 +28,7 @@ Rectangle {
         anchors.centerIn: parent
         text: `${NetworkingService.bandwidthDownBits}  | ${NetworkingService.bandwidthUpBits} `
         font: Styles.systemFont
-        color: NetworkingService.isConnected ? Styles.widgetForeground : Styles.widgetBackground
+        color: NetworkingService.isConnected ? Colors.conSurface : Colors.surface
     }
 
     MouseArea {
