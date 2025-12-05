@@ -575,7 +575,7 @@ in {
             hotkey-overlay.title = "Lock the Screen: Hyprlock";
           };
           "Super+Escape" = {
-            action = spawn "powermenu";
+            action = spawn "sheez" "ipc" "call" "logout" "toggle";
             hotkey-overlay.title = "Toggle Power Menu";
           };
 

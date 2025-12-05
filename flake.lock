@@ -543,11 +543,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1764876837,
-        "narHash": "sha256-AhKoJcOw19CKICCceM2BJt7yg6VUKg4ExW1uCw4rvnY=",
+        "lastModified": 1764963603,
+        "narHash": "sha256-9m3DxZQ/T62fNhAqfhtO/a5FGnoJ0Mcgqv5IRPIZvhM=",
         "owner": "deepzS2",
         "repo": "sheez",
-        "rev": "f4ab137a9626b7976a014ac4304ddefffe58856a",
+        "rev": "6624584b05362f507233e81c4062a475beba4a04",
         "type": "github"
       },
       "original": {
