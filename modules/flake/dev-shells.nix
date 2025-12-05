@@ -70,26 +70,6 @@
           echo ""
         '';
       };
-
-      quickshell = pkgs.mkShell {
-        name = "quickshell-dev";
-
-        packages = [
-          inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
-        ];
-
-        shellHook = ''
-          alias dev="qs -p ${self}/assets/quickshell"
-
-          echo "╔════════════════════════════════════════════════════════╗"
-          echo "║   Quickshell Development Environment                   ║"
-          echo "╚════════════════════════════════════════════════════════╝"
-          echo ""
-          echo "Available commands:"
-          echo "  dev                     - Run quickshell in assets/quickshell/"
-          echo ""
-        '';
-      };
     };
   };
 }
