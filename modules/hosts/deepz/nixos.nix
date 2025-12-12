@@ -13,6 +13,7 @@
         audio
         display-manager
         drivers-nvidia
+        fhs
         fonts
         nix
         locale
