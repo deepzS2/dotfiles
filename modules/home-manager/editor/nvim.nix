@@ -4,14 +4,12 @@
   inputs,
   config,
   ...
-}: {
-  flake.modules.homeManager.nvim = {pkgs, ...}: let
+}: let
+  inherit (config.flake) assets;
+in {
+  flake.modules.homeManager.nvim = {config, ...}: let
     inherit (inputs.nixCats) utils;
   in {
-    home.packages = [
-      pkgs.vectorcode # Code repository indexing tool
-    ];
-
     nixCats = {
       enable = true;
 
@@ -23,9 +21,9 @@
           (utils.standardPluginOverlay inputs)
         ];
 
-      packageNames = ["nvim" "testnvim"];
+      packageNames = ["nvim" "testvim"];
 
-      luaPath = "${config.flake.assets.path}/nvim";
+      luaPath = "${assets.path}/nvim";
 
       categoryDefinitions.replace = {pkgs, ...}: {
         # to define and use a new category, simply add a new list to a set here,
@@ -225,71 +223,17 @@
             vimPlugins.mason-nvim-dap-nvim
           ];
         };
-
-        # not loaded automatically at startup.
-        # use with packadd and an autocommand in config to achieve lazy loading
-        # NOTE: this template is using lazy.nvim so, which list you put them in is irrelevant.
-        # startupPlugins or optionalPlugins, it doesnt matter, lazy.nvim does the loading.
-        # I just put them all in startupPlugins. I could have put them all in here instead.
-        optionalPlugins = {};
-
-        # shared libraries to be added to LD_LIBRARY_PATH
-        # variable available to nvim runtime
-        sharedLibraries = {
-          general = [
-            # libgit2
-          ];
-        };
-
-        # environmentVariables:
-        # this section is for environmentVariables that should be available
-        # at RUN TIME for plugins. Will be available to path within neovim terminal
-        environmentVariables = {
-          test = {
-            CATTESTVAR = "It worked!";
-          };
-        };
-
-        # If you know what these are, you can provide custom ones by category here.
-        # If you dont, check this link out:
-        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
-        extraWrapperArgs = {
-          test = [
-            ''--set CATTESTVAR2 "It worked again!"''
-          ];
-        };
-
-        # lists of the functions you would have passed to
-        # python.withPackages or lua.withPackages
-        # do not forget to set `hosts.python3.enable` in package settings
-
-        # get the path to this python environment
-        # in your lua config via
-        # vim.g.python3_host_prog
-        # or run from nvim terminal via :!<packagename>-python3
-        python3.libraries = {
-          test = _: [];
-        };
-        # populates $LUA_PATH and $LUA_CPATH
-        extraLuaPackages = {
-          test = [(_: [])];
-        };
       };
 
-      # see :help nixCats.flake.outputs.packageDefinitions
       packageDefinitions.replace = {
-        # These are the names of your packages
-        # you can include as many as you wish.
         nvim = {pkgs, ...}: {
-          # they contain a settings set defined above
-          # see :help nixCats.flake.outputs.settings
           settings = {
             suffix-path = true;
             suffix-LD = true;
             wrapRc = true;
             # IMPORTANT:
             # your alias may not conflict with your other packages.
-            aliases = ["vim"];
+            aliases = ["v" "vi" "vim"];
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
             hosts.python3.enable = true;
             hosts.node.enable = true;
@@ -298,77 +242,41 @@
           # (and other information to pass to lua)
           # and a set of categories that you want
           categories = {
-            # Core functionality
             core = true;
-
-            # User interface plugins
             ui = true;
-
-            # Editor enhancements
             editor = true;
-
-            # Git related plugins
             git = true;
-
-            # LSP and code intelligence
             lsp = true;
-
-            # Completion
             completion = true;
-
-            # AI assistants
             ai = true;
-
-            # Language specific plugins
             languages = true;
-
-            # Utility plugins
             utils = true;
-
-            # Treesitter and syntax highlighting
             treesitter = true;
-
-            # Debugging support
             debugging = true;
-
-            # Language servers and runtime dependencies
             languageServers = true;
             formatters = true;
             linting = true;
             visual = true;
             docs = true;
-
-            # Required for backwards compatibility
             general = true;
-            gitPlugins = true;
-            customPlugins = true;
-            test = true;
-
-            # Additional settings
-            have_nerd_font = true;
-
-            # Example of complex settings (preserved from original)
-            example = {
-              youCan = "add more than just booleans";
-              toThisSet = [
-                "and the contents of this categories set"
-                "will be accessible to your lua with"
-                "nixCats('path.to.value')"
-                "see :help nixCats"
-                "and type :NixCats to see the categories set in nvim"
-              ];
-            };
           };
           # anything else to pass and grab in lua with `nixCats.extra`
           extra = {
-            nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
+            nixd = let
+              flake-path = "${config.home.homeDirectory}/.dotfiles";
+            in {
+              nixpkgs = ''import ${pkgs.path} {}'';
+              nixosExpr = ''(builtins.getFlake "${flake-path}").nixosConfigurations.deepz.options'';
+              homeManagerExpr = ''(builtins.getFlake "${flake-path}").nixosConfigurations.deepz.options.home-manager.users.type.getSubOptions []'';
+              flakePartsExpr = ''(builtins.getFlake "${flake-path}").debug.options'';
+            };
           };
         };
 
         # an extra test package with normal lua reload for fast edits
         # nix doesnt provide the config in this package, allowing you free reign to edit it.
         # then you can swap back to the normal pure package when done.
-        testnvim = _: {
+        testvim = _: {
           settings = {
             suffix-path = true;
             suffix-LD = true;
@@ -393,10 +301,6 @@
             visual = true;
             docs = true;
             general = true;
-            gitPlugins = true;
-            customPlugins = true;
-            test = true;
-            have_nerd_font = true;
           };
           extra = {};
         };

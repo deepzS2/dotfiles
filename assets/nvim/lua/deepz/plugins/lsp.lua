@@ -342,20 +342,20 @@ return {
           settings = {
             nixd = {
               nixpkgs = {
-                expr = 'import <nixpkgs> {}',
+                expr = nixCats.extra.nixd.nixpkgs,
               },
               formatting = {
                 command = { 'alejandra' },
               },
               options = {
                 nixos = {
-                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.deepz.options',
+                  expr = nixCats.extra.nixd.nixosExpr,
                 },
                 home_manager = {
-                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").nixosConfigurations.deepz.options.home-manager.users.type.getSubOptions []',
+                  expr = nixCats.extra.nixd.homeManagerExpr,
                 },
                 flake_parts = {
-                  expr = '(builtins.getFlake "/home/deepz/.dotfiles").debug.options',
+                  expr = nixCats.extra.nixd.flakePartsExpr,
                 },
               },
             },
