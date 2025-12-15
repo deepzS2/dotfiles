@@ -632,11 +632,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1765562905,
-        "narHash": "sha256-gJzQbZJdIep9ol8xuNzsyCFYpD4KEphc9C6MEdPVFyY=",
+        "lastModified": 1765809349,
+        "narHash": "sha256-x9wjGrDBQ+F577N8NVNpNbBu2y0MeAPbKnPjEMOtHTQ=",
         "owner": "deepzS2",
         "repo": "sheez",
-        "rev": "4c1344987207530c06b6ec50e8a69692edba7fd9",
+        "rev": "375455e31518a800edeeed74c27923c6d7cbdc10",
         "type": "github"
       },
       "original": {
