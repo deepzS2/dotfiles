@@ -32,6 +32,7 @@ in {
   in {
     home.packages = [
       inputs.sheez.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.xdg-desktop-portal-gnome
       pkgs.xwayland-satellite
       pkgs.ibus
@@ -307,6 +308,7 @@ in {
             {command = ["ibus-daemon -rxRd"];}
             {command = ["wl-paste -t image --watch cliphist store"];}
             {command = ["wl-paste -t text --watch cliphist store"];}
+            {sh = "niri-scratchpad daemon";}
           ]
           ++ lib.optionals (config.programs.noctalia-shell.enable == false) [{command = ["sheez"];}]
           ++ lib.optionals config.programs.noctalia-shell.enable [{command = ["noctalia-shell"];}];
@@ -357,6 +359,7 @@ in {
           "code" = {};
           "browser" = {};
           "chat" = {};
+          "stash" = {};
         };
 
         # Window rules let you adjust behavior for individual windows.
@@ -810,6 +813,14 @@ in {
           "Mod+Ctrl+7".action = move-column-to-index 7;
           "Mod+Ctrl+8".action = move-column-to-index 8;
           "Mod+Ctrl+9".action = move-column-to-index 9;
+
+          # Scratchpad
+          "Alt+Q".action = spawn "niri-scratchpad" "create" "1" "--as-float";
+          "Alt+E".action = spawn "niri-scratchpad" "create" "2" "--as-float";
+          "Alt+O".action = spawn "niri-scratchpad" "create" "3" "--as-float";
+          "Mod+Alt+Q".action = spawn "niri-scratchpad" "delete" "1";
+          "Mod+Alt+E".action = spawn "niri-scratchpad" "delete" "2";
+          "Mod+Alt+O".action = spawn "niri-scratchpad" "delete" "3";
 
           # Alternatively, there are commands to move just a single window:
           # Mod+Ctrl+1 { move-window-to-workspace 1; }

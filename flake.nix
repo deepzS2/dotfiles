@@ -25,6 +25,7 @@
 
     # Niri Window Manager
     niri.url = "github:sodiboo/niri-flake";
+    niri-scratchpad.url = "github:argosnothing/niri-scratchpad-rs";
 
     # Theming
     matugen = {
