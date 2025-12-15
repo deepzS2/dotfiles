@@ -1,7 +1,8 @@
 {
-  flake.modules.homeManager.obsidian = _: {
+  flake.modules.homeManager.obsidian = {pkgs, ...}: {
     # TODO: Everytime I open the Obsidian App it asks for the vault and if I trust the plugin authors
     # Need some configuration to not have that behaviour anymore
+    home.packages = [pkgs.obsidian];
     programs.obsidian = {
       enable = true;
     };

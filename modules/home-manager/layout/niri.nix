@@ -4,7 +4,6 @@
   ...
 }: let
   inherit (config.flake.settings) window-manager;
-  inherit (config.flake) assets;
 in {
   flake.modules.nixos.niri = {pkgs, ...}: {
     programs.niri.enable = window-manager == "niri";
