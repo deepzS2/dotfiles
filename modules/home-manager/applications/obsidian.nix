@@ -4,7 +4,7 @@
     # Need some configuration to not have that behaviour anymore
     home.packages = [pkgs.obsidian];
     programs.obsidian = {
-      enable = true;
+      enable = false;
     };
 
     services.syncthing = {
