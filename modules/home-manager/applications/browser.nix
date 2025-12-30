@@ -47,7 +47,7 @@
         };
         search = {
           force = true;
-          default = "duckduckgo";
+          default = "ddg";
         };
       };
     };
