@@ -11,6 +11,7 @@ $nodejs\
 $bun\
 $aws\
 $docker_context\
+$nix_shell\
 $jobs\
 $cmd_duration\
 $line_break\
@@ -67,3 +68,6 @@ format = 'on [$symbol(\($region\))]($style)'
 [memory_usage]
 disabled = false
 threshold = 50
+
+[nix_shell]
+disabled = false

@@ -1,50 +1,78 @@
 # Nushell shell configuration module for Home Manager
 # Exported as flake.modules.homeManager.nushell
-{
+{config, ...}: let
+  inherit (config.flake) assets;
+in {
   flake.modules.homeManager.nushell = {
+    pkgs,
     lib,
     config,
     ...
   }: {
-    programs = {
-      starship = {
-        enable = true;
-        enableNushellIntegration = true;
-      };
+    home.file.".config/nushell/autoload" = {
+      source = config.lib.file.mkOutOfStoreSymlink "/home/deepz/.dotfiles/assets/nushell";
+      recursive = true;
+    };
 
+    programs = {
       nushell = {
         enable = true;
 
         environmentVariables = {
           NH_FLAKE = "${config.home.homeDirectory}/.dotfiles";
+          EDITOR = "nvim";
         };
 
-        settings = {
-          show_banner = false;
-          edit_mode = "vi";
-        };
-
-        extraConfig =
-          lib.mkAfter
+        # The "Bridge" config
+        configFile.text = let
+          # Pre-generate init scripts at build time to avoid ~/ paths
+          zoxideInit = pkgs.runCommand "zoxide.nu" {} ''
+            ${lib.getExe pkgs.zoxide} init nushell --cmd cd >> "$out"
+          '';
+          starshipInit = pkgs.runCommand "starship.nu" {} ''
+            ${lib.getExe pkgs.starship} init nu >> "$out"
+          '';
+          carapaceInit = pkgs.runCommand "carapace.nu" {} ''
+            ${lib.getExe pkgs.carapace} _carapace nushell | sed 's|"/homeless-shelter|$"($env.HOME)|g' >> "$out"
+          '';
+        in
           /*
           nu
           */
           ''
+            # Integration
+            source ${zoxideInit}
+            source ${carapaceInit}
+            use ${starshipInit}
+
+            $env.config.edit_mode = "vi"
+            $env.config.show_banner = false
+
             fastfetch
           '';
+      };
 
-        shellAliases = {
-          ll = "ls -l";
-          la = "ls -a";
-          cat = "bat";
-        };
+      # Prompt
+      starship = {
+        enable = true;
+        enableNushellIntegration = false;
+      };
+
+      # Nix direnv + devshell = <3
+      direnv = {
+        enable = true;
+        enableNushellIntegration = false;
+        nix-direnv.enable = true;
       };
 
       # Cat but with wings
       bat.enable = true;
 
       # Lazygit
-      lazygit.enable = true;
+      lazygit = {
+        enable = true;
+        enableNushellIntegration = false;
+      };
 
       # Lazydocker
       lazydocker.enable = true;
@@ -52,14 +80,13 @@
       # Carapace autocompletion
       carapace = {
         enable = true;
-        enableNushellIntegration = true;
+        enableNushellIntegration = false;
       };
 
       # Better CD
       zoxide = {
         enable = true;
-        enableNushellIntegration = true;
-        options = ["--cmd cd"];
+        enableNushellIntegration = false;
       };
     };
   };
