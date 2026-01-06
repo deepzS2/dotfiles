@@ -600,6 +600,7 @@
         "opencode": "opencode",
         "sheez": "sheez",
         "silentSDDM": "silentSDDM",
+        "tuigreet": "tuigreet",
         "zen-browser": "zen-browser"
       }
     },
@@ -722,6 +723,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "tuigreet": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767201860,
+        "narHash": "sha256-IyKj5abeZzJcEWw70/DVqsRC7rWGdQu0CuEc/oJdbVc=",
+        "owner": "NotAShelf",
+        "repo": "tuigreet",
+        "rev": "6842124bc4632a5df2b3d039ab3178096f82ebe5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NotAShelf",
+        "repo": "tuigreet",
         "type": "github"
       }
     },

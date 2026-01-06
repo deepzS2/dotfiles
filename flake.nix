@@ -27,9 +27,13 @@
     niri.url = "github:sodiboo/niri-flake";
     niri-scratchpad.url = "github:argosnothing/niri-scratchpad-rs";
 
-    # Theming
+    # Theming and greetd
     matugen = {
       url = "github:/InioX/Matugen";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    tuigreet = {
+      url = "github:NotAShelf/tuigreet";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     silentSDDM = {
