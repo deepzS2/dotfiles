@@ -17,7 +17,6 @@
       package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         theme = lib.mkForce "kanagawa";
-        model = "opencode/grok-code";
         autoupdate = true;
         mcp.nixos = {
           enabled = true;
