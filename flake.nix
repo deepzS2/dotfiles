@@ -14,7 +14,7 @@
     };
 
     # Neovim and AI
-    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    mnw.url = "github:Gerg-L/mnw";
     opencode.url = "github:sst/opencode";
 
     # Zen Browser

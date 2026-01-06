@@ -1,26 +1,7 @@
--- NOTE: nixCats: this just gives nixCats global command a default value
--- so that it doesnt throw an error if you didnt install via nix.
--- usage of both this setup and the nixCats command is optional,
--- but it is very useful for passing info from nix to lua so you will likely use it at least once.
-
-require('nixCatsUtils').setup {
-  non_nix_value = true,
-}
-
--- NOTE: nixCats: You might want to move the lazy-lock.json file
-local function get_lockfile_path()
-  if require('nixCatsUtils').isNixCats and type(nixCats.settings.unwrappedCfgPath) == 'string' then
-    return nixCats.settings.unwrappedCfgPath .. '/lazy-lock.json'
-  else
-    return vim.fn.stdpath 'config' .. '/lazy-lock.json'
-  end
-end
+local mnw_utils = require 'deepz.utils.mnw'
 
 local lazyOptions = {
-  lockfile = get_lockfile_path(),
   ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
     icons = vim.g.have_nerd_font and {} or {
       cmd = '⌘',
       config = '🛠',
@@ -39,8 +20,55 @@ local lazyOptions = {
   },
 }
 
-require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 'lazy.nvim' }, {
-  { import = 'deepz.plugins' },
-  { import = 'deepz.plugins.lang' },
-  { import = 'deepz.plugins.ui' },
-}, lazyOptions)
+if mnw_utils.is_nix then
+  local packpath = mnw_utils.config_dir() .. '/pack/mnw'
+
+  require('lazy').setup({
+    dev = {
+      -- Check both opt and start directories for plugins
+      path = function(plugin)
+        return mnw_utils.plugin_path(plugin.name) or (packpath .. '/opt/' .. plugin.name)
+      end,
+      patterns = { '' }, -- match all plugins
+      fallback = false, -- disallow downloading missing plugins
+    },
+    performance = {
+      reset_packpath = false,
+      rtp = {
+        reset = false,
+      },
+    },
+    install = {
+      missing = true,
+    },
+    spec = {
+      { import = 'deepz.plugins' },
+      { import = 'deepz.plugins.lang' },
+      { import = 'deepz.plugins.ui' },
+    },
+  }, lazyOptions)
+else
+  local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+  if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+    local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+    if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+        { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+        { out, 'WarningMsg' },
+        { '\nPress any key to exit...' },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
+    end
+  end
+  vim.opt.rtp:prepend(lazypath)
+
+  require('lazy').setup({
+    spec = {
+      { import = 'deepz.plugins' },
+      { import = 'deepz.plugins.lang' },
+      { import = 'deepz.plugins.ui' },
+    },
+  }, lazyOptions)
+end

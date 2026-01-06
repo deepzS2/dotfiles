@@ -1,3 +1,5 @@
+local mnw_utils = require 'deepz.utils.mnw'
+
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -6,11 +8,13 @@ return {
       'windwp/nvim-ts-autotag',
     },
     opts = {
-      -- NOTE: nixCats: use lazyAdd to only set these 2 options if nix wasnt involved.
-      -- because nix already ensured they were installed.
-      ensure_installed = require('nixCatsUtils').lazyAdd { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust', 'ron' },
-      -- Autoinstall languages that are not installed
-      auto_install = require('nixCatsUtils').lazyAdd(true, false),
+      -- When using Nix, grammars are installed via withAllGrammars
+      ensure_installed = mnw_utils.nix_add(
+        { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust', 'ron' },
+        {}
+      ),
+      -- Autoinstall only when not using Nix
+      auto_install = not mnw_utils.is_nix,
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.

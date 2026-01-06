@@ -8,7 +8,6 @@
       [
         inputs.zen-browser.homeModules.beta
         # inputs.niri.homeModules.niri
-        inputs.nixCats.homeModule
         inputs.noctalia.homeModules.default
       ]
       ++ (with config.flake.modules.homeManager; [
