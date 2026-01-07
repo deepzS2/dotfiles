@@ -114,6 +114,22 @@ in {
           # Debugging
           nvim-dap
           nvim-nio
+
+          # Orgmode
+          orgmode
+          org-roam-nvim
+          render-markdown-nvim
+          (pkgs.vimUtils.buildVimPlugin {
+            pname = "org-bullets.nvim";
+            version = "2024-06-12";
+            src = pkgs.fetchFromGitHub {
+              owner = "nvim-orgmode";
+              repo = "org-bullets.nvim";
+              rev = "21437cfa99c70f2c18977bffd423f912a7b832ea";
+              sha256 = "0zfic6isqvbycn4zq1jsrr6g4yksmvgxzavknzlswg2jymz0hpzy";
+            };
+            meta.homepage = "https://github.com/nvim-orgmode/org-bullets.nvim";
+          })
         ];
 
         # Plugins managed by lazy.nvim (opt)
