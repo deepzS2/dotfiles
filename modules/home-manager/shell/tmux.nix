@@ -1,53 +1,7 @@
-# TMUX terminal multiplexer configuration module for Home Manager
-# Exported as flake.modules.homeManager.tmux
-{
-  flake.modules.homeManager.tmux = {
-    pkgs,
-    lib,
-    ...
-  }: let
-    options = ''
-      # Passthrough for iTerm2 image support
-      set -g allow-passthrough on
-      set -as terminal-features sixel
-
-      # Status bar
-      set-option -g status-position top
-
-      # Start windows and panes at 1, not 0
-      set -g base-index 1
-      set -g pane-base-index 1
-      set-window-option -g pane-base-index 1
-      set-option -g renumber-windows on
-    '';
-
-    keybindings = ''
-      # Vim style pane selection
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
-
-      # Use Alt-arrow keys without prefix key to switch panes
-      bind -n M-Left select-pane -L
-      bind -n M-Right select-pane -R
-      bind -n M-Up select-pane -U
-      bind -n M-Down select-pane -D
-
-      # Shift arrow to switch windows
-      bind -n M-H previous-window
-      bind -n M-L next-window
-
-      # Vi-style copy-mode keybindings
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-
-      # Open panes in current directory
-      bind '"' split-window -v -c "#{pane_current_path}"
-      bind % split-window -h -c "#{pane_current_path}"
-    '';
-
+{config, ...}: let
+  inherit (config.flake) assets;
+in {
+  flake.modules.homeManager.tmux = {pkgs, ...}: let
     kanagawaConfig = ''
       set -g @kanagawa-theme 'wave'
       set -g @kanagawa-ignore-window-colors true
@@ -65,28 +19,37 @@
       set -g @kanagawa-show-fahrenheit false
       set -g @kanagawa-show-location false
       set -g @kanagawa-fixed-location "São Paulo"
+
+      run-shell ${pkgs.tmuxPlugins.kanagawa}/share/tmux-plugins/kanagawa/kanagawa.tmux
+
+      set -g @kanagawa-show-right-sep ""
+      set -g @kanagawa-show-right-sep ""
     '';
   in {
-    programs.tmux = {
-      enable = true;
-      tmuxinator.enable = true;
-      keyMode = "vi";
-      mouse = true;
-      prefix = "C-t";
+    home.packages = with pkgs; [
+      tmux
+      tmuxinator
+      tmuxPlugins.continuum
+      tmuxPlugins.pain-control
+      tmuxPlugins.resurrect
+      tmuxPlugins.sensible
+      tmuxPlugins.sessionist
+      tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.yank
+    ];
 
-      extraConfig = lib.concatStringsSep "\n" [
-        options
-        keybindings
-      ];
+    home.file.".config/tmux/plugins.conf".text = ''
+      ${kanagawaConfig}
 
-      plugins =
-        builtins.attrValues {inherit (pkgs.tmuxPlugins) sensible yank resurrect continuum vim-tmux-navigator;}
-        ++ [
-          {
-            plugin = pkgs.tmuxPlugins.kanagawa;
-            extraConfig = kanagawaConfig;
-          }
-        ];
-    };
+      run-shell ${pkgs.tmuxPlugins.pain-control}/share/tmux-plugins/pain-control/pain-control.tmux
+      run-shell ${pkgs.tmuxPlugins.sensible}/share/tmux-plugins/sensible/sensible.tmux
+      run-shell ${pkgs.tmuxPlugins.sessionist}/share/tmux-plugins/sessionist/sessionist.tmux
+      run-shell ${pkgs.tmuxPlugins.vim-tmux-navigator}/share/tmux-plugins/vim-tmux-navigator/vim-tmux-navigator.tmux
+
+      run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
+      run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+    '';
+
+    home.file.".config/tmux/tmux.conf".source = "${assets.path}/tmux.conf";
   };
 }
