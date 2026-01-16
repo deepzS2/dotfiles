@@ -143,9 +143,15 @@ return { -- Autocompletion
       },
       per_filetype = {
         lua = { inherit_defaults = true, 'lazydev' },
+        org = { 'orgmode' },
       },
       providers = {
         lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink', score_offset = 100 },
+        orgmode = {
+          name = 'Orgmode',
+          module = 'orgmode.org.autocompletion.blink',
+          fallbacks = { 'buffer' },
+        },
       },
     },
   },
