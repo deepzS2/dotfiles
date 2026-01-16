@@ -32,7 +32,7 @@
         enable = true;
         maxGenerations = 3;
         secureBoot.enable = true;
-        style.wallpapers = ["${config.flake.assets.media}/wallpapers/limine-wallpaper.png"];
+        style.wallpapers = ["${config.flake.assets.media}/wallpapers/nixos.png"];
         extraConfig = ''
           default_entry: 0
           /Windows 11
