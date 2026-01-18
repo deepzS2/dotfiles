@@ -119,6 +119,7 @@ in {
           orgmode
           org-roam-nvim
           render-markdown-nvim
+          sniprun
           (pkgs.vimUtils.buildVimPlugin {
             pname = "org-bullets.nvim";
             version = "2024-06-12";
