@@ -303,8 +303,8 @@ in {
 
         spawn-at-startup =
           [
+            {command = ["mako"];}
             {command = ["initialize_setup"];}
-            {command = ["ibus-daemon -rxRd"];}
             {command = ["wl-paste -t image --watch cliphist store"];}
             {command = ["wl-paste -t text --watch cliphist store"];}
             {sh = "niri-scratchpad daemon";}
