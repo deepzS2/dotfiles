@@ -11,6 +11,10 @@
         window-decoration = "none";
         command = "${pkgs.nushell}/bin/nu --login --interactive";
         confirm-close-surface = false;
+        keybind = [
+          "all:ctrl+shift+p=unbind"
+          "all:ctrl+shift+n=unbind"
+        ];
       };
     };
   };
