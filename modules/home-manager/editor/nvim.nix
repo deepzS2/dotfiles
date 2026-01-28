@@ -50,6 +50,7 @@ in {
         astro-language-server
         vtsls
         docker-ls
+        rust-analyzer
         docker-compose-language-service
         jsonnet-language-server
         taplo
