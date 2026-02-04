@@ -2,28 +2,27 @@
   inherit (config.flake) assets;
 in {
   flake.modules.homeManager.tmux = {pkgs, ...}: let
-    kanagawaConfig = ''
-      set -g @kanagawa-theme 'wave'
-      set -g @kanagawa-ignore-window-colors true
-      set -g @kanagawa-show-powerline true
-      set -g @kanagawa-show-flags true
-      set -g @kanagawa-show-left-icon "smiley"
-      set -g @kanagawa-plugins "battery cpu-usage ram-usage weather time"
+    ukiyoConfig = ''
+      set -g @ukiyo-ignore-window-colors true
+      set -g @ukiyo-show-powerline true
+      set -g @ukiyo-show-flags true
+      set -g @ukiyo-plugins "battery cpu-usage ram-usage weather time"
 
-      set -g @kanagawa-cpu-usage-label "󰍛 "
-      set -g @kanagawa-ram-usage-label " "
+      set -g @ukiyo-cpu-usage-label "󰍛 "
+      set -g @ukiyo-ram-usage-label " "
 
-      set -g @kanagawa-show-timezone false
-      set -g @kanagawa-day-month true
+      set -g @ukiyo-show-timezone false
+      set -g @ukiyo-day-month true
 
-      set -g @kanagawa-show-fahrenheit false
-      set -g @kanagawa-show-location false
-      set -g @kanagawa-fixed-location "São Paulo"
+      set -g @ukiyo-show-fahrenheit false
+      set -g @ukiyo-show-location false
+      set -g @ukiyo-fixed-location "São Paulo"
 
-      run-shell ${pkgs.tmuxPlugins.kanagawa}/share/tmux-plugins/kanagawa/kanagawa.tmux
+      run-shell ${pkgs.tmuxPlugins.ukiyo}/share/tmux-plugins/ukiyo/ukiyo.tmux
 
-      set -g @kanagawa-show-right-sep ""
-      set -g @kanagawa-show-right-sep ""
+      set -g @ukiyo-theme "kanagawa/wave"
+      set -g @ukiyo-show-right-sep ""
+      set -g @ukiyo-show-right-sep ""
     '';
   in {
     home.packages = with pkgs; [
@@ -39,7 +38,7 @@ in {
     ];
 
     home.file.".config/tmux/plugins.conf".text = ''
-      ${kanagawaConfig}
+      ${ukiyoConfig}
 
       run-shell ${pkgs.tmuxPlugins.pain-control}/share/tmux-plugins/pain-control/pain-control.tmux
       run-shell ${pkgs.tmuxPlugins.sensible}/share/tmux-plugins/sensible/sensible.tmux
