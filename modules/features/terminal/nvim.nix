@@ -1,9 +1,9 @@
 {
   inputs,
-  config,
+  self,
   ...
 }: let
-  inherit (config.flake) assets;
+  inherit (self) directories;
 in {
   flake.modules.homeManager.nvim = {
     config,
@@ -95,7 +95,7 @@ in {
               flake_parts_expr = '${nixdConfig.flakePartsExpr}',
             }
           '')
-        "${assets.path}/nvim/init.lua"
+        "${directories.config}/nvim/init.lua"
       ];
 
       plugins = {
@@ -197,7 +197,7 @@ in {
 
         # Dev mode config for hot-reloading
         dev.myconfig = {
-          pure = "${assets.path}/nvim";
+          pure = "${directories.config}/nvim";
           impure = "${flakePath}/assets/nvim";
         };
       };

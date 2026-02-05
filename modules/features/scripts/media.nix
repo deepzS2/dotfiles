@@ -1,14 +1,14 @@
-{config, ...}: let
-  inherit (config.flake) assets;
+{self, ...}: let
+  inherit (self) directories;
 in {
   flake.modules.homeManager.scripts = {
     home.file.".theme/sounds" = {
-      source = "${assets.media}/sounds";
+      source = "${directories.media}/sounds";
       recursive = true;
     };
 
     home.file.".theme/wallpapers" = {
-      source = "${assets.media}/wallpapers";
+      source = "${directories.media}/wallpapers";
       recursive = true;
     };
   };

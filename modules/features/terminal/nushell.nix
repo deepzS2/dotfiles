@@ -1,5 +1,5 @@
-{config, ...}: let
-  inherit (config.flake) assets;
+{self, ...}: let
+  inherit (self) directories;
 in {
   flake.modules.homeManager.nushell = {
     pkgs,
@@ -8,7 +8,7 @@ in {
     ...
   }: {
     home.file.".config/nushell/autoload" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/home/deepz/.dotfiles/assets/nushell";
+      source = "${directories.config}/nushell";
       recursive = true;
     };
 

@@ -1,6 +1,6 @@
-{config, ...}: {
+{self, ...}: {
   flake.modules.homeManager.dmenu = {pkgs, ...}: let
-    rofiDirectory = "${config.flake.assets.path}/rofi";
+    rofiDirectory = "${self.directories.config}/rofi";
   in {
     programs.rofi = {
       enable = true;

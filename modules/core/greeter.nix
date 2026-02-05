@@ -1,9 +1,9 @@
 {
   inputs,
-  config,
+  self,
   ...
 }: let
-  inherit (config.flake) assets;
+  inherit (self) directories;
 in {
   flake.modules.nixos.core = {
     pkgs,
@@ -12,7 +12,7 @@ in {
     ...
   }: let
     tuigreetPkg = inputs.tuigreet.packages.${pkgs.stdenv.hostPlatform.system}.tuigreet;
-    tuigreetConfig = "${assets.path}/tuigreet.toml";
+    tuigreetConfig = "${directories.config}/tuigreet.toml";
     inherit (config.settings) wm;
   in {
     environment.systemPackages = [tuigreetPkg];

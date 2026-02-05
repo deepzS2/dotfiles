@@ -1,5 +1,5 @@
-{config, ...}: let
-  inherit (config.flake) assets;
+{self, ...}: let
+  inherit (self) directories;
 in {
   flake.modules.homeManager.fastfetch = {pkgs, ...}: {
     home.packages = [
@@ -12,7 +12,7 @@ in {
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
         logo = {
           type = "kitty-icat";
-          source = "${assets.media}/images/nix-logo.png";
+          source = "${directories.media}/images/nix-logo.png";
           width = 22;
           height = 22;
         };

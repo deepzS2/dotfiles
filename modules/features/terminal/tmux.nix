@@ -1,5 +1,5 @@
-{config, ...}: let
-  inherit (config.flake) assets;
+{self, ...}: let
+  inherit (self) directories;
 in {
   flake.modules.homeManager.tmux = {pkgs, ...}: let
     ukiyoConfig = ''
@@ -50,7 +50,7 @@ in {
         run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
       '';
 
-      file.".config/tmux/tmux.conf".source = "${assets.path}/tmux.conf";
+      file.".config/tmux/tmux.conf".source = "${directories.config}/tmux.conf";
     };
   };
 }

@@ -1,9 +1,9 @@
 {
-  config,
+  self,
   inputs,
   ...
 }: let
-  inherit (config.flake) assets;
+  inherit (self) directories;
 in {
   flake.modules.homeManager.theme = {pkgs, ...}: {
     home.packages = [
@@ -14,7 +14,7 @@ in {
     ];
 
     home.file.".config/matugen" = {
-      source = "${assets.path}/matugen";
+      source = "${directories.config}/matugen";
       recursive = true;
     };
 
