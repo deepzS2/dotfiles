@@ -525,26 +525,6 @@
         "type": "github"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770226862,
-        "narHash": "sha256-kn/7CkZBPdZuRAk8ihNLazvXP85zzldKxaApkAvLDjU=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "5705140d6d686104ba36be94df235be7a9aa4cee",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "type": "github"
-      }
-    },
     "opencode": {
       "inputs": {
         "nixpkgs": "nixpkgs_7"
@@ -596,10 +576,8 @@
         "niri-scratchpad": "niri-scratchpad",
         "nix-secrets": "nix-secrets",
         "nixpkgs": "nixpkgs_6",
-        "noctalia": "noctalia",
         "opencode": "opencode",
         "sheez": "sheez",
-        "silentSDDM": "silentSDDM",
         "tuigreet": "tuigreet",
         "zen-browser": "zen-browser"
       }
@@ -643,26 +621,6 @@
       "original": {
         "owner": "deepzS2",
         "repo": "sheez",
-        "type": "github"
-      }
-    },
-    "silentSDDM": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769900466,
-        "narHash": "sha256-WeoJBj/PhqFCCJEIycTipqPbKm5BpQT2uzFTYcYZ30I=",
-        "owner": "uiriansan",
-        "repo": "SilentSDDM",
-        "rev": "a44caf771b4cb72f5c2514f7d488455b0fa860d2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "uiriansan",
-        "repo": "SilentSDDM",
         "type": "github"
       }
     },

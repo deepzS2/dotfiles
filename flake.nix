@@ -36,18 +36,10 @@
       url = "github:NotAShelf/tuigreet";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Desktop shell
     sheez = {
       url = "github:deepzS2/sheez";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

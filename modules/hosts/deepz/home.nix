@@ -1,65 +1,22 @@
-{
-  config,
-  inputs,
-  ...
-}: {
-  flake.modules.homeManager.deepz = {
-    imports =
-      [
-        inputs.zen-browser.homeModules.beta
-        # inputs.niri.homeModules.niri
-        inputs.noctalia.homeModules.default
-      ]
-      ++ (with config.flake.modules.homeManager; [
-        options
-        git
-        # Applications
-        browser
-        discord
-        obs
-        obsidian
-        terminal
-        video-player
-        # Development
-        elixir
-        go
-        javascript
-        rust
-        # Editor
-        vscode
-        nvim
-        # Shell
-        ai
-        btop
-        fastfetch
-        nix-search
-        nushell
-        tmux
-        # Layout
-        # noctalia
-        notification
-        rofi
-        theme
-        # Hyprland
-        hypridle
-        hyprland
-        niri
-        hyprlock
-        # Scripts
-        scripts
-        # Secrets
-        nix
-        nix-helper
-        secrets
-      ]);
+{self, ...}: {
+  flake.modules.homeManager.deepz = {...}: {
+    imports = with self.modules.homeManager; [
+      discord
+      obs
+      elixir
+      go
+      javascript
+      rust
+      vscode
+      nvim
+      ai
+      nix-search
+      idle
+      niri
+      nh
+    ];
 
-    home = {
-      homeDirectory = "/home/deepz";
-      username = "deepz";
-      stateVersion = "25.11";
-    };
-
-    monitors = [
+    settings.monitors = [
       {
         name = "eDP-1";
         width = 1920;
@@ -72,6 +29,6 @@
       }
     ];
 
-    programs.home-manager.enable = true;
+    home.stateVersion = "25.11";
   };
 }

@@ -1,76 +1,38 @@
 {
-  config,
   inputs,
+  self,
   ...
-}: {
+}: let
+  user = "deepz";
+  wm = "niri";
+in {
   flake.modules.nixos.deepz = {pkgs, ...}: {
     imports =
       [
-        inputs.home-manager.nixosModules.default
         inputs.niri.nixosModules.niri
       ]
-      ++ (with config.flake.modules.nixos; [
-        audio
-        display-manager
-        drivers-nvidia
+      ++ (with self.modules.nixos; [
+        nvidia
         fhs
-        fonts
-        nix
-        locale
-        network
-        podman
-        power
-        hyprland
+        virtualisation
         niri
-        notifications
       ]);
 
-    # Bootloader (with secure boot).
-    boot.loader = {
-      efi.canTouchEfiVariables = true;
-      limine = {
-        enable = true;
-        maxGenerations = 3;
-        secureBoot.enable = true;
-        style.wallpapers = ["${config.flake.assets.media}/wallpapers/nixos.png"];
-        extraConfig = ''
-          default_entry: 0
-          /Windows 11
-              protocol: efi
-              path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
-              comment: Boot into Windows 11
-        '';
-      };
+    bootloader = {
+      withSecure = true;
+      withWindows = true;
     };
 
-    # Graphics driver
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
+    settings.wm = wm;
+
+    users.users.deepz = {
+      isNormalUser = true;
+      description = "Alan";
+      extraGroups = ["networkmanager" "wheel" "audio" "docker"];
+      shell = pkgs.nushell;
     };
 
-    # Enable CUPS to print documents.
-    services.printing.enable = true;
-
-    # Define a user account. Don't forget to set a password with 'passwd'.
-    environment.shells = [pkgs.nushell];
-    users = {
-      defaultUserShell = pkgs.nushell;
-      users.deepz = {
-        isNormalUser = true;
-        description = "Alan";
-        extraGroups = ["networkmanager" "wheel" "audio" "docker"];
-      };
-    };
-
-    home-manager = {
-      backupFileExtension = "bkp";
-      users."deepz" = config.flake.modules.homeManager.deepz;
-    };
-
-    environment.systemPackages = builtins.attrValues {
-      inherit (pkgs) vim wget sbctl firefox;
-    };
+    home-manager = self.lib.homeFactory user wm;
 
     system.stateVersion = "25.05";
   };
