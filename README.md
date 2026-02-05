@@ -39,13 +39,13 @@ switch <hostname>
 ```
 .
 ├── flake.nix              # Main entry point
-├── assets/                # Static configuration files
+├── config/                # Application configuration files
 │   ├── matugen/           # Theme generator configs
-│   ├── media/             # Wallpapers and media
 │   ├── nushell/           # Shell configuration
 │   ├── nvim/              # Neovim Lua configs
 │   ├── rofi/              # Launcher themes
 │   └── tmux.conf          # Tmux config
+├── media/                 # Wallpapers and media files
 └── modules/
     ├── lib.nix            # Helper functions (mkNixos, homeFactory, mkHomeManager)
     ├── configurations.nix # NixOS configuration declarations
@@ -89,7 +89,7 @@ Simplified top-level options shared across NixOS and Home-Manager:
 - `settings.user` - Username
 - `settings.wm` - Window manager selection (`"niri"` or `"hyprland"`)
 - `settings.monitors` - Monitor configurations
-- `flake.assets.path` / `flake.assets.media` - Asset directory references
+- `flake.directories.config` / `flake.directories.media` - Directory references
 
 ## Secrets Management
 
