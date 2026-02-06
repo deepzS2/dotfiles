@@ -7,16 +7,12 @@
   wm = "niri";
 in {
   flake.modules.nixos.deepz = {pkgs, ...}: {
-    imports =
-      [
-        inputs.niri.nixosModules.niri
-      ]
-      ++ (with self.modules.nixos; [
-        nvidia
-        fhs
-        virtualisation
-        niri
-      ]);
+    imports = with self.modules.nixos; [
+      nvidia
+      fhs
+      virtualisation
+      niri
+    ];
 
     bootloader = {
       withSecure = true;
