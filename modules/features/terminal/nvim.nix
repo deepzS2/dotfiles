@@ -5,22 +5,17 @@
 }: let
   inherit (self) directories;
 in {
-  flake.modules.homeManager.nvim = {
-    config,
-    pkgs,
-    ...
-  }: let
-    flakePath = "${config.home.homeDirectory}/.dotfiles";
-
-    # Nixd configuration for LSP
-    nixdConfig = {
-      nixpkgs = "import ${pkgs.path} {}";
-      nixosExpr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.deepz.options'';
-      homeManagerExpr = ''(builtins.getFlake "${flakePath}").nixosConfigurations.deepz.options.home-manager.users.type.getSubOptions []'';
-      flakePartsExpr = ''(builtins.getFlake "${flakePath}").debug.options'';
+  # Why perSystem here?
+  # With that I can run `nix run path#neovimWrapped` to execute my Neovim config only
+  perSystem = {system, ...}: let
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      config.allowUnfreePredicate = pkg:
+        builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+          "copilot-language-server"
+        ];
     };
 
-    # Base MNW configuration shared between nvim and testvim
     baseConfig = {
       appName = "nvim";
       neovim = pkgs.neovim-unwrapped;
@@ -87,12 +82,18 @@ in {
       # Load main config
       luaFiles = [
         (pkgs.writeText "nixd.lua"
+          /*
+          lua
+          */
           ''
+            -- Result: "/home/<user>/.dotfiles"
+            local flakePath = '"' .. vim.env.HOME .. '/.dotfiles"'
+
             vim.g.nixd_config = {
-              nixpkgs = '${nixdConfig.nixpkgs}',
-              nixos_expr = '${nixdConfig.nixosExpr}',
-              home_manager_expr = '${nixdConfig.homeManagerExpr}',
-              flake_parts_expr = '${nixdConfig.flakePartsExpr}',
+              nixpkgs = 'import ${pkgs.path} {}',
+              nixos_expr = '(builtins.getFlake ' .. flakePath .. ').nixosConfigurations.deepz.options',
+              home_manager_expr = '(builtins.getFlake ' .. flakePath .. ').nixosConfigurations.deepz.options.home-manager.users.type.getSubOptions []',
+              flake_parts_expr = '(builtins.getFlake ' .. flakePath .. ').debug.options',
             }
           '')
         "${directories.config}/nvim/init.lua"
@@ -198,18 +199,17 @@ in {
         # Dev mode config for hot-reloading
         dev.myconfig = {
           pure = "${directories.config}/nvim";
-          impure = "${flakePath}/assets/nvim";
+          impure = "${builtins.getEnv "PWD"}/config/nvim";
         };
       };
     };
 
-    nvim = inputs.mnw.lib.wrap pkgs (baseConfig
-      // {
-        aliases = ["v" "vi" "vim"];
-      });
+    neovimWrapped = inputs.mnw.lib.wrap pkgs (baseConfig // {aliases = ["v" "vi" "vim"];});
   in {
-    home.packages = [
-      nvim
-    ];
+    packages.neovimWrapped = neovimWrapped;
+  };
+
+  flake.modules.homeManager.nvim = {pkgs, ...}: {
+    home.packages = [self.packages.${pkgs.stdenv.hostPlatform.system}.neovimWrapped];
   };
 }
