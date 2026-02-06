@@ -7,7 +7,11 @@
 in {
   # Why perSystem here?
   # With that I can run `nix run path#neovimWrapped` to execute my Neovim config only
-  perSystem = {system, ...}: let
+  perSystem = {
+    system,
+    lib,
+    ...
+  }: let
     pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfreePredicate = pkg:
@@ -16,8 +20,9 @@ in {
         ];
     };
 
-    baseConfig = {
+    neovim = inputs.mnw.lib.wrap pkgs {
       appName = "nvim";
+      aliases = ["v" "vi" "vim"];
       neovim = pkgs.neovim-unwrapped;
 
       extraBinPath = with pkgs; [
@@ -100,6 +105,18 @@ in {
       ];
 
       plugins = {
+        dev.myconfig = {
+          impure = "~/.dotfiles/config/nvim";
+          pure = let
+            fs = lib.fileset;
+            nvimDir = "${directories.config}/nvim";
+          in
+            fs.toSource {
+              root = nvimDir;
+              fileset = "${nvimDir}/lua";
+            };
+        };
+
         # Plugins loaded at startup (not lazy-loaded)
         start = with pkgs.vimPlugins; [
           # Core - needed immediately
@@ -197,15 +214,15 @@ in {
         ];
       };
     };
-
-    neovimWrapped = inputs.mnw.lib.wrap pkgs (baseConfig // {aliases = ["v" "vi" "vim"];});
   in {
     packages = {
-      inherit neovimWrapped;
+      inherit neovim;
+
+      neovimDev = neovim.devMode;
     };
   };
 
   flake.modules.homeManager.nvim = {pkgs, ...}: {
-    home.packages = [self.packages.${pkgs.stdenv.hostPlatform.system}.neovimWrapped];
+    home.packages = [self.packages.${pkgs.stdenv.hostPlatform.system}.neovim];
   };
 }
