@@ -195,18 +195,14 @@ in {
 
           nvim-dap-ui
         ];
-
-        # Dev mode config for hot-reloading
-        dev.myconfig = {
-          pure = "${directories.config}/nvim";
-          impure = "${builtins.getEnv "PWD"}/config/nvim";
-        };
       };
     };
 
     neovimWrapped = inputs.mnw.lib.wrap pkgs (baseConfig // {aliases = ["v" "vi" "vim"];});
   in {
-    packages.neovimWrapped = neovimWrapped;
+    packages = {
+      inherit neovimWrapped;
+    };
   };
 
   flake.modules.homeManager.nvim = {pkgs, ...}: {
