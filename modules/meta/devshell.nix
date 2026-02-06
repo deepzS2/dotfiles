@@ -62,7 +62,7 @@
         {
           category = "building";
           help = "run an nixos build and activate";
-          name = "test";
+          name = "trybuild";
           command = ''
             #!/usr/bin/env bash
 
