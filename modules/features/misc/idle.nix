@@ -1,5 +1,10 @@
 {
-  flake.modules.homeManager.idle = {config, ...}: let
+  flake.modules.homeManager.idle = {
+    config,
+    pkgs,
+    lib,
+    ...
+  }: let
     inherit (config.settings) wm;
 
     dpmsOnCmd =
@@ -12,6 +17,8 @@
       then "niri msg action power-off-monitors"
       else "hyprctl dispatch dpms off";
   in {
+    home.packages = lib.mkIf (wm == "niri") [pkgs.hypridle];
+
     services.hypridle = {
       enable = true;
       settings = {
