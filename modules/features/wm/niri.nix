@@ -69,7 +69,6 @@ in {
     config = lib.mkIf (wm == "niri") {
       home = {
         packages = [
-          inputs.sheez.packages.${pkgs.stdenv.hostPlatform.system}.default
           inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.default
           pkgs.xdg-desktop-portal-gnome
           pkgs.xwayland-satellite
