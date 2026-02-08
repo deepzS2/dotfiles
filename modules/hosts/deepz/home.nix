@@ -14,6 +14,7 @@
       idle
       niri
       nh
+      music
     ];
 
     settings.monitors = [

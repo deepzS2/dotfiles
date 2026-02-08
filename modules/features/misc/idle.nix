@@ -17,7 +17,7 @@
       then "niri msg action power-off-monitors"
       else "hyprctl dispatch dpms off";
   in {
-    home.packages = lib.mkIf (wm == "niri") [pkgs.hypridle];
+    home.packages = [pkgs.brightnessctl] ++ lib.optionals (wm == "niri") [pkgs.hypridle];
 
     services.hypridle = {
       enable = true;
