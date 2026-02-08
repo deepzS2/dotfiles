@@ -10,7 +10,6 @@ in {
       inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.gowall # Convert image to colorscheme
       pkgs.swww
-      pkgs.bibata-cursors
     ];
 
     home.file.".config/matugen" = {
@@ -18,26 +17,26 @@ in {
       recursive = true;
     };
 
-    gtk = let
-      theme = {
-        name = "Materia-dark";
-        package = pkgs.materia-theme;
-      };
-    in {
+    home.pointerCursor = {
+      enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 24;
+      gtk.enable = true;
+      x11.enable = true;
+    };
+
+    gtk = {
       enable = true;
       colorScheme = "dark";
-      inherit theme;
+      theme = {
+        name = "Kanagawa-Dark";
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.kanagawa-gtk-theme;
+      };
       iconTheme = {
-        name = "Papirus";
-        package = pkgs.papirus-icon-theme;
+        name = "Kanagawa";
+        package = pkgs.kanagawa-icon-theme;
       };
-      cursorTheme = {
-        name = "Bibata-Modern-Classic";
-        package = pkgs.bibata-cursors;
-      };
-
-      gtk3 = {inherit theme;};
-      gtk4 = {inherit theme;};
     };
   };
 }

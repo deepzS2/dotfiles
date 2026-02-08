@@ -80,19 +80,6 @@ in {
           ".config/niri/config.kdl".source = "${directories.config}/niri.kdl";
           ".config/niri/monitors.kdl".text = monitorsKdl;
         };
-
-        pointerCursor = {
-          package = pkgs.bibata-cursors;
-          name = "Bibata-Modern-Classic";
-          size = 24;
-          gtk.enable = true;
-          x11.enable = true;
-        };
-
-        sessionVariables = {
-          XCURSOR_THEME = "Bibata-Modern-Classic";
-          XCURSOR_SIZE = "24";
-        };
       };
 
       systemd.user.services.xwayland-satellite = {
