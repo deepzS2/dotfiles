@@ -39,7 +39,7 @@
         mkdir -p $out/share/themes
 
         ./themes/install.sh \
-          -n "Kanagawa" -l \
+          -n "Kanagawa" \
           --tweaks macos outline \
           -c dark \
           -d $out/share/themes

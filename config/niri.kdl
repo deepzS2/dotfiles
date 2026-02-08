@@ -263,7 +263,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: Ghostty" { spawn "ghostty"; }
     Mod+Space hotkey-overlay-title="Run an Application: Rofi" { spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi"; }
     Mod+Shift+D hotkey-overlay-title="Run an Application: Discord" { spawn "vesktop"; }
-    Mod+Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"; }
+    Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"; }
     Mod+Shift+G hotkey-overlay-title="Open Website: WhatsApp" { spawn "zen" "--new-tab=https://web.whatsapp.com/"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: Hyprlock" { spawn "sheez" "ipc" "call" "lockScreen" "toggle"; }
     Super+Escape hotkey-overlay-title="Toggle Power Menu" { spawn "sheez" "ipc" "call" "logout" "toggle"; }
