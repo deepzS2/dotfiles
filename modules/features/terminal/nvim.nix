@@ -7,11 +7,7 @@
 in {
   # Why perSystem here?
   # With that I can run `nix run path#neovimWrapped` to execute my Neovim config only
-  perSystem = {
-    system,
-    lib,
-    ...
-  }: let
+  perSystem = {system, ...}: let
     pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfreePredicate = pkg:
@@ -107,14 +103,7 @@ in {
       plugins = {
         dev.myconfig = {
           impure = "~/.dotfiles/config/nvim";
-          pure = let
-            fs = lib.fileset;
-            nvimDir = "${directories.config}/nvim";
-          in
-            fs.toSource {
-              root = nvimDir;
-              fileset = "${nvimDir}/lua";
-            };
+          pure = "${directories.config}/nvim";
         };
 
         # Plugins loaded at startup (not lazy-loaded)
