@@ -43,6 +43,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Noogle TUI
+    noogle-search.url = "github:argosnothing/noogle-search";
+
     # My secrets (in private repo)
     nix-secrets = {
       url = "git+ssh://git@github.com/deepzS2/nix-secrets.git";
