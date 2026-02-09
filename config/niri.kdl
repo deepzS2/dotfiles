@@ -261,13 +261,13 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Open a Terminal: Ghostty" { spawn "ghostty"; }
-    Mod+Space hotkey-overlay-title="Run an Application: Rofi" { spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi"; }
-    Mod+Shift+D hotkey-overlay-title="Run an Application: Discord" { spawn "vesktop"; }
-    Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"; }
-    Mod+Shift+G hotkey-overlay-title="Open Website: WhatsApp" { spawn "zen" "--new-tab=https://web.whatsapp.com/"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: Hyprlock" { spawn "sheez" "ipc" "call" "lockScreen" "toggle"; }
+    Mod+Return hotkey-overlay-title="Ghostty" { spawn "ghostty"; }
+    Mod+Space hotkey-overlay-title="Launcher" { spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi"; }
+    Mod+D hotkey-overlay-title="Discord" { spawn "vesktop"; }
+    Mod+B hotkey-overlay-title="Browser" { spawn "zen"; }
+    Super+Alt+L hotkey-overlay-title="Lock session" { spawn "sheez" "ipc" "call" "lockScreen" "toggle"; }
     Super+Escape hotkey-overlay-title="Toggle Power Menu" { spawn "sheez" "ipc" "call" "logout" "toggle"; }
+    Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
