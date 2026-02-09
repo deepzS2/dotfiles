@@ -5,30 +5,35 @@
 }: let
   inherit (self) directories;
 
-  mkNiriProgram = setting: package: {
-    enable = setting == "niri";
+  mkNiriProgram = package: {
+    enable = true;
     package = package;
   };
 in {
   flake.modules.nixos.niri = {
     pkgs,
+    lib,
     config,
     ...
-  }: {
+  }: let
+    inherit (config.settings) wm;
+  in {
     imports = [
       inputs.niri.nixosModules.niri
     ];
 
-    programs.niri = mkNiriProgram config.settings.wm pkgs.niri-unstable;
+    config = lib.mkIf (wm == "niri") {
+      programs.niri = mkNiriProgram pkgs.niri-unstable;
 
-    environment = {
-      sessionVariables = {
-        GTK_IM_MODULE = "ibus";
-        QT_IM_MODULE = "ibus";
-        XMODIFIERS = "@im=ibus";
-        NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
+      environment = {
+        sessionVariables = {
+          GTK_IM_MODULE = "ibus";
+          QT_IM_MODULE = "ibus";
+          XMODIFIERS = "@im=ibus";
+          NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
+        };
+        systemPackages = [pkgs.nautilus];
       };
-      systemPackages = [pkgs.nautilus];
     };
   };
 
@@ -40,12 +45,10 @@ in {
   }: let
     inherit (config.settings) wm;
   in {
-    config = lib.mkIf (wm == "niri") {
-      imports = [
-        inputs.niri.homeModules.niri
-      ];
+    imports = [inputs.niri.homeModules.niri];
 
-      programs.niri = mkNiriProgram config.settings.wm pkgs.niri-unstable;
+    config = lib.mkIf (wm == "niri") {
+      programs.niri = mkNiriProgram pkgs.niri-unstable;
     };
   };
 
@@ -55,7 +58,7 @@ in {
     pkgs,
     ...
   }: let
-    inherit (config.settings) wm;
+    inherit (config.settings) wm monitors;
 
     monitorsKdl = lib.concatStringsSep "\n" (map (monitor: ''
         output "${monitor.name}" {
@@ -64,7 +67,7 @@ in {
             position x=${toString monitor.x} y=${toString monitor.y}
         }
       '')
-      config.settings.monitors);
+      monitors);
   in {
     config = lib.mkIf (wm == "niri") {
       home = {
