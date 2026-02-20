@@ -35,7 +35,47 @@ return {
     --  - va)  - [V]isually select [A]round [)]paren
     --  - yinq - [Y]ank [I]nside [N]ext [']quote
     --  - ci'  - [C]hange [I]nside [']quote
-    require('mini.ai').setup { n_lines = 500 }
+    local gen_treesitter_spec = require('mini.ai').gen_spec.treesitter
+    require('mini.ai').setup {
+      custom_textobjects = {
+        -- snake_case, camelCase, PascalCase, etc. support
+        -- More about it in https://github.com/nvim-mini/mini.nvim/discussions/1434
+        e = {
+          {
+            '%u[%l%d]+%f[^%l%d]',
+            '%f[%S][%l%d]+%f[^%l%d]',
+            '%f[%P][%l%d]+%f[^%l%d]',
+            '^[%l%d]+%f[^%l%d]',
+          },
+          '^().*()$',
+        },
+        i = gen_treesitter_spec {
+          a = '@conditional.outer',
+          i = '@conditional.inner',
+        },
+        l = gen_treesitter_spec {
+          a = '@loop.outer',
+          i = '@loop.inner',
+        },
+        c = gen_treesitter_spec {
+          a = '@class.outer',
+          i = '@class.inner',
+        },
+        ['='] = gen_treesitter_spec {
+          a = '@assignment.outer',
+          i = '@assignment.inner',
+          h = '@assignment.lhs',
+          l = '@assignment.rhs',
+        },
+        [':'] = gen_treesitter_spec {
+          a = '@property.outer',
+          i = '@property.inner',
+          h = '@property.lhs',
+          l = '@property.rhs',
+        },
+      },
+      n_lines = 500,
+    }
 
     -- Add/delete/replace surroundings (brackets, quotes, etc.)
     --
