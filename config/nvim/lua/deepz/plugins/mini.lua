@@ -92,10 +92,21 @@ return {
 
     -- File explorer
     require('mini.files').setup {
+      content = {
+        filter = function(fs_entry)
+          return fs_entry.name ~= '.git'
+        end,
+      },
+      mappings = {
+        go_in = 'L',
+        go_in_plus = '',
+        go_out = 'H',
+        go_out_plus = '',
+      },
       windows = {
         preview = true,
-        width_focus = 30,
-        width_preview = 30,
+        width_focus = 40,
+        width_preview = 80,
       },
     }
 
