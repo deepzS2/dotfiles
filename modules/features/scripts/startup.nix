@@ -7,9 +7,9 @@
 
           text = ''
             send_notification sys
-            swww-daemon &
+            awww-daemon &
 
-            # Wait for swww-daemon to be ready
+            # Wait for awww-daemon to be ready
             sleep 1
 
             # Restore last theme if available

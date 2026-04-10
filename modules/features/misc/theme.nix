@@ -9,7 +9,7 @@ in {
     home.packages = [
       inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.gowall # Convert image to colorscheme
-      pkgs.swww
+      pkgs.awww
     ];
 
     home.file.".config/matugen" = {
@@ -29,6 +29,7 @@ in {
     gtk = {
       enable = true;
       colorScheme = "dark";
+      gtk4.theme = null;
       theme = {
         name = "Kanagawa-Dark";
         package = self.packages.${pkgs.stdenv.hostPlatform.system}.kanagawa-gtk-theme;

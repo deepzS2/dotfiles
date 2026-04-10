@@ -97,7 +97,7 @@
                 return 1
               fi
 
-              swww img --transition-type center "$wallpaper_path"
+              awww img --transition-type center "$wallpaper_path"
               cd "$MATUGEN_CONFIG" && matugen image "$wallpaper_path"
 
               return 0
@@ -155,7 +155,7 @@
               local wallpaper_path="$theme_cache_dir/$wallpaper"
 
               # Step 4: Apply wallpaper
-              swww img --transition-type center "$wallpaper_path"
+              awww img --transition-type center "$wallpaper_path"
 
               # Step 5: Generate colors with matugen
               cd "$MATUGEN_CONFIG" && matugen image "$wallpaper_path"

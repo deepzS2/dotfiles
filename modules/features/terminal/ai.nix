@@ -15,8 +15,10 @@
     programs.opencode = {
       enable = true;
       package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      settings = {
+      tui = {
         theme = lib.mkForce "kanagawa";
+      };
+      settings = {
         autoupdate = true;
         mcp.nixos = {
           enabled = true;
