@@ -4,9 +4,9 @@
     fonts = {
       packages = [
         pkgs.atkinson-hyperlegible-next
-        pkgs.nerd-fonts.jetbrains-mono
         pkgs.nerd-fonts.iosevka
-        pkgs.jetbrains-mono
+        pkgs.nerd-fonts.atkynson-mono
+        pkgs.nerd-fonts.iosevka-term
         pkgs.roboto
         pkgs.icomoon-feather
         pkgs.openmoji-color
@@ -17,6 +17,8 @@
         hinting.autohint = true;
         defaultFonts = {
           emoji = ["OpenMoji Color"];
+          monospace = ["Iosevka Nerd Font Mono"];
+          sansSerif = ["Iosevka Nerd Font Propo"];
         };
       };
     };

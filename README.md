@@ -75,7 +75,7 @@ The core modules are merged configurations that contribute to `flake.modules.nix
 | `home.nix` | Home-manager integration and home directory setup |
 | `graphics.nix` | Base graphics + GPU-specific modules (AMD, Intel, NVIDIA) |
 | `bootloader.nix` | Limine bootloader with secure boot support |
-| `fonts.nix` | Font packages (JetBrains Mono, Iosevka, etc.) |
+| `fonts.nix` | Font packages |
 | `audio.nix` | PipeWire audio and Bluetooth |
 | `network.nix` | NetworkManager configuration |
 | `locale.nix` | Timezone, locale, keyboard layout |
