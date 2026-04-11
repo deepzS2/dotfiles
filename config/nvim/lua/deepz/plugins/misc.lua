@@ -74,7 +74,7 @@ return {
       status = false,
     },
     keys = {
-      { '<leader>A', '<cmd>Grapple toggle<cr>', desc = '[A]dd file to tags' },
+      { '<leader>A', '<cmd>Grapple toggle<cr>', desc = 'Add file to tags' },
       { '<C-e>', '<cmd>Grapple toggle_tags<cr>', desc = 'Toggle tags menu' },
 
       { '<C-m>', '<cmd>Grapple select index=1<cr>', desc = 'Select first tag' },

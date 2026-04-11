@@ -27,14 +27,14 @@ return {
         end
       end,
       expr = true,
-      desc = 'Goto/Apply Next Edit Suggestion',
+      desc = 'Goto/Apply next edit suggestion',
     },
     {
       '<c-.>',
       function()
         require('sidekick.cli').toggle { name = 'opencode' }
       end,
-      desc = 'Sidekick Toggle',
+      desc = 'Sidekick toggle',
       mode = { 'n', 't', 'i', 'x' },
     },
     {
@@ -43,14 +43,14 @@ return {
         require('sidekick.cli').send { msg = '{this}', name = 'opencode' }
       end,
       mode = { 'x', 'n' },
-      desc = '[A]I Send [T]his',
+      desc = 'AI send this',
     },
     {
       '<leader>af',
       function()
         require('sidekick.cli').send { msg = '{file}', name = 'opencode' }
       end,
-      desc = '[A]I Send [F]ile',
+      desc = 'AI send file',
     },
     {
       '<leader>av',
@@ -58,7 +58,7 @@ return {
         require('sidekick.cli').send { msg = '{selection}', name = 'opencode' }
       end,
       mode = { 'x' },
-      desc = '[A]I Send [S]election',
+      desc = 'AI send selection',
     },
     {
       '<leader>ap',
@@ -66,7 +66,7 @@ return {
         require('sidekick.cli').prompt()
       end,
       mode = { 'n', 'x' },
-      desc = '[A]I [P]rompts',
+      desc = 'AI prompts',
     },
     -- Example of a keybinding to open Claude directly
     {
@@ -74,7 +74,7 @@ return {
       function()
         require('sidekick.cli').toggle { name = 'opencode', focus = true }
       end,
-      desc = '[A]I [C]hat',
+      desc = 'AI chat',
     },
   },
 }

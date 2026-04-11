@@ -61,9 +61,6 @@ in {
         gofumpt
         goimports-reviser
 
-        # Visual
-        dwt1-shell-color-scripts
-
         # Debugging
         delve
 
@@ -110,7 +107,6 @@ in {
         start = with pkgs.vimPlugins; [
           # Core - needed immediately
           lazy-nvim
-          plenary-nvim
           nui-nvim
 
           # Treesitter with all grammars
@@ -119,46 +115,21 @@ in {
           # Debugging
           nvim-dap
           nvim-nio
-
-          # Orgmode
-          orgmode
-          org-roam-nvim
-          render-markdown-nvim
-          sniprun
-          (pkgs.vimUtils.buildVimPlugin {
-            pname = "org-bullets.nvim";
-            version = "2024-06-12";
-            src = pkgs.fetchFromGitHub {
-              owner = "nvim-orgmode";
-              repo = "org-bullets.nvim";
-              rev = "21437cfa99c70f2c18977bffd423f912a7b832ea";
-              sha256 = "0zfic6isqvbycn4zq1jsrr6g4yksmvgxzavknzlswg2jymz0hpzy";
-            };
-            meta.homepage = "https://github.com/nvim-orgmode/org-bullets.nvim";
-          })
         ];
 
         # Plugins managed by lazy.nvim (opt)
         opt = with pkgs.vimPlugins; [
           # UI
-          bufferline-nvim
-          dressing-nvim
           fidget-nvim
           incline-nvim
           kanagawa-nvim
-          noice-nvim
-          nvim-colorizer-lua
           snacks-nvim
           trouble-nvim
-          tiny-inline-diagnostic-nvim
-          smear-cursor-nvim
-          which-key-nvim
 
           # Editor
           nvim-ts-context-commentstring
           grapple-nvim
           mini-nvim
-          persistence-nvim
           vim-tmux-navigator
           guess-indent-nvim
           todo-comments-nvim
@@ -185,20 +156,16 @@ in {
           nvim-ts-autotag
           crates-nvim
           rustaceanvim
-          flutter-tools-nvim
           SchemaStore-nvim
 
           # Utils
-          img-clip-nvim
-          markview-nvim
           markdown-preview-nvim
           lazydev-nvim
-          fzf-lua
-          undotree
           hardtime-nvim
           grug-far-nvim
           flash-nvim
 
+          # Debugging
           nvim-dap-ui
         ];
       };

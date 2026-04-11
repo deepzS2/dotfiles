@@ -69,13 +69,18 @@ return { -- Autocompletion
           enabled = false,
         },
       },
+
       -- By default, you may press `<c-space>` to show the documentation.
       -- Optionally, set `auto_show = true` to show the documentation after a delay.
       documentation = { auto_show = false, auto_show_delay_ms = 200 },
 
-      -- Mini.icons in menu
+      ghost_text = {
+        enabled = true,
+      },
+
       menu = {
         draw = {
+          -- Mini.icons in menu
           components = {
             kind_icon = {
               text = function(ctx)
@@ -111,7 +116,7 @@ return { -- Autocompletion
       completion = {
         list = { selection = { preselect = false } },
         menu = {
-          auto_show = function(ctx)
+          auto_show = function()
             return vim.fn.getcmdtype() == ':'
           end,
         },
@@ -119,13 +124,6 @@ return { -- Autocompletion
       },
     },
 
-    -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
-    -- which automatically downloads a prebuilt binary when enabled.
-    --
-    -- By default, we use the Lua implementation instead, but you may enable
-    -- the rust implementation via `'prefer_rust_with_warning'`
-    --
-    -- See :h blink-cmp-config-fuzzy for more information
     fuzzy = { implementation = 'prefer_rust_with_warning' },
 
     -- Shows a signature help window while you type arguments for a function
@@ -142,15 +140,9 @@ return { -- Autocompletion
       },
       per_filetype = {
         lua = { inherit_defaults = true, 'lazydev' },
-        org = { 'orgmode' },
       },
       providers = {
         lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink', score_offset = 100 },
-        orgmode = {
-          name = 'Orgmode',
-          module = 'orgmode.org.autocompletion.blink',
-          fallbacks = { 'buffer' },
-        },
       },
     },
   },

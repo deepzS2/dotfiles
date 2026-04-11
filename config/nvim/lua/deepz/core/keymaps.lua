@@ -9,15 +9,15 @@ vim.o.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Exit insert mode
-vim.keymap.set('i', 'kj', '<Esc>')
+vim.keymap.set('i', 'jk', '<Esc>')
 
 -- Increment/decrement
 vim.keymap.set('n', '+', '<C-a>')
 vim.keymap.set('n', '-', '<C-x>')
 
 -- Delete without yank
-vim.keymap.set('n', '<leader>d', '"_d')
-vim.keymap.set('v', '<leader>d', '"_d')
+vim.keymap.set('n', '<leader>D', '"_d', { desc = 'Delete without yanking' })
+vim.keymap.set('v', '<leader>D', '"_d', { desc = 'Delete without yanking' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.get_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -58,7 +58,7 @@ vim.keymap.set('n', '<leader>wv', '<C-W>v', { desc = '[W]indow Split [V]ertical'
 vim.keymap.set('n', '<leader>wx', '<C-W>c', { desc = '[W]indow Close [X]', remap = true })
 
 -- Buffers
-vim.keymap.set('n', '<leader>bn', '<cmd> enew <CR>', { desc = '[B]uffer [N]ew', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>b', '<cmd> enew <CR>', { desc = '[B]uffer [N]ew', noremap = true, silent = true })
 
 -- Delete single line without copying to register
 vim.keymap.set('n', 'x', '"_x', { noremap = true, silent = true })

@@ -1,7 +1,34 @@
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
   callback = function()
     vim.hl.on_yank()
   end,
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'msg',
+  callback = function()
+    local ui2 = require 'vim._core.ui2'
+    local win = ui2.wins and ui2.wins.msg
+    if win and vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_set_option_value('winhighlight', 'Normal:NormalFloat,FloatBorder:FloatBorder', { scope = 'local', win = win })
+    end
+  end,
+})
+
+local ui2 = require 'vim._core.ui2'
+local msgs = require 'vim._core.ui2.messages'
+local orig_set_pos = msgs.set_pos
+msgs.set_pos = function(tgt)
+  orig_set_pos(tgt)
+  if (tgt == 'msg' or tgt == nil) and vim.api.nvim_win_is_valid(ui2.wins.msg) then
+    pcall(vim.api.nvim_win_set_config, ui2.wins.msg, {
+      relative = 'editor',
+      anchor = 'NE',
+      row = 1,
+      col = vim.o.columns - 1,
+      border = 'rounded',
+    })
+  end
+end
