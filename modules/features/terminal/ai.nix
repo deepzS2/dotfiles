@@ -20,6 +20,14 @@
       };
       settings = {
         autoupdate = true;
+        permission = let
+          gsd-allow = {
+            "~/.config/opencode/get-shit-done/*" = "allow";
+          };
+        in {
+          read = gsd-allow;
+          external_directory = gsd-allow;
+        };
         mcp.nixos = {
           enabled = true;
           type = "local";
