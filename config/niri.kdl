@@ -118,7 +118,7 @@ cursor {
     xcursor-size 24
 }
 
-// prefer-no-csd
+prefer-no-csd
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -267,7 +267,7 @@ binds {
     Mod+B hotkey-overlay-title="Browser" { spawn "zen"; }
     Super+Alt+L hotkey-overlay-title="Lock session" { spawn "sheez" "ipc" "call" "lockScreen" "toggle"; }
     Super+Escape hotkey-overlay-title="Toggle Power Menu" { spawn "sheez" "ipc" "call" "logout" "toggle"; }
-    Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"; }
+    Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "cliphist list | rofi -dmenu -config ~/.config/rofi/cliphistory.rasi | cliphist decode | wl-copy"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
