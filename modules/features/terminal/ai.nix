@@ -1,8 +1,4 @@
-{
-  inputs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   flake.modules.homeManager.ai = {
     pkgs,
     config,
@@ -14,20 +10,11 @@
 
     programs.opencode = {
       enable = true;
-      package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       tui = {
         theme = lib.mkForce "kanagawa";
       };
       settings = {
-        autoupdate = true;
-        permission = let
-          gsd-allow = {
-            "~/.config/opencode/get-shit-done/*" = "allow";
-          };
-        in {
-          read = gsd-allow;
-          external_directory = gsd-allow;
-        };
+        plugin = ["superpowers@git+https://github.com/obra/superpowers.git"];
         mcp.nixos = {
           enabled = true;
           type = "local";

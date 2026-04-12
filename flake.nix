@@ -13,9 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Neovim and AI
+    # Nvim
     mnw.url = "github:Gerg-L/mnw";
-    opencode.url = "github:sst/opencode";
 
     # Zen Browser
     zen-browser = {
