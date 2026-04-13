@@ -4,11 +4,6 @@
   ...
 }: let
   inherit (self) directories;
-
-  mkNiriProgram = package: {
-    enable = true;
-    package = package;
-  };
 in {
   flake.modules.nixos.niri = {
     pkgs,
@@ -18,12 +13,11 @@ in {
   }: let
     inherit (config.settings) wm;
   in {
-    imports = [
-      inputs.niri.nixosModules.niri
-    ];
-
     config = lib.mkIf (wm == "niri") {
-      programs.niri = mkNiriProgram pkgs.niri-unstable;
+      programs.niri = {
+        enable = true;
+        package = pkgs.niri-unstable;
+      };
 
       environment = {
         sessionVariables = {
@@ -34,21 +28,6 @@ in {
         };
         systemPackages = [pkgs.nautilus];
       };
-    };
-  };
-
-  flake.modules.homeManager.niriImport = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: let
-    inherit (config.settings) wm;
-  in {
-    imports = [inputs.niri.homeModules.niri];
-
-    config = lib.mkIf (wm == "niri") {
-      programs.niri = mkNiriProgram pkgs.niri-unstable;
     };
   };
 

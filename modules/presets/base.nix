@@ -3,7 +3,7 @@
     imports = with self.modules.homeManager; [
       git
       browser
-      obsidian
+      emacs
       terminal
       btop
       fastfetch
