@@ -164,6 +164,7 @@ in {
           hardtime-nvim
           grug-far-nvim
           flash-nvim
+          persistence-nvim
 
           # Debugging
           nvim-dap-ui

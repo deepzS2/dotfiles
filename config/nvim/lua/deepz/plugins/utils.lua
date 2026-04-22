@@ -44,11 +44,6 @@ return {
       -- Operators
       require('mini.operators').setup()
 
-      -- Automatic session
-      require('mini.sessions').setup {
-        verbose = { write = false },
-      }
-
       -- Snippets
       require('mini.snippets').setup {
         snippets = {
@@ -194,7 +189,6 @@ return {
           { mode = 'n', keys = '<leader>d', desc = '+Debug' },
           { mode = 'n', keys = '<leader>l', desc = '+LSP' },
           { mode = 'n', keys = '<leader>s', desc = '+Search' },
-          { mode = 'n', keys = '<leader>w', desc = '+Windows' },
           { mode = 'n', keys = '<leader>t', desc = '+Toggle' },
           { mode = { 'n', 'v' }, keys = '<leader>g', desc = '+Git' },
           { mode = { 'n', 'v' }, keys = '<leader>gh', desc = '+Hunk' },
@@ -219,24 +213,6 @@ return {
         pattern = 'MiniFilesActionRename',
         callback = function(event)
           Snacks.rename.on_rename_file(event.data.from, event.data.to)
-        end,
-      })
-
-      -- Auto-create session on first visit to a directory
-      vim.api.nvim_create_autocmd('VimEnter', {
-        group = vim.api.nvim_create_augroup('mini-sessions-auto-create', { clear = true }),
-        callback = function()
-          local sessions = require 'mini.sessions'
-          local cwd = vim.uv.cwd()
-          if not cwd then
-            return
-          end
-
-          local session_name = vim.fs.basename(cwd)
-
-          if not sessions.detected[session_name] then
-            sessions.write(session_name, { force = true })
-          end
         end,
       })
 
@@ -329,6 +305,13 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    dependencies = {
+      {
+        'folke/persistence.nvim',
+        event = 'BufReadPre',
+        opts = {},
+      },
+    },
     --- @type snacks.Config
     opts = {
       animate = { enabled = true },
@@ -478,7 +461,7 @@ return {
         desc = 'Search help',
       },
       {
-        '<leader>/',
+        '<leader>sg',
         function()
           Snacks.picker.grep()
         end,
