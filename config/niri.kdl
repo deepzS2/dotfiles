@@ -219,7 +219,7 @@ window-rule {
 
 // Workspace assignments
 window-rule {
-    match app-id="ghostty"
+    match app-id="kitty"
     open-on-workspace "code"
 }
 
@@ -261,7 +261,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Ghostty" { spawn "ghostty"; }
+    Mod+Return hotkey-overlay-title="Kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Launcher" { spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi"; }
     Mod+D hotkey-overlay-title="Discord" { spawn "vesktop"; }
     Mod+B hotkey-overlay-title="Browser" { spawn "zen"; }

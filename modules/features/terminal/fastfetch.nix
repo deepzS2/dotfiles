@@ -1,11 +1,7 @@
 {self, ...}: let
   inherit (self) directories;
 in {
-  flake.modules.homeManager.fastfetch = {pkgs, ...}: {
-    home.packages = [
-      pkgs.kitty
-    ];
-
+  flake.modules.homeManager.fastfetch = {
     programs.fastfetch = {
       enable = true;
       settings = {

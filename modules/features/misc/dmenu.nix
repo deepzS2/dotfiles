@@ -4,7 +4,7 @@
   in {
     programs.rofi = {
       enable = true;
-      terminal = "ghostty";
+      terminal = "kitty";
       package = pkgs.rofi;
       extraConfig = {
         # Author : Aditya Shakya (adi1090x)
