@@ -1,23 +1,33 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
+$username\
+$hostname\
+$kubernetes\
 $directory\
 $git_branch\
+$git_commit\
 $git_status\
 $fill\
-$lua\
-$python\
-$nodejs\
-$bun\
-$aws\
 $docker_context\
+$lua\
+$rust\
+$bun\
+$deno\
+$nodejs\
+$golang\
+$python\
+$php\
+$memory_usage\
+$aws\
+$azure\
 $nix_shell\
-$jobs\
 $cmd_duration\
 $line_break\
+$jobs\
+$container\
 $character\
 """
-
 palette = 'colors'
 add_newline = true
 
@@ -38,36 +48,74 @@ symbol = ' '
 [aws]
 format = 'on [$symbol(\($region\) )]($style)'
 style = "blue"
+symbol = " "
 
 [aws.region_aliases]
 sa-east-1 = "sa"
 us-east-1 = "us"
 
-# Prompt symbols 
+[azure]
+symbol = "  "
+
+[bun]
+symbol = "  "
+
 [character]
-success_symbol = "[➜](color1 bold)"
+success_symbol = "[🞈](color9 bold)"
 error_symbol = "[✗]({{colors.error.default.hex}} bold)"
-vimcmd_symbol = "[🞈](#f9e2af bold)"
+
+[container]
+symbol = "  "
+
+[deno]
+symbol = "  "
 
 [directory]
-format = "[$path ]($style)"
+format = "[$path ](color3)"
 truncation_length = 4
 truncation_symbol = "…/"
 truncate_to_repo = false
 
+[docker_context]
+symbol = "  "
+
 [git_branch]
-symbol = " "
+symbol = "  "
 format = "on [$symbol$branch ]($style)"
+
+[git_commit]
+tag_symbol = '  '
 
 [git_status]
 format = "([$all_status$ahead_behind]($style) )"
 
+[golang]
+symbol = "  "
+
 [gcloud]
 format = 'on [$symbol(\($region\))]($style)'
 
+[kubernetes]
+symbol = "󱃾  "
+
+[lua]
+symbol = "  "
+
 [memory_usage]
-disabled = false
+symbol = "󰍛  "
 threshold = 50
 
 [nix_shell]
-disabled = false
+symbol = "  "
+
+[nodejs]
+symbol = "󰎙  "
+
+[php]
+symbol = "  "
+
+[python]
+symbol = "  "
+
+[rust]
+symbol = "󱘗  "

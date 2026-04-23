@@ -14,7 +14,6 @@
             WALLPAPER_SOURCE="$HOME/.theme/wallpapers"
             CACHE_DIR="$HOME/.cache/gowall"
             LAST_SELECTION_FILE="$CACHE_DIR/last-selection.json"
-            MATUGEN_CONFIG="$HOME/.config/matugen"
             THEME_MENU="$HOME/.config/rofi/theme-switcher.rasi"
             WALLPAPER_MENU="$HOME/.config/rofi/wallpaper-switcher.rasi"
 
@@ -97,8 +96,7 @@
                 return 1
               fi
 
-              awww img --transition-type center "$wallpaper_path"
-              cd "$MATUGEN_CONFIG" && matugen image "$wallpaper_path"
+              matugen image "$wallpaper_path" --source-color-index 0
 
               return 0
             }
@@ -158,7 +156,7 @@
               awww img --transition-type center "$wallpaper_path"
 
               # Step 5: Generate colors with matugen
-              cd "$MATUGEN_CONFIG" && matugen image "$wallpaper_path"
+              matugen image "$wallpaper_path" --source-color-index 0
 
               # Step 6: Save selection
               echo "{\"theme\": \"$theme\", \"wallpaper\": \"$wallpaper\"}" > "$LAST_SELECTION_FILE"
