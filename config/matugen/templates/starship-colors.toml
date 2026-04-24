@@ -77,45 +77,45 @@ truncation_symbol = "…/"
 truncate_to_repo = false
 
 [docker_context]
-symbol = "  "
+symbol = " "
 
 [git_branch]
-symbol = "  "
+symbol = " "
 format = "on [$symbol$branch ]($style)"
 
 [git_commit]
-tag_symbol = '  '
+tag_symbol = ' '
 
 [git_status]
 format = "([$all_status$ahead_behind]($style) )"
 
 [golang]
-symbol = "  "
+symbol = " "
 
 [gcloud]
 format = 'on [$symbol(\($region\))]($style)'
 
 [kubernetes]
-symbol = "󱃾  "
+symbol = "󱃾 "
 
 [lua]
-symbol = "  "
+symbol = " "
 
 [memory_usage]
-symbol = "󰍛  "
+symbol = "󰍛 "
 threshold = 50
 
 [nix_shell]
-symbol = "  "
+symbol = " "
 
 [nodejs]
-symbol = "󰎙  "
+symbol = "󰎙 "
 
 [php]
-symbol = "  "
+symbol = " "
 
 [python]
-symbol = "  "
+symbol = " "
 
 [rust]
-symbol = "󱘗  "
+symbol = "󱘗 "
