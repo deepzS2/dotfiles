@@ -45,7 +45,7 @@ in {
         docker-ls
         rust-analyzer
         docker-compose-language-service
-        jsonnet-language-server
+        vscode-json-languageserver
         taplo
         copilot-language-server
         elixir-ls
