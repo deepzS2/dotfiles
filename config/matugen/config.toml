@@ -1,5 +1,6 @@
 [config]
 
+
 [config.wallpaper]
 set = true
 command = "awww img --transition-type center {{ image }}"
@@ -38,3 +39,8 @@ output_path = '~/.config/rofi/colors.rasi'
 [templates.starship]
 input_path = './templates/starship-colors.toml'
 output_path = '~/.config/starship.toml'
+
+[templates.tmux]
+input_path = './templates/tmux-colors.conf'
+output_path = '~/.config/tmux/colors-generated.conf'
+post_hook = 'tmux source-file ~/.config/tmux/colors-generated.conf'
