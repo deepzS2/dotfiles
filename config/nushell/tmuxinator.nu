@@ -1,5 +1,5 @@
 def "nu-complete tmuxinator projects" [] {
-  ^tmuxinator completions start | split row ' '
+  ^tmuxinator completions start | split row "\n"
 }
 
 # Lists commands available in tmuxinator
