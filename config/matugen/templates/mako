@@ -1,10 +1,9 @@
 # Material You colors
+background-color={{colors.primary_container.default.hex}}
+text-color={{colors.on_primary_container.default.hex}}
+border-color={{colors.outline.default.hex}}
 
-background-color={{colors.on_primary.default.hex}}
-text-color={{colors.tertiary.default.hex}}
-border-color={{colors.tertiary_container.default.hex}}
 # Per-mode settings
-
 [mode=do-not-disturb]
 invisible=1
 on-notify=none
@@ -13,4 +12,4 @@ on-notify=none
 on-notify=none
 
 [urgency=high]
-border-color={{colors.error_container.default.hex}}
+border-color={{colors.error.default.hex}}
