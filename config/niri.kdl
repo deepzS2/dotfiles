@@ -240,8 +240,8 @@ window-rule {
 
 // Corner radius for all windows
 window-rule {
-    geometry-corner-radius 20.0
-    clip-to-geometry true
+    geometry-corner-radius 0
+    clip-to-geometry false
 }
 
 debug {
