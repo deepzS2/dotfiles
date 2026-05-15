@@ -1,28 +1,19 @@
-{lib, ...}: {
+{inputs, ...}: {
   flake.modules.homeManager.ai = {
+    lib,
     pkgs,
-    config,
     ...
   }: {
-    programs.nushell.extraEnv = ''
-      $env.GOOGLE_API_KEY = (bash -c "cat ${config.age.secrets.gemini_key.path}")
+    home.packages = [inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi];
+
+    # I decided to make an activation for this since I will (probably) keep
+    # improving my workflow as I keep using it.
+    # This setup makes more sense than leaving it in `/nix/store`.
+    home.activation.mini-pi = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [ ! -d "$HOME/.pi/agent/.git" ]; then
+        ${pkgs.git}/bin/git clone https://codeberg.org/deepzS2/mini.pi "$HOME/.pi/agent"
+        ${pkgs.bun}/bin/bun install --cwd="$HOME/.pi/agent"
+      fi
     '';
-
-    programs.opencode = {
-      enable = true;
-      tui = {
-        theme = lib.mkForce "kanagawa";
-      };
-      settings = {
-        plugin = ["superpowers@git+https://github.com/obra/superpowers.git"];
-        mcp.nixos = {
-          enabled = true;
-          type = "local";
-          command = ["nix" "run" "github:utensils/mcp-nixos"];
-        };
-      };
-    };
-
-    home.packages = [pkgs.gemini-cli];
   };
 }

@@ -13,9 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nvim and my Emacs
+    # Nvim, Emacs and AI
     mnw.url = "github:Gerg-L/mnw";
     demacz.url = "git+https://codeberg.org/deepzS2/demacz";
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     # Zen Browser
     zen-browser = {

@@ -19,6 +19,8 @@ in {
         environmentVariables = {
           NH_FLAKE = "${config.home.homeDirectory}/.dotfiles";
           EDITOR = "nvim";
+          GOOGLE_API_KEY = lib.hm.nushell.mkNushellInline ''bash -c "cat ${config.age.secrets.gemini_key.path}"'';
+          BRAVE_API_KEY = lib.hm.nushell.mkNushellInline ''bash -c "cat ${config.age.secrets.brave_search.path}"'';
         };
 
         # The "Bridge" config

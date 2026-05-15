@@ -1,3 +1,6 @@
+-- My coding agent of choice
+local TOOL = 'pi'
+
 return {
   'folke/sidekick.nvim',
   opts = {
@@ -12,9 +15,6 @@ return {
           size = 0.5, -- size of the split (0-1 for percentage)
         },
       },
-    },
-    tools = {
-      opencode = { env = { OPENCODE_THEME = 'kanagawa' } },
     },
   },
   keys = {
@@ -32,7 +32,7 @@ return {
     {
       '<c-.>',
       function()
-        require('sidekick.cli').toggle { name = 'opencode' }
+        require('sidekick.cli').toggle { name = TOOL }
       end,
       desc = 'Sidekick toggle',
       mode = { 'n', 't', 'i', 'x' },
@@ -40,7 +40,7 @@ return {
     {
       '<leader>at',
       function()
-        require('sidekick.cli').send { msg = '{this}', name = 'opencode' }
+        require('sidekick.cli').send { msg = '{this}', name = TOOL }
       end,
       mode = { 'x', 'n' },
       desc = 'AI send this',
@@ -48,14 +48,14 @@ return {
     {
       '<leader>af',
       function()
-        require('sidekick.cli').send { msg = '{file}', name = 'opencode' }
+        require('sidekick.cli').send { msg = '{file}', name = TOOL }
       end,
       desc = 'AI send file',
     },
     {
       '<leader>av',
       function()
-        require('sidekick.cli').send { msg = '{selection}', name = 'opencode' }
+        require('sidekick.cli').send { msg = '{selection}', name = TOOL }
       end,
       mode = { 'x' },
       desc = 'AI send selection',
@@ -72,7 +72,7 @@ return {
     {
       '<leader>ac',
       function()
-        require('sidekick.cli').toggle { name = 'opencode', focus = true }
+        require('sidekick.cli').toggle { name = TOOL, focus = true }
       end,
       desc = 'AI chat',
     },

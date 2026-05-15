@@ -264,7 +264,7 @@ return {
               end
 
               local count = #cli_status > 2 and ' ' .. #cli_status or ''
-              return '' .. ' opencode' .. count
+              return '' .. ' mini.pi' .. count
             end
 
             local mode, mode_hl = MiniStatusline.section_mode { trunc_width = 120 }
