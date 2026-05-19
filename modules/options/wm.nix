@@ -4,7 +4,7 @@
       description = "The window manager to be used";
       default = "niri";
       example = "hyprland";
-      type = lib.types.enum ["niri" "hyprland"];
+      type = lib.types.enum ["niri" "hyprland" "mango"];
     };
   };
 in {

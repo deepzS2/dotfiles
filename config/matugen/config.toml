@@ -23,6 +23,11 @@ input_path = './templates/mako'
 output_path = '~/.config/mako/mako-colors'
 post_hook = 'makoctl reload'
 
+[templates.mango]
+input_path = './templates/mango-colors.conf'
+output_path = '~/.config/mango/colors.conf'
+post_hook = 'mmsg -d reload_config'
+
 [templates.niri]
 input_path = './templates/niri-colors.kdl'
 output_path = '~/.config/niri/colors.kdl'

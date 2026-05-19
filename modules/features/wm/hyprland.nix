@@ -2,7 +2,6 @@
   inherit (self) directories;
 in {
   flake.modules.nixos.hyprland = {
-    pkgs,
     config,
     lib,
     ...
@@ -17,7 +16,6 @@ in {
     };
 
     environment.sessionVariables.NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
-    environment.systemPackages = [pkgs.nautilus];
   };
 
   flake.modules.homeManager.hyprland = {

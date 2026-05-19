@@ -13,6 +13,7 @@
       nix-search
       idle
       niri
+      mango
       dev
       hyprland
       nh

@@ -99,13 +99,7 @@ layout {
 }
 
 // Add lines like this to spawn processes at startup.
-spawn-at-startup "mako"
 spawn-at-startup "initialize_setup"
-spawn-at-startup "wl-paste" "-t" "image" "--watch" "cliphist" "store"
-spawn-at-startup "wl-paste" "-t" "text" "--watch" "cliphist" "store"
-spawn-at-startup "hypridle"
-spawn-at-startup "sheez"
-
 spawn-sh-at-startup "niri-scratchpad daemon"
 
 hotkey-overlay {

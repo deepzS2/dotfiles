@@ -29,7 +29,7 @@ in {
             vt = 1;
           };
           default_session = {
-            command = "${lib.getExe tuigreetPkg} --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions --remember --remember-user-session --cmd ${wm} --config ${tuigreetConfig}";
+            command = "${lib.getExe tuigreetPkg} --cmd ${wm} --config ${tuigreetConfig}";
             user = "deepz";
           };
         };

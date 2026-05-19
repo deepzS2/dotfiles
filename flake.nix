@@ -24,9 +24,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Niri Window Manager
+    # Window managers
     niri.url = "github:sodiboo/niri-flake";
     niri-scratchpad.url = "github:argosnothing/niri-scratchpad-rs";
+    mangowm = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Theming and greetd
     matugen = {

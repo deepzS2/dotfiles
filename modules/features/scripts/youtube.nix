@@ -1,5 +1,9 @@
 {
-  flake.modules.homeManager.scripts = {pkgs, config, ...}: let
+  flake.modules.homeManager.scripts = {
+    pkgs,
+    config,
+    ...
+  }: let
     musicDir = config.services.mpd.musicDirectory;
   in {
     home.packages = [
@@ -40,20 +44,20 @@
             download_song() {
               local url="$1"
               local output_dir="$2"
-              
+
               # Validate that this is NOT a playlist URL
               if is_playlist_url "$url"; then
                 echo "Error: This URL appears to be a playlist."
                 echo "Use 'yt playlist <url>' instead to download all tracks from a playlist."
                 exit 1
               fi
-              
+
               echo "Downloading song..."
               echo "Output directory: $output_dir"
-              
+
               # Create output directory
               mkdir -p "$output_dir"
-              
+
               # Download with metadata extraction
               yt-dlp \
                 --quiet \
@@ -68,39 +72,39 @@
                 --output "$output_dir/%(artist,uploader)s/%(title)s.%(ext)s" \
                 --no-overwrites \
                 "$url"
-              
+
               echo "Download complete!"
             }
 
             download_playlist() {
               local url="$1"
-              
+
               # Validate that this IS a playlist URL
               if ! is_playlist_url "$url"; then
                 echo "Error: This URL does not appear to be a playlist."
                 echo "Use 'yt song <url>' instead to download a single song."
                 exit 1
               fi
-              
+
               echo "Fetching playlist information..."
-              
+
               # Get playlist title
               local playlist_title
               playlist_title=$(yt-dlp --quiet --no-warnings --print "%(playlist_title)s" "$url" 2>/dev/null || echo "")
-              
+
               if [ -z "$playlist_title" ] || [ "$playlist_title" = "NA" ]; then
                 echo "Error: Could not fetch playlist title. Make sure the URL is valid and the playlist is accessible."
                 exit 1
               fi
-              
+
               echo "Playlist: $playlist_title"
               echo "Downloading playlist tracks to: $MUSIC_DIR"
-              
+
               # Create output directory
               mkdir -p "$MUSIC_DIR"
-              
+
               echo "Downloading playlist tracks..."
-              
+
               # Download playlist using same structure as single songs
               yt-dlp \
                 --quiet \
@@ -115,7 +119,7 @@
                 --output "$MUSIC_DIR/%(artist,uploader)s/%(title)s.%(ext)s" \
                 --no-overwrites \
                 "$url"
-              
+
               echo "Playlist download complete!"
               echo "Files saved to: $MUSIC_DIR"
             }

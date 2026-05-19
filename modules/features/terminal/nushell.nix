@@ -7,9 +7,12 @@ in {
     config,
     ...
   }: {
-    home.file.".config/nushell/autoload" = {
-      source = "${directories.config}/nushell";
-      recursive = true;
+    home = {
+      packages = [pkgs.yazi];
+      file.".config/nushell/autoload" = {
+        source = "${directories.config}/nushell";
+        recursive = true;
+      };
     };
 
     programs = {

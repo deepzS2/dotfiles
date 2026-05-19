@@ -19,14 +19,11 @@ in {
         package = pkgs.niri-unstable;
       };
 
-      environment = {
-        sessionVariables = {
-          GTK_IM_MODULE = "ibus";
-          QT_IM_MODULE = "ibus";
-          XMODIFIERS = "@im=ibus";
-          NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
-        };
-        systemPackages = [pkgs.nautilus];
+      environment.sessionVariables = {
+        GTK_IM_MODULE = "ibus";
+        QT_IM_MODULE = "ibus";
+        XMODIFIERS = "@im=ibus";
+        NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
       };
     };
   };

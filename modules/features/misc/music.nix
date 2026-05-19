@@ -1,5 +1,9 @@
 {
-  flake.modules.homeManager.music = {pkgs, config, ...}: {
+  flake.modules.homeManager.music = {
+    pkgs,
+    config,
+    ...
+  }: {
     home.packages = [pkgs.yt-dlp pkgs.ffmpeg];
 
     services.mpd = {

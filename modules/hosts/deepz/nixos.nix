@@ -1,10 +1,6 @@
-{
-  inputs,
-  self,
-  ...
-}: let
+{self, ...}: let
   user = "deepz";
-  wm = "niri";
+  wm = "mango";
 in {
   flake.modules.nixos.deepz = {pkgs, ...}: {
     imports = with self.modules.nixos; [
@@ -12,6 +8,8 @@ in {
       fhs
       virtualisation
       niri
+      mango
+      hyprland
     ];
 
     bootloader = {

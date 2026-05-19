@@ -2,6 +2,7 @@
   flake.modules.homeManager.scripts = {pkgs, ...}: {
     home.packages = [
       pkgs.wl-clipboard
+      pkgs.wl-clip-persist
       pkgs.cliphist
       (
         pkgs.writeShellApplication {
