@@ -949,11 +949,11 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1778987901,
-        "narHash": "sha256-IVqyV1yj8rlgf8/mO1z6wuhzBrJ9Xdi1sl7kBP7+eo8=",
+        "lastModified": 1779202044,
+        "narHash": "sha256-HSJFwdYNEszVUuk0XmIXHUSt5rNfVl1zU04L1u8Vav0=",
         "owner": "deepzS2",
         "repo": "sheez",
-        "rev": "dd99c717cac8cd65f6d35b061f2cc42e17c445da",
+        "rev": "ba53a2f46d0246331bc1c1133549b9e933aad9c5",
         "type": "github"
       },
       "original": {
