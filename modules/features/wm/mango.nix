@@ -23,15 +23,6 @@ in {
       };
 
       programs.dconf.enable = true;
-
-      environment.sessionVariables = {
-        GTK_IM_MODULE = "ibus";
-        QT_IM_MODULE = "ibus";
-        XMODIFIERS = "@im=ibus";
-        QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-        QT_WAYLAND_FORCE_DPI = "140";
-        NIXOS_OZONE_WL = "1"; # This variable fixes electron apps in wayland
-      };
     };
   };
 
