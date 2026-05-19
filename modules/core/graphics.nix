@@ -27,11 +27,7 @@
       };
     };
 
-    nvidia = {
-      pkgs,
-      config,
-      ...
-    }: {
+    nvidia = {pkgs, ...}: {
       # Enable NVIDIA proprietary drivers
       services.xserver.videoDrivers = ["nvidia"];
 
@@ -60,9 +56,6 @@
 
         # Enable nvidia-settings GUI
         nvidiaSettings = true;
-
-        # Use latest driver version
-        package = config.boot.kernelPackages.nvidiaPackages.latest;
       };
     };
   };
