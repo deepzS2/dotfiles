@@ -10,6 +10,7 @@ in {
       niri
       mango
       hyprland
+      secrets
     ];
 
     bootloader = {

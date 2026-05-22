@@ -125,11 +125,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1779147244,
-        "narHash": "sha256-66NBKkTpaTHp5lHeYyx3rlOP5YaBwjyqUh2jU0VkZb8=",
+        "lastModified": 1779318855,
+        "narHash": "sha256-DOuaSXTzjUi2K5tm5+gMSdMMgxejUkpPZbUtX8KketE=",
         "ref": "refs/heads/main",
-        "rev": "bd8c6f9915a1329b77b71de44785088ca626b3ec",
-        "revCount": 42,
+        "rev": "311d65c47392c2115d15c5e881b5d21c4ceedd63",
+        "revCount": 44,
         "type": "git",
         "url": "https://codeberg.org/deepzS2/demacz"
       },
