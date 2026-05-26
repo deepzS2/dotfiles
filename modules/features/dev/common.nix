@@ -1,5 +1,5 @@
 {
   flake.modules.homeManager.dev = {pkgs, ...}: {
-    home.packages = [pkgs.just pkgs.tokei];
+    home.packages = [pkgs.just pkgs.tokei pkgs.gcc];
   };
 }

@@ -51,6 +51,7 @@ in {
         elixir-ls
         gopls
         kdePackages.qtdeclarative
+        clang-tools
 
         # Formatters
         stylua
@@ -63,6 +64,7 @@ in {
 
         # Debugging
         delve
+        gdb
 
         # Linting
         markdownlint-cli
@@ -168,6 +170,7 @@ in {
 
           # Debugging
           nvim-dap-ui
+          nvim-dap-go
         ];
       };
     };

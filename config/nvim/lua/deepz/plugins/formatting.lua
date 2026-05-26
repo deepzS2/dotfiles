@@ -51,6 +51,8 @@ return { -- Autoformat
       astro = { 'biome', 'prettierd', stop_after_first = true },
       go = { 'goimports', 'gofumpt' },
       shell = { 'shfmt' },
+      c = { 'clang-format' },
+      cpp = { 'clang-format' },
     },
   },
 }
