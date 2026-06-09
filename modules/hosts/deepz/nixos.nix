@@ -11,6 +11,7 @@ in {
       mango
       hyprland
       secrets
+      gaming
     ];
 
     bootloader = {

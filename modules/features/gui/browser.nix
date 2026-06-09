@@ -7,7 +7,7 @@
     programs.zen-browser = {
       enable = true;
       setAsDefaultBrowser = true;
-      nativeMessagingHosts = [pkgs.firefoxpwa];
+      nativeMessagingHosts = [pkgs.firefoxpwa-unwrapped];
 
       policies = let
         mkExtensionSettings = builtins.mapAttrs (_: pluginId: {

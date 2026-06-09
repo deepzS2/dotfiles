@@ -1,20 +1,29 @@
 {
   flake.modules.nixos = {
     core = {
-      hardware.graphics = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      hardware.graphics = let
+        essentialPackages = [
+          pkgs.libva
+          pkgs.libva-utils
+          pkgs.vulkan-loader
+          pkgs.libGL
+          pkgs.libGLU # for very old pre-2005 OpenGL games
+        ];
+      in {
         enable = true;
         enable32Bit = true;
+        extraPackages = lib.mkDefault essentialPackages;
+        extraPackages32 = lib.mkDefault essentialPackages;
       };
     };
 
     amd = {pkgs, ...}: {
       systemd.tmpfiles.rules = ["L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"];
       services.xserver.videoDrivers = ["amdgpu"];
-
-      hardware.graphics.extraPackages = [
-        pkgs.libva
-        pkgs.libva-utils
-      ];
     };
 
     intel = {pkgs, ...}: {
@@ -23,7 +32,7 @@
       };
 
       hardware.graphics.extraPackages = builtins.attrValues {
-        inherit (pkgs) intel-media-driver libvdpau-va-gl libva libva-utils;
+        inherit (pkgs) intel-media-driver libvdpau-va-gl mesa;
       };
     };
 
@@ -36,26 +45,20 @@
         enable = true;
         enable32Bit = true;
         extraPackages = builtins.attrValues {
-          inherit (pkgs) libva-vdpau-driver libvdpau libvdpau-va-gl nvidia-vaapi-driver vdpauinfo libva libva-utils;
+          inherit (pkgs) libva-vdpau-driver libvdpau libvdpau-va-gl nvidia-vaapi-driver vdpauinfo;
         };
       };
 
       hardware.nvidia = {
-        # Modesetting is required for most wayland compositors
-        modesetting.enable = true;
-
-        # Power management (experimental, can cause sleep/suspend issues)
-        powerManagement.enable = false;
-        powerManagement.finegrained = false;
-
-        # NVIDIA persistence daemon
-        nvidiaPersistenced = false;
-
-        # Use proprietary driver (open = false) or open-source (open = true)
         open = false;
-
-        # Enable nvidia-settings GUI
-        nvidiaSettings = true;
+        prime = {
+          offload = {
+            enable = true;
+            enableOffloadCmd = true; # Lets you use `nvidia-offload %command%` in steam
+          };
+          amdgpuBusId = "PCI:05:0:0";
+          nvidiaBusId = "PCI:01:00:0";
+        };
       };
     };
   };
