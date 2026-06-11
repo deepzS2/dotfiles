@@ -228,7 +228,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="vesktop"
+    match app-id="discord"
     open-on-workspace "chat"
 }
 
@@ -257,7 +257,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Launcher" { spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi"; }
-    Mod+D hotkey-overlay-title="Discord" { spawn "vesktop"; }
+    Mod+D hotkey-overlay-title="Discord" { spawn "discord"; }
     Mod+B hotkey-overlay-title="Browser" { spawn "zen"; }
     Super+Alt+L hotkey-overlay-title="Lock session" { spawn "sheez" "ipc" "call" "lockScreen" "toggle"; }
     Super+Escape hotkey-overlay-title="Toggle Power Menu" { spawn "sheez" "ipc" "call" "logout" "toggle"; }
