@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.discord = _: {
-    programs.vesktop.enable = true;
+  flake.modules.homeManager.discord = {pkgs, ...}: {
+    programs.discord.enable = true;
   };
 }

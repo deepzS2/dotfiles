@@ -8,6 +8,7 @@ in {
   flake.modules.nixos.mango = {
     lib,
     config,
+    pkgs,
     ...
   }: let
     inherit (config.settings) wm;
@@ -42,9 +43,6 @@ in {
     config = lib.mkIf (wm == "mango") {
       home = {
         packages = [
-          pkgs.xdg-desktop-portal
-          pkgs.xdg-desktop-portal-gtk
-          pkgs.xdg-desktop-portal-wlr
           pkgs.xrdb
           pkgs.xwayland-satellite
           pkgs.ibus

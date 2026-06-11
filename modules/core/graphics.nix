@@ -45,12 +45,12 @@
         enable = true;
         enable32Bit = true;
         extraPackages = builtins.attrValues {
-          inherit (pkgs) libva-vdpau-driver libvdpau libvdpau-va-gl nvidia-vaapi-driver vdpauinfo;
+          inherit (pkgs) libva-vdpau-driver libvdpau libvdpau-va-gl vdpauinfo;
         };
       };
 
       hardware.nvidia = {
-        open = false;
+        modesetting.enable = true;
         prime = {
           offload = {
             enable = true;

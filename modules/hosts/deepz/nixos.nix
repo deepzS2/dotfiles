@@ -28,6 +28,9 @@ in {
       shell = pkgs.nushell;
     };
 
+    # GTX 1650 Turing
+    hardware.nvidia.open = true;
+
     home-manager = self.lib.homeFactory user wm;
 
     system.stateVersion = "25.05";
