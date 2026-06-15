@@ -12,6 +12,7 @@ in {
       hyprland
       secrets
       gaming
+      sync
     ];
 
     bootloader = {

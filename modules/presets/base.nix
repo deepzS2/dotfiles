@@ -15,6 +15,7 @@
       theme
       scripts
       secrets
+      sync
       video-player
     ];
   };
