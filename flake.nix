@@ -50,16 +50,6 @@
 
     # Noogle TUI
     noogle-search.url = "github:argosnothing/noogle-search";
-
-    # My secrets (in private repo)
-    nix-secrets = {
-      url = "git+ssh://git@github.com/deepzS2/nix-secrets.git";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        home-manager.follows = "home-manager";
-      };
-    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

@@ -10,7 +10,6 @@ in {
       niri
       mango
       hyprland
-      secrets
       gaming
       sync
     ];

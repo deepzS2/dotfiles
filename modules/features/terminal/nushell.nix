@@ -22,11 +22,22 @@ in {
         environmentVariables = {
           NH_FLAKE = "${config.home.homeDirectory}/.dotfiles";
           EDITOR = "nvim";
-          # GOOGLE_API_KEY = lib.hm.nushell.mkNushellInline ''bash -c "cat ${config.age.secrets.gemini_key.path}"'';
-          # BRAVE_API_KEY = lib.hm.nushell.mkNushellInline ''bash -c "cat ${config.age.secrets.brave_search.path}"'';
         };
 
-        # The "Bridge" config
+        extraEnv =
+          /*
+          nu
+          */
+          ''
+            # This was created to avoid using a secrets repo, instead I have `passage` which
+            # is the unix standard password manager that uses `age` encryption.
+              let secrets_file = ("~/.config/nushell/secrets.json" | path expand)
+
+              if ($secrets_file | path exists) {
+                  open $secrets_file | load-env
+              }
+          '';
+
         configFile.text = let
           # Pre-generate init scripts at build time to avoid ~/ paths
           zoxideInit = pkgs.runCommand "zoxide.nu" {} ''
@@ -43,7 +54,6 @@ in {
           nu
           */
           ''
-            # Integration
             source ${zoxideInit}
             source ${carapaceInit}
             use ${starshipInit}

@@ -6,10 +6,10 @@
       pkgs.cliphist
       (
         pkgs.writeShellApplication {
-          name = "rofi_clipboard";
+          name = "cliphistory";
           runtimeInputs = [pkgs.rofi pkgs.wl-clipboard pkgs.cliphist];
           text = ''
-            theme="$HOME/.config/rofi/themes/clipboard.rasi"
+            theme="$HOME/.config/rofi/cliphistory.rasi"
 
             case $1 in
             c)
@@ -26,7 +26,6 @@
             *)
                 echo -e "cliphist.sh [action]"
                 echo "c :  cliphist list and copy selected"
-                echo "d :  cliphist list and delete selected"
                 echo "w :  cliphist wipe database"
                 echo "l :  show the number of items in the clipboard"
                 exit 1
