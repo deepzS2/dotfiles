@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: {
-    home.packages = [inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi];
+    home.packages = [inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi pkgs.openspec];
 
     # I decided to make an activation for this since I will (probably) keep
     # improving my workflow as I keep using it.

@@ -31,6 +31,9 @@ in {
     # GTX 1650 Turing
     hardware.nvidia.open = true;
 
+    # BTRFS
+    environment.systemPackages = [pkgs.btdu pkgs.btrfs-assistant];
+
     home-manager = self.lib.homeFactory user wm;
 
     system.stateVersion = "25.05";
