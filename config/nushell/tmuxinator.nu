@@ -2,6 +2,8 @@ def "nu-complete tmuxinator projects" [] {
   ^tmuxinator completions start | split row "\n"
 }
 
+export extern "tmuxinator" [item?: string@"nu-complete tmuxinator projects"]
+
 # Lists commands available in tmuxinator
 export extern "tmuxinator commands" []
 
