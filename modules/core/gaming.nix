@@ -1,4 +1,4 @@
-{...}: {
+{
   flake.modules.nixos.gaming = {pkgs, ...}: {
     programs.gamemode.enable = true; # Performance mode
     programs.steam = {

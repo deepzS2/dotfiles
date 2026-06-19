@@ -1,41 +1,42 @@
-{self, ...}: let
-  user = "deepz";
-  wm = "mango";
-in {
-  flake.modules.nixos.deepz = {pkgs, ...}: {
-    imports = with self.modules.nixos; [
-      nvidia
-      fhs
-      virtualisation
-      niri
-      mango
-      hyprland
-      gaming
-      sync
-    ];
+{self, ...}: {
+  flake.modules.nixos.deepz = {pkgs, ...}: let
+    window-manager = "mango";
+    homeConfig = self.lib.homeFactory {
+      inherit window-manager;
 
-    bootloader = {
-      withSecure = true;
-      withWindows = true;
-    };
-
-    settings.wm = wm;
-
-    users.users.deepz = {
+      name = "deepz";
       isNormalUser = true;
       description = "Alan";
       extraGroups = ["networkmanager" "wheel" "audio" "docker"];
       shell = pkgs.nushell;
     };
+  in
+    {
+      inherit window-manager;
 
-    # GTX 1650 Turing
-    hardware.nvidia.open = true;
+      imports = with self.modules.nixos; [
+        nvidia
+        fhs
+        virtualisation
+        niri
+        mango
+        hyprland
+        gaming
+        sync
+      ];
 
-    # BTRFS
-    environment.systemPackages = [pkgs.btdu pkgs.btrfs-assistant];
+      bootloader = {
+        withSecure = true;
+        withWindows = true;
+      };
 
-    home-manager = self.lib.homeFactory user wm;
+      # GTX 1650 Turing
+      hardware.nvidia.open = true;
 
-    system.stateVersion = "25.05";
-  };
+      # BTRFS
+      environment.systemPackages = [pkgs.btdu pkgs.btrfs-assistant];
+
+      system.stateVersion = "25.05";
+    }
+    // homeConfig;
 }

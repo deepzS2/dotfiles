@@ -33,8 +33,6 @@ in {
       {
         environment.systemPackages = [pkgs.libnotify pkgs.vim pkgs.wget pkgs.sbctl pkgs.firefox]; # Default packages
         services.printing.enable = true; # Enable CUPS to print documents.
-
-        nixpkgs.overlays = [inputs.niri.overlays.niri];
       }
     ];
 

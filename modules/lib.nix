@@ -14,24 +14,36 @@
       ${name} = inputs.nixpkgs.lib.nixosSystem {
         modules = [
           self.modules.nixos.core
-          self.modules.nixos.options
+          inputs.home-manager.nixosModules.home-manager
           self.modules.nixos.${name}
           {nixpkgs.hostPlatform = lib.mkDefault system;}
         ];
       };
     };
 
-    homeFactory = user: wm: {
-      users.${user} = {
-        imports = [
-          self.modules.homeManager.core
-          self.modules.homeManager.options
-          self.modules.homeManager.base
-          self.modules.homeManager.${user}
-        ];
+    homeFactory = user: {
+      users.users.${user.name} = {
+        inherit (user) isNormalUser description extraGroups shell;
+      };
 
-        settings = {
-          inherit user wm;
+      home-manager = {
+        backupFileExtension = "bkp";
+        overwriteBackup = true;
+        users.${user.name} = {
+          imports = [
+            self.modules.homeManager.core
+            self.modules.homeManager.base
+            self.modules.homeManager.${user.name}
+          ];
+
+          home = {
+            homeDirectory = "/home/${user.name}";
+            username = user.name;
+          };
+
+          programs.home-manager.enable = true;
+
+          inherit (user) window-manager;
         };
       };
     };
@@ -41,7 +53,7 @@
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         modules = [
           self.modules.homeManager.core
-          self.modules.homeManager.options
+          self.modules.homeManager.base
           self.modules.homeManager.${name}
           {nixpkgs.config.allowUnfree = true;}
         ];

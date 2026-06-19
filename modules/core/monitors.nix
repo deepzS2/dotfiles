@@ -1,9 +1,9 @@
 {lib, ...}: {
-  flake.modules.homeManager.options = let
+  flake.modules.homeManager.core = let
     inherit (lib.types) listOf submodule str int float;
     inherit (lib) mkOption mkEnableOption;
   in {
-    options.settings.monitors = mkOption {
+    options.monitors = mkOption {
       description = "List of monitors to manage";
       default = [];
       type = listOf (submodule {

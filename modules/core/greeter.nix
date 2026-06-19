@@ -13,7 +13,7 @@ in {
   }: let
     tuigreetPkg = inputs.tuigreet.packages.${pkgs.stdenv.hostPlatform.system}.tuigreet;
     tuigreetConfig = "${directories.config}/tuigreet.toml";
-    inherit (config.settings) wm;
+    inherit (config) window-manager;
   in {
     environment.systemPackages = [tuigreetPkg];
     qt.enable = true;
@@ -29,7 +29,7 @@ in {
             vt = 1;
           };
           default_session = {
-            command = "${lib.getExe tuigreetPkg} --cmd ${wm} --config ${tuigreetConfig}";
+            command = "${lib.getExe tuigreetPkg} --cmd ${window-manager} --config ${tuigreetConfig}";
             user = "deepz";
           };
         };

@@ -2,22 +2,21 @@
   flake.modules.homeManager.idle = {
     config,
     pkgs,
-    lib,
     ...
   }: let
-    inherit (config.settings) wm;
+    inherit (config) window-manager;
 
     dpmsOnCmd =
-      if wm == "niri"
+      if window-manager == "niri"
       then "niri msg action power-on-monitors"
       else "hyprctl dispatch dpms on";
 
     dpmsOffCmd =
-      if wm == "niri"
+      if window-manager == "niri"
       then "niri msg action power-off-monitors"
       else "hyprctl dispatch dpms off";
   in {
-    home.packages = [pkgs.brightnessctl] ++ lib.optionals (wm == "niri") [pkgs.hypridle];
+    home.packages = [pkgs.brightnessctl];
 
     services.hypridle = {
       enable = true;

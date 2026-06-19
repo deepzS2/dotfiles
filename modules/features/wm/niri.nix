@@ -11,13 +11,15 @@ in {
     config,
     ...
   }: let
-    inherit (config.settings) wm;
+    inherit (config) window-manager;
   in {
-    config = lib.mkIf (wm == "niri") {
+    config = lib.mkIf (window-manager == "niri") {
       programs.niri = {
         enable = true;
         package = pkgs.niri-unstable;
       };
+
+      nixpkgs.overlays = [inputs.niri.overlays.niri];
 
       environment.sessionVariables = {
         GTK_IM_MODULE = "ibus";
@@ -34,7 +36,7 @@ in {
     pkgs,
     ...
   }: let
-    inherit (config.settings) wm monitors;
+    inherit (config) window-manager monitors;
 
     monitorsKdl = lib.concatStringsSep "\n" (map (monitor: ''
         output "${monitor.name}" {
@@ -45,7 +47,7 @@ in {
       '')
       monitors);
   in {
-    config = lib.mkIf (wm == "niri") {
+    config = lib.mkIf (window-manager == "niri") {
       home = {
         packages = [
           inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.default

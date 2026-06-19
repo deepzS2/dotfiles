@@ -6,10 +6,10 @@ in {
     lib,
     ...
   }: let
-    inherit (config.settings) wm;
+    inherit (config) window-manager;
   in {
     # Enables Hyprland
-    programs.hyprland = lib.mkIf (wm == "hyprland") {
+    programs.hyprland = lib.mkIf (window-manager == "hyprland") {
       enable = true;
       withUWSM = true; # recommended for most users
       xwayland.enable = true; # Xwayland can be disabled.
@@ -24,9 +24,9 @@ in {
     pkgs,
     ...
   }: let
-    inherit (config.settings) wm monitors;
+    inherit (config) window-manager monitors;
   in {
-    config = lib.mkIf (wm == "hyprland") {
+    config = lib.mkIf (window-manager == "hyprland") {
       home = {
         packages = [
           pkgs.hyprshot
@@ -57,7 +57,7 @@ in {
       };
 
       wayland.windowManager.hyprland = {
-        enable = wm == "hyprland";
+        enable = true;
         xwayland.enable = true;
       };
     };

@@ -8,16 +8,15 @@ in {
   flake.modules.nixos.mango = {
     lib,
     config,
-    pkgs,
     ...
   }: let
-    inherit (config.settings) wm;
+    inherit (config) window-manager;
   in {
     imports = [
       inputs.mangowm.nixosModules.mango
     ];
 
-    config = lib.mkIf (wm == "mango") {
+    config = lib.mkIf (window-manager == "mango") {
       programs.mango = {
         enable = true;
         addLoginEntry = true;
@@ -33,14 +32,14 @@ in {
     pkgs,
     ...
   }: let
-    inherit (config.settings) wm monitors;
+    inherit (config) window-manager monitors;
 
     monitorsConf = lib.concatStringsSep "\n" (map (monitor: ''
         monitorrule=name:${monitor.name},width:${toString monitor.width},height:${toString monitor.height},refresh:${toString monitor.refresh-rate},scale:${toString monitor.scale},x:${toString monitor.x},y:${toString monitor.y}
       '')
       monitors);
   in {
-    config = lib.mkIf (wm == "mango") {
+    config = lib.mkIf (window-manager == "mango") {
       home = {
         packages = [
           pkgs.xrdb

@@ -1,6 +1,6 @@
 {lib, ...}: let
   wmOption = {
-    options.settings.wm = lib.mkOption {
+    options.window-manager = lib.mkOption {
       description = "The window manager to be used";
       default = "niri";
       example = "hyprland";
@@ -8,6 +8,6 @@
     };
   };
 in {
-  flake.modules.nixos.options = wmOption;
-  flake.modules.homeManager.options = wmOption;
+  flake.modules.nixos.core = wmOption;
+  flake.modules.homeManager.core = wmOption;
 }
