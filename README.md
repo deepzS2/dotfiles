@@ -34,26 +34,21 @@ switch <hostname>
 .
 ├── flake.nix              # Main entry point
 ├── config/                # Application configuration files
-│   ├── matugen/           # Theme generator configs
-│   ├── nushell/           # Shell configuration
-│   ├── nvim/              # Neovim Lua configs
-│   ├── rofi/              # Launcher themes
-│   └── tmux.conf          # Tmux config
 ├── media/                 # Wallpapers and media files
 └── modules/
     ├── lib.nix            # Helper functions (mkNixos, homeFactory, mkHomeManager)
     ├── configurations.nix # NixOS configuration declarations
     ├── core/              # Merged core modules (NixOS + Home-Manager)
     ├── features/          # Feature modules by category
-    │   ├── wm/            # Window managers (niri, hyprland)
-    │   ├── terminal/      # Terminal tools (nvim, nushell, git, tmux)
-    │   ├── gui/           # GUI apps (browser, vscode, discord, obs)
-    │   ├── dev/           # Development languages (rust, go, javascript, elixir)
+    │   ├── wm/            # Window managers 
+    │   ├── terminal/      # Terminal tools
+    │   ├── gui/           # GUI apps
+    │   ├── dev/           # Development languages
     │   ├── scripts/       # Custom utility scripts
     │   └── misc/          # Theme, notifications, secrets, virtualisation
     ├── hosts/             # Host-specific configurations
     ├── meta/              # Flake-parts meta configuration and devshell
-    ├── options/           # Shared options (settings.user, settings.wm, settings.monitors)
+    ├── packages/          # Custom packages
     └── presets/           # Module bundles (base preset)
 ```
 
