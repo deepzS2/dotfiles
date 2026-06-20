@@ -838,11 +838,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1779930543,
-        "narHash": "sha256-LoWvmlHaCpQifpUZUXPsLRrLkaGISIHjbDhrJIKOYCE=",
+        "lastModified": 1781922910,
+        "narHash": "sha256-J3YUWoSyY5n9bXGwAoim6MIb6pdjs3f1vOc0Gb+mFbA=",
         "owner": "deepzS2",
         "repo": "sheez",
-        "rev": "9a405869a9c6c10204590787f14c9fdf8a585170",
+        "rev": "932db1f2d14d8f64b1fac93fdc309d2d5f6b3a78",
         "type": "github"
       },
       "original": {

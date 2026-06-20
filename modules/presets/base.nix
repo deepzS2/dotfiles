@@ -10,7 +10,6 @@
       file-manager
       nushell
       tmux
-      notification
       dmenu
       theme
       scripts

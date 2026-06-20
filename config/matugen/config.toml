@@ -18,15 +18,10 @@ post_hook = "kitty +kitten themes --reload-in=all --config-file-name=themes.conf
 input_path = './templates/hyprland-colors.conf'
 output_path = '~/.config/hypr/colors.conf'
 
-[templates.mako]
-input_path = './templates/mako'
-output_path = '~/.config/mako/mako-colors'
-post_hook = 'makoctl reload'
-
 [templates.mango]
 input_path = './templates/mango-colors.conf'
 output_path = '~/.config/mango/colors.conf'
-post_hook = 'bash -c "if command -v mmsg >/dev/null 2>&1; then mmsg -d reload_config; fi"'
+post_hook = 'bash -c "if command -v mmsg >/dev/null 2>&1; then mmsg dispatch reload_config; fi"'
 
 [templates.niri]
 input_path = './templates/niri-colors.kdl'

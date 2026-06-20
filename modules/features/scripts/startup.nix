@@ -13,7 +13,6 @@
 
             send_notification sys
 
-            exec_bg mako
             exec_bg wl-clip-persist --clipboard regular --reconnect-tries 0 >/dev/null 2>&1 &
             exec_bg wl-paste -t image --watch cliphist store
             exec_bg wl-paste -t text --watch cliphist store
