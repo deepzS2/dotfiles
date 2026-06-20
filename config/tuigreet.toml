@@ -22,7 +22,7 @@ user_session = true
 [user_menu]
 enabled = true
 min_uid = 1000
-max_uid = 60000
+max_uid = 30000
 
 [secret]
 mode = "characters" # "hidden" or "characters"
