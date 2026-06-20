@@ -1,4 +1,4 @@
-{
+{inputs, ...}: {
   flake.modules.homeManager.scripts = {pkgs, ...}: {
     home.packages = [
       (
@@ -8,6 +8,7 @@
             pkgs.gowall
             pkgs.rofi
             pkgs.coreutils
+            inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
           ];
           text = ''
             # Configuration
@@ -17,29 +18,28 @@
             THEME_MENU="$HOME/.config/rofi/theme-switcher.rasi"
             WALLPAPER_MENU="$HOME/.config/rofi/wallpaper-switcher.rasi"
 
-            # Ensure cache directory exists
-            mkdir -p "$CACHE_DIR"
+            get_wallpapers() {
+              local -n arr="$1"
+              local w
+              for w in "$WALLPAPER_SOURCE"/*.{png,jpg,jpeg,webp}; do
+                [[ -f "$w" ]] || continue
+                arr+=("$w")
+              done
+            }
 
-            # Check if all wallpapers are already converted for a theme
             is_theme_cached() {
               local theme="$1"
               local theme_cache_dir="$CACHE_DIR/$theme"
+              [[ -d "$theme_cache_dir" ]] || return 1
 
-              if [[ ! -d "$theme_cache_dir" ]]; then
-                return 1
-              fi
+              local -a wallpapers=()
+              get_wallpapers wallpapers
 
-              local wallpaper
-              for wallpaper in "$WALLPAPER_SOURCE"/*.{png,jpg,jpeg,webp}; do
-                [[ -f "$wallpaper" ]] || continue
-                local basename
-                basename=$(basename "$wallpaper")
-                if [[ ! -f "$theme_cache_dir/$basename" ]]; then
-                  return 1
-                fi
+              local w basename
+              for w in "''${wallpapers[@]}"; do
+                basename=$(basename "$w")
+                [[ -f "$theme_cache_dir/$basename" ]] || return 1
               done
-
-              return 0
             }
 
             # Convert all wallpapers to a specific theme
@@ -49,77 +49,92 @@
 
               mkdir -p "$theme_cache_dir"
 
-              # Build comma-separated list of wallpapers that need conversion
+              local -a wallpapers=()
+              get_wallpapers wallpapers
+
               local to_convert=""
-              local wallpaper
-              for wallpaper in "$WALLPAPER_SOURCE"/*.{png,jpg,jpeg,webp}; do
-                [[ -f "$wallpaper" ]] || continue
-                local basename
-                basename=$(basename "$wallpaper")
+              local w basename
+              for w in "''${wallpapers[@]}"; do
+                basename=$(basename "$w")
                 if [[ ! -f "$theme_cache_dir/$basename" ]]; then
                   if [[ -n "$to_convert" ]]; then
-                    to_convert="$to_convert,$wallpaper"
+                    to_convert="$to_convert,$w"
                   else
-                    to_convert="$wallpaper"
+                    to_convert="$w"
                   fi
                 fi
               done
 
-              if [[ -z "$to_convert" ]]; then
-                return 0
-              fi
+              [[ -z "$to_convert" ]] && return 0
 
-              # Convert wallpapers
               gowall convert --theme "$theme" --batch "$to_convert" --output "$theme_cache_dir"
             }
 
-            # Restore last theme (for startup)
-            restore_last_theme() {
-              if [[ ! -f "$LAST_SELECTION_FILE" ]]; then
-                return 1
-              fi
-
-              local selection
-              selection=$(cat "$LAST_SELECTION_FILE")
-
-              local theme wallpaper
-              theme=$(echo "$selection" | sed -n 's/.*"theme": *"\([^"]*\)".*/\1/p')
-              wallpaper=$(echo "$selection" | sed -n 's/.*"wallpaper": *"\([^"]*\)".*/\1/p')
-
-              if [[ -z "$theme" ]] || [[ -z "$wallpaper" ]]; then
-                return 1
-              fi
-
+            apply_theme() {
+              local theme="$1"
+              local wallpaper="$2"
               local wallpaper_path="$CACHE_DIR/$theme/$wallpaper"
-
-              if [[ ! -f "$wallpaper_path" ]]; then
-                return 1
-              fi
 
               matugen image "$wallpaper_path" --source-color-index 0
 
-              return 0
+              mkdir -p "$CACHE_DIR"
+              printf '%s\n' "$theme" "$wallpaper" > "$LAST_SELECTION_FILE"
+              send_notification notify "Theme Switcher" "Theme applied: $theme" "$wallpaper_path"
             }
 
-            # Main function
+            ensure_default_theme() {
+              local theme
+              theme=$(gowall list | head -n1)
+              [[ -z "$theme" ]] && return 1
+
+              if ! is_theme_cached "$theme"; then
+                convert_wallpapers "$theme"
+              fi
+
+              local img
+              for img in "$CACHE_DIR/$theme"/*.{png,jpg,jpeg,webp}; do
+                [[ -f "$img" ]] || continue
+                echo "$theme"
+                basename "$img"
+                return 0
+              done
+              return 1
+            }
+
+            restore_last_theme() {
+              local theme="" wallpaper=""
+
+              if [[ -f "$LAST_SELECTION_FILE" ]]; then
+                theme=$(sed -n '1p' "$LAST_SELECTION_FILE")
+                wallpaper=$(sed -n '2p' "$LAST_SELECTION_FILE")
+              fi
+
+              local wallpaper_path="$CACHE_DIR/$theme/$wallpaper"
+              if [[ -n "$theme" && -n "$wallpaper" && -f "$wallpaper_path" ]]; then
+                matugen image "$wallpaper_path" --source-color-index 0
+                return 0
+              fi
+
+              local default_theme default_wallpaper
+              { IFS= read -r default_theme && IFS= read -r default_wallpaper; } < <(ensure_default_theme) || return 1
+              apply_theme "$default_theme" "$default_wallpaper"
+            }
+
             main() {
-              # Check for restore flag
               if [[ "''${1:-}" == "--restore" ]]; then
                 if restore_last_theme; then
                   exit 0
                 else
-                  echo "No previous theme to restore"
+                  echo "No theme could be applied (no previous selection and no default available)"
                   exit 1
                 fi
               fi
 
-              # Check if wallpaper source exists
               if [[ ! -d "$WALLPAPER_SOURCE" ]]; then
                 notify-send "Theme Switcher" "Wallpaper directory not found: $WALLPAPER_SOURCE"
                 exit 1
               fi
 
-              # Step 1: Select theme using rofi
               local theme
               theme=$(gowall list | rofi -dmenu -i -p "󰏘 Theme" -theme "$THEME_MENU")
 
@@ -127,13 +142,11 @@
                 exit 0
               fi
 
-              # Step 2: Convert wallpapers if needed
               if ! is_theme_cached "$theme"; then
                 notify-send "Theme Switcher" "Converting wallpapers to $theme theme..."
                 convert_wallpapers "$theme"
               fi
 
-              # Step 3: Select wallpaper with image thumbnails using rofi
               local theme_cache_dir="$CACHE_DIR/$theme"
               local wallpaper
               wallpaper=$(
@@ -152,17 +165,7 @@
 
               local wallpaper_path="$theme_cache_dir/$wallpaper"
 
-              # Step 4: Apply wallpaper
-              awww img --transition-type center "$wallpaper_path"
-
-              # Step 5: Generate colors with matugen
-              matugen image "$wallpaper_path" --source-color-index 0
-
-              # Step 6: Save selection
-              echo "{\"theme\": \"$theme\", \"wallpaper\": \"$wallpaper\"}" > "$LAST_SELECTION_FILE"
-
-              # Step 7: Send notification
-              send_notification notify "Theme applied: $theme"
+              apply_theme "$theme" "$wallpaper"
             }
 
             main "$@"

@@ -4,44 +4,50 @@
       (
         pkgs.writeShellApplication {
           name = "send_notification";
-          runtimeInputs = [pkgs.pulseaudio];
+          runtimeInputs = [
+            pkgs.pulseaudio
+            pkgs.libnotify
+          ];
           text = ''
-            # Path to the sound files
             SOUND_FILE_UPDATE="$HOME/.theme/sounds/update.wav"
             SOUND_FILE_SYSTEM="$HOME/.theme/sounds/system-startup.wav"
             SOUND_FILE_LOGOUT="$HOME/.theme/sounds/poweroff.mp3"
 
-            # Function to send notification and play sound
             notify_with_sound() {
-              notify-send "$1"
+              local summary="$1" body="$2" icon="$3"
+              local -a args=()
+
+              args+=("$summary")
+              [[ -n "$icon" ]] && args+=(-i "$icon")
+              [[ -n "$body" ]] && args+=("$body")
+
+              notify-send "''${args[@]}"
               paplay "$SOUND_FILE_UPDATE" &
             }
 
-            startup_with_sound() {
-              paplay "$SOUND_FILE_SYSTEM" &
-            }
-
-            logout_with_sound() {
-              paplay "$SOUND_FILE_LOGOUT" &
+            usage() {
+              echo "Usage: $0 {sys|logout|notify} [summary] [body] [icon]" >&2
             }
 
             case $1 in
-            sys)
-              startup_with_sound
-              ;;
-            logout)
-              logout_with_sound
-              ;;
-            notify)
-              if [ -n "$2" ]; then
-                notify_with_sound "$2"
-              else
-                echo "Please provide a message for the notification."
-              fi
-              ;;
-            *)
-              echo "Usage: $0 {sys|notify} [message]"
-              ;;
+              sys)
+                paplay "$SOUND_FILE_SYSTEM" &
+                ;;
+              logout)
+                paplay "$SOUND_FILE_LOGOUT" &
+                ;;
+              notify)
+                if [[ -n "$2" ]]; then
+                  notify_with_sound "$2" "$3" "''${4:-}"
+                else
+                  usage
+                  exit 1
+                fi
+                ;;
+              *)
+                usage
+                exit 1
+                ;;
             esac
           '';
         }
