@@ -1,4 +1,4 @@
-<h1 align="center">deepzS2's NixOS Dotfiles</h1>
+<h1 align="center"><i>deezfiles</i></h1>
 
 <p align="center">
   <a href="https://builtwithnix.org">
