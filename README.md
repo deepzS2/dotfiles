@@ -1,10 +1,6 @@
-<h1 align="center"><i>deezfiles</i></h1>
+# dotz
 
-<p align="center">
-  <a href="https://builtwithnix.org">
-    <img src="https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a" alt="Built with Nix">
-  </a>
-</p>
+[![Built with Nix](https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a)](https://builtwithnix.org)
 
 My NixOS config using [flake-parts](https://flake.parts/). Modules auto-register via the [Dendritic Pattern](https://github.com/mightyiam/dendritic).
 
