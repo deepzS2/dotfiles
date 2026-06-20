@@ -6,20 +6,18 @@
   </a>
 </p>
 
-NixOS configuration using [flake-parts](https://flake.parts/) with self-registering modules following the [Dendritic Pattern](https://github.com/mightyiam/dendritic).
+My NixOS config using [flake-parts](https://flake.parts/). Modules auto-register via the [Dendritic Pattern](https://github.com/mightyiam/dendritic).
 
-> **Note**: This repository contains all my configurations for software development. I do not use it as my primary system for now, but as a dedicated development environment.
+> **Note**: This is my development environment, not my primary system.
 
 ## Highlights
 
-- **Declarative**: Fully declarative NixOS and Home Manager configurations
-- **Self-Registering Modules**: Modules auto-register via `flake.modules.nixos.*` and `flake.modules.homeManager.*`
-- **Merged Core Modules**: Common configurations combined in `modules/core/` for cleaner organization
-- **Feature-Based Organization**: Modules organized by function (terminal, gui, dev, wm) rather than by system type
-- **Secure**: Secrets management using agenix via private `nix-secrets` repository
-- **Development-ready**: Comprehensive dev shell with formatting, linting, and testing tools
-- **Themed**: Dynamic theming with matugen (Material You color generation)
-- **Extensible**: Easy to add new modules and hosts
+- **Declarative**: NixOS and Home Manager configs
+- **Self-Registering Modules**: Modules register themselves automatically
+- **Merged Core Modules**: Shared config in `modules/core/`
+- **Feature-Based Organization**: Organized by function: terminal, GUI, dev, window manager
+- **Development-ready**: Dev shell with formatting and linting tools
+- **Themed**: Dynamic themes with [matugen](https://github.com/InioX/matugen)
 
 ## Installation
 
@@ -63,11 +61,11 @@ switch <hostname>
     └── presets/           # Module bundles (base preset)
 ```
 
-All modules are automatically discovered via [import-tree](https://github.com/vic/import-tree).
+All modules auto-discovered via [import-tree](https://github.com/vic/import-tree).
 
 ### Core Modules (`modules/core/`)
 
-The core modules are merged configurations that contribute to `flake.modules.nixos.core` and/or `flake.modules.homeManager.core`:
+Core modules feed into `flake.modules.nixos.core` and/or `flake.modules.homeManager.core`:
 
 | Module | Description |
 |--------|-------------|
@@ -82,19 +80,6 @@ The core modules are merged configurations that contribute to `flake.modules.nix
 | `power.nix` | TLP power management |
 | `greeter.nix` | tuigreet login manager |
 
-### Shared Options (`modules/options/`)
-
-Simplified top-level options shared across NixOS and Home-Manager:
-
-- `settings.user` - Username
-- `settings.wm` - Window manager selection (`"niri"` or `"hyprland"`)
-- `settings.monitors` - Monitor configurations
-- `flake.directories.config` / `flake.directories.media` - Directory references
-
-## Secrets Management
-
-This configuration uses a private `nix-secrets` repository for managing sensitive data such as API keys, SSH keys, and other credentials. The secrets are encrypted using [agenix](https://github.com/ryantm/agenix), which provides age-encrypted secrets for NixOS.
-
 ## Development
 
 Enter the development shell for all tools:
@@ -102,31 +87,6 @@ Enter the development shell for all tools:
 ```bash
 nix develop # Or use direnv
 ```
-
-### Commands
-
-**Styling**
-| Command | Description |
-|---------|-------------|
-| `fmt` | Run `nix fmt` |
-| `lint` | Run deadnix and statix checks |
-
-**Building**
-| Command | Description |
-|---------|-------------|
-| `switch <host> [--target nixos\|home]` | Rebuild and switch (NixOS or Home-Manager) |
-| `test <host>` | Build and activate NixOS configuration |
-
-**REPL**
-| Command | Description |
-|---------|-------------|
-| `repl <host> [--target nixos\|home]` | Open nix repl for the flake |
-| `inspector` | TUI repl inspector via nix-inspect |
-
-**Misc**
-| Command | Description |
-|---------|-------------|
-| `fetch-url-hash <url>` | Prefetch URL and convert to SHA-256 hash |
 
 ## Credits & Thanks
 
