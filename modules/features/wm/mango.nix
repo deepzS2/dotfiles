@@ -52,6 +52,16 @@ in {
           ".config/mango/monitors.conf".text = monitorsConf;
         };
       };
+
+      systemd.user.targets.mango-session = {
+        Unit = {
+          Description = "mango compositor session";
+          Documentation = ["man:systemd.special(7)"];
+          BindsTo = ["graphical-session.target"];
+          Wants = ["graphical-session-pre.target"];
+          After = ["graphical-session-pre.target"];
+        };
+      };
     };
   };
 }
