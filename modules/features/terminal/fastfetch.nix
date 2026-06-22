@@ -7,10 +7,14 @@ in {
       settings = {
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
         logo = {
-          type = "kitty-icat";
-          source = "${directories.media}/images/nix-logo.png";
-          width = 22;
-          height = 22;
+          type = "raw";
+          source = "${directories.media}/images/nix-logo.sixel";
+          width = 24;
+          height = 7;
+          padding = {
+            top = 2;
+            right = 2;
+          };
         };
         display.separator = " ";
         modules = [

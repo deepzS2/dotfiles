@@ -9,10 +9,9 @@ command = "awww img --transition-type center {{ image }}"
 input_path = './templates/btop.theme'
 output_path = '~/.config/btop/themes/matugen.theme'
 
-[templates.kitty]
-input_path = './templates/kitty-colors.conf'
-output_path = '~/.config/kitty/themes/Matugen.conf'
-post_hook = "kitty +kitten themes --reload-in=all --config-file-name=themes.conf Matugen"
+[templates.foot]
+input_path = './templates/foot-colors.ini'
+output_path = '~/.config/foot/colors.ini'
 
 [templates.hyprland]
 input_path = './templates/hyprland-colors.conf'
