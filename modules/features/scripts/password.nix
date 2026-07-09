@@ -1,6 +1,12 @@
 {
-  flake.modules.homeManager.scripts = {pkgs, ...}: {
+  flake.modules.homeManager.scripts = {
+    pkgs,
+    lib,
+    ...
+  }: {
     home.packages = [
+      pkgs.gnupg
+      pkgs.pinentry-qt
       (
         pkgs.writeShellApplication {
           name = "passmenu";
@@ -36,5 +42,9 @@
         }
       )
     ];
+
+    home.file.".gnupg/gpg-agent.conf".text = ''
+      pinentry-program ${lib.getExe pkgs.pinentry-qt}
+    '';
   };
 }
