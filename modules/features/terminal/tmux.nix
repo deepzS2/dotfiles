@@ -8,13 +8,9 @@ in {
   }: let
     plugins = [
       pkgs.tmuxPlugins.continuum
-      pkgs.tmuxPlugins.minimal-tmux-status
-      pkgs.tmuxPlugins.pain-control
       pkgs.tmuxPlugins.resurrect
-      pkgs.tmuxPlugins.sensible
       pkgs.tmuxPlugins.sessionist
       pkgs.tmuxPlugins.vim-tmux-navigator
-      pkgs.tmuxPlugins.yank
     ];
   in {
     home = {
@@ -37,6 +33,8 @@ in {
             run-shell ${plugin.rtp}
           '')
           plugins)}
+
+        set -g @continuum-restore 'on'
       '';
     };
   };
