@@ -3,6 +3,7 @@
     # Install fonts
     fonts = {
       packages = [
+        (pkgs.iosevka-bin.override {variant = "Aile";})
         pkgs.atkinson-hyperlegible-next
         pkgs.nerd-fonts.iosevka
         pkgs.nerd-fonts.atkynson-mono
