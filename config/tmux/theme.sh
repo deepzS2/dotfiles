@@ -19,7 +19,7 @@ window_status_format=" #I: #W "
 # Status
 tmux set-option -g status-style "$default_color"
 tmux set-option -g status-position "top"
-tmux set-option -g status-justify "center"
+tmux set-option -g status-justify "centre"
 
 tmux set-option -g status-left "\
 #{?client_prefix,, tmux }\
