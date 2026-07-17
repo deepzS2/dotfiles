@@ -14,7 +14,7 @@
     };
 
     # Nvim, Emacs and AI
-    mnw.url = "github:Gerg-L/mnw";
+    nvimz.url = "git+https://codeberg.org/deepzS2/nvimz";
     demacz.url = "git+https://codeberg.org/deepzS2/demacz";
     llm-agents.url = "github:numtide/llm-agents.nix";
 
