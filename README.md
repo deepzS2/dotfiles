@@ -8,7 +8,7 @@ My NixOS config using [flake-parts](https://flake.parts/). Modules auto-register
 
 ## Highlights
 
-- **Declarative**: NixOS and Home Manager configs
+- **Declarative**: NixOS and user configs via [hjem](https://github.com/feel-co/hjem)
 - **Self-Registering Modules**: Modules register themselves automatically
 - **Merged Core Modules**: Shared config in `modules/core/`
 - **Feature-Based Organization**: Organized by function: terminal, GUI, dev, window manager
@@ -36,9 +36,9 @@ switch <hostname>
 ├── config/                # Application configuration files
 ├── media/                 # Wallpapers and media files
 └── modules/
-    ├── lib.nix            # Helper functions (mkNixos, homeFactory, mkHomeManager)
+    ├── lib.nix            # Helper functions
     ├── configurations.nix # NixOS configuration declarations
-    ├── core/              # Merged core modules (NixOS + Home-Manager)
+    ├── core/              # Core modules (NixOS + hjem)
     ├── features/          # Feature modules by category
     │   ├── wm/            # Window managers 
     │   ├── terminal/      # Terminal tools
@@ -49,19 +49,20 @@ switch <hostname>
     ├── hosts/             # Host-specific configurations
     ├── meta/              # Flake-parts meta configuration and devshell
     ├── packages/          # Custom packages
-    └── presets/           # Module bundles (base preset)
+    └── presets/           # Module bundles (base/core presets)
 ```
 
 All modules auto-discovered via [import-tree](https://github.com/vic/import-tree).
 
 ### Core Modules (`modules/core/`)
 
-Core modules feed into `flake.modules.nixos.core` and/or `flake.modules.homeManager.core`:
+Core modules feed into `flake.modules.nixos.core` and/or `flake.modules.hjem.core`:
 
 | Module | Description |
 |--------|-------------|
 | `settings.nix` | Common nix settings, flakes config, caches, overlays |
-| `home.nix` | Home-manager integration and home directory setup |
+| `monitors.nix` | Monitor configuration (shared with hjem) |
+| `wm.nix` | Window manager option (shared with hjem) |
 | `graphics.nix` | Base graphics + GPU-specific modules (AMD, Intel, NVIDIA) |
 | `bootloader.nix` | Limine bootloader with secure boot support |
 | `fonts.nix` | Font packages |
@@ -95,4 +96,4 @@ Special thanks to the amazing NixOS community and these individuals/projects tha
 - [Dendrix by Vic](https://vic.github.io/dendrix/index.html) - for listing repositories with **Dendritic Pattern**
 - [Dendritic Pattern](https://github.com/mightyiam/dendritic) - Pattern for module organization
 - [import-tree](https://github.com/vic/import-tree) - Auto module discovery
-- [Home Manager](https://github.com/nix-community/home-manager) - User config management
+- [hjem](https://github.com/feel-co/hjem) - NixOS-integrated home management
