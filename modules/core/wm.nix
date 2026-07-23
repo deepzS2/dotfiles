@@ -1,5 +1,5 @@
-{lib, ...}: let
-  wmOption = {
+{
+  flake.modules.nixos.core = {lib, ...}: {
     options.window-manager = lib.mkOption {
       description = "The window manager to be used";
       default = "niri";
@@ -7,7 +7,12 @@
       type = lib.types.enum ["niri" "hyprland" "mango"];
     };
   };
-in {
-  flake.modules.nixos.core = wmOption;
-  flake.modules.homeManager.core = wmOption;
+
+  flake.modules.hjem.core = {lib, ...}: {
+    options.window-manager = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Active window manager for this user.";
+    };
+  };
 }

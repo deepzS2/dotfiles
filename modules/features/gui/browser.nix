@@ -1,74 +1,71 @@
 {inputs, ...}: {
-  flake.modules.homeManager.browser = {pkgs, ...}: {
-    imports = [
-      inputs.zen-browser.homeModules.beta
-    ];
+  flake.modules.hjem.browser = {pkgs, ...}: {
+    config = let
+      zenName = "beta";
 
-    programs.zen-browser = {
-      enable = true;
-      setAsDefaultBrowser = true;
-      nativeMessagingHosts = [pkgs.firefoxpwa-unwrapped];
-
-      policies = let
-        mkExtensionSettings = builtins.mapAttrs (_: pluginId: {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/${pluginId}/latest.xpi";
-          installation_mode = "force_installed";
-        });
-      in {
-        AutofillAddressEnabled = true;
-        AutofillCreditCardEnabled = false;
-        DisableAppUpdate = true;
-        DisableFeedbackCommands = true;
-        DisableFirefoxStudies = true;
-        DisablePocket = true;
-        DisableTelemetry = true;
-        DontCheckDefaultBrowser = true;
-        NoDefaultBookmarks = true;
-        OfferToSaveLogins = false;
-        EnableTrackingProtection = {
-          Value = true;
-          Locked = true;
-          Cryptomining = true;
-          Fingerprinting = true;
-        };
-        ExtensionSettings = mkExtensionSettings {
-          "addon@darkreader.org" = "darkreader";
-          "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = "refined-github-";
-          "nordpassStandalone@nordsecurity.com" = "nordpass-password-management";
-        };
+      defaultAssociations = {
+        "application/x-extension-shtml" = "zen-${zenName}.desktop";
+        "application/x-extension-xhtml" = "zen-${zenName}.desktop";
+        "application/x-extension-html" = "zen-${zenName}.desktop";
+        "application/x-extension-xht" = "zen-${zenName}.desktop";
+        "application/x-extension-htm" = "zen-${zenName}.desktop";
+        "x-scheme-handler/unknown" = "zen-${zenName}.desktop";
+        "x-scheme-handler/mailto" = "zen-${zenName}.desktop";
+        "x-scheme-handler/chrome" = "zen-${zenName}.desktop";
+        "x-scheme-handler/about" = "zen-${zenName}.desktop";
+        "x-scheme-handler/https" = "zen-${zenName}.desktop";
+        "x-scheme-handler/http" = "zen-${zenName}.desktop";
+        "application/xhtml+xml" = "zen-${zenName}.desktop";
+        "application/json" = "zen-${zenName}.desktop";
+        "text/plain" = "zen-${zenName}.desktop";
+        "text/html" = "zen-${zenName}.desktop";
       };
 
-      profiles.default = {
-        id = 0;
-        isDefault = true;
-        settings = {
-          "zen.tabs.show-newtab-vertical" = true;
-          "zen.view.show-newtab-button-top" = true;
-          "zen.urlbar.behavior" = "float";
-          "zen.view.compact.enable-at-startup" = true;
-          "zen.view.compact.hide-toolbar" = false;
-          "zen.view.compact.toolbar-flash-popup" = true;
-          "zen.view.window.scheme" = 0;
-          "zen.welcome-screen.seen" = true;
-        };
-        mods = [
-          "72f8f48d-86b9-4487-acea-eb4977b18f21" # Better CtrlTab
-          "a6335949-4465-4b71-926c-4a52d34bc9c0" # Better Find Bar
-          "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs
-          "c6813222-6571-4ba6-8faf-58f3343324f6" # Disable Rounded Corners
-          "906c6915-5677-48ff-9bfc-096a02a72379" # Floating Status Bar
-          "906c6915-5677-48ff-9bfc-096a02a72379" # Floating Status Bar
-          "79dde383-4fe7-404a-a8e6-9be440022542" # Tidy Popup
-          "4c2bec61-7f6c-4e5c-bdc6-c9ad1aba1827" # Vertical Split Tab Groups
-        ];
-        search = {
-          force = true;
-          default = "ddg";
-        };
-        spacesForce = false;
-        containersForce = false;
-        pinsForce = false;
+      mimeappsIni = (pkgs.formats.ini {listToValue = ";";}).generate "mimeapps.list" {
+        "Added Associations" = defaultAssociations;
+        "Default Applications" = defaultAssociations;
       };
+    in {
+      packages = [
+        (inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+          nativeMessagingHosts = [pkgs.firefoxpwa];
+          extraPolicies = {
+            AutofillAddressEnabled = true;
+            AutofillCreditCardEnabled = false;
+            DisableAppUpdate = true;
+            DisableFeedbackCommands = true;
+            DisableFirefoxStudies = true;
+            DisablePocket = true;
+            DisableTelemetry = true;
+            DontCheckDefaultBrowser = true;
+            NoDefaultBookmarks = true;
+            OfferToSaveLogins = false;
+            EnableTrackingProtection = {
+              Value = true;
+              Locked = true;
+              Cryptomining = true;
+              Fingerprinting = true;
+            };
+            ExtensionSettings = {
+              "addon@darkreader.org" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+                installation_mode = "force_installed";
+              };
+              "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi";
+                installation_mode = "force_installed";
+              };
+              "nordpassStandalone@nordsecurity.com" = {
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/nordpass-password-management/latest.xpi";
+                installation_mode = "force_installed";
+              };
+            };
+          };
+        })
+      ];
+
+      xdg.config.files."mimeapps.list".source = mimeappsIni;
+      environment.sessionVariables.BROWSER = "zen-${zenName}";
     };
   };
 }

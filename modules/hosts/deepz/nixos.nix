@@ -2,7 +2,7 @@
   flake.modules.nixos.deepz = {pkgs, ...}: let
     window-manager = "mango";
     shell = pkgs.nushell;
-    homeConfig = self.lib.homeFactory {
+    homeConfig = self.lib.hjemFactory {
       inherit window-manager shell;
 
       name = "deepz";

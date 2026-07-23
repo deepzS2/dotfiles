@@ -1,15 +1,12 @@
 {self, ...}: let
   inherit (self) directories;
 in {
-  flake.modules.homeManager.scripts = {
-    home.file.".theme/sounds" = {
+  flake.modules.hjem.media = {
+    config.files.".theme/sounds" = {
       source = "${directories.media}/sounds";
-      recursive = true;
     };
-
-    home.file.".theme/wallpapers" = {
+    config.files.".theme/wallpapers" = {
       source = "${directories.media}/wallpapers";
-      recursive = true;
     };
   };
 }

@@ -5,38 +5,47 @@
 }: let
   inherit (self) directories;
 in {
-  flake.modules.homeManager.theme = {pkgs, ...}: {
-    home.packages = [
-      inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
-      pkgs.gowall # Convert image to colorscheme
-      pkgs.awww
-    ];
+  flake.modules.hjem.theme = {pkgs, ...}: {
+    config = {
+      packages = [
+        inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
+        self.packages.${pkgs.stdenv.hostPlatform.system}.kanagawa-gtk-theme
+        pkgs.gowall
+        pkgs.awww
+        pkgs.bibata-cursors
+        pkgs.kanagawa-icon-theme
+      ];
 
-    home.file.".config/matugen" = {
-      source = "${directories.config}/matugen";
-      recursive = true;
-    };
+      xdg.config.files."matugen".source = "${directories.config}/matugen";
 
-    home.pointerCursor = {
-      enable = true;
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Classic";
-      size = 24;
-      gtk.enable = true;
-      x11.enable = true;
-    };
+      xdg.config.files."gtk-3.0/settings.ini".text = ''
+        [Settings]
+        gtk-theme-name = Kanagawa-Dark
+        gtk-icon-theme-name = Kanagawa
+        gtk-application-prefer-dark-theme = 1
+        gtk-cursor-theme-name = Bibata-Modern-Classic
+        gtk-cursor-theme-size = 24
+      '';
 
-    gtk = {
-      enable = true;
-      colorScheme = "dark";
-      gtk4.theme = null;
-      theme = {
-        name = "Kanagawa-Dark";
-        package = self.packages.${pkgs.stdenv.hostPlatform.system}.kanagawa-gtk-theme;
-      };
-      iconTheme = {
-        name = "Kanagawa";
-        package = pkgs.kanagawa-icon-theme;
+      xdg.config.files."gtk-4.0/settings.ini".text = ''
+        [Settings]
+        gtk-theme-name = Kanagawa-Dark
+        gtk-icon-theme-name = Kanagawa
+        gtk-application-prefer-dark-theme = 1
+        gtk-cursor-theme-name = Bibata-Modern-Classic
+        gtk-cursor-theme-size = 24
+      '';
+
+      xdg.config.files."icons/default/index.theme".text = ''
+        [Icon Theme]
+        Name = Default
+        Comment = Default Cursor Theme
+        Inherits = Bibata-Modern-Classic
+      '';
+
+      environment.sessionVariables = {
+        XCURSOR_THEME = "Bibata-Modern-Classic";
+        XCURSOR_SIZE = "24";
       };
     };
   };

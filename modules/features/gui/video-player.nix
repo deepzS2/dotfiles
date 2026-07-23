@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.video-player = {pkgs, ...}: {
-    home.packages = [pkgs.vlc];
+  flake.modules.hjem.video-player = {pkgs, ...}: {
+    config.packages = [pkgs.vlc];
   };
 }

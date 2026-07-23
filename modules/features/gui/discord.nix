@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.discord = {pkgs, ...}: {
-    programs.discord.enable = true;
+  flake.modules.hjem.discord = {pkgs, ...}: {
+    config.packages = [pkgs.discord];
   };
 }

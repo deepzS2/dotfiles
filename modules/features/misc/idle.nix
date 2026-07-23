@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.idle = {
+  flake.modules.hjem.idle = {
     config,
     pkgs,
     lib,
@@ -26,69 +26,63 @@
       else if window-manager == "niri"
       then niriCmds
       else hyprCmds;
+
+    idleConf = pkgs.writeText "hypridle.conf" ''
+      general {
+        lock_cmd = sheez ipc call lockScreen toggle
+        before_sleep_cmd = loginctl lock-session
+        after_sleep_cmd = ${commands.on}
+      }
+
+      listener {
+        timeout = 150
+        on-timeout = brightnessctl -s set 10
+        on-resume = brightnessctl -r
+      }
+
+      listener {
+        timeout = 150
+        on-timeout = brightnessctl -sd rgb:kbd_backlight set 0
+        on-resume = brightnessctl -rd rgb:kbd_backlight
+      }
+
+      listener {
+        timeout = 300
+        on-timeout = loginctl lock-session
+      }
+
+      listener {
+        timeout = 330
+        on-timeout = ${commands.off}
+        on-resume = ${commands.on} && brightnessctl -r
+      }
+
+      listener {
+        timeout = 1800
+        on-timeout = systemctl suspend
+      }
+    '';
   in {
-    # home.packages = [pkgs.brightnessctl];
+    config = {
+      packages = [pkgs.hypridle];
 
-    systemd.user.services.hypridle = let
-      systemdTarget = config.wayland.systemd.target;
-    in {
-      Install = {
-        WantedBy = [systemdTarget];
-      };
+      xdg.config.files."hypr/hypridle.conf".source = idleConf;
 
-      Unit = {
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-        Description = "hypridle";
-        After = [systemdTarget];
-        PartOf = [systemdTarget];
-        X-Restart-Triggers = [
-          "${config.home.file.".config/hypr/hypridle.conf".source}"
-        ];
-      };
-
-      Service = {
-        ExecStart = "${lib.getExe pkgs.hypridle}";
-        Restart = "always";
-        RestartSec = "10";
-      };
-    };
-
-    home.file.".config/hypr/hypridle.conf".text = lib.hm.generators.toHyprconf {
-      attrs = {
-        general = {
-          lock_cmd = "sheez ipc call lockScreen toggle"; # avoid starting multiple hyprlock instances.
-          before_sleep_cmd = "loginctl lock-session"; # lock before suspend.
-          after_sleep_cmd = commands.on; # to avoid having to press a key twice to turn on the display.
+      systemd.services.hypridle = {
+        wantedBy = ["graphical-session.target"];
+        unitConfig = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+          Description = "hypridle";
+          After = ["graphical-session.target"];
+          PartOf = ["graphical-session.target"];
         };
-
-        listener = [
-          {
-            timeout = 150; # 2.5min.
-            on-timeout = "brightnessctl -s set 10"; # set monitor backlight to minimum, avoid 0 on OLED monitor.
-            on-resume = "brightnessctl -r"; # monitor backlight restore.
-          }
-          # turn off keyboard backlight, comment out this section if you dont have a keyboard backlight.
-          {
-            timeout = 150; # 2.5min.
-            on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0"; # turn off keyboard backlight.
-            on-resume = "brightnessctl -rd rgb:kbd_backlight"; # turn on keyboard backlight.
-          }
-          {
-            timeout = 300; # 5min
-            on-timeout = "loginctl lock-session"; # lock screen when timeout has passed
-          }
-          {
-            timeout = 330; # 5.5min
-            on-timeout = "${commands.off}"; # screen off when timeout has passed
-            on-resume = "${commands.on} && brightnessctl -r"; # screen on when activity is detected after timeout has fired.
-          }
-          {
-            timeout = 1800; # 30min
-            on-timeout = "systemctl suspend"; # suspend pc
-          }
-        ];
+        serviceConfig = {
+          ExecStart = "${lib.getExe pkgs.hypridle}";
+          Restart = "always";
+          RestartSec = "10";
+        };
+        restartTriggers = [idleConf];
       };
-      importantPrefixes = ["$"];
     };
   };
 }

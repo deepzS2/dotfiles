@@ -26,7 +26,7 @@ in {
     };
   };
 
-  flake.modules.homeManager.mango = {
+  flake.modules.hjem.mango = {
     config,
     lib,
     pkgs,
@@ -40,21 +40,17 @@ in {
       monitors);
   in {
     config = lib.mkIf (window-manager == "mango") {
-      home = {
-        packages = [
-          pkgs.xrdb
-          pkgs.xwayland-satellite
-          pkgs.ibus
-        ];
+      packages = [
+        pkgs.xrdb
+        pkgs.xwayland-satellite
+        pkgs.ibus
+      ];
 
-        file = {
-          ".config/mango/config.conf".source = "${directories.config}/mango.conf";
-          ".config/mango/monitors.conf".text = monitorsConf;
-        };
-      };
+      xdg.config.files."mango/config.conf".source = "${directories.config}/mango.conf";
+      xdg.config.files."mango/monitors.conf".text = monitorsConf;
 
-      systemd.user.targets.mango-session = {
-        Unit = {
+      systemd.targets.mango-session = {
+        unitConfig = {
           Description = "mango compositor session";
           Documentation = ["man:systemd.special(7)"];
           BindsTo = ["graphical-session.target"];

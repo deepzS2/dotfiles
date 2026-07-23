@@ -14,49 +14,28 @@
       ${name} = inputs.nixpkgs.lib.nixosSystem {
         modules = [
           self.modules.nixos.core
-          inputs.home-manager.nixosModules.home-manager
+          inputs.hjem.nixosModules.default
           self.modules.nixos.${name}
           {nixpkgs.hostPlatform = lib.mkDefault system;}
         ];
       };
     };
 
-    homeFactory = user: {
+    hjemFactory = user: {
       users.users.${user.name} = {
         inherit (user) isNormalUser description extraGroups shell;
       };
 
-      home-manager = {
-        backupFileExtension = "bkp";
-        overwriteBackup = true;
-        users.${user.name} = {
-          imports = [
-            self.modules.homeManager.core
-            self.modules.homeManager.base
-            self.modules.homeManager.${user.name}
-          ];
-
-          home = {
-            homeDirectory = "/home/${user.name}";
-            username = user.name;
-          };
-
-          programs.home-manager.enable = true;
-
-          inherit (user) window-manager;
-        };
-      };
-    };
-
-    mkHomeManager = system: name: {
-      ${name} = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
-        modules = [
-          self.modules.homeManager.core
-          self.modules.homeManager.base
-          self.modules.homeManager.${name}
-          {nixpkgs.config.allowUnfree = true;}
+      hjem.users.${user.name} = {
+        imports = [
+          self.modules.hjem.core
+          self.modules.hjem.base
+          self.modules.hjem.${user.name}
         ];
+
+        directory = "/home/${user.name}";
+
+        inherit (user) window-manager;
       };
     };
   };

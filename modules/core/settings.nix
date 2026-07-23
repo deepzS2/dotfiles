@@ -1,5 +1,5 @@
-{inputs, ...}: let
-  common = {
+{inputs, ...}: {
+  flake.modules.nixos.core = {pkgs, ...}: {
     nixpkgs.config.allowUnfree = true;
 
     nix = {
@@ -21,30 +21,8 @@
         ];
       };
     };
-  };
-in {
-  flake.modules.nixos.core = {
-    pkgs,
-    lib,
-    ...
-  }:
-    lib.mkMerge [
-      common
-      {
-        environment.systemPackages = [pkgs.libnotify pkgs.vim pkgs.wget pkgs.sbctl pkgs.firefox]; # Default packages
-        services.printing.enable = true; # Enable CUPS to print documents.
-      }
-    ];
 
-  flake.modules.homeManager.core = {
-    pkgs,
-    lib,
-    ...
-  }:
-    lib.mkMerge [
-      common
-      {
-        nix.package = lib.mkDefault pkgs.nix;
-      }
-    ];
+    environment.systemPackages = [pkgs.libnotify pkgs.vim pkgs.wget pkgs.sbctl pkgs.firefox]; # Default packages
+    services.printing.enable = true; # Enable CUPS to print documents.
+  };
 }

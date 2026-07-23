@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.javascript = {
+  flake.modules.hjem.javascript = {
     pkgs,
     lib,
     config,
@@ -31,7 +31,7 @@
     config = let
       cfg = config.development.javascript;
     in {
-      home.packages =
+      packages =
         lib.optionals cfg.enableNodejs [pkgs.nodejs]
         ++ lib.optionals cfg.enablePnpm [pkgs.pnpm]
         ++ lib.optionals cfg.enableDeno [pkgs.deno]

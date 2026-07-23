@@ -1,22 +1,23 @@
 {
-  flake.modules.homeManager.vscode = {
+  flake.modules.hjem.vscode = {
     pkgs,
     config,
     ...
   }: {
-    home.packages = [
-      pkgs.nixd
-      pkgs.alejandra
-    ];
+    config = {
+      packages = [
+        pkgs.nixd
+        pkgs.alejandra
+        (pkgs.vscode-with-extensions.override {
+          vscodeExtensions = [pkgs.vscode-extensions.jnoortheen.nix-ide];
+        })
+      ];
 
-    programs.vscode = {
-      enable = true;
-      profiles.default = {
-        extensions = [
-          pkgs.vscode-extensions.jnoortheen.nix-ide
-        ];
-
-        userSettings = {
+      xdg.config.files."Code/User/settings.json" = {
+        generator = (pkgs.formats.json {}).generate "vscode-settings";
+        value = let
+          flake-path = "${config.directory}/.dotfiles";
+        in {
           "editor.formatOnSave" = true;
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "nixd";
@@ -25,9 +26,7 @@
             nixd = {
               nixpkgs.expr = "import <nixpkgs> {}";
               formatting.command = ["alejandra"];
-              options = let
-                flake-path = "${config.home.homeDirectory}/.dotfiles";
-              in {
+              options = {
                 nixos.expr = "(builtins.getFlake \"${flake-path}\").nixosConfigurations.deepz.options";
                 home-manager.expr = "(builtins.getFlake \"${flake-path}\").nixosConfigurations.deepz.options.home-manager.users.type.getSubOptions []";
                 flake-parts.expr = "(builtins.getFlake \"${flake-path}\").debug.options";

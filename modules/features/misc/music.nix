@@ -1,15 +1,14 @@
 {
-  flake.modules.homeManager.music = {
+  flake.modules.hjem.music = {
     pkgs,
     config,
     ...
   }: {
-    home.packages = [pkgs.yt-dlp pkgs.ffmpeg];
+    config = {
+      packages = [pkgs.yt-dlp pkgs.ffmpeg pkgs.mpd pkgs.rmpc];
 
-    services.mpd = {
-      enable = true;
-      musicDirectory = "${config.home.homeDirectory}/music";
-      extraConfig = ''
+      xdg.config.files."mpd/mpd.conf".text = ''
+        music_directory "${config.directory}/music"
         bind_to_address "/tmp/mpd_socket"
 
         audio_output {
@@ -17,15 +16,10 @@
           name "My Pipewire"
         }
       '';
-    };
 
-    programs.rmpc = {
-      enable = true;
-      config = ''
-        (
-          address: "/tmp/mpd_socket",
-          cache_dir: Some("/tmp/rmpc/cache")
-        )
+      xdg.config.files."rmpc/config.toml".text = ''
+        address = "/tmp/mpd_socket"
+        cache_dir = "/tmp/rmpc/cache"
       '';
     };
   };

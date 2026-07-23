@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.rust = {
+  flake.modules.hjem.rust = {
     pkgs,
     lib,
     config,
@@ -42,7 +42,7 @@
     config = let
       cfg = config.development.rust;
     in {
-      home.packages =
+      packages =
         [pkgs.rustc pkgs.cargo]
         ++ lib.optionals cfg.enableBacon [pkgs.bacon]
         ++ lib.optionals cfg.enableCargoEdit [pkgs.cargo-edit]

@@ -1,9 +1,10 @@
 {self, ...}: let
   inherit (self) directories;
 in {
-  flake.modules.homeManager.terminal = {pkgs, ...}: {
-    home.packages = [pkgs.foot];
-
-    home.file.".config/foot/foot.ini".source = "${directories.config}/foot.ini";
+  flake.modules.hjem.terminal = {pkgs, ...}: {
+    config = {
+      packages = [pkgs.foot];
+      xdg.config.files."foot/foot.ini".source = "${directories.config}/foot.ini";
+    };
   };
 }

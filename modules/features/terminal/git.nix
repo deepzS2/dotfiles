@@ -1,9 +1,22 @@
 {
-  flake.modules.homeManager.git = {
+  flake.modules.hjem.git = {
     lib,
     config,
+    pkgs,
     ...
-  }: {
+  }: let
+    inherit (config.git) userName userEmail;
+
+    gitconfigText = ''
+      [init]
+        defaultBranch = main
+      [push]
+        followTags = true
+      [user]
+        name = ${userName}
+        email = ${userEmail}
+    '';
+  in {
     options.git = {
       userName = lib.mkOption {
         type = lib.types.str;
@@ -18,19 +31,9 @@
     };
 
     config = {
-      programs.git = let
-        inherit (config.git) userName userEmail;
-      in {
-        enable = true;
-        settings = {
-          init.defaultBranch = "main";
-          push.followTags = true;
-          user = {
-            name = userName;
-            email = userEmail;
-          };
-        };
-      };
+      packages = [pkgs.git];
+
+      files.".gitconfig".text = gitconfigText;
     };
   };
 }

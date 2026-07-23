@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.obs = _: {
-    programs.obs-studio.enable = true;
+  flake.modules.hjem.obs = {pkgs, ...}: {
+    config.packages = [pkgs.obs-studio];
   };
 }

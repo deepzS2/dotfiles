@@ -7,9 +7,9 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
-    # Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    # Hjem
+    hjem = {
+      url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

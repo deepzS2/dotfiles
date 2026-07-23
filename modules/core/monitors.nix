@@ -1,5 +1,5 @@
 {lib, ...}: {
-  flake.modules.homeManager.core = let
+  flake.modules.hjem.core = let
     inherit (lib.types) listOf submodule str int float;
     inherit (lib) mkOption mkEnableOption;
   in {

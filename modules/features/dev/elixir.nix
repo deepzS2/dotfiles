@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.elixir = {
+  flake.modules.hjem.elixir = {
     pkgs,
     lib,
     config,
@@ -17,7 +17,7 @@
     config = let
       cfg = config.development.elixir;
     in {
-      home.packages =
+      packages =
         builtins.attrValues {inherit (pkgs.beamPackages) elixir erlang;}
         ++ cfg.extraPackages;
     };

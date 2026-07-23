@@ -30,7 +30,7 @@ in {
     };
   };
 
-  flake.modules.homeManager.niri = {
+  flake.modules.hjem.niri = {
     config,
     lib,
     pkgs,
@@ -48,27 +48,23 @@ in {
       monitors);
   in {
     config = lib.mkIf (window-manager == "niri") {
-      home = {
-        packages = [
-          inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.default
-          pkgs.xdg-desktop-portal-gnome
-          pkgs.xwayland-satellite
-          pkgs.ibus
-        ];
+      packages = [
+        inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.default
+        pkgs.xdg-desktop-portal-gnome
+        pkgs.xwayland-satellite
+        pkgs.ibus
+      ];
 
-        file = {
-          ".config/niri/config.kdl".source = "${directories.config}/niri.kdl";
-          ".config/niri/monitors.kdl".text = monitorsKdl;
-        };
-      };
+      xdg.config.files."niri/config.kdl".source = "${directories.config}/niri.kdl";
+      xdg.config.files."niri/monitors.kdl".text = monitorsKdl;
 
-      systemd.user.services.xwayland-satellite = {
-        Unit = {
+      systemd.services.xwayland-satellite = {
+        unitConfig = {
           Description = "Xwayland outside Wayland";
           BindsTo = "graphical-session.target";
-          After = "graphical-session.target";
+          After = ["graphical-session.target"];
         };
-        Service = {
+        serviceConfig = {
           Type = "notify";
           NotifyAccess = "all";
           ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";

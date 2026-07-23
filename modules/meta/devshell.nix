@@ -61,17 +61,6 @@
         }
         {
           category = "building";
-          help = "run an nixos build and activate";
-          name = "trybuild";
-          command = ''
-            #!/usr/bin/env bash
-
-            git add .
-            nh os test -H $1 -d always
-          '';
-        }
-        {
-          category = "building";
           help = "run an nixos/home rebuild switch";
           name = "switch";
           command = ''
@@ -107,6 +96,46 @@
               nh os switch -H "$HOST" -d always
             else
               nh home switch -c "$HOST" -d always
+            fi
+          '';
+        }
+        {
+          category = "building";
+          help = "build an nixos/home boot generation (activates on next reboot)";
+          name = "boot";
+          command = ''
+            #!/usr/bin/env bash
+
+            TARGET="nixos"
+            HOST=""
+
+            while [[ $# -gt 0 ]]; do
+              case $1 in
+                --target)
+                  TARGET="$2"
+                  shift 2
+                  ;;
+                --target=*)
+                  TARGET="''${1#*=}"
+                  shift
+                  ;;
+                -*)
+                  echo "Unknown option: $1"
+                  exit 1
+                  ;;
+                *)
+                  HOST="$1"
+                  shift
+                  ;;
+              esac
+            done
+
+            git add .
+
+            if [ "$TARGET" = "nixos" ]; then
+              nh os boot -H "$HOST"
+            else
+              nh home boot -c "$HOST"
             fi
           '';
         }

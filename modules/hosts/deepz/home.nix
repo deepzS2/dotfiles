@@ -1,6 +1,6 @@
 {self, ...}: {
-  flake.modules.homeManager.deepz = {...}: {
-    imports = with self.modules.homeManager; [
+  flake.modules.hjem.deepz = {...}: {
+    imports = with self.modules.hjem; [
       discord
       obs
       elixir
@@ -32,7 +32,5 @@
         primary = true;
       }
     ];
-
-    home.stateVersion = "25.11";
   };
 }

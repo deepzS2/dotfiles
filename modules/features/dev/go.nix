@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.go = {
+  flake.modules.hjem.go = {
     pkgs,
     lib,
     config,
@@ -17,7 +17,7 @@
     config = let
       cfg = config.development.go;
     in {
-      home.packages =
+      packages =
         builtins.attrValues {inherit (pkgs) go air;}
         ++ cfg.extraPackages;
     };

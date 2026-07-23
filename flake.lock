@@ -298,27 +298,27 @@
         "type": "github"
       }
     },
-    "home-manager": {
+    "hjem": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1783618078,
-        "narHash": "sha256-F43DGcBoIO8xOZFAfodg3jy0VghB9NGdb6xbTYAIx1A=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "144f4e36d0186195037da9fce80a727108978070",
+        "lastModified": 1784423689,
+        "narHash": "sha256-rf8FWDqTlBF2MdKlmlrfYbgNZxQs7OPWl2xI1Y3Bua0=",
+        "owner": "feel-co",
+        "repo": "hjem",
+        "rev": "3289cc5d2e62a2c0ba4e3e4f5565c9752fb39fb9",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
+        "owner": "feel-co",
+        "repo": "hjem",
         "type": "github"
       }
     },
-    "home-manager_2": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "zen-browser",
@@ -804,11 +804,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1784314017,
-        "narHash": "sha256-K/KR7zV/7hIohOrnBHFoNFb4BScWqZ9eC6yMqrO9lwg=",
+        "lastModified": 1784764921,
+        "narHash": "sha256-U5evWHLYyOG/Yaq6A0XM7qXgtqPEP80J2Y8WNzpLKt4=",
         "ref": "refs/heads/main",
-        "rev": "846999413c32e27bf926ecc3435591ac46ece2bb",
-        "revCount": 2,
+        "rev": "15fa7ff1c2ca78fff10956155fe316e273df3db3",
+        "revCount": 5,
         "type": "git",
         "url": "https://codeberg.org/deepzS2/nvimz"
       },
@@ -843,7 +843,7 @@
         "demacz": "demacz",
         "devshell": "devshell",
         "flake-parts": "flake-parts_2",
-        "home-manager": "home-manager",
+        "hjem": "hjem",
         "import-tree": "import-tree",
         "llm-agents": "llm-agents",
         "mangowm": "mangowm",
@@ -1130,7 +1130,7 @@
     },
     "zen-browser": {
       "inputs": {
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager",
         "nixpkgs": [
           "nixpkgs"
         ]

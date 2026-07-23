@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.file-manager = {pkgs, ...}: {
-    home.packages = [pkgs.nautilus];
+  flake.modules.hjem.file-manager = {pkgs, ...}: {
+    config.packages = [pkgs.nautilus];
   };
 }

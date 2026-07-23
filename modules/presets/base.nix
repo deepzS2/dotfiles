@@ -1,6 +1,6 @@
 {self, ...}: {
-  flake.modules.homeManager.base = {
-    imports = with self.modules.homeManager; [
+  flake.modules.hjem.base = {
+    imports = with self.modules.hjem; [
       git
       browser
       emacs
@@ -13,6 +13,7 @@
       dmenu
       theme
       scripts
+      media
       secrets
       sync
       video-player
