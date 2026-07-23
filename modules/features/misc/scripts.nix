@@ -8,6 +8,7 @@ in {
   }: {
     config = {
       packages = [
+        self.inputs.sheez.packages.${pkgs.stdenv.hostPlatform.system}.default
         pkgs.wl-clipboard
         pkgs.wl-clip-persist
         pkgs.cliphist
