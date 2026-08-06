@@ -64,7 +64,7 @@
     '';
   in {
     config = {
-      packages = [pkgs.hypridle];
+      packages = [pkgs.hypridle pkgs.brightnessctl];
 
       xdg.config.files."hypr/hypridle.conf".source = idleConf;
 
