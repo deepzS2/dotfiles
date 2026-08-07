@@ -14,7 +14,7 @@ in {
     ];
   in {
     config = {
-      packages = [pkgs.tmux pkgs.tmuxinator];
+      packages = [pkgs.tmux pkgs.smug];
 
       xdg.config.files."tmux/tmux.conf".source = "${directories.config}/tmux/tmux.conf";
       xdg.config.files."tmux/theme.sh" = {
