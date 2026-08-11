@@ -25,7 +25,6 @@
       ];
 
       buildInputs = with pkgs; [
-        gtk-engine-murrine
         gnome-themes-extra
       ];
 

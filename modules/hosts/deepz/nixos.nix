@@ -33,12 +33,12 @@
       # GTX 1650 Turing
       hardware.graphics.nvidia = {
         open = true;
-        prime = "sync";
+        prime = "offload";
         powerManagement.enable = true;
 
         busId = {
-          amd = "PCI:05:0:0";
-          nvidia = "PCI:01:00:0";
+          amd = "PCI:5@0:0:0";
+          nvidia = "PCI:1@0:0:0";
         };
       };
 

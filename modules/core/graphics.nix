@@ -104,7 +104,7 @@
           powerManagement.enable = cfg.powerManagement.enable;
 
           prime = {
-            sync.enable = (cfg.prime == "sync");
+            sync.enable = cfg.prime == "sync";
             offload = lib.mkIf (cfg.prime == "offload") {
               enable = true;
               enableOffloadCmd = true; # Lets you use `nvidia-offload %command%` in steam
