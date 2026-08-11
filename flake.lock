@@ -80,11 +80,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1784933904,
-        "narHash": "sha256-wmMci1IEALCY+wwiJQUJXJ0SxUu3SA/aMsjcMu5jeN0=",
+        "lastModified": 1786100835,
+        "narHash": "sha256-oqtyrTZaNlIzYm4bIXEB/NSq0pTFxVjw8hISSvBdFEc=",
         "ref": "refs/heads/main",
-        "rev": "c88851941c5c0594264d922f02b01f8deefce680",
-        "revCount": 64,
+        "rev": "142f5d5534fad49e52b05a611450ac23c9b9d7e5",
+        "revCount": 67,
         "type": "git",
         "url": "https://codeberg.org/deepzS2/demacz"
       },
@@ -804,11 +804,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1784827965,
-        "narHash": "sha256-1KTQbjkKcx/iUgZJNb/D8HmQSU7b+IS3QisXsbGBfqQ=",
+        "lastModified": 1786457709,
+        "narHash": "sha256-0700ugAEpjCqrJaV4ILgf7zAODoYc27ATkW2twoC3Zw=",
         "ref": "refs/heads/main",
-        "rev": "4b251fc4766e3d341d7fd53a23e1ef7364d4464f",
-        "revCount": 6,
+        "rev": "dd74fd76ce6a4932140f6d160c85cdf707f12f45",
+        "revCount": 7,
         "type": "git",
         "url": "https://codeberg.org/deepzS2/nvimz"
       },
