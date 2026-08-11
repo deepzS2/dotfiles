@@ -31,29 +31,41 @@
       };
 
       # GTX 1650 Turing
-      hardware.nvidia.open = true;
+      hardware.graphics.nvidia = {
+        open = true;
+        prime = "sync";
+        powerManagement.enable = true;
+
+        busId = {
+          amd = "PCI:05:0:0";
+          nvidia = "PCI:01:00:0";
+        };
+      };
 
       # BTRFS
       environment = {
         systemPackages = [pkgs.btdu pkgs.btrfs-assistant pkgs.timeshift];
         shells = [shell];
       };
-      services.btrfs.autoScrub = {
-        enable = true;
-        fileSystems = ["/"];
-      };
-      services.snapper = {
-        snapshotInterval = "hourly";
-        cleanupInterval = "daily";
-        configs = {
-          home = {
-            SUBVOLUME = "/home";
-            SNAPSHOT_LIMIT_HOURLY = "5";
-            SNAPSHOT_LIMIT_DAILY = "7";
-            SNAPSHOT_LIMIT_WEEKLY = "4";
-            SNAPSHOT_LIMIT_MONTHLY = "0";
-            TIMELINE_CLEANUP = true;
-            TIMELINE_CREATE = true;
+      services = {
+        btrfs.autoScrub = {
+          enable = true;
+          fileSystems = ["/"];
+        };
+
+        snapper = {
+          snapshotInterval = "hourly";
+          cleanupInterval = "daily";
+          configs = {
+            home = {
+              SUBVOLUME = "/home";
+              SNAPSHOT_LIMIT_HOURLY = "5";
+              SNAPSHOT_LIMIT_DAILY = "7";
+              SNAPSHOT_LIMIT_WEEKLY = "4";
+              SNAPSHOT_LIMIT_MONTHLY = "0";
+              TIMELINE_CLEANUP = true;
+              TIMELINE_CREATE = true;
+            };
           };
         };
       };

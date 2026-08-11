@@ -36,30 +36,84 @@
       };
     };
 
-    nvidia = {pkgs, ...}: {
-      # Enable NVIDIA proprietary drivers
-      services.xserver.videoDrivers = ["nvidia"];
+    nvidia = {
+      pkgs,
+      lib,
+      config,
+      ...
+    }: let
+      inherit (lib.types) str enum submodule;
+      inherit (lib) mkOption mkEnableOption;
+      cfg = config.hardware.graphics.nvidia;
+    in {
+      options.hardware.graphics.nvidia = {
+        prime = mkOption {
+          type = enum ["offload" "sync"];
+          default = "sync";
+          example = "offload";
+          description = "Prime mode (offload or sync)";
+        };
 
-      # Hardware acceleration and graphics support
-      hardware.graphics = {
-        enable = true;
-        enable32Bit = true;
-        extraPackages = builtins.attrValues {
-          inherit (pkgs) libva-vdpau-driver libvdpau libvdpau-va-gl vdpauinfo;
+        open = mkEnableOption "Enable open source kernel";
+        powerManagement.enable = mkEnableOption "Enable power management through systemd";
+
+        busId = mkOption {
+          description = "Bus IDs of each GPU for Prime.";
+          default = {};
+          type = submodule {
+            options = {
+              nvidia = mkOption {
+                type = str;
+                example = "PCI:1@0:0:0";
+                default = "";
+                description = "Bus ID of NVIDIA GPU. Use lspci to find it.";
+              };
+
+              amd = mkOption {
+                type = str;
+                example = "PCI:4@0:0:0";
+                default = "";
+                description = "Bus ID of AMD GPU. Use lspci to find it.";
+              };
+
+              intel = mkOption {
+                type = str;
+                example = "PCI:0@0:2:0";
+                default = "";
+                description = "Bus ID of Intel GPU. Use lspci to find it.";
+              };
+            };
+          };
         };
       };
 
-      hardware.nvidia = {
-        modesetting.enable = true;
-        powerManagement.enable = true;
+      config = {
+        services.xserver.videoDrivers = ["nvidia"];
 
-        prime = {
-          offload = {
-            enable = true;
-            enableOffloadCmd = true; # Lets you use `nvidia-offload %command%` in steam
+        hardware.graphics = {
+          enable = true;
+          enable32Bit = true;
+          extraPackages = builtins.attrValues {
+            inherit (pkgs) libva-vdpau-driver libvdpau libvdpau-va-gl vdpauinfo;
           };
-          amdgpuBusId = "PCI:05:0:0";
-          nvidiaBusId = "PCI:01:00:0";
+        };
+
+        hardware.nvidia = {
+          open = cfg.open;
+          modesetting.enable = true;
+          powerManagement.enable = cfg.powerManagement.enable;
+
+          prime = {
+            sync.enable = (cfg.prime == "sync");
+            offload = lib.mkIf (cfg.prime == "offload") {
+              enable = true;
+              enableOffloadCmd = true; # Lets you use `nvidia-offload %command%` in steam
+            };
+
+            amdgpuBusId = cfg.busId.amd;
+            nvidiaBusId = cfg.busId.nvidia;
+            intelBusId = cfg.busId.intel;
+          };
         };
       };
     };
