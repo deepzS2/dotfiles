@@ -26,6 +26,7 @@
         inherit (user) isNormalUser description extraGroups shell;
       };
 
+      hjem.clobberByDefault = true;
       hjem.users.${user.name} = {
         imports = [
           self.modules.hjem.core
