@@ -1,6 +1,4 @@
-{self, ...}: let
-  inherit (self) directories;
-in {
+{self, ...}: {
   flake.modules.hjem.scripts = {
     pkgs,
     lib,
@@ -23,8 +21,6 @@ in {
       xdg.config.files.".gnupg/gpg-agent.conf".text = ''
         pinentry-program ${lib.getExe pkgs.pinentry-qt}
       '';
-
-      xdg.config.files."scripts".source = "${directories.config}/scripts";
     };
   };
 

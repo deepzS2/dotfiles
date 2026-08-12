@@ -48,8 +48,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Noogle TUI
-    noogle-search.url = "github:argosnothing/noogle-search";
+    # Cachy kernel patches
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   outputs = inputs @ {flake-parts, ...}:

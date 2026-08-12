@@ -1,4 +1,4 @@
-{
+{inputs, ...}: {
   flake.modules.nixos.core = {
     lib,
     config,
@@ -13,8 +13,10 @@
     };
 
     config = {
+      nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
+
       boot = {
-        kernelPackages = pkgs.linuxPackages_zen; # Zen Kernel
+        kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest; # Cachy Kernel
 
         loader = {
           efi.canTouchEfiVariables = true;
