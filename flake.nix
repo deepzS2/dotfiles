@@ -17,6 +17,7 @@
     nvimz.url = "git+https://codeberg.org/deepzS2/nvimz";
     demacz.url = "git+https://codeberg.org/deepzS2/demacz";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    workmux.url = "github:raine/workmux";
 
     # Zen Browser
     zen-browser = {

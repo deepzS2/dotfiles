@@ -1,0 +1,23 @@
+mode: session
+nerdfont: true
+agent: pi
+status_format: false
+
+# auto naming git branch for worktree
+auto_name:
+  model: "ollama/deepseek-v4-flash:cloud"
+  system_prompt: >
+    Generate a kebab-case git branch name with an appropriate prefix.
+    Output only the name. Max 50 chars.
+  background: true # always run in background
+
+# default window layout
+windows:
+  - name: editor
+    panes:
+      - command: nvim
+        focus: true
+  - name: server
+  - name: agent
+    panes:
+      - command: pi
