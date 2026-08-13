@@ -22,7 +22,6 @@ in {
         pkgs.yazi
         pkgs.starship
         pkgs.bat
-        pkgs.lazygit
         pkgs.lazydocker
         pkgs.carapace
         pkgs.zoxide

@@ -1,0 +1,52 @@
+gui:
+  theme:
+    activeBorderColor:
+      - green
+      - bold
+  nerdFontsVersion: "3"
+
+git:
+  diffRenderers:
+    - name: "delta"
+      colorArg: always
+      command: delta --dark --paging=never
+  commit:
+    signOff: false
+
+keybinding:
+  universal:
+    quit: 'q'
+    return: '<esc>'
+
+customCommands:
+  - key: 'n'
+    context: 'localBranches'
+    command: 'git checkout -b {{.Form.BranchType}}/{{.Form.BranchName}} {{.Form.BaseBranch}}'
+    loadingText: 'Creating branch'
+    prompts:
+      - type: 'menu'
+        title: 'What kind of branch is it?'
+        key: 'BranchType'
+        options:
+          - name: 'feature'
+            description: 'a feature branch'
+            value: 'feature'
+          - name: 'hotfix'
+            description: 'a hotfix branch'
+            value: 'hotfix'
+          - name: 'release'
+            description: 'a release branch'
+            value: 'release'
+          - name: 'refactor'
+            description: 'a refactor branch'
+            value: 'refactor'
+      - type: 'input'
+        title: 'Select base branch:'
+        key: 'BaseBranch'
+        initialValue: "{{ .SelectedLocalBranch.Name }}"
+        suggestions:
+          command: "git branch --format='%(refname:short)'"
+      - type: 'input'
+        title: 'What is the branch name?'
+        key: 'BranchName'
+        initialValue: ''
