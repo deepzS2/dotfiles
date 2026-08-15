@@ -827,11 +827,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1786562285,
-        "narHash": "sha256-k13lGcBT6Dcq7bSbRBgOJGcSccjNlC5nFwJdvfyr8xc=",
+        "lastModified": 1786633678,
+        "narHash": "sha256-UZfKdTK6s9ls6VoSS8CWHFfoC2Q/v6tz9DuGZoCluvw=",
         "ref": "refs/heads/main",
-        "rev": "2ae5602ac582cfabce4874ff62f44dca16a82538",
-        "revCount": 10,
+        "rev": "529875900ac3f82da0e0c474cc3655083c42ea1d",
+        "revCount": 11,
         "type": "git",
         "url": "https://codeberg.org/deepzS2/nvimz"
       },

@@ -6,7 +6,6 @@
       emacs
       terminal
       btop
-      fastfetch
       file-manager
       nushell
       tmux

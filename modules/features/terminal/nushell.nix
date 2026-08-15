@@ -27,6 +27,7 @@ in {
         pkgs.zoxide
         pkgs.direnv
         pkgs.nushell
+        pkgs.microfetch
       ];
 
       xdg.config.files."nushell/autoload".source = "${directories.config}/nushell";
@@ -41,7 +42,7 @@ in {
           $env.config.show_banner = false
 
           if ($env.TMUX? | is-empty) {
-            fastfetch
+            microfetch
           }
         '';
 
