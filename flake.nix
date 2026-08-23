@@ -27,7 +27,10 @@
 
     # Window managers
     niri.url = "github:sodiboo/niri-flake";
-    niri-scratchpad.url = "github:argosnothing/niri-scratchpad-rs";
+    niri-scratchpad = {
+      url = "github:gvolpe/niri-scratchpad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mangowm = {
       url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";

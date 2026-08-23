@@ -16,7 +16,7 @@ in {
     config = lib.mkIf (window-manager == "niri") {
       programs.niri = {
         enable = true;
-        package = pkgs.niri-unstable;
+        package = pkgs.niri;
       };
 
       nixpkgs.overlays = [inputs.niri.overlays.niri];
@@ -49,7 +49,7 @@ in {
   in {
     config = lib.mkIf (window-manager == "niri") {
       packages = [
-        inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.default
+        inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.niri-scratchpad
         pkgs.xdg-desktop-portal-gnome
         pkgs.xwayland-satellite
         pkgs.ibus
