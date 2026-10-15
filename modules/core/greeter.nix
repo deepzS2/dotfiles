@@ -1,8 +1,4 @@
-{
-  inputs,
-  self,
-  ...
-}: let
+{self, ...}: let
   inherit (self) directories;
 in {
   flake.modules.nixos.core = {
@@ -11,11 +7,10 @@ in {
     lib,
     ...
   }: let
-    tuigreetPkg = inputs.tuigreet.packages.${pkgs.stdenv.hostPlatform.system}.tuigreet;
     tuigreetConfig = "${directories.config}/tuigreet.toml";
     inherit (config) window-manager;
   in {
-    environment.systemPackages = [tuigreetPkg];
+    environment.systemPackages = [pkgs.tuigreet];
     qt.enable = true;
 
     services = {
@@ -29,7 +24,7 @@ in {
             vt = 1;
           };
           default_session = {
-            command = "${lib.getExe tuigreetPkg} --cmd ${window-manager} --config ${tuigreetConfig}";
+            command = "${lib.getExe pkgs.tuigreet} --cmd ${window-manager} --config ${tuigreetConfig}";
             user = "deepz";
           };
         };
