@@ -93,7 +93,7 @@
                 ;;
               notify)
                 if [[ -n "$2" ]]; then
-                  notify_with_sound "$2" "$3" "''${4:-}"
+                  notify_with_sound "$2" "''${3:-}" "''${4:-}"
                 else
                   usage
                   exit 1
