@@ -35,7 +35,7 @@ in {
     inherit (config) window-manager monitors;
 
     monitorsConf = lib.concatStringsSep "\n" (map (monitor: ''
-        monitorrule=name:${monitor.name},width:${toString monitor.width},height:${toString monitor.height},refresh:${toString monitor.refresh-rate},scale:${toString monitor.scale},x:${toString monitor.x},y:${toString monitor.y}
+        monitor_rule=name:${monitor.name},width:${toString monitor.width},height:${toString monitor.height},refresh:${toString monitor.refresh-rate},scale:${toString monitor.scale},x:${toString monitor.x},y:${toString monitor.y}
       '')
       monitors);
   in {
