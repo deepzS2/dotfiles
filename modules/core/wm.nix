@@ -2,9 +2,9 @@
   flake.modules.nixos.core = {lib, ...}: {
     options.window-manager = lib.mkOption {
       description = "The window manager to be used";
-      default = "niri";
-      example = "hyprland";
-      type = lib.types.enum ["niri" "hyprland" "mango"];
+      default = "mango";
+      example = "niri";
+      type = lib.types.enum ["niri" "mango"];
     };
   };
 

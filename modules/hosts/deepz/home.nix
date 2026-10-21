@@ -15,7 +15,6 @@
       niri
       mango
       dev
-      hyprland
       nh
       scripts-extras
       music

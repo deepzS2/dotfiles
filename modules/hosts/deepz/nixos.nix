@@ -20,7 +20,6 @@
         virtualisation
         niri
         mango
-        hyprland
         gaming
         sync
       ];
