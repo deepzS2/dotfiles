@@ -19,12 +19,6 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
     workmux.url = "github:raine/workmux";
 
-    # Zen Browser
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Window managers
     niri.url = "github:sodiboo/niri-flake";
     niri-scratchpad = {

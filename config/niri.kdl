@@ -131,9 +131,9 @@ workspace "scratch"
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
-// Zen Picture-in-Picture
+// Librewolf Picture-in-Picture
 window-rule {
-    match app-id="zen" title="^Picture-in-Picture$"
+    match app-id="librewolf" title="^Picture-in-Picture$"
     open-floating true
 }
 
@@ -212,7 +212,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="zen"
+    match app-id="librewolf"
     open-on-workspace "browser"
 }
 
@@ -269,7 +269,7 @@ binds {
     Mod+Return hotkey-overlay-title="Foot" { spawn "foot"; }
     Alt+Space hotkey-overlay-title="Launcher" { spawn "rofi" "-show" "drun" "-theme" "~/.config/rofi/launcher.rasi"; }
     Mod+C hotkey-overlay-title="Discord" { spawn "discord"; }
-    Mod+B hotkey-overlay-title="Browser" { spawn "zen"; }
+    Mod+B hotkey-overlay-title="Browser" { spawn "librewolf"; }
     Super+Alt+L hotkey-overlay-title="Lock session" { spawn "sheez" "ipc" "call" "lockScreen" "toggle"; }
     Super+Escape hotkey-overlay-title="Toggle Power Menu" { spawn "sheez" "ipc" "call" "logout" "toggle"; }
     Alt+V hotkey-overlay-title="Clipboard History" { spawn-sh "cliphistory c"; }

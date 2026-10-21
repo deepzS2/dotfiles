@@ -1,71 +1,97 @@
-{inputs, ...}: {
+{self, ...}: let
+  inherit (self) directories;
+
+  profilesRoot = ".librewolf";
+  profileName = "default";
+  profilePath = "${profilesRoot}/${profileName}";
+
+  mkExtension = shortId: guid: {
+    name = guid;
+    value = {
+      install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+      installation_mode = "normal_installed";
+    };
+  };
+in {
   flake.modules.hjem.browser = {pkgs, ...}: {
-    config = let
-      zenName = "beta";
-
-      defaultAssociations = {
-        "application/x-extension-shtml" = "zen-${zenName}.desktop";
-        "application/x-extension-xhtml" = "zen-${zenName}.desktop";
-        "application/x-extension-html" = "zen-${zenName}.desktop";
-        "application/x-extension-xht" = "zen-${zenName}.desktop";
-        "application/x-extension-htm" = "zen-${zenName}.desktop";
-        "x-scheme-handler/unknown" = "zen-${zenName}.desktop";
-        "x-scheme-handler/mailto" = "zen-${zenName}.desktop";
-        "x-scheme-handler/chrome" = "zen-${zenName}.desktop";
-        "x-scheme-handler/about" = "zen-${zenName}.desktop";
-        "x-scheme-handler/https" = "zen-${zenName}.desktop";
-        "x-scheme-handler/http" = "zen-${zenName}.desktop";
-        "application/xhtml+xml" = "zen-${zenName}.desktop";
-        "application/json" = "zen-${zenName}.desktop";
-        "text/plain" = "zen-${zenName}.desktop";
-        "text/html" = "zen-${zenName}.desktop";
-      };
-
-      mimeappsIni = (pkgs.formats.ini {listToValue = ";";}).generate "mimeapps.list" {
-        "Added Associations" = defaultAssociations;
-        "Default Applications" = defaultAssociations;
-      };
-    in {
+    config = {
       packages = [
-        (inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-          nativeMessagingHosts = [pkgs.firefoxpwa];
+        (pkgs.wrapFirefox pkgs.librewolf-unwrapped {
+          inherit (pkgs.librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;
+
+          nativeMessagingHosts = [pkgs.keepassxc];
+          hasMozSystemDirPatch = true;
+
+          extraPrefs = ''
+            lockPref("xpinstall.signatures.required", true);
+
+            defaultPref(
+              "toolkit.legacyUserProfileCustomizations.stylesheets",
+              true
+            );
+          '';
+
           extraPolicies = {
-            AutofillAddressEnabled = true;
-            AutofillCreditCardEnabled = false;
-            DisableAppUpdate = true;
-            DisableFeedbackCommands = true;
-            DisableFirefoxStudies = true;
-            DisablePocket = true;
             DisableTelemetry = true;
-            DontCheckDefaultBrowser = true;
-            NoDefaultBookmarks = true;
-            OfferToSaveLogins = false;
-            EnableTrackingProtection = {
-              Value = true;
-              Locked = true;
-              Cryptomining = true;
-              Fingerprinting = true;
-            };
-            ExtensionSettings = {
-              "addon@darkreader.org" = {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-                installation_mode = "force_installed";
-              };
-              "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi";
-                installation_mode = "force_installed";
-              };
-              "nordpassStandalone@nordsecurity.com" = {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/nordpass-password-management/latest.xpi";
-                installation_mode = "force_installed";
-              };
+            ExtensionSettings = builtins.listToAttrs [
+              (mkExtension "ublock-origin" "uBlock0@raymondhill.net")
+              (mkExtension "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}")
+              (mkExtension "darkreader" "addon@darkreader.org")
+              (mkExtension "firefox-color" "FirefoxColor@mozilla.com")
+              (mkExtension "volume-control" "{57e8684d-5ae8-47d6-93c9-f870ef0e40a3}")
+              (mkExtension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
+            ];
+
+            SearchEngines = {
+              Default = "ddg";
+              Add = [
+                {
+                  Name = "nixpkgs packages";
+                  URLTemplate = "https://search.nixos.org/packages?query={searchTerms}";
+                  IconURL = "https://wiki.nixos.org/favicon.ico";
+                  Alias = "@np";
+                }
+                {
+                  Name = "NixOS options";
+                  URLTemplate = "https://search.nixos.org/options?query={searchTerms}";
+                  IconURL = "https://wiki.nixos.org/favicon.ico";
+                  Alias = "@no";
+                }
+                {
+                  Name = "NixOS Wiki";
+                  URLTemplate = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
+                  IconURL = "https://wiki.nixos.org/favicon.ico";
+                  Alias = "@nw";
+                }
+                {
+                  Name = "noogle";
+                  URLTemplate = "https://noogle.dev/q?term={searchTerms}";
+                  IconURL = "https://noogle.dev/favicon.ico";
+                  Alias = "@ng";
+                }
+              ];
             };
           };
         })
       ];
 
-      xdg.config.files."mimeapps.list".source = mimeappsIni;
-      environment.sessionVariables.BROWSER = "zen-${zenName}";
+      files = {
+        "${profilesRoot}/profiles.ini" = {
+          text = ''
+            [General]
+            StartWithLastWindow=1
+
+            [Profile0]
+            Name=${profileName}
+            IsRelative=1
+            Path=${profileName}
+            Default=1
+          '';
+          clobber = false;
+        };
+
+        "${profilePath}/chrome/userChrome.css".source = "${directories.config}/librewolf/userChrome.css";
+      };
     };
   };
 }
