@@ -13,11 +13,11 @@
       libglvnd
       libxkbcommon
       wayland
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libxcb
+      libx11
+      libxcursor
+      libxi
+      libxrandr
+      libxcb
     ];
   in {
     packages.misterdownloadmanager = pkgs.stdenv.mkDerivation (finalAttrs: {
