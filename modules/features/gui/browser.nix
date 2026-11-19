@@ -16,6 +16,7 @@ in {
   flake.modules.hjem.browser = {pkgs, ...}: {
     config = {
       packages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.misterdownloadmanager
         (pkgs.wrapFirefox pkgs.librewolf-unwrapped {
           inherit (pkgs.librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;
 
