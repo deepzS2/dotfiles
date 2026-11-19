@@ -10,8 +10,8 @@
   };
 
   config.flake.lib = {
-    mkNixos = system: name: {
-      ${name} = inputs.nixpkgs.lib.nixosSystem {
+    mkNixos = system: name:
+      inputs.nixpkgs.lib.nixosSystem {
         modules = [
           self.modules.nixos.core
           inputs.hjem.nixosModules.default
@@ -19,9 +19,8 @@
           {nixpkgs.hostPlatform = lib.mkDefault system;}
         ];
       };
-    };
 
-    hjemFactory = user: {
+    hjemFactory = {host, ...} @ user: {
       users.users.${user.name} = {
         inherit (user) isNormalUser description extraGroups shell;
       };
@@ -31,7 +30,7 @@
         imports = [
           self.modules.hjem.core
           self.modules.hjem.base
-          self.modules.hjem.${user.name}
+          self.modules.hjem.${host}
         ];
 
         directory = "/home/${user.name}";

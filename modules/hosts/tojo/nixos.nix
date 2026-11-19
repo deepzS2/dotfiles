@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.deepz = {pkgs, ...}: let
+  flake.modules.nixos.tojo = {pkgs, ...}: let
     window-manager = "mango";
     shell = pkgs.nushell;
     homeConfig = self.lib.hjemFactory {
@@ -9,6 +9,7 @@
       isNormalUser = true;
       description = "Alan";
       extraGroups = ["networkmanager" "wheel" "audio" "docker"];
+      host = "tojo";
     };
   in
     {

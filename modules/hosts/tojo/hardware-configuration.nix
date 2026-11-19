@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.deepz = {
+  flake.modules.nixos.tojo = {
     config,
     lib,
     modulesPath,

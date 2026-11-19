@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.hjem.deepz = {...}: {
+  flake.modules.hjem.omi = {...}: {
     imports = with self.modules.hjem; [
       discord
       obs
@@ -22,14 +22,24 @@
 
     monitors = [
       {
-        name = "eDP-1";
+        name = "DP-2";
         width = 1920;
         height = 1080;
-        refresh-rate = 144.0;
+        refresh-rate = 165.0;
         scale = 1.0;
         x = 0;
         y = 0;
         primary = true;
+      }
+      {
+        name = "HDMI-A-1";
+        width = 1920;
+        height = 1080;
+        refresh-rate = 75.0;
+        scale = 1.0;
+        x = -1920;
+        y = 0;
+        primary = false;
       }
     ];
   };
