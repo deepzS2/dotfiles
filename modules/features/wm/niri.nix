@@ -50,7 +50,6 @@ in {
     config = lib.mkIf (window-manager == "niri") {
       packages = [
         inputs.niri-scratchpad.packages.${pkgs.stdenv.hostPlatform.system}.niri-scratchpad
-        pkgs.xdg-desktop-portal-gnome
         pkgs.xwayland-satellite
         pkgs.ibus
       ];
