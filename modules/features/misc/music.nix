@@ -5,7 +5,7 @@
     ...
   }: {
     config = {
-      packages = [pkgs.yt-dlp pkgs.ffmpeg pkgs.mpd pkgs.rmpc];
+      packages = [pkgs.yt-dlp pkgs.ffmpeg pkgs.mpd pkgs.rmpc pkgs.pear-desktop];
 
       xdg.config.files."mpd/mpd.conf".text = ''
         music_directory "${config.directory}/music"
