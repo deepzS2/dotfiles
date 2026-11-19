@@ -28,6 +28,7 @@ in {
         pkgs.direnv
         pkgs.nushell
         pkgs.microfetch
+        pkgs.ouch
       ];
 
       xdg.config.files."nushell/autoload".source = "${directories.config}/nushell";
