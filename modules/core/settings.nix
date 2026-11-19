@@ -26,5 +26,6 @@
 
     environment.systemPackages = [pkgs.libnotify pkgs.vim pkgs.wget pkgs.sbctl pkgs.firefox]; # Default packages
     services.printing.enable = true; # Enable CUPS to print documents.
+    services.flatpak.enable = true;
   };
 }
