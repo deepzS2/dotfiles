@@ -32,6 +32,12 @@
         windows.enable = true;
       };
 
+      network = {
+        hostName = "tojo";
+        wireless.enable = true;
+      };
+      audio.bluetooth.enable = true;
+
       # GTX 1650 Turing
       hardware.graphics.nvidia = {
         open = true;

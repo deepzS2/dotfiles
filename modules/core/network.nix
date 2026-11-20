@@ -1,21 +1,32 @@
 {
   flake.modules.nixos.core = {
-    networking = {
-      hostName = "alan";
-      # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-      firewall.allowedTCPPorts = [8080];
-
-      # proxy.default = "http://user:password@proxy:port/";
-      # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-      networkmanager.enable = true;
+    config,
+    lib,
+    ...
+  }: let
+    cfg = config.network;
+  in {
+    options.network = {
+      wireless.enable = lib.mkEnableOption "Enable wireless support via wpa_supplicant";
+      hostName = lib.mkOption {
+        type = lib.types.str;
+        example = "deepz";
+      };
     };
 
-    # Open ports in the firewall.
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
+    config = {
+      networking = {
+        inherit (cfg) hostName;
+
+        wireless.enable = lib.mkForce cfg.wireless.enable;
+        networkmanager.enable = true;
+
+        firewall = {
+          enable = true;
+          allowedTCPPorts = [8080];
+          allowedUDPPorts = [];
+        };
+      };
+    };
   };
 }

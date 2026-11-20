@@ -33,6 +33,8 @@
         windows.enable = true;
       };
 
+      network.hostName = "omi";
+
       # BTRFS
       environment = {
         systemPackages = [pkgs.btdu pkgs.btrfs-assistant pkgs.timeshift];
