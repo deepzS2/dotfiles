@@ -14,7 +14,6 @@
       niri
       mango
       dev
-      nh
       scripts-extras
       music
     ];

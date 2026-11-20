@@ -17,6 +17,7 @@
 
       imports = with self.modules.nixos; [
         amd
+        nh
         fhs
         virtualisation
         niri
