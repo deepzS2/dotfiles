@@ -59,6 +59,12 @@
 
     packages = [pkgs.headsetcontrol];
 
+    idle = {
+      lock = 600;
+      dpms = 1200;
+      suspend = null;
+    };
+
     monitors = [
       {
         name = "DP-2";

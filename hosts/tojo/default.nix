@@ -86,6 +86,12 @@
       ../../hjem/services/syncthing.nix
     ];
 
+    idle = {
+      lock = 300;
+      dpms = 330;
+      suspend = 1800;
+    };
+
     monitors = [
       {
         name = "eDP-1";
