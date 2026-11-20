@@ -5,7 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
 
     # Hjem
     hjem = {
@@ -46,6 +45,16 @@
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs @ {flake-parts, ...}: let
+    inherit (inputs.nixpkgs) lib;
+
+    importTree = dir: let
+      rel = p: lib.removePrefix (toString dir) (toString p);
+      isModule = p: let r = rel p; in lib.hasSuffix ".nix" r && !lib.hasInfix "/_" r;
+    in
+      map import (lib.filter isModule (lib.filesystem.listFilesRecursive dir));
+  in
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = importTree ./modules;
+    };
 }
