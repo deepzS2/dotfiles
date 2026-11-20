@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.hjem.omi = {...}: {
+  flake.modules.hjem.omi = {pkgs, ...}: {
     imports = with self.modules.hjem; [
       discord
       elixir
@@ -17,6 +17,8 @@
       scripts-extras
       music
     ];
+
+    packages = [pkgs.headsetcontrol];
 
     monitors = [
       {
