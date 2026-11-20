@@ -2,7 +2,6 @@
   flake.modules.hjem.omi = {...}: {
     imports = with self.modules.hjem; [
       discord
-      obs
       elixir
       go
       javascript

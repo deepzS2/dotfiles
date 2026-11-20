@@ -22,6 +22,7 @@
         niri
         mango
         gaming
+        obs
         sync
       ];
 

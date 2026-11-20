@@ -24,6 +24,7 @@
         gaming
         sync
         xdg-portal
+        obs
       ];
 
       bootloader = {
