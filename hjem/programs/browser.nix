@@ -1,6 +1,7 @@
 {
   pkgs,
   self,
+  lib,
   inputs,
   ...
 }: let
@@ -81,16 +82,19 @@ in {
 
   files = {
     "${profilesRoot}/profiles.ini" = {
-      text = ''
-        [General]
-        StartWithLastWindow=1
+      generator = lib.generators.toINI {};
+      value = {
+        General = {
+          StartWithLastWindow = 1;
+        };
 
-        [Profile0]
-        Name=${profileName}
-        IsRelative=1
-        Path=${profileName}
-        Default=1
-      '';
+        Profile0 = {
+          Name = profileName;
+          IsRelative = 1;
+          Path = profileName;
+          Default = 1;
+        };
+      };
       clobber = false;
     };
 

@@ -2,9 +2,23 @@
   pkgs,
   inputs,
   self,
+  lib,
   ...
 }: let
   system = pkgs.stdenv.hostPlatform.system;
+
+  gtkSettingsIni = {
+    generator = lib.generators.toINI {};
+    value = {
+      Settings = {
+        gtk-theme-name = "Kanagawa-Dark";
+        gtk-icon-theme-name = "Kanagawa";
+        gtk-application-prefer-dark-theme = 1;
+        gtk-cursor-theme-name = "Bibata-Modern-Classic";
+        gtk-cursor-theme-size = 24;
+      };
+    };
+  };
 in {
   packages = [
     inputs.matugen.packages.${system}.default
@@ -18,23 +32,8 @@ in {
   xdg.config.files = {
     "matugen".source = "${self}/config/matugen";
 
-    "gtk-3.0/settings.ini".text = ''
-      [Settings]
-      gtk-theme-name = Kanagawa-Dark
-      gtk-icon-theme-name = Kanagawa
-      gtk-application-prefer-dark-theme = 1
-      gtk-cursor-theme-name = Bibata-Modern-Classic
-      gtk-cursor-theme-size = 24
-    '';
-
-    "gtk-4.0/settings.ini".text = ''
-      [Settings]
-      gtk-theme-name = Kanagawa-Dark
-      gtk-icon-theme-name = Kanagawa
-      gtk-application-prefer-dark-theme = 1
-      gtk-cursor-theme-name = Bibata-Modern-Classic
-      gtk-cursor-theme-size = 24
-    '';
+    "gtk-3.0/settings.ini" = gtkSettingsIni;
+    "gtk-4.0/settings.ini" = gtkSettingsIni;
 
     "icons/default/index.theme".text = ''
       [Icon Theme]
