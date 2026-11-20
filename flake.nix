@@ -2,9 +2,9 @@
   description = "My Nix configuration - by deepz";
 
   inputs = {
+    adios-flake.url = "github:Mic92/adios-flake";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     devshell.url = "github:numtide/devshell";
-    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # Hjem
     hjem = {
@@ -48,16 +48,52 @@
     pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
   };
 
-  outputs = inputs @ {flake-parts, ...}: let
-    inherit (inputs.nixpkgs) lib;
-
-    importTree = dir: let
-      rel = p: lib.removePrefix (toString dir) (toString p);
-      isModule = p: let r = rel p; in lib.hasSuffix ".nix" r && !lib.hasInfix "/_" r;
-    in
-      map import (lib.filter isModule (lib.filesystem.listFilesRecursive dir));
+  outputs = inputs @ {
+    self,
+    adios-flake,
+    ...
+  }: let
+    importTree = import ./lib/import-tree.nix inputs.nixpkgs.lib;
   in
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = importTree ./modules;
+    adios-flake.lib.mkFlake {
+      inherit inputs self;
+      systems = ["x86_64-linux" "aarch64-linux"];
+
+      modules = [./devshell.nix];
+
+      perSystem = {pkgs, ...}: {
+        formatter = pkgs.alejandra;
+
+        packages = {
+          kanagawa-gtk-theme = pkgs.callPackage ./packages/kanagawa-gtk-theme.nix {};
+          mister-download-manager = pkgs.callPackage ./packages/mister-download-manager.nix {};
+        };
+      };
+
+      flake = {
+        nixosConfigurations = {
+          tojo = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = {inherit inputs self;};
+
+            modules =
+              [
+                inputs.hjem.nixosModules.default
+                ./hosts/tojo
+              ]
+              ++ importTree ./nixos/core;
+          };
+
+          omi = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = {inherit inputs self;};
+
+            modules =
+              [
+                inputs.hjem.nixosModules.default
+                ./hosts/omi
+              ]
+              ++ importTree ./nixos/core;
+          };
+        };
+      };
     };
 }
