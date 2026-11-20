@@ -8,8 +8,8 @@
     cfg = config.bootloader;
   in {
     options.bootloader = {
-      withSecure = lib.mkEnableOption "Enable secure boot";
-      withWindows = lib.mkEnableOption "Add Windows 11 boot entry";
+      secure.enable = lib.mkEnableOption "Enable secure boot";
+      windows.enable = lib.mkEnableOption "Enable Windows boot entry (need to be in the boot path)";
     };
 
     config = {
@@ -23,13 +23,12 @@
           limine = {
             enable = true;
             maxGenerations = 3;
-            secureBoot.enable = cfg.withSecure;
-            extraConfig = lib.mkIf cfg.withWindows ''
-              default_entry: 0
-              /Windows 11
+            secureBoot.enable = cfg.secure.enable;
+            extraEntries = ''
+              /Windows
                   protocol: efi
                   path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
-                  comment: Boot into Windows 11
+                  comment: Boot into Windows
             '';
           };
         };

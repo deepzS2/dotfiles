@@ -29,8 +29,8 @@
       ];
 
       bootloader = {
-        withSecure = true;
-        withWindows = true;
+        secure.enable = true;
+        windows.enable = true;
       };
 
       # BTRFS

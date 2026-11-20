@@ -28,8 +28,8 @@
       ];
 
       bootloader = {
-        withSecure = true;
-        withWindows = true;
+        secure.enable = true;
+        windows.enable = true;
       };
 
       # GTX 1650 Turing
