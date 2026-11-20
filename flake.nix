@@ -43,6 +43,9 @@
 
     # Cachy kernel patches
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    # Screenshare audio
+    pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
   };
 
   outputs = inputs @ {flake-parts, ...}: let

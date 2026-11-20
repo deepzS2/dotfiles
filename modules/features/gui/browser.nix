@@ -1,4 +1,8 @@
-{self, ...}: let
+{
+  self,
+  inputs,
+  ...
+}: let
   inherit (self) directories;
 
   profilesRoot = ".librewolf";
@@ -20,7 +24,7 @@ in {
         (pkgs.wrapFirefox pkgs.librewolf-unwrapped {
           inherit (pkgs.librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;
 
-          nativeMessagingHosts = [pkgs.keepassxc];
+          nativeMessagingHosts = [pkgs.keepassxc inputs.pipewire-screenaudio.packages.${pkgs.stdenv.hostPlatform.system}.default];
           hasMozSystemDirPatch = true;
 
           extraPrefs = ''

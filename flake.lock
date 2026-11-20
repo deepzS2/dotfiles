@@ -74,7 +74,7 @@
     },
     "devshell_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_9"
+        "nixpkgs": "nixpkgs_10"
       },
       "locked": {
         "lastModified": 1791918082,
@@ -601,6 +601,22 @@
     },
     "nixpkgs_10": {
       "locked": {
+        "lastModified": 1762156382,
+        "narHash": "sha256-Yg7Ag7ov5+36jEFC1DaZh/12SEXo6OO3/8rqADRxiqs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7241bcbb4f099a66aafca120d37c65e8dda32717",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_11": {
+      "locked": {
         "lastModified": 1787900134,
         "narHash": "sha256-VYXO0XZlgj06dxJZRhrD3WoSsvq/c7+/Akyoa22pefw=",
         "owner": "NixOS",
@@ -729,16 +745,16 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1762156382,
-        "narHash": "sha256-Yg7Ag7ov5+36jEFC1DaZh/12SEXo6OO3/8rqADRxiqs=",
+        "lastModified": 1772773019,
+        "narHash": "sha256-E1bxHxNKfDoQUuvriG71+f+s/NT0qWkImXsYZNFFfCs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7241bcbb4f099a66aafca120d37c65e8dda32717",
+        "rev": "aca4d95fce4914b3892661bcb80b8087293536c6",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -761,6 +777,24 @@
       "original": {
         "type": "git",
         "url": "https://codeberg.org/deepzS2/nvimz"
+      }
+    },
+    "pipewire-screenaudio": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_9"
+      },
+      "locked": {
+        "lastModified": 1786317502,
+        "narHash": "sha256-uogVJWnhKqC0Y2ZKReJPR3UTCnPUmbgvu6qmRNZbwik=",
+        "owner": "IceDBorn",
+        "repo": "pipewire-screenaudio",
+        "rev": "455390dcb732322ba1a52f744424c4ea81b47f88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "IceDBorn",
+        "repo": "pipewire-screenaudio",
+        "type": "github"
       }
     },
     "quickshell": {
@@ -798,6 +832,7 @@
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nixpkgs": "nixpkgs_7",
         "nvimz": "nvimz",
+        "pipewire-screenaudio": "pipewire-screenaudio",
         "sheez": "sheez",
         "workmux": "workmux"
       }
@@ -947,7 +982,7 @@
     },
     "workmux": {
       "inputs": {
-        "nixpkgs": "nixpkgs_10"
+        "nixpkgs": "nixpkgs_11"
       },
       "locked": {
         "lastModified": 1795032031,
