@@ -871,11 +871,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1795045205,
-        "narHash": "sha256-lN+fbki49I4t6f2ERfAcG2TD1+FgS1bUU2hCekSaNB0=",
+        "lastModified": 1795212200,
+        "narHash": "sha256-6uQdrdd9JzDqUgPj5qRZxvWCHFlufq4nJCV0ju5eKZo=",
         "owner": "deepzS2",
         "repo": "sheez",
-        "rev": "c6992bb5680d8f9c507ffcf9a1040b3e4c3b91e6",
+        "rev": "61e5e9d30200128c8b44248d1ec19944bb8440b9",
         "type": "github"
       },
       "original": {

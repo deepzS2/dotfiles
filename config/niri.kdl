@@ -144,11 +144,11 @@ window-rule {
 
 // Pavucontrol floating
 window-rule {
-    match app-id="pavucontrol"
+    match app-id="wiremix"
     open-floating true
-    default-floating-position x=576 y=54 relative-to="top-right"
-    default-window-height { proportion 0.5; }
-    default-column-width { proportion 0.5; }
+    default-floating-position x=10 y=54 relative-to="top-right"
+    default-window-height { fixed 400; }
+    default-column-width { fixed 550; }
 }
 
 // Thunar floating
