@@ -53,12 +53,7 @@
     adios-flake,
     ...
   }: let
-    importTree = dir: let
-      rel = p: lib.removePrefix (toString dir) (toString p);
-      isModule = p: let r = rel p; in lib.hasSuffix ".nix" r && !lib.hasInfix "/_" r;
-      lib = inputs.nixpkgs.lib;
-    in
-      map import (lib.filter isModule (lib.filesystem.listFilesRecursive dir));
+    importTree = import ./lib/import-tree.nix inputs.nixpkgs.lib;
   in
     adios-flake.lib.mkFlake {
       inherit inputs self;

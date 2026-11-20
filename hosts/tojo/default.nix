@@ -35,7 +35,6 @@
     };
   };
 
-  # Power related settings
   services.upower.enable = true;
   powerManagement.enable = true;
   services.tlp = {
@@ -45,7 +44,6 @@
       TLP_PROFILE_AC = "PRF";
       TLP_PROFILE_BAT = "SAV";
 
-      # Optional helps save long term battery health
       START_CHARGE_THRESH_BAT0 = 40;
       STOP_CHARGE_THRESH_BAT0 = 80;
     };

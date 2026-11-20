@@ -6,10 +6,7 @@
   inputs,
   ...
 }: let
-  hjemCore = let
-    isModule = p: let r = lib.removePrefix "${self}/hjem/core" (toString p); in lib.hasSuffix ".nix" r && !lib.hasInfix "/_" r;
-  in
-    map import (lib.filter isModule (lib.filesystem.listFilesRecursive "${self}/hjem/core"));
+  hjemCore = import "${self}/lib/import-tree.nix" lib "${self}/hjem/core";
 in {
   users.users.deepz = {
     isNormalUser = true;
