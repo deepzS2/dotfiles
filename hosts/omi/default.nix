@@ -22,6 +22,12 @@
 
   system.stateVersion = "25.05";
 
+  hardware.logitech.wireless.enable = true;
+  services.ratbagd.enable = true;
+  programs.solaar.enable = true;
+  services.udev.packages = [pkgs.headsetcontrol];
+  environment.systemPackages = [pkgs.piper pkgs.headsetcontrol pkgs.easyeffects];
+
   hjem.users.deepz = {
     imports = [
       ../../hjem/desktop/mango.nix
@@ -56,8 +62,6 @@
 
       ../../hjem/services/syncthing.nix
     ];
-
-    packages = [pkgs.headsetcontrol];
 
     idle = {
       lock = 600;
