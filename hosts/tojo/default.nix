@@ -65,6 +65,7 @@
       ../../hjem/programs/browser.nix
       ../../hjem/programs/btop.nix
       ../../hjem/programs/discord.nix
+      ../../hjem/programs/drive.nix
       ../../hjem/programs/emacs.nix
       ../../hjem/programs/file-manager.nix
       ../../hjem/programs/git.nix
