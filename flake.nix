@@ -53,12 +53,12 @@
     adios-flake,
     ...
   }: let
-    importTree = import ./lib/import-tree.nix inputs.nixpkgs.lib;
+    mkHost = import ./lib/mk-host.nix {inherit inputs self;};
   in
     adios-flake.lib.mkFlake {
       inherit inputs self;
-      systems = ["x86_64-linux" "aarch64-linux"];
 
+      systems = ["x86_64-linux" "aarch64-linux"];
       modules = [./devshell.nix];
 
       perSystem = {pkgs, ...}: {
@@ -70,30 +70,9 @@
         };
       };
 
-      flake = {
-        nixosConfigurations = {
-          tojo = inputs.nixpkgs.lib.nixosSystem {
-            specialArgs = {inherit inputs self;};
-
-            modules =
-              [
-                inputs.hjem.nixosModules.default
-                ./hosts/tojo
-              ]
-              ++ importTree ./nixos/core;
-          };
-
-          omi = inputs.nixpkgs.lib.nixosSystem {
-            specialArgs = {inherit inputs self;};
-
-            modules =
-              [
-                inputs.hjem.nixosModules.default
-                ./hosts/omi
-              ]
-              ++ importTree ./nixos/core;
-          };
-        };
+      flake.nixosConfigurations = {
+        tojo = mkHost "tojo";
+        omi = mkHost "omi";
       };
     };
 }
