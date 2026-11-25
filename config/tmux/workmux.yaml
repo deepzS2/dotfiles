@@ -5,7 +5,7 @@ status_format: false
 
 # auto naming git branch for worktree
 auto_name:
-  model: "ollama/deepseek-v4-flash:cloud"
+  model: "opencode-go/minimax-m3"
   system_prompt: >
     Generate a kebab-case git branch name with an appropriate prefix.
     Output only the name. Max 50 chars.
@@ -17,7 +17,7 @@ windows:
     panes:
       - command: nvim
         focus: true
-  - name: server
   - name: agent
     panes:
       - command: pi
+  - name: server

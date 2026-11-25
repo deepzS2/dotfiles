@@ -67,6 +67,7 @@
         packages = {
           kanagawa-gtk-theme = pkgs.callPackage ./packages/kanagawa-gtk-theme.nix {};
           mister-download-manager = pkgs.callPackage ./packages/mister-download-manager.nix {};
+          tmux-sessionizer = pkgs.callPackage ./packages/tmux-sessionizer.nix {};
         };
       };
 
