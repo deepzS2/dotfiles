@@ -93,6 +93,8 @@
       suspend = 1800;
     };
 
+    services.syncthing.enable = true;
+
     monitors = [
       {
         name = "eDP-1";

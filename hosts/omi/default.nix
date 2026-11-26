@@ -70,6 +70,8 @@
       suspend = null;
     };
 
+    services.syncthing.enable = true;
+
     monitors = [
       {
         name = "DP-2";
