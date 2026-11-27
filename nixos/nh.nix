@@ -4,8 +4,8 @@
 
     clean = {
       enable = true;
-      dates = "weekly";
-      extraArgs = "--keep 3 --keep-since 4d --no-gcroots";
+      dates = "daily";
+      extraArgs = "--keep 3 --keep-since 4d --no-direnv";
     };
   };
 }
