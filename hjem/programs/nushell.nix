@@ -23,6 +23,7 @@ in {
     pkgs.carapace
     pkgs.zoxide
     pkgs.direnv
+    pkgs.nix-direnv
     pkgs.nushell
     pkgs.microfetch
     pkgs.ouch
