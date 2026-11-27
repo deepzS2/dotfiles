@@ -32,7 +32,6 @@ exclude_follow = ["nixpkgs"]
 [inputs.mangowm]
 url = "gh:mangowm/mango"
 group = "desktop"
-exclude_follow = ["nixpkgs"]
 
 [inputs.matugen]
 url = "gh:InioX/Matugen"
