@@ -29,9 +29,9 @@
     "type": "git",
     "url": "https://codeberg.org/deepzS2/demacz",
     "ref": "HEAD",
-    "rev": "b0d35031e164d7cd41b50d0407c91378250f0e99",
-    "narHash": "sha256-w4siXws6gMsZjn+1oQjWhZCTOvSTfoR3Ph+9TjPdWH0=",
-    "lastModified": 1795748278
+    "rev": "c7502c73ce7cfdc6872f69e623f63fa0a872da6b",
+    "narHash": "sha256-zIaAgWxR7pc0SdJFfOlugSOii/f+1wKhowZnPiRxbQI=",
+    "lastModified": 1795790846
   },
   "hjem": {
     "type": "github",
