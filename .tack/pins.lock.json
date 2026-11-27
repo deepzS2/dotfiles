@@ -1,0 +1,162 @@
+{
+  "$declared": {
+    "adios-flake": "github:Mic92/adios-flake",
+    "demacz": "git+https://codeberg.org/deepzS2/demacz",
+    "devshell": "github:numtide/devshell",
+    "hjem": "github:feel-co/hjem",
+    "llm-agents": "github:numtide/llm-agents.nix",
+    "mangowm": "github:mangowm/mango",
+    "matugen": "github:InioX/Matugen",
+    "niri": "github:sodiboo/niri-flake",
+    "niri-scratchpad": "github:gvolpe/niri-scratchpad",
+    "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel/release",
+    "nixpkgs": "github:nixos/nixpkgs/nixos-unstable",
+    "nvimz": "git+https://codeberg.org/deepzS2/nvimz",
+    "pipewire-screenaudio": "github:IceDBorn/pipewire-screenaudio",
+    "sheez": "github:deepzS2/sheez",
+    "tack": "github:manic-systems/tack",
+    "workmux": "github:raine/workmux"
+  },
+  "adios-flake": {
+    "type": "github",
+    "owner": "Mic92",
+    "repo": "adios-flake",
+    "rev": "8617ee1c4dd5bfad7a3ea5a3aec7cb0dbd82551d",
+    "narHash": "sha256-tPaJU3F4mshoSnp2x5ArlepBNBFniNNOugT7mWIIz5g=",
+    "lastModified": 1793308264,
+    "public": true
+  },
+  "demacz": {
+    "type": "git",
+    "url": "https://codeberg.org/deepzS2/demacz",
+    "ref": "HEAD",
+    "rev": "b0d35031e164d7cd41b50d0407c91378250f0e99",
+    "narHash": "sha256-w4siXws6gMsZjn+1oQjWhZCTOvSTfoR3Ph+9TjPdWH0=",
+    "lastModified": 1795748278
+  },
+  "devshell": {
+    "type": "github",
+    "owner": "numtide",
+    "repo": "devshell",
+    "rev": "9e29c63dde99a2d80c94b3d024c9768c01544558",
+    "narHash": "sha256-oN9JrhRfHa7MUTdUq+11dHn7u0Z4WfEA4mhzBq0/zoQ=",
+    "lastModified": 1791918082,
+    "public": true
+  },
+  "hjem": {
+    "type": "github",
+    "owner": "feel-co",
+    "repo": "hjem",
+    "rev": "414dbed9d65167f7a062d6292fe24eaf3f359ac7",
+    "narHash": "sha256-m0Dmp18AtrsD+X4HXRQ/jfEU7jg89P+7kjUf+Raz0t0=",
+    "lastModified": 1795415752,
+    "public": true
+  },
+  "llm-agents": {
+    "type": "github",
+    "owner": "numtide",
+    "repo": "llm-agents.nix",
+    "rev": "f8f2bdc8ced337b2c7d44b7b45c9442059cedfcb",
+    "narHash": "sha256-v3ruPbCzTcJEGxOsvA/k0UXsnM1WQZrltW/uv0m9U50=",
+    "lastModified": 1795746918,
+    "public": true
+  },
+  "mangowm": {
+    "type": "github",
+    "owner": "mangowm",
+    "repo": "mango",
+    "rev": "9e8938671089a2053680bba968e9995e31dec2ac",
+    "narHash": "sha256-SoUPfCz8Cz5GPIPYiETaQktxwS6lZc+otu35ZCLubNY=",
+    "lastModified": 1795745474,
+    "public": true
+  },
+  "matugen": {
+    "type": "github",
+    "owner": "InioX",
+    "repo": "Matugen",
+    "rev": "6c697b8ca0c6fb4f024131cfbc3079a12b63082e",
+    "narHash": "sha256-LlOv01NDTvSvpb8HgqkQsMgOH3M/D7eQWwXsjH3PKT4=",
+    "lastModified": 1795122966,
+    "public": true
+  },
+  "niri": {
+    "type": "github",
+    "owner": "sodiboo",
+    "repo": "niri-flake",
+    "rev": "9ee3e13b60643448228353097880521658b2fe0e",
+    "narHash": "sha256-25q05zpF1sqOCxPPUG9DPPGd+EDW7SiAOWCzBWRS7r0=",
+    "lastModified": 1785857305,
+    "public": true
+  },
+  "niri-scratchpad": {
+    "type": "github",
+    "owner": "gvolpe",
+    "repo": "niri-scratchpad",
+    "rev": "d12bf51846777a245d16ca89cbf7e67a256064a5",
+    "narHash": "sha256-3PVc17NWTE7O5IS6/wT4V7M9moIC035vJZ0vFi7DQ0Q=",
+    "lastModified": 1762334439,
+    "public": true
+  },
+  "nix-cachyos-kernel": {
+    "type": "github",
+    "owner": "xddxdd",
+    "repo": "nix-cachyos-kernel",
+    "rev": "4a974e2f96527fab5dfd08efb7f04167f66057be",
+    "narHash": "sha256-GtEnFlzPM0/WBDF3E/iggCN4cRRfOaJ+kDW71eyy4FI=",
+    "lastModified": 1795655343,
+    "public": true
+  },
+  "nixpkgs": {
+    "type": "github",
+    "owner": "nixos",
+    "repo": "nixpkgs",
+    "rev": "2786a2a72088ecf32aea5b3ec52099e6a7cff78f",
+    "narHash": "sha256-f/VVvxf5RsQgWVhUtefoca5ktVg0DA2bnkMOcmSnozo=",
+    "lastModified": 1795234589,
+    "public": true
+  },
+  "nvimz": {
+    "type": "git",
+    "url": "https://codeberg.org/deepzS2/nvimz",
+    "ref": "HEAD",
+    "rev": "cf75e36b0c20b95a7316e260d38511d2eb46c788",
+    "narHash": "sha256-8JQCQ7waQ9MWbz67tWpSZ17QBlSiimbYJqTMgwTqv/4=",
+    "lastModified": 1787953646
+  },
+  "pipewire-screenaudio": {
+    "type": "github",
+    "owner": "IceDBorn",
+    "repo": "pipewire-screenaudio",
+    "rev": "455390dcb732322ba1a52f744424c4ea81b47f88",
+    "narHash": "sha256-uogVJWnhKqC0Y2ZKReJPR3UTCnPUmbgvu6qmRNZbwik=",
+    "lastModified": 1786317502,
+    "public": true
+  },
+  "sheez": {
+    "type": "github",
+    "owner": "deepzS2",
+    "repo": "sheez",
+    "rev": "61e5e9d30200128c8b44248d1ec19944bb8440b9",
+    "narHash": "sha256-6uQdrdd9JzDqUgPj5qRZxvWCHFlufq4nJCV0ju5eKZo=",
+    "lastModified": 1795212200,
+    "public": true
+  },
+  "tack": {
+    "type": "github",
+    "owner": "manic-systems",
+    "repo": "tack",
+    "rev": "673997981720feebb3870645932b6cfe6657db9f",
+    "narHash": "sha256-iRVnAKvQh5vC76QppovlxTklJf98EA+GYEY91loasy4=",
+    "lastModified": 1795748364,
+    "public": true
+  },
+  "workmux": {
+    "type": "github",
+    "owner": "raine",
+    "repo": "workmux",
+    "rev": "ac4cb781ea6e4fa47233f52664f6a84c0522e5d9",
+    "narHash": "sha256-LsYoCFcw5swN2hpLlAlvqWK8FnrY8XX65Z3ULdavMaU=",
+    "lastModified": 1795723046,
+    "public": true
+  }
+}

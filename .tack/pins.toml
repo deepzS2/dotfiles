@@ -1,0 +1,82 @@
+[tack]
+type = "flake"
+recomposable = true
+
+[shorturls]
+gh = "github:{path}"
+codeberg = "git+https://codeberg.org/{path}"
+
+[all_follow]
+nixpkgs = "nixpkgs"
+
+[groups.core]
+[groups.desktop]
+[groups.tools]
+
+[inputs]
+[inputs.adios-flake]
+url = "gh:Mic92/adios-flake"
+
+[inputs.demacz]
+url = "codeberg:deepzS2/demacz"
+group = "tools"
+
+[inputs.devshell]
+url = "gh:numtide/devshell"
+group = "core"
+
+[inputs.hjem]
+url = "gh:feel-co/hjem"
+group = "core"
+
+[inputs.llm-agents]
+url = "gh:numtide/llm-agents.nix"
+group = "core"
+exclude_follow = ["nixpkgs"]
+
+[inputs.mangowm]
+url = "gh:mangowm/mango"
+group = "desktop"
+exclude_follow = ["nixpkgs"]
+
+[inputs.matugen]
+url = "gh:InioX/Matugen"
+group = "desktop"
+
+[inputs.niri]
+url = "gh:sodiboo/niri-flake"
+group = "desktop"
+exclude_follow = ["nixpkgs"]
+
+[inputs.niri-scratchpad]
+url = "gh:gvolpe/niri-scratchpad"
+group = "desktop"
+
+[inputs.nix-cachyos-kernel]
+url = "gh:xddxdd/nix-cachyos-kernel/release"
+frozen = "4a974e2f96527fab5dfd08efb7f04167f66057be"
+exclude_follow = ["nixpkgs"]
+
+[inputs.nixpkgs]
+url = "gh:nixos/nixpkgs/nixos-unstable"
+
+[inputs.nvimz]
+url = "codeberg:deepzS2/nvimz"
+group = "tools"
+
+[inputs.pipewire-screenaudio]
+url = "gh:IceDBorn/pipewire-screenaudio"
+group = "desktop"
+
+[inputs.sheez]
+url = "gh:deepzS2/sheez"
+group = "desktop"
+
+[inputs.tack]
+url = "gh:manic-systems/tack"
+group = "tools"
+exclude_follow = ["nixpkgs"]
+
+[inputs.workmux]
+url = "gh:raine/workmux"
+group = "tools"
