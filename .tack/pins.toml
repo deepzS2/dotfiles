@@ -1,6 +1,5 @@
 [tack]
 type = "flake"
-recomposable = true
 
 [shorturls]
 gh = "github:{path}"

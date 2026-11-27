@@ -109,9 +109,9 @@
     "type": "git",
     "url": "https://codeberg.org/deepzS2/nvimz",
     "ref": "HEAD",
-    "rev": "cf75e36b0c20b95a7316e260d38511d2eb46c788",
-    "narHash": "sha256-8JQCQ7waQ9MWbz67tWpSZ17QBlSiimbYJqTMgwTqv/4=",
-    "lastModified": 1787953646
+    "rev": "c246a24e8354e67236f31a2a3480961845bc93dd",
+    "narHash": "sha256-Bq5m0YgjvB0HC7dKxGt17CgzPYgtwdNpVNyGALEMkAk=",
+    "lastModified": 1795755960
   },
   "pipewire-screenaudio": {
     "type": "github",
@@ -126,9 +126,9 @@
     "type": "github",
     "owner": "deepzS2",
     "repo": "sheez",
-    "rev": "61e5e9d30200128c8b44248d1ec19944bb8440b9",
-    "narHash": "sha256-6uQdrdd9JzDqUgPj5qRZxvWCHFlufq4nJCV0ju5eKZo=",
-    "lastModified": 1795212200,
+    "rev": "8e9927c13d2bc353d65cc9ac03aee28beef518a9",
+    "narHash": "sha256-jDUGcPwB3AJqpAyEwTUsRVUmUQUQyf35LzzXZCfW75Q=",
+    "lastModified": 1795757327,
     "public": true
   },
   "tack": {

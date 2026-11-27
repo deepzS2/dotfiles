@@ -1,18 +1,8 @@
 {
   description = "dotz - deepz nixos configurations";
 
-  outputs = {self, ...} @ args: let
-    pins = (import ./.tack) {
-      overrides = args.tackOverrides or {};
-    };
-
-    inputs =
-      removeAttrs pins [
-        "_meta"
-        "_patched"
-        "__functor"
-      ]
-      // {inherit self;};
+  outputs = {self}: let
+    inputs = import ./.tack {};
 
     inherit (inputs) adios-flake;
 
@@ -27,10 +17,9 @@
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
 
-        packages = {
-          kanagawa-gtk-theme = pkgs.callPackage ./packages/kanagawa-gtk-theme.nix {};
-          mister-download-manager = pkgs.callPackage ./packages/mister-download-manager.nix {};
-          tmux-sessionizer = pkgs.callPackage ./packages/tmux-sessionizer.nix {};
+        packages = pkgs.lib.packagesFromDirectoryRecursive {
+          callPackage = pkgs.callPackage;
+          directory = ./packages;
         };
       };
 
