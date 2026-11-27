@@ -21,10 +21,6 @@ url = "gh:Mic92/adios-flake"
 url = "codeberg:deepzS2/demacz"
 group = "tools"
 
-[inputs.devshell]
-url = "gh:numtide/devshell"
-group = "core"
-
 [inputs.hjem]
 url = "gh:feel-co/hjem"
 group = "core"

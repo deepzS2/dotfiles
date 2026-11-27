@@ -22,7 +22,7 @@
       inherit inputs self;
 
       systems = ["x86_64-linux" "aarch64-linux"];
-      modules = [./devshell.nix];
+      modules = [./devshell];
 
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;

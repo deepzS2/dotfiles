@@ -2,7 +2,6 @@
   "$declared": {
     "adios-flake": "github:Mic92/adios-flake",
     "demacz": "git+https://codeberg.org/deepzS2/demacz",
-    "devshell": "github:numtide/devshell",
     "hjem": "github:feel-co/hjem",
     "llm-agents": "github:numtide/llm-agents.nix",
     "mangowm": "github:mangowm/mango",
@@ -33,15 +32,6 @@
     "rev": "b0d35031e164d7cd41b50d0407c91378250f0e99",
     "narHash": "sha256-w4siXws6gMsZjn+1oQjWhZCTOvSTfoR3Ph+9TjPdWH0=",
     "lastModified": 1795748278
-  },
-  "devshell": {
-    "type": "github",
-    "owner": "numtide",
-    "repo": "devshell",
-    "rev": "9e29c63dde99a2d80c94b3d024c9768c01544558",
-    "narHash": "sha256-oN9JrhRfHa7MUTdUq+11dHn7u0Z4WfEA4mhzBq0/zoQ=",
-    "lastModified": 1791918082,
-    "public": true
   },
   "hjem": {
     "type": "github",
